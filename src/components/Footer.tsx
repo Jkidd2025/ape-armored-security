@@ -1,5 +1,4 @@
-
-import { Shield, Twitter, Github, Linkedin, Mail } from "lucide-react";
+import { Twitter, Github, Linkedin, Mail } from "lucide-react";
 
 const Footer = () => {
   return (
@@ -8,7 +7,11 @@ const Footer = () => {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           <div className="md:col-span-2">
             <div className="flex items-center gap-2 mb-4">
-              <Shield className="h-6 w-6 text-apearmor-teal" />
+              <img 
+                src="/lovable-uploads/e90abdba-dcb2-49b7-b896-f8d7a491bc5c.png" 
+                alt="ApeArmor Logo" 
+                className="h-6 w-6" 
+              />
               <span className="text-xl font-bold text-gradient-gold">ApeArmor</span>
             </div>
             
