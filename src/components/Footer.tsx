@@ -10,7 +10,7 @@ const Footer = () => {
               <img 
                 src="/lovable-uploads/e90abdba-dcb2-49b7-b896-f8d7a491bc5c.png" 
                 alt="ApeArmor Logo" 
-                className="h-6 w-6" 
+                className="h-14 w-14" 
               />
               <span className="text-xl font-bold text-gradient-gold">ApeArmor</span>
             </div>
