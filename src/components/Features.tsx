@@ -19,7 +19,7 @@ const featureItems = [
   },
   {
     icon: <Lock className="h-8 w-8" />,
-    title: "Wallet Screening",
+    title: "Smart Contract Failure",
     description: "Instant checks for blacklisted wallets before completing any transactions."
   },
   {
