@@ -14,7 +14,15 @@ const Cta = () => {
           </div>
           
           <div className="relative z-10 flex flex-col lg:flex-row items-center justify-between gap-8">
-            <div className="flex-1">
+            <div className="flex-shrink-0 order-2 lg:order-1">
+              <img 
+                src="/lovable-uploads/8c6feba1-fd7b-4d80-9c79-b154e6b71bb8.png" 
+                alt="Armored Ape" 
+                className="w-72 md:w-96"
+              />
+            </div>
+            
+            <div className="flex-1 order-1 lg:order-2">
               <div className="inline-flex items-center justify-center rounded-full bg-apearmor-teal/20 p-2 mb-4">
                 <Shield className="h-6 w-6 text-apearmor-teal" />
               </div>
@@ -46,14 +54,6 @@ const Cta = () => {
                 Get Protected Now
                 <ArrowRight className="ml-2 h-4 w-4" />
               </Button>
-            </div>
-            
-            <div className="flex-shrink-0">
-              <img 
-                src="/lovable-uploads/8c6feba1-fd7b-4d80-9c79-b154e6b71bb8.png" 
-                alt="Armored Ape" 
-                className="w-72 md:w-96"
-              />
             </div>
           </div>
         </div>
