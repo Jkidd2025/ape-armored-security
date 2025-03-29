@@ -20,7 +20,7 @@ const Hero = () => {
             <img 
               src="/lovable-uploads/e90abdba-dcb2-49b7-b896-f8d7a491bc5c.png" 
               alt="ApeArmor Logo" 
-              className="h-16 w-16 animate-pulse-shield"
+              className="h-24 w-24 md:h-32 md:w-32 animate-pulse-shield"
             />
           </div>
           
@@ -47,7 +47,7 @@ const Hero = () => {
             <img 
               src="/lovable-uploads/e90abdba-dcb2-49b7-b896-f8d7a491bc5c.png" 
               alt="Armored Ape" 
-              className="w-48 md:w-64 mx-auto animate-float"
+              className="w-64 md:w-80 mx-auto animate-float"
             />
           </div>
         </div>
