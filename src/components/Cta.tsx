@@ -50,9 +50,9 @@ const Cta = () => {
             
             <div className="flex-shrink-0">
               <img 
-                src="/lovable-uploads/f15cea00-0f09-4da3-ab78-f1ad7717ac39.png" 
+                src="/lovable-uploads/75d20a85-acf2-47fe-a1c9-1de36dbf34e6.png" 
                 alt="Armored Ape" 
-                className="w-60 md:w-80"
+                className="w-72 md:w-96"
               />
             </div>
           </div>

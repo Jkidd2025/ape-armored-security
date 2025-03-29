@@ -39,11 +39,11 @@ const Hero = () => {
             </Button>
           </div>
           
-          <div className="mt-20 w-full max-w-5xl">
+          <div className="mt-16 w-full max-w-5xl">
             <img 
-              src="/lovable-uploads/f15cea00-0f09-4da3-ab78-f1ad7717ac39.png" 
+              src="/lovable-uploads/75d20a85-acf2-47fe-a1c9-1de36dbf34e6.png" 
               alt="Armored Ape" 
-              className="w-40 md:w-60 mx-auto animate-float"
+              className="w-48 md:w-64 mx-auto animate-float"
             />
           </div>
         </div>
