@@ -40,9 +40,9 @@ const packages = [
     name: "Silverback",
     subtitle: "Premium Protection",
     icon: <Rocket className="h-10 w-10" />,
-    price: "149",
+    price: "20",
     currency: "$",
-    interval: "/month",
+    interval: "/day",
     features: [
       "Everything in Gorilla, plus:",
       "Advanced Threat Intelligence",
