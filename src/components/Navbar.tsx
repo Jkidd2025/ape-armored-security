@@ -22,10 +22,7 @@ const Navbar = () => {
           <a href="#contact" className="text-sm font-medium hover:text-apearmor-teal transition-colors">Contact</a>
         </nav>
         
-        <div className="hidden md:flex items-center gap-4">
-          <Button variant="outline" className="border-apearmor-gold text-apearmor-gold hover:bg-apearmor-gold/10">
-            Sign In
-          </Button>
+        <div className="hidden md:flex items-center">
           <Button className="bg-apearmor-teal hover:bg-apearmor-teal/80 text-black">
             Get Protected
           </Button>
@@ -75,10 +72,7 @@ const Navbar = () => {
           >
             Contact
           </a>
-          <div className="flex flex-col gap-2 mt-2">
-            <Button variant="outline" className="border-apearmor-gold text-apearmor-gold hover:bg-apearmor-gold/10 w-full">
-              Sign In
-            </Button>
+          <div className="mt-2">
             <Button className="bg-apearmor-teal hover:bg-apearmor-teal/80 text-black w-full">
               Get Protected
             </Button>
