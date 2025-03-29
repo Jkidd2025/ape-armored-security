@@ -1,5 +1,5 @@
 
-import { Shield, Bell, Eye, Lock, ShieldAlert, Users, TrendingUp, TrendingDown } from "lucide-react";
+import { Shield, Wallet, Eye, Lock, ShieldAlert, Users, TrendingUp, TrendingDown } from "lucide-react";
 
 const featureItems = [
   {
@@ -23,7 +23,7 @@ const featureItems = [
     description: "Instant checks for blacklisted wallets before completing any transactions."
   },
   {
-    icon: <Bell className="h-8 w-8" />,
+    icon: <Wallet className="h-8 w-8" />,
     title: "Wallet Blacklisting",
     description: "Get instant notifications about potential scams and suspicious activities in the crypto space."
   },
