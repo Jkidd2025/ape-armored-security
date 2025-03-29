@@ -1,5 +1,5 @@
 
-import { Shield, Bell, Eye, Lock, ShieldAlert, Users } from "lucide-react";
+import { Shield, Bell, Eye, Lock, ShieldAlert, Users, TrendingUp, TrendingDown } from "lucide-react";
 
 const featureItems = [
   {
@@ -13,8 +13,8 @@ const featureItems = [
     description: "Advanced monitoring system that detects suspicious liquidity moves and sudden dev wallet dumps."
   },
   {
-    icon: <Eye className="h-8 w-8" />,
-    title: "Threat Intelligence",
+    icon: <TrendingUp className="h-8 w-8" />,
+    title: "Pump n Dump",
     description: "Stay ahead with exclusive insights into emerging scam trends and malicious actor activities."
   },
   {
