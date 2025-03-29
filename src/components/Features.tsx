@@ -3,9 +3,9 @@ import { Shield, Bell, Eye, Lock, ShieldAlert, Users } from "lucide-react";
 
 const featureItems = [
   {
-    icon: <Bell className="h-8 w-8" />,
-    title: "Real-Time Alerts",
-    description: "Get instant notifications about potential scams and suspicious activities in the crypto space."
+    icon: <Shield className="h-8 w-8" />,
+    title: "Transaction Insurance",
+    description: "Get reimbursement protection against verified scams with our comprehensive coverage plans."
   },
   {
     icon: <ShieldAlert className="h-8 w-8" />,
@@ -23,9 +23,9 @@ const featureItems = [
     description: "Instant checks for blacklisted wallets before completing any transactions."
   },
   {
-    icon: <Shield className="h-8 w-8" />,
-    title: "Transaction Insurance",
-    description: "Get reimbursement protection against verified scams with our comprehensive coverage plans."
+    icon: <Bell className="h-8 w-8" />,
+    title: "Real-Time Alerts",
+    description: "Get instant notifications about potential scams and suspicious activities in the crypto space."
   },
   {
     icon: <Users className="h-8 w-8" />,
