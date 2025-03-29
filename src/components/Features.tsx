@@ -24,7 +24,7 @@ const featureItems = [
   },
   {
     icon: <Bell className="h-8 w-8" />,
-    title: "Real-Time Alerts",
+    title: "Wallet Blacklisting",
     description: "Get instant notifications about potential scams and suspicious activities in the crypto space."
   },
   {
