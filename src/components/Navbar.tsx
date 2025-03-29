@@ -1,7 +1,7 @@
 
 import { useState } from 'react';
 import { Button } from "@/components/ui/button";
-import { Shield, Menu, X } from "lucide-react";
+import { Menu, X } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const Navbar = () => {
@@ -11,7 +11,11 @@ const Navbar = () => {
     <header className="fixed top-0 left-0 right-0 z-50 bg-background/90 backdrop-blur-md border-b border-apearmor-darkbronze">
       <div className="container flex items-center justify-between h-16 px-4 md:px-6">
         <div className="flex items-center gap-2">
-          <Shield className="h-8 w-8 text-apearmor-teal animate-pulse-shield" />
+          <img 
+            src="/lovable-uploads/e90abdba-dcb2-49b7-b896-f8d7a491bc5c.png" 
+            alt="ApeArmor Logo" 
+            className="h-8 w-8"
+          />
           <span className="text-xl font-bold text-gradient-gold">ApeArmor</span>
         </div>
         
