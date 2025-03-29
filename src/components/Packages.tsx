@@ -7,7 +7,9 @@ const packages = [
     name: "Chimp",
     subtitle: "Basic Protection",
     icon: <Shield className="h-10 w-10" />,
-    price: "39",
+    price: "5",
+    interval: "every 3 days",
+    currency: "USDC",
     features: [
       "Scam Alert Notifications",
       "Wallet Address Screening",
@@ -22,6 +24,8 @@ const packages = [
     subtitle: "Advanced Protection",
     icon: <BadgeCheck className="h-10 w-10" />,
     price: "79",
+    currency: "$",
+    interval: "/month",
     features: [
       "Everything in Chimp, plus:",
       "Rug Pull Protection",
@@ -37,6 +41,8 @@ const packages = [
     subtitle: "Premium Protection",
     icon: <Rocket className="h-10 w-10" />,
     price: "149",
+    currency: "$",
+    interval: "/month",
     features: [
       "Everything in Gorilla, plus:",
       "Advanced Threat Intelligence",
@@ -96,8 +102,8 @@ const Packages = () => {
               </div>
               
               <div className="flex items-center justify-center mb-6">
-                <span className="text-3xl font-bold text-gradient-gold">${pkg.price}</span>
-                <span className="text-muted-foreground ml-1">/month</span>
+                <span className="text-3xl font-bold text-gradient-gold">{pkg.currency === "$" ? "$" : ""}{pkg.price}</span>
+                <span className="text-muted-foreground ml-1">{pkg.currency !== "$" ? ` ${pkg.currency}` : ""}{pkg.interval}</span>
               </div>
               
               <ul className="mb-8 flex-1 space-y-4">
