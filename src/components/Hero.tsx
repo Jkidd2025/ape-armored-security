@@ -1,6 +1,6 @@
 
 import { Button } from "@/components/ui/button";
-import { Shield, ArrowRight } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 
 const Hero = () => {
   return (
@@ -17,7 +17,11 @@ const Hero = () => {
       <div className="container relative z-10 px-4 md:px-6">
         <div className="flex flex-col items-center text-center max-w-4xl mx-auto">
           <div className="flex items-center justify-center mb-6">
-            <Shield className="h-16 w-16 text-apearmor-teal animate-pulse-shield" />
+            <img 
+              src="/lovable-uploads/e90abdba-dcb2-49b7-b896-f8d7a491bc5c.png" 
+              alt="ApeArmor Logo" 
+              className="h-16 w-16 animate-pulse-shield"
+            />
           </div>
           
           <h1 className="text-4xl md:text-6xl font-extrabold tracking-tight mb-6">
