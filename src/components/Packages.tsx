@@ -23,9 +23,9 @@ const packages = [
     name: "Gorilla",
     subtitle: "Advanced Protection",
     icon: <BadgeCheck className="h-10 w-10" />,
-    price: "79",
+    price: "10",
     currency: "$",
-    interval: "/month",
+    interval: "/3-days",
     features: [
       "Everything in Chimp, plus:",
       "Rug Pull Protection",
