@@ -14,7 +14,7 @@ const Navbar = () => {
           <img 
             src="/lovable-uploads/e90abdba-dcb2-49b7-b896-f8d7a491bc5c.png" 
             alt="ApeArmor Logo" 
-            className="h-16 w-16 md:h-20 md:w-20" 
+            className="h-20 w-20 md:h-24 md:w-24" 
           />
           <span className="text-xl font-bold text-gradient-gold">ApeArmor</span>
         </div>

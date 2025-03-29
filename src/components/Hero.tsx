@@ -20,7 +20,7 @@ const Hero = () => {
             <img 
               src="/lovable-uploads/e90abdba-dcb2-49b7-b896-f8d7a491bc5c.png" 
               alt="ApeArmor Logo" 
-              className="h-32 w-32 md:h-40 md:w-40 animate-pulse-shield"
+              className="h-48 w-48 md:h-64 md:w-64 animate-pulse-shield"
             />
           </div>
           
