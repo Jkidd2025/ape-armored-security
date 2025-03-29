@@ -16,14 +16,6 @@ const Hero = () => {
       {/* Content */}
       <div className="container relative z-10 px-4 md:px-6">
         <div className="flex flex-col items-center text-center max-w-4xl mx-auto">
-          <div className="flex items-center justify-center mb-6">
-            <img 
-              src="/lovable-uploads/e90abdba-dcb2-49b7-b896-f8d7a491bc5c.png" 
-              alt="ApeArmor Logo" 
-              className="h-48 w-48 md:h-64 md:w-64 animate-pulse-shield"
-            />
-          </div>
-          
           <h1 className="text-4xl md:text-6xl font-extrabold tracking-tight mb-6">
             <span className="text-gradient-gold">Ape in with Confidence</span>
             <span className="block text-glow text-apearmor-teal"> – Armor Up Against Crypto Chaos!</span>
