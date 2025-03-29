@@ -8,8 +8,8 @@ const packages = [
     subtitle: "Basic Protection",
     icon: <Shield className="h-10 w-10" />,
     price: "5",
-    interval: "every 3 days",
-    currency: "USDC",
+    interval: "/3 days",
+    currency: "$",
     features: [
       "Scam Alert Notifications",
       "Wallet Address Screening",
