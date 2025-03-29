@@ -42,14 +42,6 @@ const Hero = () => {
               Learn More
             </Button>
           </div>
-          
-          <div className="mt-16 w-full max-w-5xl">
-            <img 
-              src="/lovable-uploads/e90abdba-dcb2-49b7-b896-f8d7a491bc5c.png" 
-              alt="Armored Ape" 
-              className="w-80 md:w-96 mx-auto animate-float"
-            />
-          </div>
         </div>
       </div>
     </section>
