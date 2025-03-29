@@ -1,3 +1,4 @@
+
 import type { Config } from "tailwindcss";
 
 export default {
@@ -61,6 +62,14 @@ export default {
 					'accent-foreground': 'hsl(var(--sidebar-accent-foreground))',
 					border: 'hsl(var(--sidebar-border))',
 					ring: 'hsl(var(--sidebar-ring))'
+				},
+				apearmor: {
+					gold: '#D4AF37',
+					bronze: '#CD7F32',
+					darkbronze: '#614e1a',
+					teal: '#20c997',
+					dark: '#1A0F00',
+					light: '#FFF8E1',
 				}
 			},
 			borderRadius: {
@@ -84,11 +93,38 @@ export default {
 					to: {
 						height: '0'
 					}
+				},
+				'pulse-shield': {
+					'0%, 100%': { 
+						opacity: 1,
+						filter: 'drop-shadow(0 0 5px hsl(var(--primary)))'
+					},
+					'50%': { 
+						opacity: 0.8,
+						filter: 'drop-shadow(0 0 15px hsl(var(--primary)))'
+					},
+				},
+				'float': {
+					'0%, 100%': { transform: 'translateY(0)' },
+					'50%': { transform: 'translateY(-10px)' },
+				},
+				'glow': {
+					'0%, 100%': { filter: 'drop-shadow(0 0 3px rgba(32, 201, 151, 0.7))' },
+					'50%': { filter: 'drop-shadow(0 0 8px rgba(32, 201, 151, 0.9))' },
 				}
 			},
 			animation: {
 				'accordion-down': 'accordion-down 0.2s ease-out',
-				'accordion-up': 'accordion-up 0.2s ease-out'
+				'accordion-up': 'accordion-up 0.2s ease-out',
+				'pulse-shield': 'pulse-shield 3s ease-in-out infinite',
+				'float': 'float 6s ease-in-out infinite',
+				'glow': 'glow 3s ease-in-out infinite',
+			},
+			backgroundImage: {
+				'hero-pattern': "url('/lovable-uploads/d375a203-9c97-478d-a14e-76ca16818f1a.png')",
+				'gradient-gold': 'linear-gradient(135deg, #D4AF37 0%, #FFF8E1 50%, #D4AF37 100%)',
+				'gradient-armor': 'linear-gradient(135deg, #CD7F32 0%, #614e1a 100%)',
+				'gradient-teal': 'linear-gradient(135deg, #20c997 0%, #1a7561 100%)',
 			}
 		}
 	},
