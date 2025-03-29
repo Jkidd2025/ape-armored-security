@@ -25,7 +25,7 @@ const packages = [
     icon: <BadgeCheck className="h-10 w-10" />,
     price: "10",
     currency: "$",
-    interval: "/3-days",
+    interval: "/2-days",
     features: [
       "Everything in Chimp, plus:",
       "Rug Pull Protection",
