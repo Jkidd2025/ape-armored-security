@@ -99,6 +99,16 @@ const Payment = () => {
                       </div>
                       <p className="text-xs text-muted-foreground">Send USDC to this wallet address to complete your payment</p>
                     </div>
+                    
+                    <div className="flex flex-col space-y-2">
+                      <Label htmlFor="signatureHash">Signature Hash</Label>
+                      <Input 
+                        id="signatureHash" 
+                        placeholder="Enter transaction signature hash" 
+                        required
+                      />
+                      <p className="text-xs text-muted-foreground">Enter the signature hash of your transaction for verification</p>
+                    </div>
                   </div>
                 </div>
                 
