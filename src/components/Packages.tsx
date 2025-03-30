@@ -8,7 +8,7 @@ const packages = [
     subtitle: "Basic Protection",
     icon: <Shield className="h-10 w-10" />,
     price: "5",
-    interval: "/3-days",
+    interval: "/day",
     currency: "$",
     features: [
       "Scam Alert Notifications",
