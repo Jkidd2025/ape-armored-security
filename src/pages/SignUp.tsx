@@ -230,7 +230,7 @@ const SignUp = () => {
                 <div className="max-h-40 overflow-y-auto text-sm text-muted-foreground mb-4 border border-border p-3 rounded-md">
                   <p className="mb-2">By using ApeArmor services, you agree to the following terms:</p>
                   <p className="mb-2">1. <strong>Service Description:</strong> ApeArmor provides protection against various crypto scams and security threats as described in your selected package.</p>
-                  <p className="mb-2">2. <strong>Eligibility:</strong> You must hold the minimum required amount of ApeArmor tokens for your selected package.</p>
+                  <p className="mb-2">2. <strong>Eligibility:</strong> You must hold the minimum required amount of ApeArmor tokens for your selected package. Daily payments must be transferred before 12 am CST.</p>
                   <p className="mb-2">3. <strong>Refund Policy:</strong> Refunds are issued according to your package terms for eligible security incidents only.</p>
                   <p className="mb-2">4. <strong>Claims Process:</strong> All claims must be submitted within 72 hours of the incident with supporting evidence.</p>
                   <p className="mb-2">5. <strong>Limitations:</strong> ApeArmor protection applies only to supported blockchains and protocols.</p>
