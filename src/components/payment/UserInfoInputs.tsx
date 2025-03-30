@@ -8,10 +8,16 @@ interface UserInfoInputsProps {
   walletAddress: string;
   datePaid: string;
   amountPaid: string;
+  errors: {
+    username: string;
+    walletAddress: string;
+    datePaid: string;
+    amountPaid: string;
+  };
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
-const UserInfoInputs = ({ username, walletAddress, datePaid, amountPaid, onChange }: UserInfoInputsProps) => {
+const UserInfoInputs = ({ username, walletAddress, datePaid, amountPaid, errors, onChange }: UserInfoInputsProps) => {
   return (
     <>
       <div className="flex flex-col space-y-2">
@@ -22,7 +28,11 @@ const UserInfoInputs = ({ username, walletAddress, datePaid, amountPaid, onChang
           required 
           value={username}
           onChange={onChange}
+          className={errors.username ? "border-red-500" : ""}
         />
+        {errors.username && (
+          <p className="text-red-500 text-sm mt-1">{errors.username}</p>
+        )}
       </div>
       
       <div className="flex flex-col space-y-2">
@@ -32,12 +42,15 @@ const UserInfoInputs = ({ username, walletAddress, datePaid, amountPaid, onChang
             id="cardNumber" 
             placeholder="1234 5678 9012 3456" 
             required 
-            className="pl-10"
+            className={`pl-10 ${errors.walletAddress ? "border-red-500" : ""}`}
             value={walletAddress}
             onChange={onChange}
           />
           <Wallet className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
         </div>
+        {errors.walletAddress && (
+          <p className="text-red-500 text-sm mt-1">{errors.walletAddress}</p>
+        )}
       </div>
       
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -49,7 +62,11 @@ const UserInfoInputs = ({ username, walletAddress, datePaid, amountPaid, onChang
             required 
             value={datePaid}
             onChange={onChange}
+            className={errors.datePaid ? "border-red-500" : ""}
           />
+          {errors.datePaid && (
+            <p className="text-red-500 text-sm mt-1">{errors.datePaid}</p>
+          )}
         </div>
         
         <div className="flex flex-col space-y-2">
@@ -60,7 +77,11 @@ const UserInfoInputs = ({ username, walletAddress, datePaid, amountPaid, onChang
             required 
             value={amountPaid}
             onChange={onChange}
+            className={errors.amountPaid ? "border-red-500" : ""}
           />
+          {errors.amountPaid && (
+            <p className="text-red-500 text-sm mt-1">{errors.amountPaid}</p>
+          )}
         </div>
       </div>
     </>

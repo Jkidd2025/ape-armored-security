@@ -5,10 +5,11 @@ import { Coins, ExternalLink, Wallet } from "lucide-react";
 
 interface PaymentMethodSectionProps {
   signatureHash: string;
+  error?: string;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
-const PaymentMethodSection = ({ signatureHash, onChange }: PaymentMethodSectionProps) => {
+const PaymentMethodSection = ({ signatureHash, error, onChange }: PaymentMethodSectionProps) => {
   return (
     <div className="border-t pt-4">
       <Label className="mb-2 block">Payment Method</Label>
@@ -39,7 +40,11 @@ const PaymentMethodSection = ({ signatureHash, onChange }: PaymentMethodSectionP
             required
             value={signatureHash}
             onChange={onChange}
+            className={error ? "border-red-500" : ""}
           />
+          {error && (
+            <p className="text-red-500 text-sm mt-1">{error}</p>
+          )}
           <p className="text-xs text-muted-foreground">
             Enter the signature hash of your transaction for verification - it can be found on Solscan - 
             <a 
