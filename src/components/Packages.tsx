@@ -44,7 +44,7 @@ const packages = [
     currency: "$",
     interval: "/day",
     features: [
-      "Everything in Gorilla, plus:",
+      "80% initial investment refunded",
       "Advanced Threat Intelligence",
       "Personal ApeArmor Expert",
       "Full Crypto Insurance",
