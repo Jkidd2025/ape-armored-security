@@ -8,7 +8,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Coins, Wallet } from "lucide-react";
+import { Coins, ExternalLink, Wallet } from "lucide-react";
 
 const Payment = () => {
   const navigate = useNavigate();
@@ -107,7 +107,18 @@ const Payment = () => {
                         placeholder="Enter transaction signature hash" 
                         required
                       />
-                      <p className="text-xs text-muted-foreground">Enter the signature hash of your transaction for verification</p>
+                      <p className="text-xs text-muted-foreground">
+                        Enter the signature hash of your transaction for verification - it can be found on Solscan - 
+                        <a 
+                          href="https://solscan.io/" 
+                          target="_blank" 
+                          rel="noopener noreferrer" 
+                          className="text-apearmor-teal hover:underline inline-flex items-center ml-1"
+                        >
+                          Solscan Check Here
+                          <ExternalLink className="h-3 w-3 ml-1" />
+                        </a>
+                      </p>
                     </div>
                   </div>
                 </div>
