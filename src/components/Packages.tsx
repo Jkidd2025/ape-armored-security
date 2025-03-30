@@ -53,6 +53,7 @@ const packages = [
       "Transaction Insurance",
       "24/7 Live Scam Support",
       "Exclusive ApeArmor Community",
+      "Minimum ApeArmor Token holding is equal to or greater than 15 Million",
     ],
     cta: "Maximum Security",
     popular: false,
