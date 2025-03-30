@@ -11,7 +11,7 @@ const packages = [
     interval: "/day",
     currency: "$",
     features: [
-      "Scam Alert Notifications",
+      "25% initial investment refunded",
       "Wallet Address Screening",
       "Community Ratings",
       "Monthly Security Report",
