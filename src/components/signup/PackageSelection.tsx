@@ -41,6 +41,13 @@ type PackageSelectionProps = {
 };
 
 const PackageSelection = ({ selectedPackage, onPackageSelect }: PackageSelectionProps) => {
+  const handlePackageSelect = (packageId: string) => {
+    // Scroll to the top of the page
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    // Call the original onPackageSelect function
+    onPackageSelect(packageId);
+  };
+
   return (
     <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
       {packages.map((pkg) => (
@@ -55,7 +62,7 @@ const PackageSelection = ({ selectedPackage, onPackageSelect }: PackageSelection
           currency={pkg.currency}
           setupFee={pkg.setupFee}
           isSelected={selectedPackage === pkg.id}
-          onSelect={onPackageSelect}
+          onSelect={handlePackageSelect}
         />
       ))}
     </div>

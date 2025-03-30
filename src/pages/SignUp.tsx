@@ -1,5 +1,5 @@
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useToast } from "@/components/ui/use-toast";
 import Navbar from "@/components/Navbar";
@@ -24,6 +24,11 @@ const SignUp = () => {
   const { toast } = useToast();
   const [step, setStep] = useState<number>(1);
   const [selectedPackage, setSelectedPackage] = useState<string | null>(null);
+
+  // Scroll to top when step changes
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }, [step]);
 
   const handlePackageSelect = (packageId: string) => {
     setSelectedPackage(packageId);
