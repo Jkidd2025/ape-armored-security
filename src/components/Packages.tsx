@@ -1,4 +1,3 @@
-
 import { Button } from "@/components/ui/button";
 import { Check, Shield, BadgeCheck, Rocket } from "lucide-react";
 
@@ -50,9 +49,6 @@ const packages = [
       "Pump 'n Dump Scams",
       "Transaction Insurance",
       "24/7 Live Scam Support",
-      "Advanced Threat Intelligence",
-      "Personal ApeArmor Expert",
-      "Full Crypto Insurance",
       "Exclusive ApeArmor Community",
     ],
     cta: "Maximum Security",
