@@ -60,8 +60,8 @@ const Payment = () => {
             <CardContent>
               <form onSubmit={handleSubmit} className="space-y-6">
                 <div className="flex flex-col space-y-2">
-                  <Label htmlFor="name">Name on Card</Label>
-                  <Input id="name" placeholder="Enter name as it appears on card" required />
+                  <Label htmlFor="name">Telegram Username or X Username</Label>
+                  <Input id="name" placeholder="Enter your username (e.g., @username)" required />
                 </div>
                 
                 <div className="flex flex-col space-y-2">
