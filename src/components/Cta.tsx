@@ -38,10 +38,6 @@ const Cta = () => {
               <ul className="space-y-2 mb-8">
                 <li className="flex items-center">
                   <Check className="h-5 w-5 text-apearmor-teal mr-2" />
-                  <span>30-day money-back guarantee</span>
-                </li>
-                <li className="flex items-center">
-                  <Check className="h-5 w-5 text-apearmor-teal mr-2" />
                   <span>No lock-in contracts - cancel anytime</span>
                 </li>
                 <li className="flex items-center">
