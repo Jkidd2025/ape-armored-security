@@ -11,6 +11,7 @@ export type Database = {
     Tables: {
       payment_records: {
         Row: {
+          amount_paid: string
           created_at: string
           date_paid: string
           id: string
@@ -20,6 +21,7 @@ export type Database = {
           wallet_address: string
         }
         Insert: {
+          amount_paid?: string
           created_at?: string
           date_paid: string
           id?: string
@@ -29,6 +31,7 @@ export type Database = {
           wallet_address: string
         }
         Update: {
+          amount_paid?: string
           created_at?: string
           date_paid?: string
           id?: string

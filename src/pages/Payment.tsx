@@ -19,6 +19,7 @@ const Payment = () => {
     username: "",
     walletAddress: "",
     datePaid: "",
+    amountPaid: "",
     signatureHash: ""
   });
   
@@ -29,6 +30,7 @@ const Payment = () => {
       [id === "name" ? "username" : 
        id === "cardNumber" ? "walletAddress" : 
        id === "expiry" ? "datePaid" : 
+       id === "amount" ? "amountPaid" :
        id === "signatureHash" ? "signatureHash" : id]: value
     }));
   };
@@ -45,6 +47,7 @@ const Payment = () => {
           username: formData.username,
           wallet_address: formData.walletAddress,
           date_paid: formData.datePaid,
+          amount_paid: formData.amountPaid,
           signature_hash: formData.signatureHash
         });
       
@@ -111,16 +114,28 @@ const Payment = () => {
                   </div>
                 </div>
                 
-                <div className="flex flex-col space-y-2">
-                  <Label htmlFor="expiry">Date Paid</Label>
-                  <Input 
-                    id="expiry" 
-                    placeholder="MM/DD/YY" 
-                    required 
-                    className="max-w-[180px]"
-                    value={formData.datePaid}
-                    onChange={handleChange}
-                  />
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div className="flex flex-col space-y-2">
+                    <Label htmlFor="expiry">Date Paid</Label>
+                    <Input 
+                      id="expiry" 
+                      placeholder="MM/DD/YY" 
+                      required 
+                      value={formData.datePaid}
+                      onChange={handleChange}
+                    />
+                  </div>
+                  
+                  <div className="flex flex-col space-y-2">
+                    <Label htmlFor="amount">Amount Paid</Label>
+                    <Input 
+                      id="amount" 
+                      placeholder="Enter amount in USDC" 
+                      required 
+                      value={formData.amountPaid}
+                      onChange={handleChange}
+                    />
+                  </div>
                 </div>
                 
                 <div className="border-t pt-4">
