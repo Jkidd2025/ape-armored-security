@@ -1,4 +1,3 @@
-
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from "@/components/ui/button";
@@ -30,7 +29,7 @@ const Navbar = () => {
         </nav>
         
         <div className="hidden md:flex items-center">
-          <Link to="/signup">
+          <Link to="/payment">
             <Button className="bg-apearmor-teal hover:bg-apearmor-teal/80 text-black">
               Apply Payment
             </Button>
@@ -47,7 +46,6 @@ const Navbar = () => {
         </Button>
       </div>
       
-      {/* Mobile menu */}
       <div className={cn(
         "md:hidden absolute w-full bg-background border-b border-apearmor-darkbronze transition-all duration-300 overflow-hidden",
         isMenuOpen ? "max-h-[300px] opacity-100" : "max-h-0 opacity-0"
@@ -82,7 +80,7 @@ const Navbar = () => {
             Contact
           </a>
           <div className="mt-2">
-            <Link to="/signup" onClick={() => setIsMenuOpen(false)}>
+            <Link to="/payment" onClick={() => setIsMenuOpen(false)}>
               <Button className="bg-apearmor-teal hover:bg-apearmor-teal/80 text-black w-full">
                 Apply Payment
               </Button>
