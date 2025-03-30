@@ -1,3 +1,4 @@
+
 import { Button } from "@/components/ui/button";
 import { Check, Shield, BadgeCheck, Rocket } from "lucide-react";
 
@@ -15,6 +16,7 @@ const packages = [
       "Pump 'n Dump Scams",
       "Transaction Insurance",
       "24/7 Live Scam Support",
+      "Minimum ApeArmor Token holding is equal to or greater than 1 Million",
     ],
     cta: "Get Started",
     popular: false,
