@@ -8,7 +8,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { CreditCard, Wallet } from "lucide-react";
+import { Coins, Wallet } from "lucide-react";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 
 const Payment = () => {
@@ -86,7 +86,7 @@ const Payment = () => {
                     <div className="flex items-center space-x-2 rounded-md border p-3">
                       <RadioGroupItem value="usdc" id="usdc" />
                       <Label htmlFor="usdc" className="flex items-center cursor-pointer">
-                        <CreditCard className="mr-2 h-4 w-4" />
+                        <Coins className="mr-2 h-4 w-4" />
                         USDC Only
                       </Label>
                     </div>
