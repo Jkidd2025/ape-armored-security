@@ -21,6 +21,7 @@ export const packages = [
     price: "10",
     currency: "$",
     interval: "/day",
+    setupFee: "$50 Account Setup Fee",
   },
   {
     id: "silverback",
