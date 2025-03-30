@@ -1,5 +1,6 @@
 
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { Button } from "@/components/ui/button";
 import { Menu, X } from "lucide-react";
 import { cn } from "@/lib/utils";
@@ -11,12 +12,14 @@ const Navbar = () => {
     <header className="fixed top-0 left-0 right-0 z-50 bg-background/90 backdrop-blur-md border-b border-apearmor-darkbronze">
       <div className="container flex items-center justify-between h-16 px-4 md:px-6">
         <div className="flex items-center gap-2">
-          <img 
-            src="/lovable-uploads/e90abdba-dcb2-49b7-b896-f8d7a491bc5c.png" 
-            alt="ApeArmor Logo" 
-            className="h-14 w-14 md:h-16 md:w-16" 
-          />
-          <span className="text-xl font-bold text-gradient-gold">ApeArmor</span>
+          <Link to="/">
+            <img 
+              src="/lovable-uploads/e90abdba-dcb2-49b7-b896-f8d7a491bc5c.png" 
+              alt="ApeArmor Logo" 
+              className="h-14 w-14 md:h-16 md:w-16" 
+            />
+          </Link>
+          <Link to="/" className="text-xl font-bold text-gradient-gold">ApeArmor</Link>
         </div>
         
         <nav className="hidden md:flex items-center gap-6">
@@ -27,9 +30,11 @@ const Navbar = () => {
         </nav>
         
         <div className="hidden md:flex items-center">
-          <Button className="bg-apearmor-teal hover:bg-apearmor-teal/80 text-black">
-            Get Protected
-          </Button>
+          <Link to="/signup">
+            <Button className="bg-apearmor-teal hover:bg-apearmor-teal/80 text-black">
+              Get Protected
+            </Button>
+          </Link>
         </div>
         
         <Button
@@ -77,9 +82,11 @@ const Navbar = () => {
             Contact
           </a>
           <div className="mt-2">
-            <Button className="bg-apearmor-teal hover:bg-apearmor-teal/80 text-black w-full">
-              Get Protected
-            </Button>
+            <Link to="/signup" onClick={() => setIsMenuOpen(false)}>
+              <Button className="bg-apearmor-teal hover:bg-apearmor-teal/80 text-black w-full">
+                Get Protected
+              </Button>
+            </Link>
           </div>
         </nav>
       </div>

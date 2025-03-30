@@ -1,6 +1,7 @@
 
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Shield, Check } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const Cta = () => {
   return (
@@ -46,10 +47,12 @@ const Cta = () => {
                 </li>
               </ul>
               
-              <Button size="lg" className="bg-apearmor-teal hover:bg-apearmor-teal/80 text-black">
-                Get Protected Now
-                <ArrowRight className="ml-2 h-4 w-4" />
-              </Button>
+              <Link to="/signup">
+                <Button size="lg" className="bg-apearmor-teal hover:bg-apearmor-teal/80 text-black">
+                  Get Protected Now
+                  <ArrowRight className="ml-2 h-4 w-4" />
+                </Button>
+              </Link>
             </div>
           </div>
         </div>

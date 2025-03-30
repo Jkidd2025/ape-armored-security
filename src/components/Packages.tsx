@@ -1,6 +1,7 @@
 
 import { Button } from "@/components/ui/button";
 import { Check, Shield, BadgeCheck, Rocket } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const packages = [
   {
@@ -118,14 +119,16 @@ const Packages = () => {
                 ))}
               </ul>
               
-              <Button 
-                className={pkg.popular 
-                  ? "bg-apearmor-teal hover:bg-apearmor-teal/80 text-black mt-auto" 
-                  : "bg-muted border border-apearmor-gold hover:bg-apearmor-gold/10 text-apearmor-gold mt-auto"
-                }
-              >
-                {pkg.cta}
-              </Button>
+              <Link to={`/signup`} className="mt-auto">
+                <Button 
+                  className={pkg.popular 
+                    ? "bg-apearmor-teal hover:bg-apearmor-teal/80 text-black w-full" 
+                    : "bg-muted border border-apearmor-gold hover:bg-apearmor-gold/10 text-apearmor-gold w-full"
+                  }
+                >
+                  {pkg.cta}
+                </Button>
+              </Link>
             </div>
           ))}
         </div>
