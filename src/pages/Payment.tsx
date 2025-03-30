@@ -79,7 +79,7 @@ const Payment = () => {
                 
                 <div className="flex flex-col space-y-2">
                   <Label htmlFor="expiry">Date Paid</Label>
-                  <Input id="expiry" placeholder="MM/YY" required />
+                  <Input id="expiry" placeholder="MM/DD/YY" required />
                 </div>
                 
                 <div className="border-t pt-4">
