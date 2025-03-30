@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useToast } from "@/components/ui/use-toast";
@@ -20,9 +19,7 @@ const Payment = () => {
     e.preventDefault();
     setIsSubmitting(true);
     
-    // Simulate payment processing
     try {
-      // In a real implementation, this would connect to a payment gateway
       await new Promise(resolve => setTimeout(resolve, 1500));
       
       toast({
@@ -79,7 +76,7 @@ const Payment = () => {
                 
                 <div className="flex flex-col space-y-2">
                   <Label htmlFor="expiry">Date Paid</Label>
-                  <Input id="expiry" placeholder="MM/DD/YY" required />
+                  <Input id="expiry" placeholder="MM/DD/YY" required className="max-w-[180px]" />
                 </div>
                 
                 <div className="border-t pt-4">
