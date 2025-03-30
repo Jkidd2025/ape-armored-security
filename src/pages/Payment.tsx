@@ -79,7 +79,7 @@ const Payment = () => {
                 
                 <div className="grid grid-cols-2 gap-4">
                   <div className="flex flex-col space-y-2">
-                    <Label htmlFor="expiry">Expiry Date</Label>
+                    <Label htmlFor="expiry">Date Paid</Label>
                     <Input id="expiry" placeholder="MM/YY" required />
                   </div>
                   <div className="flex flex-col space-y-2">
