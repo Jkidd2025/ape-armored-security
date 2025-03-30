@@ -53,6 +53,7 @@ const packages = [
       "Pump 'n Dump Scams",
       "Transaction Insurance",
       "Smart Contract Failure",
+      "Wallet Blacklisting",
       "24/7 Live Scam Support",
       "Exclusive ApeArmor Community",
       "Minimum ApeArmor Token holding is equal to or greater than 15 Million",
