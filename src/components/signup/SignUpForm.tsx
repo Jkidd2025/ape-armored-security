@@ -6,7 +6,7 @@ import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
-import { ChevronLeft, ChevronRight } from "lucide-react";
+import { ChevronLeft, ChevronRight, Loader2 } from "lucide-react";
 import TermsAndConditions from "./TermsAndConditions";
 
 export type FormData = {
@@ -24,9 +24,10 @@ type SignUpFormProps = {
   selectedPackage: string | null;
   onSubmit: (data: FormData) => void;
   onBack: () => void;
+  isSubmitting?: boolean;
 };
 
-const SignUpForm = ({ selectedPackage, onSubmit, onBack }: SignUpFormProps) => {
+const SignUpForm = ({ selectedPackage, onSubmit, onBack, isSubmitting = false }: SignUpFormProps) => {
   const form = useForm<FormData>({
     defaultValues: {
       firstName: "",
@@ -178,6 +179,7 @@ const SignUpForm = ({ selectedPackage, onSubmit, onBack }: SignUpFormProps) => {
             variant="outline" 
             className="border-apearmor-gold text-apearmor-gold hover:bg-apearmor-gold/10"
             onClick={onBack}
+            disabled={isSubmitting}
           >
             <ChevronLeft className="mr-2 h-4 w-4" />
             Back
@@ -185,9 +187,19 @@ const SignUpForm = ({ selectedPackage, onSubmit, onBack }: SignUpFormProps) => {
           <Button 
             type="submit" 
             className="bg-apearmor-teal hover:bg-apearmor-teal/80 text-black"
+            disabled={isSubmitting}
           >
-            Complete Signup
-            <ChevronRight className="ml-2 h-4 w-4" />
+            {isSubmitting ? (
+              <>
+                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                Processing...
+              </>
+            ) : (
+              <>
+                Complete Signup
+                <ChevronRight className="ml-2 h-4 w-4" />
+              </>
+            )}
           </Button>
         </div>
       </form>

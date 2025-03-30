@@ -7,6 +7,7 @@ import Footer from "@/components/Footer";
 import PackageSelection from "@/components/signup/PackageSelection";
 import ProgressSteps from "@/components/signup/ProgressSteps";
 import SignUpForm, { FormData } from "@/components/signup/SignUpForm";
+import { supabase } from "@/integrations/supabase/client";
 
 const steps = [
   {
@@ -24,6 +25,7 @@ const SignUp = () => {
   const { toast } = useToast();
   const [step, setStep] = useState<number>(1);
   const [selectedPackage, setSelectedPackage] = useState<string | null>(null);
+  const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
 
   // Scroll to top when step changes
   useEffect(() => {
@@ -35,13 +37,51 @@ const SignUp = () => {
     setStep(2);
   };
 
-  const onSubmit = (data: FormData) => {
+  const onSubmit = async (data: FormData) => {
+    setIsSubmitting(true);
     console.log("Form submitted:", data);
-    toast({
-      title: "Sign-up successful!",
-      description: `You have successfully signed up for the ${data.packageType} package.`,
-    });
-    navigate("/");
+
+    try {
+      // Store the registration data in Supabase
+      const { error } = await supabase
+        .from('user_registrations')
+        .insert([
+          { 
+            first_name: data.firstName,
+            last_name: data.lastName,
+            email: data.email,
+            telegram_username: data.telegramUsername,
+            x_username: data.xUsername,
+            wallet_address: data.walletAddress,
+            package_type: data.packageType
+          }
+        ]);
+
+      if (error) {
+        console.error("Error submitting form:", error);
+        toast({
+          title: "Sign-up failed",
+          description: error.message || "There was an error processing your sign-up. Please try again.",
+          variant: "destructive"
+        });
+      } else {
+        toast({
+          title: "Sign-up successful!",
+          description: `You have successfully signed up for the ${data.packageType} package.`,
+        });
+        // Redirect to home after successful sign-up
+        navigate("/");
+      }
+    } catch (error) {
+      console.error("Error submitting form:", error);
+      toast({
+        title: "Sign-up failed",
+        description: "There was an error processing your sign-up. Please try again.",
+        variant: "destructive"
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const handleBackToPackages = () => {
@@ -53,7 +93,7 @@ const SignUp = () => {
       case 1:
         return <PackageSelection selectedPackage={selectedPackage} onPackageSelect={handlePackageSelect} />;
       case 2:
-        return <SignUpForm selectedPackage={selectedPackage} onSubmit={onSubmit} onBack={handleBackToPackages} />;
+        return <SignUpForm selectedPackage={selectedPackage} onSubmit={onSubmit} onBack={handleBackToPackages} isSubmitting={isSubmitting} />;
       default:
         return null;
     }
