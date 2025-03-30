@@ -4,13 +4,9 @@ import { useNavigate } from "react-router-dom";
 import { useToast } from "@/components/ui/use-toast";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Coins, ExternalLink, Wallet, AlertTriangle } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
-import { Alert, AlertDescription } from "@/components/ui/alert";
+import PaymentFormWrapper from "@/components/payment/PaymentFormWrapper";
+import PaymentForm from "@/components/payment/PaymentForm";
 
 const Payment = () => {
   const navigate = useNavigate();
@@ -82,133 +78,14 @@ const Payment = () => {
             <p className="text-muted-foreground">Enter your payment details to activate your protection plan</p>
           </div>
           
-          <Card className="mx-auto max-w-2xl">
-            <CardHeader>
-              <CardTitle>Payment Details</CardTitle>
-              <CardDescription>Complete the fields to apply payment towards your account</CardDescription>
-            </CardHeader>
-            <CardContent>
-              <form onSubmit={handleSubmit} className="space-y-6">
-                <div className="flex flex-col space-y-2">
-                  <Label htmlFor="name">Telegram Username or X Username</Label>
-                  <Input 
-                    id="name" 
-                    placeholder="Enter your username (e.g., @username)" 
-                    required 
-                    value={formData.username}
-                    onChange={handleChange}
-                  />
-                </div>
-                
-                <div className="flex flex-col space-y-2">
-                  <Label htmlFor="cardNumber">Payment From Wallet Address</Label>
-                  <div className="relative">
-                    <Input 
-                      id="cardNumber" 
-                      placeholder="1234 5678 9012 3456" 
-                      required 
-                      className="pl-10"
-                      value={formData.walletAddress}
-                      onChange={handleChange}
-                    />
-                    <Wallet className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-                  </div>
-                </div>
-                
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div className="flex flex-col space-y-2">
-                    <Label htmlFor="expiry">Date Paid</Label>
-                    <Input 
-                      id="expiry" 
-                      placeholder="MM/DD/YY" 
-                      required 
-                      value={formData.datePaid}
-                      onChange={handleChange}
-                    />
-                  </div>
-                  
-                  <div className="flex flex-col space-y-2">
-                    <Label htmlFor="amount">Amount Paid</Label>
-                    <Input 
-                      id="amount" 
-                      placeholder="Enter amount in USDC" 
-                      required 
-                      value={formData.amountPaid}
-                      onChange={handleChange}
-                    />
-                  </div>
-                </div>
-                
-                <div className="border-t pt-4">
-                  <Label className="mb-2 block">Payment Method</Label>
-                  <div className="flex flex-col space-y-3">
-                    <div className="flex items-center space-x-2 rounded-md border p-3">
-                      <Coins className="mr-2 h-4 w-4" />
-                      <span>USDC Only</span>
-                    </div>
-                    <div className="flex flex-col space-y-2">
-                      <Label htmlFor="paymentAddress">Payment To Wallet Address</Label>
-                      <div className="relative">
-                        <Input 
-                          id="paymentAddress" 
-                          value="0x71C7656EC7ab88b098defB751B7401B5f6d8976F"
-                          readOnly
-                          className="pl-10 bg-gray-50"
-                        />
-                        <Wallet className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-                      </div>
-                      <p className="text-xs text-muted-foreground">Send USDC to this wallet address to complete your payment</p>
-                    </div>
-                    
-                    <div className="flex flex-col space-y-2">
-                      <Label htmlFor="signatureHash">Signature Hash</Label>
-                      <Input 
-                        id="signatureHash" 
-                        placeholder="Enter transaction signature hash" 
-                        required
-                        value={formData.signatureHash}
-                        onChange={handleChange}
-                      />
-                      <p className="text-xs text-muted-foreground">
-                        Enter the signature hash of your transaction for verification - it can be found on Solscan - 
-                        <a 
-                          href="https://solscan.io/" 
-                          target="_blank" 
-                          rel="noopener noreferrer" 
-                          className="text-apearmor-teal hover:underline inline-flex items-center ml-1"
-                        >
-                          Solscan Check Here
-                          <ExternalLink className="h-3 w-3 ml-1" />
-                        </a>
-                      </p>
-                    </div>
-                  </div>
-                </div>
-                
-                {/* Disclaimer Box */}
-                <Alert variant="destructive" className="bg-muted border border-amber-600 text-foreground mt-4">
-                  <AlertTriangle className="h-4 w-4 text-amber-600" />
-                  <AlertDescription className="text-sm mt-2">
-                    <p className="font-semibold mb-2">Disclaimer:</p>
-                    <p className="mb-2">ApeArmor is not responsible for users sending incorrect payment types to the assigned payment wallet.</p>
-                    <p className="mb-2">ApeArmor cannot be held responsible for failed transactions because of network outages, wallet failures, or personal devices not responding to 3rd party applications.</p>
-                    <p>Failure to apply payment properly and complete all listed fields will fail to meet payment terms and conditions for an active ApeArmor account.</p>
-                  </AlertDescription>
-                </Alert>
-                
-                <Button 
-                  type="submit" 
-                  className="w-full bg-apearmor-teal hover:bg-apearmor-teal/80 text-black"
-                  disabled={isSubmitting}
-                >
-                  {isSubmitting ? "Processing..." : "Complete Payment"}
-                </Button>
-              </form>
-            </CardContent>
-            <CardFooter className="flex justify-center text-sm text-muted-foreground">
-              Your payment information is securely processed
-            </CardFooter>
-          </Card>
+          <PaymentFormWrapper>
+            <PaymentForm 
+              formData={formData}
+              isSubmitting={isSubmitting}
+              handleChange={handleChange}
+              handleSubmit={handleSubmit}
+            />
+          </PaymentFormWrapper>
         </div>
       </main>
       <Footer />
