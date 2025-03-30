@@ -34,6 +34,7 @@ const packages = [
       "Pump 'n Dump Scams",
       "Transaction Insurance",
       "24/7 Live Scam Support",
+      "Minimum ApeArmor Token holding is equal to or greater than 5 Million",
     ],
     cta: "Armor Up",
     popular: true,
