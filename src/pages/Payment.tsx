@@ -129,7 +129,12 @@ const Payment = () => {
         description: "Thank you for your payment. Your protection plan is now active.",
       });
       
-      navigate("/");
+      // Navigate to the payment confirmation page with payment details
+      navigate("/payment-confirmation", { 
+        state: { 
+          paymentDetails: formData 
+        } 
+      });
     } catch (error) {
       console.error("Payment submission error:", error);
       toast({
