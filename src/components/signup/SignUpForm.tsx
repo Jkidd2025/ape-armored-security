@@ -1,4 +1,5 @@
 
+import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
@@ -39,7 +40,7 @@ const SignUpForm = ({ selectedPackage, onSubmit, onBack }: SignUpFormProps) => {
     },
   });
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (selectedPackage) {
       form.setValue("packageType", selectedPackage);
     }

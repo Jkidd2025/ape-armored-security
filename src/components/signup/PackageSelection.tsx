@@ -11,6 +11,7 @@ export const packages = [
     price: "5",
     interval: "/day",
     currency: "$",
+    setupFee: "$25 Account Setup Fee",
   },
   {
     id: "gorilla",
@@ -50,6 +51,7 @@ const PackageSelection = ({ selectedPackage, onPackageSelect }: PackageSelection
           price={pkg.price}
           interval={pkg.interval}
           currency={pkg.currency}
+          setupFee={pkg.setupFee}
           isSelected={selectedPackage === pkg.id}
           onSelect={onPackageSelect}
         />

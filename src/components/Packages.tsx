@@ -11,6 +11,7 @@ const packages = [
     price: "5",
     interval: "/day",
     currency: "$",
+    setupFee: "$25 Account Setup Fee",
     features: [
       "25% initial investment refunded",
       "Rug Pull Protection",
@@ -109,6 +110,12 @@ const Packages = () => {
                 <span className="text-3xl font-bold text-gradient-gold">{pkg.currency === "$" ? "$" : ""}{pkg.price}</span>
                 <span className="text-muted-foreground ml-1">{pkg.currency !== "$" ? ` ${pkg.currency}` : ""}{pkg.interval}</span>
               </div>
+              
+              {pkg.setupFee && (
+                <div className="text-center mb-4 text-muted-foreground">
+                  <span>{pkg.setupFee}</span>
+                </div>
+              )}
               
               <ul className="mb-8 flex-1 space-y-4">
                 {pkg.features.map((feature, idx) => (

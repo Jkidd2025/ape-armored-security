@@ -1,5 +1,4 @@
 
-import { Shield, BadgeCheck, Rocket } from "lucide-react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 
 type PackageProps = {
@@ -10,6 +9,7 @@ type PackageProps = {
   price: string;
   interval: string;
   currency: string;
+  setupFee?: string;
   isSelected: boolean;
   onSelect: (id: string) => void;
 };
@@ -22,6 +22,7 @@ const PackageCard = ({
   price,
   interval,
   currency,
+  setupFee,
   isSelected,
   onSelect,
 }: PackageProps) => {
@@ -46,6 +47,11 @@ const PackageCard = ({
           {currency === "$" ? "$" : ""}{price}{currency !== "$" ? ` ${currency}` : ""}
           <span className="text-sm text-muted-foreground ml-1">{interval}</span>
         </div>
+        {setupFee && (
+          <div className="text-sm text-muted-foreground mt-1">
+            {setupFee}
+          </div>
+        )}
       </CardContent>
     </Card>
   );
