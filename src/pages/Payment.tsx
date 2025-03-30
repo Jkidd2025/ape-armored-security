@@ -65,7 +65,7 @@ const Payment = () => {
                 </div>
                 
                 <div className="flex flex-col space-y-2">
-                  <Label htmlFor="cardNumber">Card Number</Label>
+                  <Label htmlFor="cardNumber">Payment From Wallet Address</Label>
                   <div className="relative">
                     <Input 
                       id="cardNumber" 
