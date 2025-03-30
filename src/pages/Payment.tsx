@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useToast } from "@/components/ui/use-toast";
@@ -81,12 +82,12 @@ const Payment = () => {
                 
                 <div className="border-t pt-4">
                   <Label className="mb-2 block">Payment Method</Label>
-                  <RadioGroup defaultValue="card" className="flex flex-col space-y-2">
+                  <RadioGroup defaultValue="usdc" className="flex flex-col space-y-2">
                     <div className="flex items-center space-x-2 rounded-md border p-3">
-                      <RadioGroupItem value="card" id="card" />
-                      <Label htmlFor="card" className="flex items-center cursor-pointer">
+                      <RadioGroupItem value="usdc" id="usdc" />
+                      <Label htmlFor="usdc" className="flex items-center cursor-pointer">
                         <CreditCard className="mr-2 h-4 w-4" />
-                        Credit/Debit Card
+                        USDC Only
                       </Label>
                     </div>
                     <div className="flex items-center space-x-2 rounded-md border p-3">
