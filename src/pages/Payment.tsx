@@ -77,15 +77,9 @@ const Payment = () => {
                   </div>
                 </div>
                 
-                <div className="grid grid-cols-2 gap-4">
-                  <div className="flex flex-col space-y-2">
-                    <Label htmlFor="expiry">Date Paid</Label>
-                    <Input id="expiry" placeholder="MM/YY" required />
-                  </div>
-                  <div className="flex flex-col space-y-2">
-                    <Label htmlFor="cvc">CVC</Label>
-                    <Input id="cvc" placeholder="123" required type="password" maxLength={4} />
-                  </div>
+                <div className="flex flex-col space-y-2">
+                  <Label htmlFor="expiry">Date Paid</Label>
+                  <Input id="expiry" placeholder="MM/YY" required />
                 </div>
                 
                 <div className="border-t pt-4">
