@@ -9,7 +9,6 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Coins, Wallet } from "lucide-react";
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 
 const Payment = () => {
   const navigate = useNavigate();
@@ -82,22 +81,10 @@ const Payment = () => {
                 
                 <div className="border-t pt-4">
                   <Label className="mb-2 block">Payment Method</Label>
-                  <RadioGroup defaultValue="usdc" className="flex flex-col space-y-2">
-                    <div className="flex items-center space-x-2 rounded-md border p-3">
-                      <RadioGroupItem value="usdc" id="usdc" />
-                      <Label htmlFor="usdc" className="flex items-center cursor-pointer">
-                        <Coins className="mr-2 h-4 w-4" />
-                        USDC Only
-                      </Label>
-                    </div>
-                    <div className="flex items-center space-x-2 rounded-md border p-3">
-                      <RadioGroupItem value="crypto" id="crypto" />
-                      <Label htmlFor="crypto" className="flex items-center cursor-pointer">
-                        <Wallet className="mr-2 h-4 w-4" />
-                        Crypto
-                      </Label>
-                    </div>
-                  </RadioGroup>
+                  <div className="flex items-center space-x-2 rounded-md border p-3">
+                    <Coins className="mr-2 h-4 w-4" />
+                    <span>USDC Only</span>
+                  </div>
                 </div>
                 
                 <Button 
