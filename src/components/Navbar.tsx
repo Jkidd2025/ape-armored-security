@@ -32,7 +32,7 @@ const Navbar = () => {
         <div className="hidden md:flex items-center">
           <Link to="/signup">
             <Button className="bg-apearmor-teal hover:bg-apearmor-teal/80 text-black">
-              Get Protected
+              Apply Payment
             </Button>
           </Link>
         </div>
@@ -84,7 +84,7 @@ const Navbar = () => {
           <div className="mt-2">
             <Link to="/signup" onClick={() => setIsMenuOpen(false)}>
               <Button className="bg-apearmor-teal hover:bg-apearmor-teal/80 text-black w-full">
-                Get Protected
+                Apply Payment
               </Button>
             </Link>
           </div>
