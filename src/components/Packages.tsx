@@ -27,7 +27,7 @@ const packages = [
     currency: "$",
     interval: "/day",
     features: [
-      "Everything in Chimp, plus:",
+      "50% initial investment refunded",
       "Rug Pull Protection",
       "Pump 'n Dump Detector",
       "24/7 Live Scam Support",
