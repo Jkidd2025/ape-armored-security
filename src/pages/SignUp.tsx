@@ -49,6 +49,8 @@ type FormData = {
   firstName: string;
   lastName: string;
   email: string;
+  telegramUsername: string;
+  xUsername: string;
   walletAddress: string;
   packageType: string;
   agreeTerms: boolean;
@@ -65,6 +67,8 @@ const SignUp = () => {
       firstName: "",
       lastName: "",
       email: "",
+      telegramUsername: "",
+      xUsername: "",
       walletAddress: "",
       packageType: "",
       agreeTerms: false,
@@ -173,6 +177,38 @@ const SignUp = () => {
                   </FormItem>
                 )}
               />
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <FormField
+                  control={form.control}
+                  name="telegramUsername"
+                  rules={{ required: "Telegram username is required" }}
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Telegram Username</FormLabel>
+                      <FormControl>
+                        <Input placeholder="@yourusername" {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                
+                <FormField
+                  control={form.control}
+                  name="xUsername"
+                  rules={{ required: "X (Twitter) username is required" }}
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>X (Twitter) Username</FormLabel>
+                      <FormControl>
+                        <Input placeholder="@yourusername" {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              </div>
 
               <FormField
                 control={form.control}
