@@ -95,13 +95,8 @@ const Packages = () => {
               </div>
               
               <div className="flex flex-col items-center text-center mb-6">
-                <div className="flex items-center justify-center space-x-2">
+                <div className="flex items-center justify-center">
                   <span className="text-xl font-bold">{pkg.name}</span>
-                  <img 
-                    src={`/lovable-uploads/f15cea00-0f09-4da3-ab78-f1ad7717ac39.png`} 
-                    alt="Ape icon" 
-                    className="w-6 h-6 object-contain"
-                  />
                 </div>
                 <p className="text-sm text-muted-foreground">{pkg.subtitle}</p>
               </div>
