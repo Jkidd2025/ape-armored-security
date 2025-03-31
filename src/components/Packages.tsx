@@ -76,7 +76,7 @@ const Packages = () => {
             <Shield className="h-8 w-8 text-apearmor-teal" />
           </div>
           <h2 className="text-3xl md:text-4xl font-bold mb-4 text-gradient-gold">
-            ApeArmor Security Packages
+            ApeArmor Protection Packages
           </h2>
           <p className="text-lg text-muted-foreground max-w-3xl">
             Choose the level of protection that fits your crypto investment strategy
