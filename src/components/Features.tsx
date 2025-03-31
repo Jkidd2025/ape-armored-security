@@ -10,22 +10,22 @@ const featureItems = [
   {
     icon: <ShieldAlert className="h-8 w-8" />,
     title: "Rug Pull Protection",
-    description: "Advanced monitoring system that detects suspicious liquidity moves and sudden dev wallet dumps."
+    description: "Rug Pull: The intentional and sudden removal of liquidity by project developers causing token value collapse."
   },
   {
     icon: <TrendingUp className="h-8 w-8" />,
     title: "Pump n Dump",
-    description: "Stay ahead with exclusive insights into emerging scam trends and malicious actor activities."
+    description: "Pump 'n Dump: A fraudulent practice involving coordinated efforts to artificially inflate and subsequently crash the token price."
   },
   {
     icon: <Lock className="h-8 w-8" />,
     title: "Smart Contract Failure",
-    description: "Instant checks for blacklisted wallets before completing any transactions."
+    description: "Smart Contract Failure: Unintended and exploitable vulnerabilities in audited smart contracts."
   },
   {
     icon: <Wallet className="h-8 w-8" />,
     title: "Wallet Blacklisting",
-    description: "Get instant notifications about potential scams and suspicious activities in the crypto space."
+    description: "Wallet Blacklisting: Identification and blocking of wallets associated with malicious activities."
   },
   {
     icon: <Users className="h-8 w-8" />,
