@@ -17,6 +17,8 @@ export type Database = {
           message: string
           name: string
           status: string
+          telegram_username: string | null
+          x_username: string | null
         }
         Insert: {
           created_at?: string
@@ -25,6 +27,8 @@ export type Database = {
           message: string
           name: string
           status?: string
+          telegram_username?: string | null
+          x_username?: string | null
         }
         Update: {
           created_at?: string
@@ -33,6 +37,8 @@ export type Database = {
           message?: string
           name?: string
           status?: string
+          telegram_username?: string | null
+          x_username?: string | null
         }
         Relationships: []
       }
