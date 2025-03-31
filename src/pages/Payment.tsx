@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useToast } from "@/components/ui/use-toast";
@@ -13,6 +14,7 @@ const Payment = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [formData, setFormData] = useState({
     username: "",
+    email: "",
     walletAddress: "",
     datePaid: "",
     amountPaid: "",
@@ -21,6 +23,7 @@ const Payment = () => {
   
   const [formErrors, setFormErrors] = useState({
     username: "",
+    email: "",
     walletAddress: "",
     datePaid: "",
     amountPaid: "",
@@ -36,6 +39,7 @@ const Payment = () => {
     setFormData(prev => ({
       ...prev,
       [id === "name" ? "username" : 
+       id === "email" ? "email" :
        id === "cardNumber" ? "walletAddress" : 
        id === "expiry" ? "datePaid" : 
        id === "amount" ? "amountPaid" :
@@ -43,6 +47,7 @@ const Payment = () => {
     }));
     
     if (formErrors[id === "name" ? "username" : 
+        id === "email" ? "email" :
         id === "cardNumber" ? "walletAddress" : 
         id === "expiry" ? "datePaid" : 
         id === "amount" ? "amountPaid" :
@@ -50,6 +55,7 @@ const Payment = () => {
       setFormErrors(prev => ({
         ...prev,
         [id === "name" ? "username" : 
+         id === "email" ? "email" :
          id === "cardNumber" ? "walletAddress" : 
          id === "expiry" ? "datePaid" : 
          id === "amount" ? "amountPaid" :
@@ -64,6 +70,12 @@ const Payment = () => {
     
     if (!formData.username.includes('@')) {
       errors.username = "Username must include @ symbol";
+      isValid = false;
+    }
+    
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(formData.email)) {
+      errors.email = "Please enter a valid email address";
       isValid = false;
     }
     
@@ -114,7 +126,8 @@ const Payment = () => {
           wallet_address: formData.walletAddress,
           date_paid: formData.datePaid,
           amount_paid: formData.amountPaid,
-          signature_hash: formData.signatureHash
+          signature_hash: formData.signatureHash,
+          email: formData.email
         });
       
       if (error) throw error;

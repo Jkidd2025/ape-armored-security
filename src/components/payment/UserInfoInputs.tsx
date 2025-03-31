@@ -5,11 +5,13 @@ import { Wallet } from "lucide-react";
 
 interface UserInfoInputsProps {
   username: string;
+  email: string;
   walletAddress: string;
   datePaid: string;
   amountPaid: string;
   errors: {
     username: string;
+    email: string;
     walletAddress: string;
     datePaid: string;
     amountPaid: string;
@@ -17,7 +19,7 @@ interface UserInfoInputsProps {
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
-const UserInfoInputs = ({ username, walletAddress, datePaid, amountPaid, errors, onChange }: UserInfoInputsProps) => {
+const UserInfoInputs = ({ username, email, walletAddress, datePaid, amountPaid, errors, onChange }: UserInfoInputsProps) => {
   return (
     <>
       <div className="flex flex-col space-y-2">
@@ -32,6 +34,22 @@ const UserInfoInputs = ({ username, walletAddress, datePaid, amountPaid, errors,
         />
         {errors.username && (
           <p className="text-red-500 text-sm mt-1">{errors.username}</p>
+        )}
+      </div>
+      
+      <div className="flex flex-col space-y-2">
+        <Label htmlFor="email">Email Address</Label>
+        <Input 
+          id="email" 
+          type="email"
+          placeholder="Enter your email address" 
+          required 
+          value={email}
+          onChange={onChange}
+          className={errors.email ? "border-red-500" : ""}
+        />
+        {errors.email && (
+          <p className="text-red-500 text-sm mt-1">{errors.email}</p>
         )}
       </div>
       

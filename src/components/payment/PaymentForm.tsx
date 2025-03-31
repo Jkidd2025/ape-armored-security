@@ -7,6 +7,7 @@ import PaymentSubmitButton from "./PaymentSubmitButton";
 
 interface FormData {
   username: string;
+  email: string;
   walletAddress: string;
   datePaid: string;
   amountPaid: string;
@@ -15,6 +16,7 @@ interface FormData {
 
 interface FormErrors {
   username: string;
+  email: string;
   walletAddress: string;
   datePaid: string;
   amountPaid: string;
@@ -40,11 +42,13 @@ const PaymentForm = ({
     <form onSubmit={handleSubmit} className="space-y-6">
       <UserInfoInputs 
         username={formData.username}
+        email={formData.email}
         walletAddress={formData.walletAddress}
         datePaid={formData.datePaid}
         amountPaid={formData.amountPaid}
         errors={{
           username: formErrors.username,
+          email: formErrors.email,
           walletAddress: formErrors.walletAddress,
           datePaid: formErrors.datePaid,
           amountPaid: formErrors.amountPaid
