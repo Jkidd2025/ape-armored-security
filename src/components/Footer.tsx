@@ -1,5 +1,6 @@
 
 import { Twitter, Github, Linkedin, Mail } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const Footer = () => {
   return (
@@ -75,9 +76,9 @@ const Footer = () => {
             <h3 className="text-lg font-semibold mb-4">Legal</h3>
             <ul className="space-y-2">
               <li>
-                <a href="#" className="text-muted-foreground hover:text-apearmor-teal transition-colors">
+                <Link to="/terms-of-service" className="text-muted-foreground hover:text-apearmor-teal transition-colors">
                   Terms of Service
-                </a>
+                </Link>
               </li>
               <li>
                 <a href="#" className="text-muted-foreground hover:text-apearmor-teal transition-colors">
