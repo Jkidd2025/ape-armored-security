@@ -51,6 +51,15 @@ const APPROVED_PROJECTS = [
     approvalDate: "11/03/2023",
     active: true,
     coverage: "Full"
+  },
+  {
+    id: 6,
+    name: "BTM Relaunch",
+    category: "Token",
+    website: "https://btm.io",
+    approvalDate: "03/03/2025",
+    active: false,
+    coverage: "Full"
   }
 ];
 
