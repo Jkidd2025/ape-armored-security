@@ -69,7 +69,7 @@ const ApprovedProjects = () => {
                     <TableHead>Approval Date</TableHead>
                     <TableHead>Project</TableHead>
                     <TableHead>Coverage Status</TableHead>
-                    <TableHead className="text-right">Website</TableHead>
+                    <TableHead className="text-right">Profile Info</TableHead>
                   </TableRow>
                 </TableHeader>
                 <TableBody>
