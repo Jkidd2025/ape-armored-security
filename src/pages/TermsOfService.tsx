@@ -14,7 +14,7 @@ const TermsOfService = () => {
   return (
     <div className="min-h-screen flex flex-col">
       <Navbar />
-      <main className="flex-1 container px-4 md:px-6 py-12">
+      <main className="flex-1 container px-4 md:px-6 pt-24 pb-12"> {/* Changed py-12 to pt-24 pb-12 to add more top padding */}
         <div className="max-w-4xl mx-auto">
           <h1 className="text-3xl font-bold mb-8 text-gradient-gold">Terms of Service</h1>
           
