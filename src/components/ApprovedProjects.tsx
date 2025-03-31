@@ -5,55 +5,10 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import { Separator } from "@/components/ui/separator";
 import { Card, CardContent } from "@/components/ui/card";
 
-// Sample data for approved projects
+// Sample data for approved projects - only BTM Relaunch and TCOIN
 const APPROVED_PROJECTS = [
   {
     id: 1,
-    name: "SafeSwap DEX",
-    category: "DeFi",
-    website: "https://safeswap.io",
-    approvalDate: "04/15/2023",
-    active: true,
-    coverage: "Full"
-  },
-  {
-    id: 2,
-    name: "CryptoGuard Wallet",
-    category: "Wallet",
-    website: "https://cryptoguard.com",
-    approvalDate: "06/22/2023",
-    active: true,
-    coverage: "Full"
-  },
-  {
-    id: 3,
-    name: "Secure NFT Marketplace",
-    category: "NFT",
-    website: "https://securenft.market",
-    approvalDate: "08/10/2023",
-    active: true,
-    coverage: "Partial"
-  },
-  {
-    id: 4,
-    name: "TrustLend Protocol",
-    category: "Lending",
-    website: "https://trustlend.finance",
-    approvalDate: "09/17/2023",
-    active: false,
-    coverage: "Expired"
-  },
-  {
-    id: 5,
-    name: "ShieldStake Platform",
-    category: "Staking",
-    website: "https://shieldstake.io",
-    approvalDate: "11/03/2023",
-    active: true,
-    coverage: "Full"
-  },
-  {
-    id: 6,
     name: "BTM Relaunch",
     category: "Token",
     website: "https://btm.io",
@@ -62,7 +17,7 @@ const APPROVED_PROJECTS = [
     coverage: "Full"
   },
   {
-    id: 7,
+    id: 2,
     name: "TCOIN",
     category: "Token",
     website: "https://tcoin.finance",
