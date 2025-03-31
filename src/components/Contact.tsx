@@ -12,9 +12,12 @@ const Contact = () => {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
+    telegramUsername: "",
+    xUsername: "",
     message: ""
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [socialValidationError, setSocialValidationError] = useState<string | null>(null);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
@@ -22,6 +25,11 @@ const Contact = () => {
       ...prev,
       [name]: value
     }));
+    
+    // Clear social validation error when user starts typing in either field
+    if ((name === 'telegramUsername' || name === 'xUsername') && socialValidationError) {
+      setSocialValidationError(null);
+    }
   };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -29,6 +37,16 @@ const Contact = () => {
     setIsSubmitting(true);
     
     try {
+      // Validate that at least one social username is provided
+      if (!formData.telegramUsername && !formData.xUsername) {
+        setSocialValidationError("Please provide at least one username (Telegram or X)");
+        setIsSubmitting(false);
+        return;
+      }
+
+      // Clear social validation error if it exists
+      setSocialValidationError(null);
+      
       // Save to Supabase
       const { data, error } = await supabase
         .from('contact_submissions')
@@ -36,6 +54,8 @@ const Contact = () => {
           { 
             name: formData.name,
             email: formData.email,
+            telegram_username: formData.telegramUsername || null,
+            x_username: formData.xUsername || null,
             message: formData.message
           }
         ]);
@@ -62,6 +82,8 @@ const Contact = () => {
       setFormData({
         name: "",
         email: "",
+        telegramUsername: "",
+        xUsername: "",
         message: ""
       });
     } catch (err) {
@@ -126,6 +148,46 @@ const Contact = () => {
                       />
                     </div>
                   </div>
+                  
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div className="space-y-2">
+                      <label htmlFor="telegramUsername" className="text-sm font-medium">
+                        Telegram Username
+                      </label>
+                      <input
+                        id="telegramUsername"
+                        name="telegramUsername"
+                        type="text"
+                        value={formData.telegramUsername}
+                        onChange={handleChange}
+                        className="w-full px-3 py-2 border border-input rounded-md bg-background focus:outline-none focus:ring-2 focus:ring-apearmor-teal"
+                        placeholder="@yourusername"
+                        disabled={isSubmitting}
+                      />
+                    </div>
+                    <div className="space-y-2">
+                      <label htmlFor="xUsername" className="text-sm font-medium">
+                        X (Twitter) Username
+                      </label>
+                      <input
+                        id="xUsername"
+                        name="xUsername"
+                        type="text"
+                        value={formData.xUsername}
+                        onChange={handleChange}
+                        className="w-full px-3 py-2 border border-input rounded-md bg-background focus:outline-none focus:ring-2 focus:ring-apearmor-teal"
+                        placeholder="@yourusername"
+                        disabled={isSubmitting}
+                      />
+                    </div>
+                  </div>
+                  
+                  {socialValidationError && (
+                    <div className="text-destructive text-sm font-medium">
+                      {socialValidationError}
+                    </div>
+                  )}
+                  
                   <div className="space-y-2">
                     <label htmlFor="message" className="text-sm font-medium">
                       Message
