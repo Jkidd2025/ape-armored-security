@@ -1,3 +1,4 @@
+
 import { Twitter, Github, Linkedin, Mail } from "lucide-react";
 
 const Footer = () => {
@@ -64,7 +65,7 @@ const Footer = () => {
               </li>
               <li>
                 <a href="#" className="text-muted-foreground hover:text-apearmor-teal transition-colors">
-                  Blog
+                  Submit a Claim
                 </a>
               </li>
             </ul>
