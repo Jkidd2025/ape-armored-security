@@ -2,6 +2,7 @@
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Wallet } from "lucide-react";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 
 interface UserInfoInputsProps {
   username: string;
@@ -9,17 +10,30 @@ interface UserInfoInputsProps {
   walletAddress: string;
   datePaid: string;
   amountPaid: string;
+  paymentType: string;
   errors: {
     username: string;
     email: string;
     walletAddress: string;
     datePaid: string;
     amountPaid: string;
+    paymentType: string;
   };
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  onSelectChange: (value: string, name: string) => void;
 }
 
-const UserInfoInputs = ({ username, email, walletAddress, datePaid, amountPaid, errors, onChange }: UserInfoInputsProps) => {
+const UserInfoInputs = ({ 
+  username, 
+  email, 
+  walletAddress, 
+  datePaid, 
+  amountPaid, 
+  paymentType,
+  errors, 
+  onChange,
+  onSelectChange 
+}: UserInfoInputsProps) => {
   return (
     <>
       <div className="flex flex-col space-y-2">
@@ -101,6 +115,26 @@ const UserInfoInputs = ({ username, email, walletAddress, datePaid, amountPaid, 
             <p className="text-red-500 text-sm mt-1">{errors.amountPaid}</p>
           )}
         </div>
+      </div>
+
+      <div className="flex flex-col space-y-2">
+        <Label htmlFor="paymentType">Payment Type</Label>
+        <Select 
+          value={paymentType} 
+          onValueChange={(value) => onSelectChange(value, "paymentType")}
+        >
+          <SelectTrigger id="paymentType" className={errors.paymentType ? "border-red-500" : ""}>
+            <SelectValue placeholder="Select payment type" />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="daily">Daily Payment for Service Package</SelectItem>
+            <SelectItem value="setup">Account Set Up Fee</SelectItem>
+            <SelectItem value="registration">Project Registration</SelectItem>
+          </SelectContent>
+        </Select>
+        {errors.paymentType && (
+          <p className="text-red-500 text-sm mt-1">{errors.paymentType}</p>
+        )}
       </div>
     </>
   );

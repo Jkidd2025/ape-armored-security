@@ -12,6 +12,7 @@ interface FormData {
   datePaid: string;
   amountPaid: string;
   signatureHash: string;
+  paymentType: string;
 }
 
 interface FormErrors {
@@ -21,6 +22,7 @@ interface FormErrors {
   datePaid: string;
   amountPaid: string;
   signatureHash: string;
+  paymentType: string;
 }
 
 interface PaymentFormProps {
@@ -28,6 +30,7 @@ interface PaymentFormProps {
   formErrors: FormErrors;
   isSubmitting: boolean;
   handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  handleSelectChange: (value: string, name: string) => void;
   handleSubmit: (e: FormEvent<HTMLFormElement>) => void;
 }
 
@@ -35,7 +38,8 @@ const PaymentForm = ({
   formData, 
   formErrors, 
   isSubmitting, 
-  handleChange, 
+  handleChange,
+  handleSelectChange,
   handleSubmit 
 }: PaymentFormProps) => {
   return (
@@ -46,14 +50,17 @@ const PaymentForm = ({
         walletAddress={formData.walletAddress}
         datePaid={formData.datePaid}
         amountPaid={formData.amountPaid}
+        paymentType={formData.paymentType}
         errors={{
           username: formErrors.username,
           email: formErrors.email,
           walletAddress: formErrors.walletAddress,
           datePaid: formErrors.datePaid,
-          amountPaid: formErrors.amountPaid
+          amountPaid: formErrors.amountPaid,
+          paymentType: formErrors.paymentType
         }}
         onChange={handleChange}
+        onSelectChange={handleSelectChange}
       />
       
       <PaymentMethodSection 

@@ -18,7 +18,8 @@ const Payment = () => {
     walletAddress: "",
     datePaid: "",
     amountPaid: "",
-    signatureHash: ""
+    signatureHash: "",
+    paymentType: ""
   });
   
   const [formErrors, setFormErrors] = useState({
@@ -27,7 +28,8 @@ const Payment = () => {
     walletAddress: "",
     datePaid: "",
     amountPaid: "",
-    signatureHash: ""
+    signatureHash: "",
+    paymentType: ""
   });
   
   useEffect(() => {
@@ -60,6 +62,20 @@ const Payment = () => {
          id === "expiry" ? "datePaid" : 
          id === "amount" ? "amountPaid" :
          id === "signatureHash" ? "signatureHash" : id]: ""
+      }));
+    }
+  };
+  
+  const handleSelectChange = (value: string, name: string) => {
+    setFormData(prev => ({
+      ...prev,
+      [name]: value
+    }));
+    
+    if (formErrors[name as keyof typeof formErrors]) {
+      setFormErrors(prev => ({
+        ...prev,
+        [name]: ""
       }));
     }
   };
@@ -100,6 +116,11 @@ const Payment = () => {
       isValid = false;
     }
     
+    if (!formData.paymentType) {
+      errors.paymentType = "Payment type is required";
+      isValid = false;
+    }
+    
     setFormErrors(errors);
     return isValid;
   };
@@ -127,7 +148,8 @@ const Payment = () => {
           date_paid: formData.datePaid,
           amount_paid: formData.amountPaid,
           signature_hash: formData.signatureHash,
-          email: formData.email
+          email: formData.email,
+          payment_type: formData.paymentType
         });
       
       if (error) throw error;
@@ -170,6 +192,7 @@ const Payment = () => {
               formErrors={formErrors}
               isSubmitting={isSubmitting}
               handleChange={handleChange}
+              handleSelectChange={handleSelectChange}
               handleSubmit={handleSubmit}
             />
           </PaymentFormWrapper>
