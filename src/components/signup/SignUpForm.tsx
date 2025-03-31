@@ -1,12 +1,13 @@
 
 import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
+import { Form, FormField, FormItem, FormControl, FormLabel } from "@/components/ui/form";
 import { Checkbox } from "@/components/ui/checkbox";
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
-import { ChevronLeft, ChevronRight, Loader2 } from "lucide-react";
 import TermsAndConditions from "./TermsAndConditions";
+import PersonalInfoFields from "./PersonalInfoFields";
+import SocialMediaFields from "./SocialMediaFields";
+import WalletAddressField from "./WalletAddressField";
+import FormActions from "./FormActions";
 
 export type FormData = {
   firstName: string;
@@ -65,109 +66,14 @@ const SignUpForm = ({ selectedPackage, onSubmit, onBack, isSubmitting = false }:
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(handleSubmit)} className="space-y-6">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <FormField
-            control={form.control}
-            name="firstName"
-            rules={{ required: "First name is required" }}
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>First Name</FormLabel>
-                <FormControl>
-                  <Input placeholder="Enter your first name" {...field} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <FormField
-            control={form.control}
-            name="lastName"
-            rules={{ required: "Last name is required" }}
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Last Name</FormLabel>
-                <FormControl>
-                  <Input placeholder="Enter your last name" {...field} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-        </div>
-
-        <FormField
+        <PersonalInfoFields control={form.control} />
+        
+        <SocialMediaFields 
           control={form.control}
-          name="email"
-          rules={{ 
-            required: "Email is required",
-            pattern: {
-              value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-              message: "Invalid email address"
-            }
-          }}
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Email</FormLabel>
-              <FormControl>
-                <Input type="email" placeholder="Enter your email" {...field} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
+          socialValidationError={socialValidationError}
         />
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <FormField
-            control={form.control}
-            name="telegramUsername"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Telegram Username</FormLabel>
-                <FormControl>
-                  <Input placeholder="@yourusername" {...field} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          
-          <FormField
-            control={form.control}
-            name="xUsername"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>X (Twitter) Username</FormLabel>
-                <FormControl>
-                  <Input placeholder="@yourusername" {...field} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-        </div>
-
-        {/* Display custom validation error for social usernames */}
-        {socialValidationError && (
-          <div className="text-destructive text-sm font-medium">
-            {socialValidationError}
-          </div>
-        )}
-
-        <FormField
-          control={form.control}
-          name="walletAddress"
-          rules={{ required: "Wallet address is required" }}
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Wallet Address</FormLabel>
-              <FormControl>
-                <Input placeholder="Enter your wallet address" {...field} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
+        <WalletAddressField control={form.control} />
 
         <TermsAndConditions>
           <FormField
@@ -186,42 +92,13 @@ const SignUpForm = ({ selectedPackage, onSubmit, onBack, isSubmitting = false }:
                   <FormLabel>
                     I agree to the terms and conditions
                   </FormLabel>
-                  <FormMessage />
                 </div>
               </FormItem>
             )}
           />
         </TermsAndConditions>
 
-        <div className="flex justify-between pt-4">
-          <Button 
-            type="button" 
-            variant="outline" 
-            className="border-apearmor-gold text-apearmor-gold hover:bg-apearmor-gold/10"
-            onClick={onBack}
-            disabled={isSubmitting}
-          >
-            <ChevronLeft className="mr-2 h-4 w-4" />
-            Back
-          </Button>
-          <Button 
-            type="submit" 
-            className="bg-apearmor-teal hover:bg-apearmor-teal/80 text-black"
-            disabled={isSubmitting}
-          >
-            {isSubmitting ? (
-              <>
-                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                Processing...
-              </>
-            ) : (
-              <>
-                Complete Signup
-                <ChevronRight className="ml-2 h-4 w-4" />
-              </>
-            )}
-          </Button>
-        </div>
+        <FormActions onBack={onBack} isSubmitting={isSubmitting} />
       </form>
     </Form>
   );
