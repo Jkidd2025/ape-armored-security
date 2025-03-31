@@ -47,6 +47,7 @@ export type Database = {
           amount_paid: string
           created_at: string
           date_paid: string
+          email: string
           id: string
           payment_status: string
           payment_type: string | null
@@ -58,6 +59,7 @@ export type Database = {
           amount_paid?: string
           created_at?: string
           date_paid: string
+          email: string
           id?: string
           payment_status?: string
           payment_type?: string | null
@@ -69,6 +71,7 @@ export type Database = {
           amount_paid?: string
           created_at?: string
           date_paid?: string
+          email?: string
           id?: string
           payment_status?: string
           payment_type?: string | null
