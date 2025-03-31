@@ -60,6 +60,15 @@ const APPROVED_PROJECTS = [
     approvalDate: "03/03/2025",
     active: false,
     coverage: "Full"
+  },
+  {
+    id: 7,
+    name: "TCOIN",
+    category: "Token",
+    website: "https://tcoin.finance",
+    approvalDate: "03/15/2025",
+    active: false,
+    coverage: "Full"
   }
 ];
 
