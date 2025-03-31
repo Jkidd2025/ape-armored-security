@@ -1,12 +1,25 @@
 
-import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import { Button } from "@/components/ui/button";
 import { Menu, X } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const navigate = useNavigate();
+
+  const handlePaymentClick = (e: React.MouseEvent) => {
+    e.preventDefault();
+    // Close the menu if it's open
+    if (isMenuOpen) {
+      setIsMenuOpen(false);
+    }
+    // Navigate to payment page
+    navigate('/payment');
+    // Scroll to top
+    window.scrollTo(0, 0);
+  };
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-background/90 backdrop-blur-md border-b border-apearmor-darkbronze">
@@ -31,11 +44,12 @@ const Navbar = () => {
         </nav>
         
         <div className="hidden md:flex items-center">
-          <Link to="/payment">
-            <Button className="bg-apearmor-teal hover:bg-apearmor-teal/80 text-black">
-              Apply Payment
-            </Button>
-          </Link>
+          <Button 
+            className="bg-apearmor-teal hover:bg-apearmor-teal/80 text-black"
+            onClick={handlePaymentClick}
+          >
+            Apply Payment
+          </Button>
         </div>
         
         <Button
@@ -89,11 +103,12 @@ const Navbar = () => {
             Contact
           </a>
           <div className="mt-2">
-            <Link to="/payment" onClick={() => setIsMenuOpen(false)}>
-              <Button className="bg-apearmor-teal hover:bg-apearmor-teal/80 text-black w-full">
-                Apply Payment
-              </Button>
-            </Link>
+            <Button 
+              className="bg-apearmor-teal hover:bg-apearmor-teal/80 text-black w-full"
+              onClick={handlePaymentClick}
+            >
+              Apply Payment
+            </Button>
           </div>
         </nav>
       </div>

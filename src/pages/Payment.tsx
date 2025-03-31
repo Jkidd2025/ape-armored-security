@@ -1,5 +1,4 @@
-
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useToast } from "@/components/ui/use-toast";
 import Navbar from "@/components/Navbar";
@@ -28,6 +27,10 @@ const Payment = () => {
     signatureHash: ""
   });
   
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+  
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { id, value } = e.target;
     setFormData(prev => ({
@@ -39,7 +42,6 @@ const Payment = () => {
        id === "signatureHash" ? "signatureHash" : id]: value
     }));
     
-    // Clear error when user starts typing
     if (formErrors[id === "name" ? "username" : 
         id === "cardNumber" ? "walletAddress" : 
         id === "expiry" ? "datePaid" : 
@@ -60,32 +62,27 @@ const Payment = () => {
     let isValid = true;
     const errors = { ...formErrors };
     
-    // Username validation - should include @
     if (!formData.username.includes('@')) {
       errors.username = "Username must include @ symbol";
       isValid = false;
     }
     
-    // Wallet address validation - should start with 0x
     if (!formData.walletAddress.startsWith('0x')) {
       errors.walletAddress = "Wallet address must start with 0x";
       isValid = false;
     }
     
-    // Date validation - should be in MM/DD/YY format
     const dateRegex = /^(0[1-9]|1[0-2])\/(0[1-9]|[12][0-9]|3[01])\/\d{2}$/;
     if (!dateRegex.test(formData.datePaid)) {
       errors.datePaid = "Date must be in MM/DD/YY format";
       isValid = false;
     }
     
-    // Amount validation - should be a number
     if (isNaN(parseFloat(formData.amountPaid))) {
       errors.amountPaid = "Amount must be a number";
       isValid = false;
     }
     
-    // Signature hash validation - should not be empty
     if (!formData.signatureHash.trim()) {
       errors.signatureHash = "Signature hash is required";
       isValid = false;
@@ -98,7 +95,6 @@ const Payment = () => {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     
-    // Validate form before submitting
     if (!validateForm()) {
       toast({
         title: "Validation Error",
@@ -111,7 +107,6 @@ const Payment = () => {
     setIsSubmitting(true);
     
     try {
-      // Insert payment record into Supabase
       const { error } = await supabase
         .from('payment_records')
         .insert({
@@ -129,7 +124,6 @@ const Payment = () => {
         description: "Thank you for your payment. Your protection plan is now active.",
       });
       
-      // Navigate to the payment confirmation page with payment details
       navigate("/payment-confirmation", { 
         state: { 
           paymentDetails: formData 
