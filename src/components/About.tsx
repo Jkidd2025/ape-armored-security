@@ -23,8 +23,7 @@ const About = () => {
               </div>
               <h3 className="text-xl font-semibold mb-2">Our Mission</h3>
               <p className="text-muted-foreground">
-                To secure the crypto ecosystem and empower users to invest with confidence through 
-                advanced protection tools and education.
+                Our mission is to empower the crypto community—apes, degens, and moon-chasers alike—by providing robust protection against scams, rug pulls, and security threats.
               </p>
             </CardContent>
           </Card>
