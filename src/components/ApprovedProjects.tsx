@@ -13,7 +13,8 @@ const APPROVED_PROJECTS = [
     category: "DeFi",
     website: "https://safeswap.io",
     approvalDate: "04/15/2023",
-    active: true
+    active: true,
+    coverage: "Full"
   },
   {
     id: 2,
@@ -21,7 +22,8 @@ const APPROVED_PROJECTS = [
     category: "Wallet",
     website: "https://cryptoguard.com",
     approvalDate: "06/22/2023",
-    active: true
+    active: true,
+    coverage: "Full"
   },
   {
     id: 3,
@@ -29,7 +31,8 @@ const APPROVED_PROJECTS = [
     category: "NFT",
     website: "https://securenft.market",
     approvalDate: "08/10/2023",
-    active: true
+    active: true,
+    coverage: "Partial"
   },
   {
     id: 4,
@@ -37,7 +40,8 @@ const APPROVED_PROJECTS = [
     category: "Lending",
     website: "https://trustlend.finance",
     approvalDate: "09/17/2023",
-    active: false
+    active: false,
+    coverage: "Expired"
   },
   {
     id: 5,
@@ -45,7 +49,8 @@ const APPROVED_PROJECTS = [
     category: "Staking",
     website: "https://shieldstake.io",
     approvalDate: "11/03/2023",
-    active: true
+    active: true,
+    coverage: "Full"
   }
 ];
 
@@ -88,10 +93,9 @@ const ApprovedProjects = () => {
                 <TableHeader>
                   <TableRow>
                     <TableHead className="w-[50px]">Status</TableHead>
-                    <TableHead>Project</TableHead>
-                    <TableHead>Category</TableHead>
                     <TableHead>Approval Date</TableHead>
-                    <TableHead className="text-right">Active</TableHead>
+                    <TableHead>Project</TableHead>
+                    <TableHead>Coverage Status</TableHead>
                     <TableHead className="text-right">Website</TableHead>
                   </TableRow>
                 </TableHeader>
@@ -100,17 +104,18 @@ const ApprovedProjects = () => {
                     <TableRow key={project.id}>
                       <TableCell>
                         <div className="flex justify-center">
-                          <ShieldCheck className="h-5 w-5 text-apearmor-teal" />
+                          <ShieldCheck className={`h-5 w-5 ${project.active ? 'text-apearmor-teal' : 'text-muted-foreground'}`} />
                         </div>
                       </TableCell>
-                      <TableCell className="font-medium">{project.name}</TableCell>
-                      <TableCell>{project.category}</TableCell>
                       <TableCell>{project.approvalDate}</TableCell>
-                      <TableCell className="text-right">
+                      <TableCell className="font-medium">{project.name}</TableCell>
+                      <TableCell>
                         <span className={`px-2 py-1 rounded text-xs font-medium ${
-                          project.active ? 'bg-green-900/20 text-green-400' : 'bg-red-900/20 text-red-400'
+                          project.coverage === 'Full' ? 'bg-green-900/20 text-green-400' : 
+                          project.coverage === 'Partial' ? 'bg-yellow-900/20 text-yellow-400' : 
+                          'bg-red-900/20 text-red-400'
                         }`}>
-                          {project.active ? 'Yes' : 'No'}
+                          {project.coverage}
                         </span>
                       </TableCell>
                       <TableCell className="text-right">
