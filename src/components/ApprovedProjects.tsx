@@ -50,7 +50,7 @@ const ApprovedProjects = () => {
         <div className="flex flex-col items-center text-center mb-12">
           <h2 className="text-3xl md:text-4xl font-bold text-gradient-gold mb-4">ApeArmor Approved</h2>
           <p className="text-lg text-muted-foreground max-w-3xl">
-            Projects that have passed our rigorous security audits and received the ApeArmor seal of approval
+            Projects that have passed our rigorous screening to receive the ApeArmor seal of approval
           </p>
           <Separator className="w-20 h-1 bg-apearmor-teal my-6" />
         </div>
