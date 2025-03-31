@@ -41,6 +41,17 @@ const SignUp = () => {
     setIsSubmitting(true);
     console.log("Form submitted:", data);
 
+    // At least one of telegramUsername or xUsername should be provided
+    if (!data.telegramUsername && !data.xUsername) {
+      toast({
+        title: "Validation Error",
+        description: "At least one social media username (Telegram or X) is required.",
+        variant: "destructive"
+      });
+      setIsSubmitting(false);
+      return;
+    }
+
     try {
       // Store the registration data in Supabase
       const { error } = await supabase
@@ -50,8 +61,8 @@ const SignUp = () => {
             first_name: data.firstName,
             last_name: data.lastName,
             email: data.email,
-            telegram_username: data.telegramUsername,
-            x_username: data.xUsername,
+            telegram_username: data.telegramUsername || null, // Allow null
+            x_username: data.xUsername || null, // Allow null
             wallet_address: data.walletAddress,
             package_type: data.packageType
           }

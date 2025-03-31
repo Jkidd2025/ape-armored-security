@@ -1,8 +1,7 @@
 
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { Button } from "@/components/ui/button";
-import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
@@ -28,6 +27,8 @@ type SignUpFormProps = {
 };
 
 const SignUpForm = ({ selectedPackage, onSubmit, onBack, isSubmitting = false }: SignUpFormProps) => {
+  const [socialValidationError, setSocialValidationError] = useState<string | null>(null);
+
   const form = useForm<FormData>({
     defaultValues: {
       firstName: "",
@@ -47,9 +48,23 @@ const SignUpForm = ({ selectedPackage, onSubmit, onBack, isSubmitting = false }:
     }
   }, [selectedPackage, form]);
 
+  const handleSubmit = (data: FormData) => {
+    // Check if at least one social username is provided
+    if (!data.telegramUsername && !data.xUsername) {
+      setSocialValidationError("At least one username (Telegram or X) is required");
+      return;
+    }
+    
+    // Clear validation error if it exists
+    setSocialValidationError(null);
+    
+    // Continue with form submission
+    onSubmit(data);
+  };
+
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+      <form onSubmit={form.handleSubmit(handleSubmit)} className="space-y-6">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <FormField
             control={form.control}
@@ -106,7 +121,6 @@ const SignUpForm = ({ selectedPackage, onSubmit, onBack, isSubmitting = false }:
           <FormField
             control={form.control}
             name="telegramUsername"
-            rules={{ required: "Telegram username is required" }}
             render={({ field }) => (
               <FormItem>
                 <FormLabel>Telegram Username</FormLabel>
@@ -121,7 +135,6 @@ const SignUpForm = ({ selectedPackage, onSubmit, onBack, isSubmitting = false }:
           <FormField
             control={form.control}
             name="xUsername"
-            rules={{ required: "X (Twitter) username is required" }}
             render={({ field }) => (
               <FormItem>
                 <FormLabel>X (Twitter) Username</FormLabel>
@@ -133,6 +146,13 @@ const SignUpForm = ({ selectedPackage, onSubmit, onBack, isSubmitting = false }:
             )}
           />
         </div>
+
+        {/* Display custom validation error for social usernames */}
+        {socialValidationError && (
+          <div className="text-destructive text-sm font-medium">
+            {socialValidationError}
+          </div>
+        )}
 
         <FormField
           control={form.control}
