@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { useToast } from "@/components/ui/use-toast";
+import { supabase } from "@/integrations/supabase/client";
 
 const Contact = () => {
   const { toast } = useToast();
@@ -13,6 +14,7 @@ const Contact = () => {
     email: "",
     message: ""
   });
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
@@ -22,24 +24,56 @@ const Contact = () => {
     }));
   };
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setIsSubmitting(true);
     
-    // Here you would typically send the form data to your API
-    console.log("Form submitted:", formData);
-    
-    // Show success message
-    toast({
-      title: "Message Sent",
-      description: "Thanks for reaching out! We'll get back to you soon.",
-    });
-    
-    // Reset form
-    setFormData({
-      name: "",
-      email: "",
-      message: ""
-    });
+    try {
+      // Save to Supabase
+      const { data, error } = await supabase
+        .from('contact_submissions')
+        .insert([
+          { 
+            name: formData.name,
+            email: formData.email,
+            message: formData.message
+          }
+        ]);
+      
+      if (error) {
+        console.error("Error saving contact submission:", error);
+        toast({
+          title: "Error",
+          description: "There was a problem submitting your message. Please try again.",
+          variant: "destructive",
+        });
+        return;
+      }
+      
+      console.log("Form submitted to Supabase:", data);
+      
+      // Show success message
+      toast({
+        title: "Message Sent",
+        description: "Thanks for reaching out! We'll get back to you soon.",
+      });
+      
+      // Reset form
+      setFormData({
+        name: "",
+        email: "",
+        message: ""
+      });
+    } catch (err) {
+      console.error("Exception when submitting form:", err);
+      toast({
+        title: "Error",
+        description: "An unexpected error occurred. Please try again later.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -72,6 +106,7 @@ const Contact = () => {
                         required
                         className="w-full px-3 py-2 border border-input rounded-md bg-background focus:outline-none focus:ring-2 focus:ring-apearmor-teal"
                         placeholder="Your name"
+                        disabled={isSubmitting}
                       />
                     </div>
                     <div className="space-y-2">
@@ -87,6 +122,7 @@ const Contact = () => {
                         required
                         className="w-full px-3 py-2 border border-input rounded-md bg-background focus:outline-none focus:ring-2 focus:ring-apearmor-teal"
                         placeholder="Your email"
+                        disabled={isSubmitting}
                       />
                     </div>
                   </div>
@@ -103,11 +139,16 @@ const Contact = () => {
                       rows={5}
                       className="w-full px-3 py-2 border border-input rounded-md bg-background focus:outline-none focus:ring-2 focus:ring-apearmor-teal resize-none"
                       placeholder="How can we help you?"
+                      disabled={isSubmitting}
                     />
                   </div>
-                  <Button type="submit" className="w-full bg-apearmor-teal hover:bg-apearmor-teal/80 text-black">
+                  <Button 
+                    type="submit" 
+                    className="w-full bg-apearmor-teal hover:bg-apearmor-teal/80 text-black"
+                    disabled={isSubmitting}
+                  >
                     <MessageSquare className="mr-2 h-4 w-4" />
-                    Send Message
+                    {isSubmitting ? "Sending..." : "Send Message"}
                   </Button>
                 </form>
               </CardContent>
