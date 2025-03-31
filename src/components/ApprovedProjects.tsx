@@ -128,7 +128,7 @@ const ApprovedProjects = () => {
         
         <div className="mt-10 text-center">
           <p className="text-muted-foreground">
-            Want your project to get ApeArmor approved? <a href="#contact" className="text-apearmor-teal hover:underline">Contact us</a> to schedule an audit.
+            Want your project to get ApeArmor approved? <a href="#contact" className="text-apearmor-teal hover:underline">Contact us</a> to schedule a project review.
           </p>
         </div>
       </div>
