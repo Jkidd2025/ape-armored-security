@@ -49,6 +49,7 @@ export type Database = {
           date_paid: string
           id: string
           payment_status: string
+          payment_type: string | null
           signature_hash: string
           username: string
           wallet_address: string
@@ -59,6 +60,7 @@ export type Database = {
           date_paid: string
           id?: string
           payment_status?: string
+          payment_type?: string | null
           signature_hash: string
           username: string
           wallet_address: string
@@ -69,6 +71,7 @@ export type Database = {
           date_paid?: string
           id?: string
           payment_status?: string
+          payment_type?: string | null
           signature_hash?: string
           username?: string
           wallet_address?: string
