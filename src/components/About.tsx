@@ -10,7 +10,7 @@ const About = () => {
         <div className="flex flex-col items-center text-center mb-12">
           <h2 className="text-3xl md:text-4xl font-bold text-gradient-gold mb-4">About ApeArmor</h2>
           <p className="text-lg text-muted-foreground max-w-3xl">
-            Protecting your crypto investments with industry-leading security solutions
+            Protecting your crypto communities with industry-leading solutions
           </p>
           <Separator className="w-20 h-1 bg-apearmor-teal my-6" />
         </div>
