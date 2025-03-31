@@ -5,7 +5,7 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import { Separator } from "@/components/ui/separator";
 import { Card, CardContent } from "@/components/ui/card";
 
-// Sample data for approved projects - only BTM Relaunch and TCOIN
+// Sample data for approved projects - BTM Relaunch, TCOIN, and Ape Armor
 const APPROVED_PROJECTS = [
   {
     id: 1,
@@ -23,6 +23,15 @@ const APPROVED_PROJECTS = [
     website: "https://tcoin.finance",
     approvalDate: "03/15/2025",
     active: false,
+    coverage: "Full"
+  },
+  {
+    id: 3,
+    name: "Ape Armor",
+    category: "Security",
+    website: "https://apearmor.com",
+    approvalDate: "03/30/2025",
+    active: true,
     coverage: "Full"
   }
 ];
