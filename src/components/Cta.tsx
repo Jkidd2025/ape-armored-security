@@ -33,7 +33,7 @@ const Cta = () => {
               </h2>
               
               <p className="text-lg text-muted-foreground mb-6">
-                Join thousands of protected traders and investors who ape in with confidence, knowing ApeArmor has their back against crypto scams and threats.
+                Join thousands of protected customers who ape in with confidence, knowing ApeArmor has their back against crypto scams and threats.
               </p>
               
               <ul className="space-y-2 mb-8">
