@@ -49,7 +49,7 @@ const About = () => {
               </div>
               <h3 className="text-xl font-semibold mb-2">Our Story</h3>
               <p className="text-muted-foreground">
-                Founded in 2023 after recognizing the need for better protection against scams and 
+                Founded in 2025 after recognizing the need for better protection against scams and 
                 rug pulls in the crypto space, we've been dedicated to safeguarding the community ever since.
               </p>
             </CardContent>
