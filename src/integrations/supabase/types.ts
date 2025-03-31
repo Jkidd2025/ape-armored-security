@@ -83,9 +83,9 @@ export type Database = {
           id: string
           last_name: string
           package_type: string
-          telegram_username: string
+          telegram_username: string | null
           wallet_address: string
-          x_username: string
+          x_username: string | null
         }
         Insert: {
           created_at?: string
@@ -94,9 +94,9 @@ export type Database = {
           id?: string
           last_name: string
           package_type: string
-          telegram_username: string
+          telegram_username?: string | null
           wallet_address: string
-          x_username: string
+          x_username?: string | null
         }
         Update: {
           created_at?: string
@@ -105,9 +105,9 @@ export type Database = {
           id?: string
           last_name?: string
           package_type?: string
-          telegram_username?: string
+          telegram_username?: string | null
           wallet_address?: string
-          x_username?: string
+          x_username?: string | null
         }
         Relationships: []
       }
