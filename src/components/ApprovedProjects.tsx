@@ -13,7 +13,7 @@ const APPROVED_PROJECTS = [
     category: "DeFi",
     website: "https://safeswap.io",
     approvalDate: "04/15/2023",
-    auditScore: 98
+    active: true
   },
   {
     id: 2,
@@ -21,7 +21,7 @@ const APPROVED_PROJECTS = [
     category: "Wallet",
     website: "https://cryptoguard.com",
     approvalDate: "06/22/2023",
-    auditScore: 96
+    active: true
   },
   {
     id: 3,
@@ -29,7 +29,7 @@ const APPROVED_PROJECTS = [
     category: "NFT",
     website: "https://securenft.market",
     approvalDate: "08/10/2023",
-    auditScore: 94
+    active: true
   },
   {
     id: 4,
@@ -37,7 +37,7 @@ const APPROVED_PROJECTS = [
     category: "Lending",
     website: "https://trustlend.finance",
     approvalDate: "09/17/2023",
-    auditScore: 92
+    active: false
   },
   {
     id: 5,
@@ -45,7 +45,7 @@ const APPROVED_PROJECTS = [
     category: "Staking",
     website: "https://shieldstake.io",
     approvalDate: "11/03/2023",
-    auditScore: 95
+    active: true
   }
 ];
 
@@ -91,7 +91,7 @@ const ApprovedProjects = () => {
                     <TableHead>Project</TableHead>
                     <TableHead>Category</TableHead>
                     <TableHead>Approval Date</TableHead>
-                    <TableHead className="text-right">Audit Score</TableHead>
+                    <TableHead className="text-right">Active</TableHead>
                     <TableHead className="text-right">Website</TableHead>
                   </TableRow>
                 </TableHeader>
@@ -108,11 +108,9 @@ const ApprovedProjects = () => {
                       <TableCell>{project.approvalDate}</TableCell>
                       <TableCell className="text-right">
                         <span className={`px-2 py-1 rounded text-xs font-medium ${
-                          project.auditScore >= 95 ? 'bg-green-900/20 text-green-400' : 
-                          project.auditScore >= 90 ? 'bg-blue-900/20 text-blue-400' : 
-                          'bg-yellow-900/20 text-yellow-400'
+                          project.active ? 'bg-green-900/20 text-green-400' : 'bg-red-900/20 text-red-400'
                         }`}>
-                          {project.auditScore}/100
+                          {project.active ? 'Yes' : 'No'}
                         </span>
                       </TableCell>
                       <TableCell className="text-right">
