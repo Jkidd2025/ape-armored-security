@@ -92,7 +92,7 @@ const ApprovedProjects = () => {
               <Table>
                 <TableHeader>
                   <TableRow>
-                    <TableHead className="w-[50px]">Status</TableHead>
+                    <TableHead className="w-[100px]">Status</TableHead>
                     <TableHead>Approval Date</TableHead>
                     <TableHead>Project</TableHead>
                     <TableHead>Coverage Status</TableHead>
@@ -103,9 +103,11 @@ const ApprovedProjects = () => {
                   {filteredProjects.map((project) => (
                     <TableRow key={project.id}>
                       <TableCell>
-                        <div className="flex justify-center">
-                          <ShieldCheck className={`h-5 w-5 ${project.active ? 'text-apearmor-teal' : 'text-muted-foreground'}`} />
-                        </div>
+                        <span className={`px-2 py-1 rounded text-xs font-medium ${
+                          project.active ? 'bg-green-900/20 text-green-400' : 'bg-gray-900/20 text-gray-400'
+                        }`}>
+                          {project.active ? 'Active' : 'Paid Closed'}
+                        </span>
                       </TableCell>
                       <TableCell>{project.approvalDate}</TableCell>
                       <TableCell className="font-medium">{project.name}</TableCell>
