@@ -87,7 +87,7 @@ const Whitepaper = () => {
             <Separator className="my-8" />
             
             <section>
-              <h2 className="text-2xl font-bold mb-4 text-apearmor-teal">4. Technology & Implementation</h2>
+              <h2 className="text-2xl font-bold mb-4 text-apearmor-teal">4. Services & Implementation</h2>
               <p className="mb-4">
                 ApeArmor leverages advanced blockchain monitoring and analysis technologies to detect potential scams and malicious activities.
               </p>
