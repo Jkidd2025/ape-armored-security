@@ -1,5 +1,4 @@
-
-import { Twitter, Github, Linkedin, Mail } from "lucide-react";
+import { X, Github, PaperPlane, Mail } from "lucide-react";
 import { Link } from "react-router-dom";
 
 const Footer = () => {
@@ -23,16 +22,16 @@ const Footer = () => {
             
             <div className="flex space-x-4">
               <a href="#" className="text-muted-foreground hover:text-apearmor-teal transition-colors">
-                <Twitter className="h-5 w-5" />
-                <span className="sr-only">Twitter</span>
+                <X className="h-5 w-5" />
+                <span className="sr-only">X</span>
               </a>
               <a href="#" className="text-muted-foreground hover:text-apearmor-teal transition-colors">
                 <Github className="h-5 w-5" />
                 <span className="sr-only">GitHub</span>
               </a>
               <a href="#" className="text-muted-foreground hover:text-apearmor-teal transition-colors">
-                <Linkedin className="h-5 w-5" />
-                <span className="sr-only">LinkedIn</span>
+                <PaperPlane className="h-5 w-5" />
+                <span className="sr-only">Telegram</span>
               </a>
               <a href="#" className="text-muted-foreground hover:text-apearmor-teal transition-colors">
                 <Mail className="h-5 w-5" />
