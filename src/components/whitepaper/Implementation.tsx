@@ -4,7 +4,7 @@ const Implementation = () => {
     <section>
       <h2 className="text-2xl font-bold mb-4 text-apearmor-teal">4. Services & Implementation</h2>
       <p className="mb-4">
-        ApeArmor leverages advanced blockchain monitoring and analysis technologies to detect potential scams and malicious activities.
+        ApeArmor leverages advanced blockchain technologies to detect potential scams and malicious activities.
       </p>
       
       <h3 className="text-xl font-semibold mt-6 mb-3">4.1 Scam Detection Systems</h3>
