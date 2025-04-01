@@ -23,7 +23,7 @@ const PaymentMethodSection = ({ signatureHash, error, onChange }: PaymentMethodS
           <div className="relative">
             <Input 
               id="paymentAddress" 
-              value="0x71C7656EC7ab88b098defB751B7401B5f6d8976F"
+              value="8TB3LJBmYjopMDR2pu3pNSNhHPL5eC6GDpAtRuwdvNhs"
               readOnly
               className="pl-10 bg-gray-50"
             />
