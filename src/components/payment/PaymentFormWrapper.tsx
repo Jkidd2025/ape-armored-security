@@ -13,7 +13,7 @@ const PaymentFormWrapper = ({ children }: PaymentFormWrapperProps) => {
         <CardTitle>Payment Details</CardTitle>
         <CardDescription>Complete the fields to apply payment towards your account</CardDescription>
       </CardHeader>
-      <CardContent>
+      <CardContent className="overflow-visible">
         {children}
       </CardContent>
       <CardFooter className="flex justify-center text-sm text-muted-foreground">

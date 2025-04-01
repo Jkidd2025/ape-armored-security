@@ -30,7 +30,8 @@ const Payment = () => {
   } = usePaymentForm();
   
   useEffect(() => {
-    window.scrollTo(0, 0);
+    // Don't forcefully scroll to top since it might be causing issues
+    // Let the browser handle scrolling naturally
     
     // Pre-populate form fields if userDetails are available
     if (userDetails) {
@@ -46,27 +47,30 @@ const Payment = () => {
   }, [userDetails, setFormData]);
   
   return (
-    <div className="min-h-screen flex flex-col bg-background text-foreground">
+    <div className="min-h-screen flex flex-col bg-background">
       <Navbar />
-      <main className="flex-1 pt-16 overflow-y-auto">
-        <div className="container max-w-4xl px-4 py-12 mb-16">
-          <PaymentHeader 
-            title="Complete Your Payment" 
-            subtitle="Enter your payment details to activate your protection plan" 
-          />
-          
-          <SubmitPaymentForm
-            formData={formData}
-            formErrors={formErrors}
-            isSubmitting={isSubmitting}
-            setIsSubmitting={setIsSubmitting}
-            handleChange={handleChange}
-            handleSelectChange={handleSelectChange}
-            validateForm={validateForm}
-          />
-        </div>
-      </main>
-      <Footer />
+      {/* Using flex with overflow-y-auto to enable natural scrolling */}
+      <div className="flex-1 flex flex-col overflow-y-auto">
+        <main className="flex-1 pt-16">
+          <div className="container max-w-4xl px-4 py-12 mb-16">
+            <PaymentHeader 
+              title="Complete Your Payment" 
+              subtitle="Enter your payment details to activate your protection plan" 
+            />
+            
+            <SubmitPaymentForm
+              formData={formData}
+              formErrors={formErrors}
+              isSubmitting={isSubmitting}
+              setIsSubmitting={setIsSubmitting}
+              handleChange={handleChange}
+              handleSelectChange={handleSelectChange}
+              validateForm={validateForm}
+            />
+          </div>
+        </main>
+        <Footer />
+      </div>
     </div>
   );
 };
