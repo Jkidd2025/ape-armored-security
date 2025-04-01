@@ -1,9 +1,8 @@
 
 import { FormEvent } from "react";
-import UserInfoInputs from "./UserInfoInputs";
-import PaymentMethodSection from "./PaymentMethodSection";
-import DisclaimerBox from "./DisclaimerBox";
-import PaymentSubmitButton from "./PaymentSubmitButton";
+import UserSection from "./form/UserSection";
+import PaymentSection from "./form/PaymentSection";
+import FormFooter from "./form/FormFooter";
 
 interface FormData {
   username: string;
@@ -44,7 +43,7 @@ const PaymentForm = ({
 }: PaymentFormProps) => {
   return (
     <form onSubmit={handleSubmit} className="space-y-6">
-      <UserInfoInputs 
+      <UserSection 
         username={formData.username}
         email={formData.email}
         walletAddress={formData.walletAddress}
@@ -63,15 +62,13 @@ const PaymentForm = ({
         onSelectChange={handleSelectChange}
       />
       
-      <PaymentMethodSection 
+      <PaymentSection 
         signatureHash={formData.signatureHash}
         error={formErrors.signatureHash}
         onChange={handleChange}
       />
       
-      <DisclaimerBox />
-      
-      <PaymentSubmitButton isSubmitting={isSubmitting} />
+      <FormFooter isSubmitting={isSubmitting} />
     </form>
   );
 };
