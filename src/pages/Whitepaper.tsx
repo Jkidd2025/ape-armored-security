@@ -8,6 +8,7 @@ import ApeArmorSolution from "@/components/whitepaper/ApeArmorSolution";
 import Implementation from "@/components/whitepaper/Implementation";
 import Tokenomics from "@/components/whitepaper/Tokenomics";
 import Roadmap from "@/components/whitepaper/Roadmap";
+import DaoInitiative from "@/components/whitepaper/DaoInitiative";
 import Conclusion from "@/components/whitepaper/Conclusion";
 import SectionSeparator from "@/components/whitepaper/SectionSeparator";
 import WhitepaperQuote from "@/components/whitepaper/WhitepaperQuote";
@@ -42,6 +43,10 @@ const Whitepaper = () => {
             <SectionSeparator />
             
             <Roadmap />
+            
+            <SectionSeparator />
+            
+            <DaoInitiative />
             
             <SectionSeparator />
             

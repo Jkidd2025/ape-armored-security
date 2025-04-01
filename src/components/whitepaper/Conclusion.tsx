@@ -2,7 +2,7 @@
 const Conclusion = () => {
   return (
     <section>
-      <h2 className="text-2xl font-bold mb-4 text-apearmor-teal">7. Conclusion</h2>
+      <h2 className="text-2xl font-bold mb-4 text-apearmor-teal">8. Conclusion</h2>
       <p className="mb-4">
         ApeArmor represents a significant step forward in addressing the security challenges that have hampered the growth and adoption of cryptocurrencies. By providing robust protection against scams, rug pulls, and other malicious activities, we empower investors to participate in the crypto market with confidence.
       </p>
