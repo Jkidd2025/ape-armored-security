@@ -10,7 +10,7 @@ const testimonials = [
   },
   {
     quote: "I was involved in both BTM relaunch and TCOIN. I believed in the projects, and wanted to see them send. I knew my choice was right with Ape Armor because both projects were covered and my initial investment was refunded.",
-    author: "Crypto Ducky",
+    author: "Crypto Duck",
     title: "Entrapernuer",
     stars: 5
   },
