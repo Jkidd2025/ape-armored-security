@@ -37,9 +37,9 @@ const UserInfoInputs = ({
   return (
     <>
       <div className="flex flex-col space-y-2">
-        <Label htmlFor="name">Telegram Username or X Username</Label>
+        <Label htmlFor="username">Telegram Username or X Username</Label>
         <Input 
-          id="name" 
+          id="username" 
           placeholder="Enter your username (e.g., @username)" 
           required 
           value={username}
@@ -68,11 +68,11 @@ const UserInfoInputs = ({
       </div>
       
       <div className="flex flex-col space-y-2">
-        <Label htmlFor="cardNumber">Payment From Wallet Address</Label>
+        <Label htmlFor="walletAddress">Payment From Wallet Address</Label>
         <div className="relative">
           <Input 
-            id="cardNumber" 
-            placeholder="1234 5678 9012 3456" 
+            id="walletAddress" 
+            placeholder="Enter your wallet address" 
             required 
             className={`pl-10 ${errors.walletAddress ? "border-red-500" : ""}`}
             value={walletAddress}
@@ -87,9 +87,9 @@ const UserInfoInputs = ({
       
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div className="flex flex-col space-y-2">
-          <Label htmlFor="expiry">Date Paid</Label>
+          <Label htmlFor="datePaid">Date Paid</Label>
           <Input 
-            id="expiry" 
+            id="datePaid" 
             placeholder="MM/DD/YY" 
             required 
             value={datePaid}
@@ -102,9 +102,9 @@ const UserInfoInputs = ({
         </div>
         
         <div className="flex flex-col space-y-2">
-          <Label htmlFor="amount">Amount Paid</Label>
+          <Label htmlFor="amountPaid">Amount Paid</Label>
           <Input 
-            id="amount" 
+            id="amountPaid" 
             placeholder="Enter amount in USDC" 
             required 
             value={amountPaid}
