@@ -22,7 +22,6 @@ interface FormErrors {
 }
 
 export const usePaymentForm = () => {
-  const [isSubmitting, setIsSubmitting] = useState(false);
   const [formData, setFormData] = useState<FormData>({
     username: "",
     email: "",
@@ -30,9 +29,9 @@ export const usePaymentForm = () => {
     datePaid: "",
     amountPaid: "",
     signatureHash: "",
-    paymentType: ""
+    paymentType: "",
   });
-  
+
   const [formErrors, setFormErrors] = useState<FormErrors>({
     username: "",
     email: "",
@@ -40,96 +39,91 @@ export const usePaymentForm = () => {
     datePaid: "",
     amountPaid: "",
     signatureHash: "",
-    paymentType: ""
+    paymentType: "",
   });
-  
+
+  const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { id, value } = e.target;
-    setFormData(prev => ({
-      ...prev,
-      [id === "name" ? "username" : 
-       id === "email" ? "email" :
-       id === "cardNumber" ? "walletAddress" : 
-       id === "expiry" ? "datePaid" : 
-       id === "amount" ? "amountPaid" :
-       id === "signatureHash" ? "signatureHash" : id]: value
-    }));
-    
-    if (formErrors[id === "name" ? "username" : 
-        id === "email" ? "email" :
-        id === "cardNumber" ? "walletAddress" : 
-        id === "expiry" ? "datePaid" : 
-        id === "amount" ? "amountPaid" :
-        id === "signatureHash" ? "signatureHash" : id as keyof typeof formErrors]) {
-      setFormErrors(prev => ({
-        ...prev,
-        [id === "name" ? "username" : 
-         id === "email" ? "email" :
-         id === "cardNumber" ? "walletAddress" : 
-         id === "expiry" ? "datePaid" : 
-         id === "amount" ? "amountPaid" :
-         id === "signatureHash" ? "signatureHash" : id]: ""
-      }));
-    }
+    setFormData((prev) => ({ ...prev, [id]: value }));
+    // Clear error when field is edited
+    setFormErrors((prev) => ({ ...prev, [id]: "" }));
   };
-  
+
   const handleSelectChange = (value: string, name: string) => {
-    setFormData(prev => ({
-      ...prev,
-      [name]: value
-    }));
-    
-    if (formErrors[name as keyof typeof formErrors]) {
-      setFormErrors(prev => ({
-        ...prev,
-        [name]: ""
-      }));
-    }
+    setFormData((prev) => ({ ...prev, [name]: value }));
+    // Clear error when field is edited
+    setFormErrors((prev) => ({ ...prev, [name]: "" }));
   };
-  
-  const validateForm = () => {
+
+  const validateForm = (): boolean => {
+    const newErrors: FormErrors = {
+      username: "",
+      email: "",
+      walletAddress: "",
+      datePaid: "",
+      amountPaid: "",
+      signatureHash: "",
+      paymentType: "",
+    };
     let isValid = true;
-    const errors = { ...formErrors };
-    
-    if (!formData.username.includes('@')) {
-      errors.username = "Username must include @ symbol";
+
+    // Username validation
+    if (!formData.username) {
+      newErrors.username = "Username is required";
       isValid = false;
     }
-    
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(formData.email)) {
-      errors.email = "Please enter a valid email address";
+
+    // Email validation
+    if (!formData.email) {
+      newErrors.email = "Email is required";
+      isValid = false;
+    } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
+      newErrors.email = "Email is invalid";
       isValid = false;
     }
-    
-    // Updated validation for Solana wallet address
-    if (!formData.walletAddress || formData.walletAddress.length < 32) {
-      errors.walletAddress = "Please enter a valid Solana wallet address";
+
+    // Wallet address validation
+    if (!formData.walletAddress) {
+      newErrors.walletAddress = "Wallet address is required";
+      isValid = false;
+    } else if (formData.walletAddress.length < 32) {
+      newErrors.walletAddress = "Wallet address should be at least 32 characters";
       isValid = false;
     }
-    
-    const dateRegex = /^(0[1-9]|1[0-2])\/(0[1-9]|[12][0-9]|3[01])\/\d{2}$/;
-    if (!dateRegex.test(formData.datePaid)) {
-      errors.datePaid = "Date must be in MM/DD/YY format";
+
+    // Date paid validation
+    if (!formData.datePaid) {
+      newErrors.datePaid = "Date paid is required";
       isValid = false;
     }
-    
-    if (isNaN(parseFloat(formData.amountPaid))) {
-      errors.amountPaid = "Amount must be a number";
+
+    // Amount paid validation
+    if (!formData.amountPaid) {
+      newErrors.amountPaid = "Amount paid is required";
+      isValid = false;
+    } else if (isNaN(Number(formData.amountPaid)) || Number(formData.amountPaid) <= 0) {
+      newErrors.amountPaid = "Amount paid must be a positive number";
       isValid = false;
     }
-    
-    if (!formData.signatureHash.trim()) {
-      errors.signatureHash = "Signature hash is required";
+
+    // Signature hash validation
+    if (!formData.signatureHash) {
+      newErrors.signatureHash = "Signature hash is required";
+      isValid = false;
+    } else if (formData.signatureHash.length < 32) {
+      newErrors.signatureHash = "Signature hash should be at least 32 characters";
       isValid = false;
     }
-    
+
+    // Payment type validation
     if (!formData.paymentType) {
-      errors.paymentType = "Payment type is required";
+      newErrors.paymentType = "Payment type is required";
       isValid = false;
     }
-    
-    setFormErrors(errors);
+
+    setFormErrors(newErrors);
     return isValid;
   };
 
@@ -138,8 +132,9 @@ export const usePaymentForm = () => {
     formErrors,
     isSubmitting,
     setIsSubmitting,
+    setFormData,
     handleChange,
     handleSelectChange,
-    validateForm
+    validateForm,
   };
 };

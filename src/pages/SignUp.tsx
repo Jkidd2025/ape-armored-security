@@ -78,10 +78,19 @@ const SignUp = () => {
       } else {
         toast({
           title: "Sign-up successful!",
-          description: `You have successfully signed up for the ${data.packageType} package.`,
+          description: `You have successfully signed up for the ${data.packageType} package. Please complete your payment to activate your protection plan.`,
         });
-        // Redirect to home after successful sign-up
-        navigate("/");
+        // Redirect to payment page after successful sign-up
+        navigate("/payment", { 
+          state: { 
+            userDetails: {
+              name: `${data.firstName} ${data.lastName}`,
+              email: data.email, 
+              walletAddress: data.walletAddress,
+              packageType: data.packageType
+            } 
+          } 
+        });
       }
     } catch (error) {
       console.error("Error submitting form:", error);
