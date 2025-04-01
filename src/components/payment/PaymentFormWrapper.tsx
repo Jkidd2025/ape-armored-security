@@ -8,7 +8,7 @@ interface PaymentFormWrapperProps {
 
 const PaymentFormWrapper = ({ children }: PaymentFormWrapperProps) => {
   return (
-    <Card className="mx-auto max-w-2xl">
+    <Card className="mx-auto max-w-2xl overflow-visible">
       <CardHeader>
         <CardTitle>Payment Details</CardTitle>
         <CardDescription>Complete the fields to apply payment towards your account</CardDescription>
