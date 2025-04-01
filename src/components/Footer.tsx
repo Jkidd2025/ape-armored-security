@@ -1,3 +1,4 @@
+
 import { X, Github, Send } from "lucide-react";
 import { Link } from "react-router-dom";
 
@@ -76,9 +77,9 @@ const Footer = () => {
                 </Link>
               </li>
               <li>
-                <a href="#" className="text-muted-foreground hover:text-apearmor-teal transition-colors">
+                <Link to="/privacy-policy" className="text-muted-foreground hover:text-apearmor-teal transition-colors">
                   Privacy Policy
-                </a>
+                </Link>
               </li>
               <li>
                 <a href="#" className="text-muted-foreground hover:text-apearmor-teal transition-colors">

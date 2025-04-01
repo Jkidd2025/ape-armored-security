@@ -10,6 +10,7 @@ import Payment from "./pages/Payment";
 import PaymentConfirmation from "./pages/PaymentConfirmation";
 import TermsOfService from "./pages/TermsOfService";
 import Whitepaper from "./pages/Whitepaper";
+import PrivacyPolicy from "./pages/PrivacyPolicy";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -27,6 +28,7 @@ const App = () => (
           <Route path="/payment-confirmation" element={<PaymentConfirmation />} />
           <Route path="/terms-of-service" element={<TermsOfService />} />
           <Route path="/whitepaper" element={<Whitepaper />} />
+          <Route path="/privacy-policy" element={<PrivacyPolicy />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
