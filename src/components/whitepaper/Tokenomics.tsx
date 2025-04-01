@@ -272,7 +272,7 @@ const Tokenomics = () => {
               <td className="border px-4 py-2">50,000</td>
             </tr>
             <tr>
-              <td className="border px-4 py-2" colSpan={8} className="text-center">...</td>
+              <td className="border px-4 py-2" colSpan={8}>...</td>
             </tr>
             <tr>
               <td className="border px-4 py-2">20</td>
