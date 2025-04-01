@@ -10,7 +10,7 @@ const Contact = () => {
         <div className="flex flex-col items-center text-center mb-12">
           <h2 className="text-3xl md:text-4xl font-bold text-gradient-gold mb-4">Contact Us</h2>
           <p className="text-lg text-muted-foreground max-w-3xl">
-            Have questions or need assistance? We're here to help!
+            Have questions or need assistance? Select a contact reason below and we'll get back to you shortly.
           </p>
           <Separator className="w-20 h-1 bg-apearmor-teal my-6" />
         </div>

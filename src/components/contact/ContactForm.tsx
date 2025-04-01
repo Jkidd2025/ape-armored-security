@@ -7,7 +7,7 @@ import { useToast } from "@/components/ui/use-toast";
 import { supabase } from "@/integrations/supabase/client";
 import ContactInfoFields from "./ContactInfoFields";
 import SocialMediaFields from "./SocialMediaFields";
-import MessageField from "./MessageField";
+import ReasonField from "./ReasonField";
 import { ContactFormData } from "./ContactFormTypes";
 
 const ContactForm = () => {
@@ -17,7 +17,7 @@ const ContactForm = () => {
     email: "",
     telegramUsername: "",
     xUsername: "",
-    message: ""
+    reason: ""
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [socialValidationError, setSocialValidationError] = useState<string | null>(null);
@@ -33,6 +33,13 @@ const ContactForm = () => {
     if ((name === 'telegramUsername' || name === 'xUsername') && socialValidationError) {
       setSocialValidationError(null);
     }
+  };
+
+  const handleSelectChange = (value: string) => {
+    setFormData(prev => ({
+      ...prev,
+      reason: value
+    }));
   };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -59,7 +66,7 @@ const ContactForm = () => {
             email: formData.email,
             telegram_username: formData.telegramUsername || null,
             x_username: formData.xUsername || null,
-            message: formData.message
+            reason: formData.reason
           }
         ]);
       
@@ -87,7 +94,7 @@ const ContactForm = () => {
         email: "",
         telegramUsername: "",
         xUsername: "",
-        message: ""
+        reason: ""
       });
     } catch (err) {
       console.error("Exception when submitting form:", err);
@@ -118,10 +125,10 @@ const ContactForm = () => {
             socialValidationError={socialValidationError}
           />
           
-          <MessageField 
-            formData={formData} 
-            handleChange={handleChange} 
-            isSubmitting={isSubmitting} 
+          <ReasonField
+            formData={formData}
+            handleSelectChange={handleSelectChange}
+            isSubmitting={isSubmitting}
           />
           
           <Button 

@@ -4,5 +4,5 @@ export interface ContactFormData {
   email: string;
   telegramUsername: string;
   xUsername: string;
-  message: string;
+  reason: string;
 }
