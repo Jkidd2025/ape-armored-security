@@ -1,4 +1,4 @@
-import { X, Github, Send, Mail } from "lucide-react";
+import { X, Github, Send } from "lucide-react";
 import { Link } from "react-router-dom";
 
 const Footer = () => {
@@ -32,10 +32,6 @@ const Footer = () => {
               <a href="#" className="text-muted-foreground hover:text-apearmor-teal transition-colors">
                 <Send className="h-5 w-5" />
                 <span className="sr-only">Telegram</span>
-              </a>
-              <a href="#" className="text-muted-foreground hover:text-apearmor-teal transition-colors">
-                <Mail className="h-5 w-5" />
-                <span className="sr-only">Email</span>
               </a>
             </div>
           </div>
