@@ -16,8 +16,8 @@ const testimonials = [
   },
   {
     quote: "I've been In the crypto space over 4yrs now and I love working with honest people - TCOIN had an issue and I was nervous about my money. Ape Armor took shift action and I had my money with in hours of the claim being reported",
-    author: "DegenDave",
-    title: "Meme Coin Enthusiast",
+    author: "Mike",
+    title: "Community Builder/Crypto Professional",
     stars: 4
   }
 ];
