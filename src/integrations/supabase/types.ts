@@ -16,6 +16,7 @@ export type Database = {
           id: string
           message: string
           name: string
+          reason: string | null
           status: string
           telegram_username: string | null
           x_username: string | null
@@ -26,6 +27,7 @@ export type Database = {
           id?: string
           message: string
           name: string
+          reason?: string | null
           status?: string
           telegram_username?: string | null
           x_username?: string | null
@@ -36,6 +38,7 @@ export type Database = {
           id?: string
           message?: string
           name?: string
+          reason?: string | null
           status?: string
           telegram_username?: string | null
           x_username?: string | null

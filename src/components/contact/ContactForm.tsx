@@ -66,7 +66,8 @@ const ContactForm = () => {
             email: formData.email,
             telegram_username: formData.telegramUsername || null,
             x_username: formData.xUsername || null,
-            reason: formData.reason
+            reason: formData.reason,
+            message: "" // Adding an empty message field since it's still required by the database
           }
         ]);
       
