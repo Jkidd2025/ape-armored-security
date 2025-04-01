@@ -53,6 +53,7 @@ const TermsAndConditions: React.FC<{ children: React.ReactNode }> = ({ children 
           <li>Only projects approved by ApeArmor will be covered by the service packages.</li>
           <li>ApeArmor reserves the right to refuse any claim.</li>
           <li>Coverage starts only after payment and wallet verification have been completed.</li>
+          <li>Users must be currently holding a small portion of tokens being claimed for verification purposes.</li>
         </ul>
         
         <h5 className="font-semibold mt-3 mb-1">💳 Payout Timelines:</h5>
