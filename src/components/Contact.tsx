@@ -2,7 +2,6 @@
 import React from "react";
 import { Separator } from "@/components/ui/separator";
 import ContactForm from "./contact/ContactForm";
-import ContactInfo from "./contact/ContactInfo";
 
 const Contact = () => {
   return (
@@ -16,13 +15,9 @@ const Contact = () => {
           <Separator className="w-20 h-1 bg-apearmor-teal my-6" />
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
-          <div className="lg:col-span-2">
+        <div className="flex justify-center">
+          <div className="w-full max-w-2xl">
             <ContactForm />
-          </div>
-          
-          <div>
-            <ContactInfo />
           </div>
         </div>
       </div>
