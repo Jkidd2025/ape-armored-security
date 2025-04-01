@@ -6,7 +6,6 @@ import Footer from "@/components/Footer";
 import { usePaymentForm } from "@/hooks/usePaymentForm";
 import PaymentHeader from "@/components/payment/PaymentHeader";
 import SubmitPaymentForm from "@/components/payment/SubmitPaymentForm";
-import { ScrollArea } from "@/components/ui/scroll-area";
 
 interface UserDetails {
   name?: string;
@@ -47,29 +46,27 @@ const Payment = () => {
   }, [userDetails, setFormData]);
   
   return (
-    <div className="min-h-screen flex flex-col bg-background text-foreground overflow-hidden">
+    <div className="min-h-screen flex flex-col bg-background text-foreground">
       <Navbar />
-      <ScrollArea className="flex-1 h-[calc(100vh-64px)]">
-        <main className="flex-1 pt-16">
-          <div className="container max-w-4xl px-4 py-12 mb-16">
-            <PaymentHeader 
-              title="Complete Your Payment" 
-              subtitle="Enter your payment details to activate your protection plan" 
-            />
-            
-            <SubmitPaymentForm
-              formData={formData}
-              formErrors={formErrors}
-              isSubmitting={isSubmitting}
-              setIsSubmitting={setIsSubmitting}
-              handleChange={handleChange}
-              handleSelectChange={handleSelectChange}
-              validateForm={validateForm}
-            />
-          </div>
-        </main>
-        <Footer />
-      </ScrollArea>
+      <main className="flex-1 pt-16 overflow-y-auto">
+        <div className="container max-w-4xl px-4 py-12 mb-16">
+          <PaymentHeader 
+            title="Complete Your Payment" 
+            subtitle="Enter your payment details to activate your protection plan" 
+          />
+          
+          <SubmitPaymentForm
+            formData={formData}
+            formErrors={formErrors}
+            isSubmitting={isSubmitting}
+            setIsSubmitting={setIsSubmitting}
+            handleChange={handleChange}
+            handleSelectChange={handleSelectChange}
+            validateForm={validateForm}
+          />
+        </div>
+      </main>
+      <Footer />
     </div>
   );
 };
