@@ -41,6 +41,7 @@ const Navbar = () => {
           <a href="#about" className="text-sm font-medium hover:text-apearmor-teal transition-colors">About</a>
           <a href="#roadmap" className="text-sm font-medium hover:text-apearmor-teal transition-colors">Roadmap</a>
           <a href="#approved" className="text-sm font-medium hover:text-apearmor-teal transition-colors">Approved</a>
+          <Link to="/whitepaper" className="text-sm font-medium hover:text-apearmor-teal transition-colors">Whitepaper</Link>
           <a href="#contact" className="text-sm font-medium hover:text-apearmor-teal transition-colors">Contact</a>
         </nav>
         
@@ -103,6 +104,13 @@ const Navbar = () => {
           >
             Approved
           </a>
+          <Link 
+            to="/whitepaper" 
+            className="text-sm font-medium py-2 px-4 hover:bg-muted rounded-md hover:text-apearmor-teal transition-colors"
+            onClick={() => setIsMenuOpen(false)}
+          >
+            Whitepaper
+          </Link>
           <a 
             href="#contact" 
             className="text-sm font-medium py-2 px-4 hover:bg-muted rounded-md hover:text-apearmor-teal transition-colors"
