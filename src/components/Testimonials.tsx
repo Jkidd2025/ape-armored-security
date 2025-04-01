@@ -15,7 +15,7 @@ const testimonials = [
     stars: 5
   },
   {
-    quote: "My dedicated advisor at ApeArmor helped me set up proper wallet security that even a crypto newbie like me could understand.",
+    quote: "I've been In the crypto space over 4yrs now and I love working with honest people - TCOIN had an issue and I was nervous about my money. Ape Armor took shift action and I had my money with in hours of the claim being reported",
     author: "DegenDave",
     title: "Meme Coin Enthusiast",
     stars: 4
