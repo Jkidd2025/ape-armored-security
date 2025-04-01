@@ -1,5 +1,6 @@
 
 import UserInfoInputs from "@/components/payment/UserInfoInputs";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 interface UserSectionProps {
   username: string;
@@ -31,18 +32,22 @@ const UserSection = ({
   onChange,
   onSelectChange 
 }: UserSectionProps) => {
+  const isMobile = useIsMobile();
+  
   return (
-    <UserInfoInputs 
-      username={username}
-      email={email}
-      walletAddress={walletAddress}
-      datePaid={datePaid}
-      amountPaid={amountPaid}
-      paymentType={paymentType}
-      errors={errors}
-      onChange={onChange}
-      onSelectChange={onSelectChange}
-    />
+    <div className={`${isMobile ? 'space-y-3' : 'space-y-4'}`}>
+      <UserInfoInputs 
+        username={username}
+        email={email}
+        walletAddress={walletAddress}
+        datePaid={datePaid}
+        amountPaid={amountPaid}
+        paymentType={paymentType}
+        errors={errors}
+        onChange={onChange}
+        onSelectChange={onSelectChange}
+      />
+    </div>
   );
 };
 
