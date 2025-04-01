@@ -102,7 +102,7 @@ const Navbar = () => {
           >
             Contact
           </a>
-          <div className="mt-2">
+          <div className="mt-2 px-4">
             <Button 
               className="bg-apearmor-teal hover:bg-apearmor-teal/80 text-black w-full"
               onClick={handlePaymentClick}
