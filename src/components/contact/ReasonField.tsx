@@ -33,6 +33,7 @@ const ReasonField = ({ formData, handleSelectChange, isSubmitting }: ReasonField
           <SelectItem value="General Support">General Support</SelectItem>
           <SelectItem value="Service Package Request">Service Package Request</SelectItem>
           <SelectItem value="Claim Help">Claim Help</SelectItem>
+          <SelectItem value="New Project Listing">New Project Listing</SelectItem>
         </SelectContent>
       </Select>
     </div>
