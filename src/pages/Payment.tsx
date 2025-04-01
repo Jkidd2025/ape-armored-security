@@ -49,8 +49,7 @@ const Payment = () => {
   return (
     <div className="min-h-screen flex flex-col bg-background">
       <Navbar />
-      {/* Using flex with overflow-y-auto to enable natural scrolling */}
-      <div className="flex-1 flex flex-col overflow-y-auto">
+      <div className="flex-1 overflow-y-auto">
         <main className="flex-1 pt-16">
           <div className="container max-w-4xl px-4 py-12 mb-16">
             <PaymentHeader 

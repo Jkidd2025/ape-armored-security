@@ -90,11 +90,13 @@ const UserInfoInputs = ({
           <Label htmlFor="datePaid">Date Paid</Label>
           <Input 
             id="datePaid" 
+            name="datePaid" 
             placeholder="MM/DD/YY" 
             required 
             value={datePaid}
             onChange={onChange}
             className={errors.datePaid ? "border-red-500" : ""}
+            autoComplete="off"
           />
           {errors.datePaid && (
             <p className="text-red-500 text-sm mt-1">{errors.datePaid}</p>
@@ -105,11 +107,13 @@ const UserInfoInputs = ({
           <Label htmlFor="amountPaid">Amount Paid</Label>
           <Input 
             id="amountPaid" 
+            name="amountPaid" 
             placeholder="Enter amount in USDC" 
             required 
             value={amountPaid}
             onChange={onChange}
             className={errors.amountPaid ? "border-red-500" : ""}
+            autoComplete="off"
           />
           {errors.amountPaid && (
             <p className="text-red-500 text-sm mt-1">{errors.amountPaid}</p>
