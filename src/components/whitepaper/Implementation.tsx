@@ -7,7 +7,7 @@ const Implementation = () => {
         ApeArmor leverages advanced blockchain technologies to detect potential scams and malicious activities.
       </p>
       
-      <h3 className="text-xl font-semibold mt-6 mb-3">4.1 Scam Detection Systems</h3>
+      <h3 className="text-xl font-semibold mt-6 mb-3">4.1 Scam Detection Services</h3>
       <p className="mb-4">
         Our platform employs sophisticated algorithms to monitor blockchain transactions and detect patterns indicative of scams, rug pulls, and other malicious activities. This includes:
       </p>
