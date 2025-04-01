@@ -4,12 +4,12 @@ import { Star, CircleUser } from "lucide-react";
 const testimonials = [
   {
     quote: "I was refunded on BTM Relaunch and TCOIN. BTM relaunch was a scam built up using a profile called BigSalez, and TCOIN had an issue with Solana updating its metadata. Both times, I was refunded my initial investment.",
-    author: "CryptoWhale92",
-    title: "NFT Collector",
+    author: "RJK",
+    title: "Crypto Collector",
     stars: 5
   },
   {
-    quote: "The transaction insurance alone is worth the subscription. When I got scammed, ApeArmor reimbursed me within 48 hours.",
+    quote: "I was involved in both BTM relaunch and TCOIN. I believed in the projects, and wanted to see them send. I knew my choice was right with Ape Armor because both projects were covered and my initial investment was refunded.",
     author: "MoonGirl",
     title: "DeFi Trader",
     stars: 5
