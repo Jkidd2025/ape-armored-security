@@ -9,10 +9,10 @@ const Implementation = () => {
       
       <h3 className="text-xl font-semibold mt-6 mb-3">4.1 Scam Detection Services</h3>
       <p className="mb-4">
-        Our platform employs sophisticated algorithms to monitor blockchain transactions and detect patterns indicative of scams, rug pulls, and other malicious activities. This includes:
+        Our services employs reviewing blockchain transactions and detect patterns indicative of scams, rug pulls, and other malicious activities. This includes:
       </p>
       <ul className="list-disc pl-6 space-y-2 mb-4">
-        <li>Liquidity monitoring to detect potential rug pulls</li>
+        <li>Liquidity scanning to detect potential rug pulls</li>
         <li>Price action analysis to identify pump and dump schemes</li>
         <li>Smart contract auditing to identify vulnerabilities</li>
         <li>Wallet reputation tracking to prevent interaction with malicious addresses</li>
