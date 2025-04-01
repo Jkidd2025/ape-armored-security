@@ -12,7 +12,6 @@ const Tokenomics = () => {
         <li><strong>Protection Eligibility:</strong> Minimum token holdings are required for each protection package</li>
         <li><strong>Governance:</strong> Token holders can participate in community governance decisions</li>
         <li><strong>Fee Reduction:</strong> Holding tokens reduces service fees</li>
-        <li><strong>Staking Rewards:</strong> Token staking provides additional benefits</li>
       </ul>
       
       <h3 className="text-xl font-semibold mt-6 mb-3">5.2 Token Distribution</h3>
