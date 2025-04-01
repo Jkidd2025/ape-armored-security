@@ -10,6 +10,8 @@ interface PaymentMethodSectionProps {
 }
 
 const PaymentMethodSection = ({ signatureHash, error, onChange }: PaymentMethodSectionProps) => {
+  const walletAddress = "8TB3LJBmYjopMDR2pu3pNSNhHPL5eC6GDpAtRuwdvNhs";
+  
   return (
     <div className="border-t pt-4">
       <Label className="mb-2 block">Payment Method</Label>
@@ -23,9 +25,9 @@ const PaymentMethodSection = ({ signatureHash, error, onChange }: PaymentMethodS
           <div className="relative">
             <Input 
               id="paymentAddress" 
-              value="8TB3LJBmYjopMDR2pu3pNSNhHPL5eC6GDpAtRuwdvNhs"
+              value={walletAddress}
               readOnly
-              className="pl-10 bg-gray-50"
+              className="pl-10 font-mono text-sm"
             />
             <Wallet className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
           </div>
