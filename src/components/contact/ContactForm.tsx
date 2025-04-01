@@ -17,7 +17,8 @@ const ContactForm = () => {
     email: "",
     telegramUsername: "",
     xUsername: "",
-    reason: ""
+    reason: "",
+    message: "" // Initialize message property
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [socialValidationError, setSocialValidationError] = useState<string | null>(null);
@@ -67,7 +68,7 @@ const ContactForm = () => {
             telegram_username: formData.telegramUsername || null,
             x_username: formData.xUsername || null,
             reason: formData.reason,
-            message: "" // Adding an empty message field since it's still required by the database
+            message: formData.message || "" // Use message value from form
           }
         ]);
       

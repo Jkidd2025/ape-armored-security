@@ -5,4 +5,5 @@ export interface ContactFormData {
   telegramUsername: string;
   xUsername: string;
   reason: string;
+  message?: string; // Adding message property as optional
 }
