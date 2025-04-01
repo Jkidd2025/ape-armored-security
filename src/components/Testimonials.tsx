@@ -3,7 +3,7 @@ import { Star, CircleUser } from "lucide-react";
 
 const testimonials = [
   {
-    quote: "ApeArmor saved me from a near-miss rug pull. The alerts came just in time, and I got my funds out before disaster struck.",
+    quote: "I was refunded on BTM Relaunch and TCOIN. BTM relaunch was a scam built up using a profile called BigSalez, and TCOIN had an issue with Solana updating its metadata. Both times, I was refunded my initial investment.",
     author: "CryptoWhale92",
     title: "NFT Collector",
     stars: 5
