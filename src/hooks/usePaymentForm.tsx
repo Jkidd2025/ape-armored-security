@@ -102,8 +102,9 @@ export const usePaymentForm = () => {
       isValid = false;
     }
     
-    if (!formData.walletAddress.startsWith('0x')) {
-      errors.walletAddress = "Wallet address must start with 0x";
+    // Updated validation for Solana wallet address
+    if (!formData.walletAddress || formData.walletAddress.length < 32) {
+      errors.walletAddress = "Please enter a valid Solana wallet address";
       isValid = false;
     }
     
