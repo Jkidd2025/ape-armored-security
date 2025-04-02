@@ -1,4 +1,3 @@
-
 import { X, Github, Send } from "lucide-react";
 import { Link } from "react-router-dom";
 
@@ -30,7 +29,7 @@ const Footer = () => {
                 <Github className="h-5 w-5" />
                 <span className="sr-only">GitHub</span>
               </a>
-              <a href="#" className="text-muted-foreground hover:text-apearmor-teal transition-colors">
+              <a href="https://t.me/ape_armor" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-apearmor-teal transition-colors">
                 <Send className="h-5 w-5" />
                 <span className="sr-only">Telegram</span>
               </a>
