@@ -1,5 +1,4 @@
-
-import { X, Github, Send } from "lucide-react";
+import { X, Github, Send, Facebook } from "lucide-react";
 import { Link } from "react-router-dom";
 
 const Footer = () => {
@@ -25,6 +24,10 @@ const Footer = () => {
               <a href="https://x.com/ApeArmorSecure" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-apearmor-teal transition-colors">
                 <X className="h-5 w-5" />
                 <span className="sr-only">X</span>
+              </a>
+              <a href="https://www.facebook.com/profile.php?id=61574761749148" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-apearmor-teal transition-colors">
+                <Facebook className="h-5 w-5" />
+                <span className="sr-only">Facebook</span>
               </a>
               <a href="#" className="text-muted-foreground hover:text-apearmor-teal transition-colors">
                 <Github className="h-5 w-5" />
