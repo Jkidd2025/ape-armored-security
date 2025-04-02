@@ -20,6 +20,15 @@ const Navbar = () => {
     // Scroll to top
     window.scrollTo(0, 0);
   };
+  
+  const handlePresaleClick = (e: React.MouseEvent) => {
+    e.preventDefault();
+    if (isMenuOpen) {
+      setIsMenuOpen(false);
+    }
+    navigate('/presale-application');
+    window.scrollTo(0, 0);
+  };
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-background/90 backdrop-blur-md border-b border-apearmor-darkbronze">
@@ -43,6 +52,7 @@ const Navbar = () => {
           <a href="#approved" className="text-sm font-medium hover:text-apearmor-teal transition-colors">Approved</a>
           <Link to="/whitepaper" className="text-sm font-medium hover:text-apearmor-teal transition-colors">Whitepaper</Link>
           <a href="#contact" className="text-sm font-medium hover:text-apearmor-teal transition-colors">Contact</a>
+          <Link to="/presale-application" className="text-sm font-medium hover:text-apearmor-teal transition-colors">Presale</Link>
         </nav>
         
         <div className="hidden md:flex items-center">
@@ -118,6 +128,13 @@ const Navbar = () => {
           >
             Contact
           </a>
+          <Link 
+            to="/presale-application" 
+            className="text-sm font-medium py-2 px-4 hover:bg-muted rounded-md hover:text-apearmor-teal transition-colors"
+            onClick={() => setIsMenuOpen(false)}
+          >
+            Presale
+          </Link>
           
           <Button 
             className="mt-4 bg-apearmor-teal hover:bg-apearmor-teal/80 text-black w-full mx-4"

@@ -34,12 +34,15 @@ const App = () => (
           <Route path="/privacy-policy" element={<PrivacyPolicy />} />
           <Route path="/claim-submission" element={<ClaimSubmission />} />
           
-          {/* Add both path formats for presale application */}
+          {/* More comprehensive presale application routes */}
           <Route path="/presale-application" element={<PresaleApplication />} />
+          <Route path="/presale-application/" element={<PresaleApplication />} />
           <Route path="presale-application" element={<PresaleApplication />} />
+          <Route path="presale-application/" element={<PresaleApplication />} />
           
-          {/* Additional redirect for hyphenated path */}
-          <Route path="/presale-application/" element={<Navigate to="/presale-application" replace />} />
+          {/* Catch-all redirect for presale */}
+          <Route path="/presale" element={<Navigate to="/presale-application" replace />} />
+          <Route path="presale" element={<Navigate to="/presale-application" replace />} />
           
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
