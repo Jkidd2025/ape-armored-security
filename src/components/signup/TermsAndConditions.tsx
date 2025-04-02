@@ -13,7 +13,7 @@ const TermsAndConditions: React.FC<{ children: React.ReactNode }> = ({ children 
           <li>Customers must submit major claims such as rug pulls, pump 'n dumps, smart contract failures, and wallet blacklisting within 48 hours of identifying a loss.</li>
           <li>Transaction failure claims may be submitted once per month.</li>
           <li>Claims must include transaction details, wallet addresses involved, screenshots, and relevant communications or proofs.</li>
-          <li>Submit claims through ApeArmor's dedicated 24/7 Scam Support Channel via Telegram. A claim specialist will DM directly for support information.</li>
+          <li>Submit claims through ApeArmor's website using the Submit a Claim online form. A claim specialist will contact you directly.</li>
         </ul>
         
         <h5 className="font-semibold mt-3 mb-1">✅ Covered Items:</h5>

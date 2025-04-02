@@ -22,7 +22,9 @@ export type Database = {
           project_name: string
           resolution_notes: string | null
           status: string
+          telegram_username: string | null
           wallet_address: string
+          x_username: string | null
         }
         Insert: {
           claim_amount: string
@@ -36,7 +38,9 @@ export type Database = {
           project_name: string
           resolution_notes?: string | null
           status?: string
+          telegram_username?: string | null
           wallet_address: string
+          x_username?: string | null
         }
         Update: {
           claim_amount?: string
@@ -50,7 +54,9 @@ export type Database = {
           project_name?: string
           resolution_notes?: string | null
           status?: string
+          telegram_username?: string | null
           wallet_address?: string
+          x_username?: string | null
         }
         Relationships: []
       }
