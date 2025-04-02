@@ -43,7 +43,7 @@ const Features = () => {
             Defend Your Crypto Assets
           </h2>
           <p className="text-lg text-muted-foreground max-w-3xl">
-            Our comprehensive suite of services keeps you protected from the latest threats in the volatile crypto space.
+            Protecting your crypto investments with real insurance coverage for the most common threats in the crypto space.
           </p>
         </div>
         
