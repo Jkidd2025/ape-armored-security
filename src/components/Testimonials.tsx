@@ -16,8 +16,8 @@ const testimonials = [
   },
   {
     quote: "I can't express how grateful I am for Ape Armor's protection and support. After falling victim to two separate crypto scams, I thought my investments were gone for good. But thanks to their refund policy and commitment to protecting their clients, I was able to recover my losses in full (hundreds of dollars). Their transparency, professionalism, and dedication to customer security make them a rare gem in the crypto space.",
-    author: "Mike",
-    title: "Community Builder/Crypto Professional",
+    author: "Charles T.",
+    title: "Crypto/Meme Coin Buyer",
     stars: 4
   }
 ];
