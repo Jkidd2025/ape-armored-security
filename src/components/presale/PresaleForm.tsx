@@ -41,6 +41,7 @@ export type PresaleFormValues = z.infer<typeof formSchema>;
 
 const PresaleForm = () => {
   const [isSubmitting, setIsSubmitting] = React.useState(false);
+  const [debugInfo, setDebugInfo] = React.useState<string | null>(null);
   const navigate = useNavigate();
   
   const form = useForm<PresaleFormValues>({
@@ -60,6 +61,7 @@ const PresaleForm = () => {
 
   const onSubmit = async (data: PresaleFormValues) => {
     setIsSubmitting(true);
+    setDebugInfo(null);
     
     try {
       console.log("Submitting application data:", data);
@@ -68,7 +70,7 @@ const PresaleForm = () => {
       const loadingToast = toast.loading("Submitting your application...");
       
       // Explicitly map form fields to database column names
-      const { data: insertedData, error } = await supabase.from('presale_applications').insert({
+      const payload = {
         name: data.name,
         email: data.email,
         wallet_address: data.walletAddress,
@@ -78,14 +80,34 @@ const PresaleForm = () => {
         investment_amount: data.investmentAmount,
         reason_to_participate: data.reasonToParticipate || null,
         status: 'pending'
-      }).select();
+      };
+      
+      console.log("Sending payload to Supabase:", payload);
+      
+      // Try to insert data with select() to get the response
+      const { data: insertedData, error } = await supabase
+        .from('presale_applications')
+        .insert(payload)
+        .select();
       
       // Dismiss the loading toast
       toast.dismiss(loadingToast);
       
       if (error) {
         console.error("Supabase error:", error);
-        toast.error(`Submission error: ${error.message}`);
+        // Set debug info for development
+        setDebugInfo(JSON.stringify({
+          error: error,
+          payload: payload
+        }, null, 2));
+        
+        // Show a more detailed error message
+        if (error.code === '42501' || error.message.includes('policy')) {
+          toast.error("Submission error: Insufficient permissions. Please contact support.");
+        } else {
+          toast.error(`Submission error: ${error.message}`);
+        }
+        
         throw error;
       }
       
@@ -131,6 +153,13 @@ const PresaleForm = () => {
             <InvestmentField control={form.control} />
             <ReasonField control={form.control} />
             <TermsDisclaimer control={form.control} />
+            
+            {debugInfo && (
+              <div className="bg-yellow-50 border border-yellow-200 p-4 rounded-md mt-4 overflow-auto max-h-60">
+                <h4 className="text-sm font-semibold text-yellow-800 mb-2">Debug Information (Development Only):</h4>
+                <pre className="text-xs text-yellow-700">{debugInfo}</pre>
+              </div>
+            )}
             
             <div className="flex justify-end space-x-4">
               <Button 
