@@ -135,6 +135,45 @@ export type Database = {
         }
         Relationships: []
       }
+      presale_applications: {
+        Row: {
+          created_at: string
+          email: string
+          id: string
+          investment_amount: string
+          name: string
+          reason_to_participate: string | null
+          status: string
+          telegram_username: string | null
+          wallet_address: string
+          x_username: string | null
+        }
+        Insert: {
+          created_at?: string
+          email: string
+          id?: string
+          investment_amount: string
+          name: string
+          reason_to_participate?: string | null
+          status?: string
+          telegram_username?: string | null
+          wallet_address: string
+          x_username?: string | null
+        }
+        Update: {
+          created_at?: string
+          email?: string
+          id?: string
+          investment_amount?: string
+          name?: string
+          reason_to_participate?: string | null
+          status?: string
+          telegram_username?: string | null
+          wallet_address?: string
+          x_username?: string | null
+        }
+        Relationships: []
+      }
       user_registrations: {
         Row: {
           created_at: string

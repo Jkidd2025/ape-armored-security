@@ -65,6 +65,11 @@ const Footer = () => {
                   Submit a Claim
                 </Link>
               </li>
+              <li>
+                <Link to="/presale-application" className="text-muted-foreground hover:text-apearmor-teal transition-colors">
+                  Presale Application
+                </Link>
+              </li>
             </ul>
           </div>
           
