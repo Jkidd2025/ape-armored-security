@@ -31,7 +31,7 @@ const Testimonials = () => {
             Protected by the Community
           </h2>
           <p className="text-lg text-muted-foreground max-w-3xl">
-            Join thousands of crypto enthusiasts who sleep better at night knowing their investments are protected
+            Join thousands of crypto enthusiasts who sleep better at night knowing their purchases are protected
           </p>
         </div>
         
