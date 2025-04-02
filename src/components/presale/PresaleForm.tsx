@@ -30,11 +30,13 @@ import SocialFields from "./SocialFields";
 import WalletField from "./WalletField";
 import InvestmentField from "./InvestmentField";
 import ReasonField from "./ReasonField";
+import PresaleRoundField from "./PresaleRoundField";
 
 const formSchema = z.object({
   name: z.string().min(2, { message: "Name must be at least 2 characters" }),
   email: z.string().email({ message: "Please enter a valid email address" }),
   walletAddress: z.string().min(32, { message: "Please enter a valid wallet address" }),
+  presaleRound: z.string().min(1, { message: "Please select a presale round" }),
   telegramUsername: z.string().optional(),
   xUsername: z.string().optional(),
   investmentAmount: z.string().min(1, { message: "Please enter a valid amount" }),
@@ -53,6 +55,7 @@ const PresaleForm = () => {
       name: "",
       email: "",
       walletAddress: "",
+      presaleRound: "",
       telegramUsername: "",
       xUsername: "",
       investmentAmount: "",
@@ -69,6 +72,7 @@ const PresaleForm = () => {
         name: data.name,
         email: data.email,
         wallet_address: data.walletAddress,
+        presale_round: data.presaleRound,
         telegram_username: data.telegramUsername || null,
         x_username: data.xUsername || null,
         investment_amount: data.investmentAmount,
@@ -105,6 +109,7 @@ const PresaleForm = () => {
             </div>
             
             <WalletField control={form.control} />
+            <PresaleRoundField control={form.control} />
             <InvestmentField control={form.control} />
             <ReasonField control={form.control} />
             
