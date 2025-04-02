@@ -3,7 +3,7 @@ import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import Index from "./pages/Index";
 import SignUp from "./pages/SignUp";
 import Payment from "./pages/Payment";
@@ -33,7 +33,14 @@ const App = () => (
           <Route path="/whitepaper" element={<Whitepaper />} />
           <Route path="/privacy-policy" element={<PrivacyPolicy />} />
           <Route path="/claim-submission" element={<ClaimSubmission />} />
+          
+          {/* Add both path formats for presale application */}
           <Route path="/presale-application" element={<PresaleApplication />} />
+          <Route path="presale-application" element={<PresaleApplication />} />
+          
+          {/* Additional redirect for hyphenated path */}
+          <Route path="/presale-application/" element={<Navigate to="/presale-application" replace />} />
+          
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
