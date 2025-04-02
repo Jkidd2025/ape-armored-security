@@ -15,7 +15,7 @@ const testimonials = [
     stars: 5
   },
   {
-    quote: "I've been In the crypto space over 4yrs now and I love working with honest people - TCOIN had an issue and I was nervous about my money. Ape Armor took shift action and I had my money with in hours of the claim being reported",
+    quote: "I can't express how grateful I am for Ape Armor's protection and support. After falling victim to two separate crypto scams, I thought my investments were gone for good. But thanks to their refund policy and commitment to protecting their clients, I was able to recover my losses in full (hundreds of dollars). Their transparency, professionalism, and dedication to customer security make them a rare gem in the crypto space.",
     author: "Mike",
     title: "Community Builder/Crypto Professional",
     stars: 4
