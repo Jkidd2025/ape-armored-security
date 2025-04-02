@@ -62,7 +62,9 @@ const PresaleForm = () => {
     setIsSubmitting(true);
     
     try {
-      // Using a raw insert query to avoid type issues
+      console.log("Submitting application data:", data);
+      
+      // Using the actual column names from the database
       const { error } = await supabase.from('presale_applications').insert({
         name: data.name,
         email: data.email,
@@ -74,9 +76,12 @@ const PresaleForm = () => {
         reason_to_participate: data.reasonToParticipate || null,
         agreed_to_terms: data.agreeToTerms,
         status: 'pending',
-      } as any); // Using 'as any' to bypass type checking for now
+      });
       
-      if (error) throw error;
+      if (error) {
+        console.error("Supabase error:", error);
+        throw error;
+      }
       
       toast.success("Application submitted successfully!");
       navigate("/");
