@@ -9,6 +9,51 @@ export type Json =
 export type Database = {
   public: {
     Tables: {
+      claim_submissions: {
+        Row: {
+          claim_amount: string
+          created_at: string
+          description: string
+          email: string
+          evidence_links: string | null
+          id: string
+          incident_date: string
+          name: string
+          project_name: string
+          resolution_notes: string | null
+          status: string
+          wallet_address: string
+        }
+        Insert: {
+          claim_amount: string
+          created_at?: string
+          description: string
+          email: string
+          evidence_links?: string | null
+          id?: string
+          incident_date: string
+          name: string
+          project_name: string
+          resolution_notes?: string | null
+          status?: string
+          wallet_address: string
+        }
+        Update: {
+          claim_amount?: string
+          created_at?: string
+          description?: string
+          email?: string
+          evidence_links?: string | null
+          id?: string
+          incident_date?: string
+          name?: string
+          project_name?: string
+          resolution_notes?: string | null
+          status?: string
+          wallet_address?: string
+        }
+        Relationships: []
+      }
       contact_submissions: {
         Row: {
           created_at: string

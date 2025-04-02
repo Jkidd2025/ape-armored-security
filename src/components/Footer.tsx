@@ -1,3 +1,4 @@
+
 import { X, Github, Send } from "lucide-react";
 import { Link } from "react-router-dom";
 
@@ -60,9 +61,9 @@ const Footer = () => {
                 </a>
               </li>
               <li>
-                <a href="#" className="text-muted-foreground hover:text-apearmor-teal transition-colors">
+                <Link to="/claim-submission" className="text-muted-foreground hover:text-apearmor-teal transition-colors">
                   Submit a Claim
-                </a>
+                </Link>
               </li>
             </ul>
           </div>

@@ -11,6 +11,7 @@ import PaymentConfirmation from "./pages/PaymentConfirmation";
 import TermsOfService from "./pages/TermsOfService";
 import Whitepaper from "./pages/Whitepaper";
 import PrivacyPolicy from "./pages/PrivacyPolicy";
+import ClaimSubmission from "./pages/ClaimSubmission";
 import NotFound from "./pages/NotFound";
 import CookieConsent from "./components/CookieConsent";
 
@@ -30,6 +31,7 @@ const App = () => (
           <Route path="/terms-of-service" element={<TermsOfService />} />
           <Route path="/whitepaper" element={<Whitepaper />} />
           <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+          <Route path="/claim-submission" element={<ClaimSubmission />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
