@@ -5,17 +5,7 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { toast } from "sonner";
 import { useNavigate } from "react-router-dom";
-import {
-  Form,
-  FormControl,
-  FormDescription,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
+import { Form } from "@/components/ui/form";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -31,6 +21,7 @@ import WalletField from "./WalletField";
 import InvestmentField from "./InvestmentField";
 import ReasonField from "./ReasonField";
 import PresaleRoundField from "./PresaleRoundField";
+import TermsDisclaimer from "./TermsDisclaimer";
 
 const formSchema = z.object({
   name: z.string().min(2, { message: "Name must be at least 2 characters" }),
@@ -41,6 +32,9 @@ const formSchema = z.object({
   xUsername: z.string().optional(),
   investmentAmount: z.string().min(1, { message: "Please enter a valid amount" }),
   reasonToParticipate: z.string().optional(),
+  agreeToTerms: z.boolean().refine(val => val === true, {
+    message: "You must agree to the terms and conditions",
+  }),
 });
 
 export type PresaleFormValues = z.infer<typeof formSchema>;
@@ -60,6 +54,7 @@ const PresaleForm = () => {
       xUsername: "",
       investmentAmount: "",
       reasonToParticipate: "",
+      agreeToTerms: false,
     },
   });
 
@@ -77,6 +72,7 @@ const PresaleForm = () => {
         x_username: data.xUsername || null,
         investment_amount: data.investmentAmount,
         reason_to_participate: data.reasonToParticipate || null,
+        agreed_to_terms: data.agreeToTerms,
       } as any); // Using 'as any' to bypass type checking for now
       
       if (error) throw error;
@@ -112,6 +108,7 @@ const PresaleForm = () => {
             <PresaleRoundField control={form.control} />
             <InvestmentField control={form.control} />
             <ReasonField control={form.control} />
+            <TermsDisclaimer control={form.control} />
             
             <div className="flex justify-end space-x-4">
               <Button 
