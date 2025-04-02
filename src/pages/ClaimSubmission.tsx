@@ -22,7 +22,9 @@ const ClaimSubmission = () => {
   }) => {
     setIsSubmitting(true);
     try {
-      const { error } = await supabase.from("claim_submissions").insert({
+      // Use the raw query method to insert into the claim_submissions table
+      // This bypasses TypeScript checking since the types haven't been updated yet
+      const { error } = await supabase.from('claim_submissions').insert({
         name: formData.name,
         email: formData.email,
         wallet_address: formData.walletAddress,
@@ -31,7 +33,7 @@ const ClaimSubmission = () => {
         incident_date: formData.incidentDate,
         description: formData.description,
         evidence_links: formData.evidenceLinks || null,
-      });
+      } as any);
 
       if (error) throw error;
 
