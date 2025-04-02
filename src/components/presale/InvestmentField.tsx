@@ -23,12 +23,12 @@ const InvestmentField = ({ control }: InvestmentFieldProps) => {
       name="investmentAmount"
       render={({ field }) => (
         <FormItem>
-          <FormLabel>Intended Investment Amount (USDC)</FormLabel>
+          <FormLabel>Intended Investment Amount (SOL)</FormLabel>
           <FormControl>
-            <Input placeholder="e.g., 500" {...field} />
+            <Input placeholder="e.g., 5" {...field} />
           </FormControl>
           <FormDescription>
-            Enter the amount in USDC you intend to invest in the presale
+            Enter the amount in SOL you intend to invest in the presale
           </FormDescription>
           <FormMessage />
         </FormItem>
