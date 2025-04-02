@@ -23,7 +23,7 @@ const Hero = () => {
           </h1>
           
           <p className="text-lg md:text-xl text-muted-foreground mb-8 max-w-3xl">
-            The first crypto protection token with real coverage for scams, rugs and exploits.
+            The first crypto protection with real coverage for scams, rugs and exploits.
           </p>
           
           <div className="flex flex-col sm:flex-row gap-4 w-full max-w-md">
