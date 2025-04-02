@@ -73,6 +73,7 @@ const PresaleForm = () => {
         investment_amount: data.investmentAmount,
         reason_to_participate: data.reasonToParticipate || null,
         agreed_to_terms: data.agreeToTerms,
+        status: 'pending',
       } as any); // Using 'as any' to bypass type checking for now
       
       if (error) throw error;
