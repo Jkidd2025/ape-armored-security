@@ -18,7 +18,7 @@ const Hero = () => {
       <div className="container relative z-10 px-4 md:px-6">
         <div className="flex flex-col items-center text-center max-w-4xl mx-auto">
           <h1 className="text-4xl md:text-6xl font-extrabold tracking-tight mb-6">
-            <span className="text-gradient-gold">Ape in with Confidence</span>
+            <span className="text-gradient-gold">Ape in. Get Protected.</span>
             <span className="block text-glow text-apearmor-teal"> – Armor Up Against Crypto Chaos!</span>
           </h1>
           
