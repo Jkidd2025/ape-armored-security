@@ -79,7 +79,7 @@ const Packages = () => {
             ApeArmor Protection Packages
           </h2>
           <p className="text-lg text-muted-foreground max-w-3xl">
-            Choose the level of protection that fits your crypto strategy & hold our revolutionary token to unlock verified refunds, scam support, and smart contract failure coverage.
+            Choose the level of protection that fits your crypto strategy - our revolutionary services unlock verified refunds, scam support, and smart contract failure coverage.
           </p>
         </div>
         
