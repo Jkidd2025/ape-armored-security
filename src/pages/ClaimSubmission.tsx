@@ -14,6 +14,8 @@ const ClaimSubmission = () => {
     name: string;
     email: string;
     walletAddress: string;
+    telegramUsername: string;
+    xUsername: string;
     projectName: string;
     claimAmount: string;
     incidentDate: string;
@@ -28,6 +30,8 @@ const ClaimSubmission = () => {
         name: formData.name,
         email: formData.email,
         wallet_address: formData.walletAddress,
+        telegram_username: formData.telegramUsername || null,
+        x_username: formData.xUsername || null,
         project_name: formData.projectName,
         claim_amount: formData.claimAmount,
         incident_date: formData.incidentDate,

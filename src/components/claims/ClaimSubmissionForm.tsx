@@ -6,13 +6,16 @@ import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { FormItem } from "@/components/ui/form";
 import { Separator } from "@/components/ui/separator";
-import { ArrowRight, Loader2 } from "lucide-react";
+import { ArrowRight, ArrowLeft, Loader2 } from "lucide-react";
+import { Link } from "react-router-dom";
 
 interface ClaimSubmissionFormProps {
   onSubmit: (formData: {
     name: string;
     email: string;
     walletAddress: string;
+    telegramUsername: string;
+    xUsername: string;
     projectName: string;
     claimAmount: string;
     incidentDate: string;
@@ -27,6 +30,8 @@ const ClaimSubmissionForm = ({ onSubmit, isSubmitting }: ClaimSubmissionFormProp
     name: "",
     email: "",
     walletAddress: "",
+    telegramUsername: "",
+    xUsername: "",
     projectName: "",
     claimAmount: "",
     incidentDate: "",
@@ -159,6 +164,30 @@ const ClaimSubmissionForm = ({ onSubmit, isSubmitting }: ClaimSubmissionFormProp
             <p className="text-red-500 text-sm mt-1">{formErrors.walletAddress}</p>
           )}
         </FormItem>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <FormItem>
+            <Label htmlFor="telegramUsername">Telegram Username (Optional)</Label>
+            <Input
+              id="telegramUsername"
+              name="telegramUsername"
+              value={formData.telegramUsername}
+              onChange={handleChange}
+              placeholder="Your Telegram username"
+            />
+          </FormItem>
+
+          <FormItem>
+            <Label htmlFor="xUsername">X Username (Optional)</Label>
+            <Input
+              id="xUsername"
+              name="xUsername"
+              value={formData.xUsername}
+              onChange={handleChange}
+              placeholder="Your X username"
+            />
+          </FormItem>
+        </div>
       </div>
 
       <Separator />
@@ -249,7 +278,14 @@ const ClaimSubmissionForm = ({ onSubmit, isSubmitting }: ClaimSubmissionFormProp
         </FormItem>
       </div>
 
-      <div className="pt-4">
+      <div className="pt-4 flex flex-col md:flex-row md:justify-between gap-4">
+        <Link to="/">
+          <Button type="button" variant="outline" className="w-full md:w-auto">
+            <ArrowLeft className="mr-2 h-4 w-4" />
+            Back to Home
+          </Button>
+        </Link>
+        
         <Button 
           type="submit" 
           className="w-full md:w-auto" 
