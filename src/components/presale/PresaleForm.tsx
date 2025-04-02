@@ -63,8 +63,9 @@ const PresaleForm = () => {
     
     try {
       console.log("Submitting application data:", data);
+      console.log("Terms agreement status:", data.agreeToTerms);
       
-      // Using the actual column names from the database
+      // Explicitly map form fields to database column names
       const { error } = await supabase.from('presale_applications').insert({
         name: data.name,
         email: data.email,
@@ -74,12 +75,13 @@ const PresaleForm = () => {
         x_username: data.xUsername || null,
         investment_amount: data.investmentAmount,
         reason_to_participate: data.reasonToParticipate || null,
-        agreed_to_terms: data.agreeToTerms,
-        status: 'pending',
+        status: 'pending'
+        // No agreed_to_terms field in the database schema
       });
       
       if (error) {
         console.error("Supabase error:", error);
+        toast.error(`Submission error: ${error.message}`);
         throw error;
       }
       
