@@ -142,6 +142,7 @@ export type Database = {
           id: string
           investment_amount: string
           name: string
+          presale_round: string | null
           reason_to_participate: string | null
           status: string
           telegram_username: string | null
@@ -154,6 +155,7 @@ export type Database = {
           id?: string
           investment_amount: string
           name: string
+          presale_round?: string | null
           reason_to_participate?: string | null
           status?: string
           telegram_username?: string | null
@@ -166,6 +168,7 @@ export type Database = {
           id?: string
           investment_amount?: string
           name?: string
+          presale_round?: string | null
           reason_to_participate?: string | null
           status?: string
           telegram_username?: string | null
