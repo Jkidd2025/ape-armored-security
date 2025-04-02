@@ -37,7 +37,7 @@ const Roadmap = () => {
             Our Roadmap
           </h2>
           <p className="text-lg text-muted-foreground max-w-3xl">
-            Building the future of secure crypto investments step by step
+            Building the future of secure crypto step by step
           </p>
         </div>
         
