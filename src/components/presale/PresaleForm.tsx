@@ -66,18 +66,18 @@ const PresaleForm = () => {
       console.log("Terms agreement status:", data.agreeToTerms);
       
       // Explicitly map form fields to database column names
-      const { error } = await supabase.from('presale_applications').insert({
+      const { data: insertedData, error } = await supabase.from('presale_applications').insert({
         name: data.name,
         email: data.email,
         wallet_address: data.walletAddress,
-        presale_round: data.presaleRound,
+        presale_round: data.presaleRound, // This column was missing in the database schema, will be added
         telegram_username: data.telegramUsername || null,
         x_username: data.xUsername || null,
         investment_amount: data.investmentAmount,
         reason_to_participate: data.reasonToParticipate || null,
         status: 'pending'
         // No agreed_to_terms field in the database schema
-      });
+      }).select();
       
       if (error) {
         console.error("Supabase error:", error);
@@ -85,11 +85,16 @@ const PresaleForm = () => {
         throw error;
       }
       
+      console.log("Successful insert, returned data:", insertedData);
       toast.success("Application submitted successfully!");
       navigate("/");
     } catch (error) {
       console.error("Error submitting application:", error);
-      toast.error("Failed to submit application. Please try again.");
+      if (error instanceof Error) {
+        toast.error(`Failed to submit application: ${error.message}`);
+      } else {
+        toast.error("Failed to submit application. Please try again.");
+      }
     } finally {
       setIsSubmitting(false);
     }
