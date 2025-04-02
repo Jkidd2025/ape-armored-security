@@ -22,7 +22,7 @@ const Footer = () => {
             </p>
             
             <div className="flex space-x-4">
-              <a href="#" className="text-muted-foreground hover:text-apearmor-teal transition-colors">
+              <a href="https://x.com/ApeArmorSecure" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-apearmor-teal transition-colors">
                 <X className="h-5 w-5" />
                 <span className="sr-only">X</span>
               </a>
