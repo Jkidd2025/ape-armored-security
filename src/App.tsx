@@ -13,6 +13,7 @@ import Whitepaper from "./pages/Whitepaper";
 import PrivacyPolicy from "./pages/PrivacyPolicy";
 import ClaimSubmission from "./pages/ClaimSubmission";
 import PresaleApplication from "./pages/PresaleApplication";
+import SocialShareTest from "./pages/SocialShareTest";
 import NotFound from "./pages/NotFound";
 import CookieConsent from "./components/CookieConsent";
 
@@ -33,6 +34,7 @@ const App = () => (
           <Route path="/whitepaper" element={<Whitepaper />} />
           <Route path="/privacy-policy" element={<PrivacyPolicy />} />
           <Route path="/claim-submission" element={<ClaimSubmission />} />
+          <Route path="/social-share-test" element={<SocialShareTest />} />
           
           {/* More comprehensive presale application routes */}
           <Route path="/presale-application" element={<PresaleApplication />} />

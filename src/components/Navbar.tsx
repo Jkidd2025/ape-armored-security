@@ -1,23 +1,23 @@
-
 import { useState, useEffect } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { Button } from "@/components/ui/button";
-import { Menu, X } from "lucide-react";
+import { Menu, X, Share2 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const navigate = useNavigate();
+  const location = useLocation();
+  
+  const isDevEnvironment = window.location.hostname === 'localhost' || 
+                           window.location.hostname === '127.0.0.1';
 
   const handlePaymentClick = (e: React.MouseEvent) => {
     e.preventDefault();
-    // Close the menu if it's open
     if (isMenuOpen) {
       setIsMenuOpen(false);
     }
-    // Navigate to payment page
     navigate('/payment');
-    // Scroll to top
     window.scrollTo(0, 0);
   };
   
@@ -53,6 +53,17 @@ const Navbar = () => {
           <Link to="/whitepaper" className="text-sm font-medium hover:text-apearmor-teal transition-colors">Whitepaper</Link>
           <a href="#contact" className="text-sm font-medium hover:text-apearmor-teal transition-colors">Contact</a>
           <Link to="/presale-application" className="text-sm font-medium hover:text-apearmor-teal transition-colors">Presale</Link>
+          
+          {isDevEnvironment && (
+            <Link 
+              to="/social-share-test" 
+              className="text-sm font-medium hover:text-apearmor-teal transition-colors flex items-center gap-1"
+              title="Social Share Testing Tool"
+            >
+              <Share2 className="h-4 w-4" />
+              <span>Share Test</span>
+            </Link>
+          )}
         </nav>
         
         <div className="hidden md:flex items-center">
@@ -135,6 +146,17 @@ const Navbar = () => {
           >
             Presale
           </Link>
+          
+          {isDevEnvironment && (
+            <Link 
+              to="/social-share-test" 
+              className="text-sm font-medium py-2 px-4 hover:bg-muted rounded-md hover:text-apearmor-teal transition-colors flex items-center gap-2"
+              onClick={() => setIsMenuOpen(false)}
+            >
+              <Share2 className="h-4 w-4" />
+              <span>Share Test</span>
+            </Link>
+          )}
           
           <Button 
             className="mt-4 bg-apearmor-teal hover:bg-apearmor-teal/80 text-black w-full mx-4"
