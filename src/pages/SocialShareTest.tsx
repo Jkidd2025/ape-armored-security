@@ -13,7 +13,7 @@ const SocialShareTest = () => {
     for (let i = 0; i < metaTags.length; i++) {
       const name = metaTags[i].getAttribute('property') || metaTags[i].getAttribute('name');
       const content = metaTags[i].getAttribute('content');
-      if ((name && name.includes('og:')) || (name && name.includes('twitter:')) || (name && name === 'fb:app_id')) {
+      if ((name && name.includes('og:')) || (name && name.includes('twitter:'))) {
         console.log(`Meta tag ${name}: ${content}`);
       }
     }
@@ -33,8 +33,7 @@ const SocialShareTest = () => {
                   const prop = meta.getAttribute('property');
                   const name = meta.getAttribute('name');
                   return (prop && prop.includes('og:')) || 
-                         (name && name.includes('twitter:')) || 
-                         (prop && prop === 'fb:app_id');
+                         (name && name.includes('twitter:'));
                 })
                 .map(meta => {
                   const prop = meta.getAttribute('property') || meta.getAttribute('name');
@@ -93,13 +92,6 @@ const SocialShareTest = () => {
               {" - Test your website's LinkedIn preview"}
             </li>
           </ul>
-          
-          <div className="bg-amber-100 border border-amber-300 rounded-md p-4 mt-4">
-            <h3 className="font-semibold text-amber-800">Important Note:</h3>
-            <p className="text-amber-700">
-              The Facebook App ID (1234567890123456) is a placeholder. For production use, you should replace it with your actual Facebook App ID from the Facebook Developer Portal.
-            </p>
-          </div>
         </div>
         
         <div className="pt-4 flex justify-center">
