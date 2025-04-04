@@ -1,3 +1,4 @@
+
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -17,7 +18,7 @@ const NftCollection = () => {
       id: 2,
       title: "Guardian Gorilla",
       description: "Exclusive protector NFTs that provide enhanced access and benefits for holders.",
-      image: "/lovable-uploads/fceb8f09-2277-4a1c-9c5a-2320786f1791.png",
+      image: "/lovable-uploads/8ce640c7-2f1c-49be-b8bf-61cf35b3271f.png",
       rarity: "Epic",
       benefits: ["DAO Access", "Proposal Submission", "Project Reviews", "Voting w/ Governance Rights", "Only 10,000 NFTs Minted"]
     },
