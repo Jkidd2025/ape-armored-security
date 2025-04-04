@@ -11,7 +11,6 @@ const NftCollection = () => {
       title: "ApeArmor Chimp",
       description: "First generation of ApeArmor NFTs with unique security benefits for holders.",
       image: "/lovable-uploads/02e9a6cd-8406-489d-b332-525d61411216.png",
-      price: "0.5 ETH",
       rarity: "Rare",
       benefits: ["Premium Discord Access", "Security Audits Priority", "Governance Rights"]
     },
@@ -20,7 +19,6 @@ const NftCollection = () => {
       title: "Guardian Gorilla",
       description: "Exclusive protector NFTs that provide enhanced security features and early warnings.",
       image: "/lovable-uploads/d62bf749-46f4-4484-a592-a8f81cf79a81.png",
-      price: "0.75 ETH",
       rarity: "Epic",
       benefits: ["Threat Detection Alerts", "Weekly Security Reports", "Exclusive Webinars"]
     },
@@ -29,7 +27,6 @@ const NftCollection = () => {
       title: "Sentinel Silverback",
       description: "Legendary tier NFTs that offer the highest level of protection and exclusive perks.",
       image: "/lovable-uploads/2dc0d6ac-52f6-4006-8b18-6e85d298776a.png",
-      price: "1.2 ETH",
       rarity: "Legendary",
       benefits: ["24/7 Security Monitoring", "Personal Security Advisor", "Access to All Future NFT Drops"]
     }
@@ -64,7 +61,6 @@ const NftCollection = () => {
               </CardHeader>
               <CardContent>
                 <div className="space-y-2">
-                  <p className="text-lg font-semibold text-apearmor-teal">{nft.price}</p>
                   <h4 className="text-sm font-medium">Benefits:</h4>
                   <ul className="list-disc list-inside text-sm text-muted-foreground space-y-1">
                     {nft.benefits.map((benefit, index) => (
