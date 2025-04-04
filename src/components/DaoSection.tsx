@@ -19,7 +19,7 @@ const DaoSection = () => {
             <p className="text-foreground">
               A Decentralized Autonomous Organization (DAO) is a community-led entity with no central authority. 
               The ApeArmor DAO empowers our community to collectively make decisions about platform development, 
-              security protocols, and treasury management.
+              projects, and treasury management.
             </p>
             
             <div className="space-y-4">
