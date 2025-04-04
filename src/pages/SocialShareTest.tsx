@@ -32,6 +32,13 @@ const SocialShareTest = () => {
       const content = tags[i].getAttribute('content');
       if ((name && (name.includes('og:') || name.includes('twitter:'))) && content) {
         console.log(`Meta tag ${name}: ${content}`);
+        
+        // Skip any references to the old image URL
+        if (content.includes('lovable-uploads/5a70e743-1c9c-4a26-b070-1550be168a7c.png')) {
+          console.warn('Found reference to outdated image URL, skipping');
+          continue;
+        }
+        
         relevantTags.push({property: name, content});
       }
     }
