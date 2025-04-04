@@ -2,28 +2,36 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from "@/components/ui/button";
-import { RefreshCw, ExternalLink, Copy, CheckCircle2 } from 'lucide-react';
+import { RefreshCw, ExternalLink, Copy, CheckCircle2, AlertCircle } from 'lucide-react';
+import { Alert, AlertTitle, AlertDescription } from "@/components/ui/alert";
 
 const SocialShareTest = () => {
   const [copied, setCopied] = useState(false);
   const imageUrl = "https://apearmorsecure.com/lovable-uploads/5a70e743-1c9c-4a26-b070-1550be168a7c.png";
   const [imageLoaded, setImageLoaded] = useState(false);
   const [imageError, setImageError] = useState(false);
+  const [metaTags, setMetaTags] = useState<{property: string, content: string}[]>([]);
 
   useEffect(() => {
     // Log that the page is loaded to help with debugging
     console.log('Social Share Test page loaded');
     
     // Force metadata refresh when this page loads
-    const metaTags = document.getElementsByTagName('meta');
+    const tags = document.getElementsByTagName('meta');
     console.log('Checking meta tags...');
-    for (let i = 0; i < metaTags.length; i++) {
-      const name = metaTags[i].getAttribute('property') || metaTags[i].getAttribute('name');
-      const content = metaTags[i].getAttribute('content');
-      if ((name && name.includes('og:')) || (name && name.includes('twitter:'))) {
+    
+    const relevantTags: {property: string, content: string}[] = [];
+    
+    for (let i = 0; i < tags.length; i++) {
+      const name = tags[i].getAttribute('property') || tags[i].getAttribute('name');
+      const content = tags[i].getAttribute('content');
+      if ((name && (name.includes('og:') || name.includes('twitter:'))) && content) {
         console.log(`Meta tag ${name}: ${content}`);
+        relevantTags.push({property: name, content});
       }
     }
+    
+    setMetaTags(relevantTags);
 
     // Check if the image is directly accessible
     const testImage = new Image();
@@ -31,8 +39,8 @@ const SocialShareTest = () => {
       console.log('Image loaded successfully in background test');
       setImageLoaded(true);
     };
-    testImage.onerror = () => {
-      console.error('Failed to load image in background test');
+    testImage.onerror = (e) => {
+      console.error('Failed to load image in background test', e);
       setImageError(true);
     };
     testImage.src = imageUrl;
@@ -54,10 +62,53 @@ const SocialShareTest = () => {
     });
   };
 
+  const testFacebookDebugger = () => {
+    window.open(`https://developers.facebook.com/tools/debug/?q=${encodeURIComponent(window.location.origin)}`, '_blank');
+  };
+
+  const testTwitterValidator = () => {
+    window.open('https://cards-dev.twitter.com/validator', '_blank');
+  };
+
+  const testLinkedInDebugger = () => {
+    window.open('https://www.linkedin.com/post-inspector/', '_blank');
+  };
+
   return (
     <div className="min-h-screen bg-background flex flex-col items-center justify-center p-4">
       <div className="max-w-3xl w-full space-y-8 bg-card p-8 rounded-lg shadow-lg">
         <h1 className="text-3xl font-bold text-center text-gradient-gold">Social Media Sharing Test Page</h1>
+        
+        {!imageLoaded && !imageError && (
+          <Alert className="bg-amber-50 border-amber-200">
+            <AlertCircle className="h-4 w-4 text-amber-600" />
+            <AlertTitle className="text-amber-800">Checking image accessibility</AlertTitle>
+            <AlertDescription className="text-amber-700">
+              Currently testing if the social media image is publicly accessible...
+            </AlertDescription>
+          </Alert>
+        )}
+        
+        {imageError && (
+          <Alert variant="destructive">
+            <AlertCircle className="h-4 w-4" />
+            <AlertTitle>Critical Error</AlertTitle>
+            <AlertDescription>
+              The social share image failed to load. This means social platforms won't be able to display it.
+              Please check that the URL is publicly accessible and the image exists.
+            </AlertDescription>
+          </Alert>
+        )}
+        
+        {imageLoaded && !imageError && (
+          <Alert className="bg-green-50 border-green-200">
+            <CheckCircle2 className="h-4 w-4 text-green-600" />
+            <AlertTitle className="text-green-800">Image Accessible</AlertTitle>
+            <AlertDescription className="text-green-700">
+              The social share image loaded successfully. This is a good sign that it will be accessible by social media platforms.
+            </AlertDescription>
+          </Alert>
+        )}
         
         <div className="space-y-4">
           <div className="flex items-center justify-between">
@@ -68,20 +119,15 @@ const SocialShareTest = () => {
             </Button>
           </div>
           <div className="bg-muted p-4 rounded-md overflow-auto max-h-80">
-            <pre className="text-xs">
-              {Array.from(document.getElementsByTagName('meta'))
-                .filter(meta => {
-                  const prop = meta.getAttribute('property');
-                  const name = meta.getAttribute('name');
-                  return (prop && prop.includes('og:')) || 
-                         (name && name.includes('twitter:'));
-                })
-                .map(meta => {
-                  const prop = meta.getAttribute('property') || meta.getAttribute('name');
-                  return `${prop}: ${meta.getAttribute('content')}`;
-                })
-                .join('\n')}
-            </pre>
+            {metaTags.length > 0 ? (
+              <pre className="text-xs">
+                {metaTags.map((tag, index) => (
+                  `${tag.property}: ${tag.content}\n`
+                ))}
+              </pre>
+            ) : (
+              <p className="text-sm text-muted-foreground">No OG or Twitter card meta tags found.</p>
+            )}
           </div>
         </div>
         
@@ -107,7 +153,9 @@ const SocialShareTest = () => {
               onError={(e) => {
                 console.error("Image failed to load in component");
                 setImageError(true);
+                // @ts-ignore
                 e.currentTarget.src = "/placeholder.svg";
+                // @ts-ignore
                 e.currentTarget.alt = "Image load error";
               }}
             />
@@ -130,45 +178,43 @@ const SocialShareTest = () => {
         </div>
         
         <div className="space-y-4">
-          <h2 className="text-xl font-semibold">Testing Tools:</h2>
-          <ul className="grid gap-2">
-            <li className="p-3 border rounded-md hover:bg-muted">
-              <a 
-                href="https://developers.facebook.com/tools/debug/" 
-                target="_blank" 
-                rel="noopener noreferrer"
-                className="flex items-center justify-between text-apearmor-teal hover:underline"
-              >
-                <span>Facebook Sharing Debugger</span>
-                <ExternalLink className="h-4 w-4 ml-2" />
-              </a>
-              <p className="text-sm text-muted-foreground mt-1">Forces Facebook to clear the cache and re-scrape your website</p>
-            </li>
-            <li className="p-3 border rounded-md hover:bg-muted">
-              <a 
-                href="https://cards-dev.twitter.com/validator" 
-                target="_blank" 
-                rel="noopener noreferrer"
-                className="flex items-center justify-between text-apearmor-teal hover:underline"
-              >
-                <span>Twitter Card Validator</span>
-                <ExternalLink className="h-4 w-4 ml-2" />
-              </a>
-              <p className="text-sm text-muted-foreground mt-1">Test how your site appears when shared on Twitter</p>
-            </li>
-            <li className="p-3 border rounded-md hover:bg-muted">
-              <a 
-                href="https://www.linkedin.com/post-inspector/" 
-                target="_blank" 
-                rel="noopener noreferrer"
-                className="flex items-center justify-between text-apearmor-teal hover:underline"
-              >
-                <span>LinkedIn Post Inspector</span>
-                <ExternalLink className="h-4 w-4 ml-2" />
-              </a>
-              <p className="text-sm text-muted-foreground mt-1">Test your website's LinkedIn preview</p>
-            </li>
-          </ul>
+          <h2 className="text-xl font-semibold">Test on Major Platforms:</h2>
+          <div className="grid gap-3">
+            <Button 
+              variant="outline" 
+              className="w-full justify-between" 
+              onClick={testFacebookDebugger}
+            >
+              <span>Test on Facebook Sharing Debugger</span>
+              <ExternalLink className="h-4 w-4" />
+            </Button>
+            <Button 
+              variant="outline" 
+              className="w-full justify-between"
+              onClick={testTwitterValidator}
+            >
+              <span>Test on Twitter Card Validator</span>
+              <ExternalLink className="h-4 w-4" />
+            </Button>
+            <Button 
+              variant="outline"
+              className="w-full justify-between"
+              onClick={testLinkedInDebugger}
+            >
+              <span>Test on LinkedIn Post Inspector</span>
+              <ExternalLink className="h-4 w-4" />
+            </Button>
+          </div>
+          <div className="text-sm bg-blue-50 p-4 rounded-md border border-blue-200">
+            <p className="font-medium text-blue-800 mb-2">Important Debugging Tips:</p>
+            <ul className="list-disc pl-5 space-y-1 text-blue-700">
+              <li>After making changes to meta tags, use the Facebook debugger to force a cache refresh</li>
+              <li>Some platforms cache previews for up to 24 hours</li>
+              <li>Check that your images are properly sized (Facebook recommends 1200×630 pixels)</li>
+              <li>Ensure all URLs are absolute (starting with https://)</li>
+              <li>Test your site from the actual production URL, not localhost</li>
+            </ul>
+          </div>
         </div>
         
         <div className="pt-4 flex justify-center">
