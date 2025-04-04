@@ -10,7 +10,7 @@ const NftCollection = () => {
       id: 1,
       title: "ApeArmor Genesis",
       description: "First generation of ApeArmor NFTs with unique security benefits for holders.",
-      image: "/lovable-uploads/3abadd80-24aa-4428-8eef-1a7df0d7b245.png",
+      image: "/lovable-uploads/4ded524a-5825-4f8b-99b2-51b3fda8d921.png",
       price: "0.5 ETH",
       rarity: "Rare",
       benefits: ["Premium Discord Access", "Security Audits Priority", "Governance Rights"]
