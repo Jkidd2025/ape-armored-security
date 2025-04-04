@@ -11,6 +11,7 @@ import Roadmap from "@/components/Roadmap";
 import Cta from "@/components/Cta";
 import Footer from "@/components/Footer";
 import NftCollection from "@/components/NftCollection";
+import DaoSection from "@/components/DaoSection";
 
 const Index = () => {
   return (
@@ -23,6 +24,7 @@ const Index = () => {
         <About />
         <ApprovedProjects />
         <NftCollection />
+        <DaoSection />
         <Testimonials />
         <Roadmap />
         <Cta />

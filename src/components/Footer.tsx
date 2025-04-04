@@ -65,6 +65,11 @@ const Footer = () => {
                 </a>
               </li>
               <li>
+                <a href="#dao" className="text-muted-foreground hover:text-apearmor-teal transition-colors">
+                  DAO
+                </a>
+              </li>
+              <li>
                 <a href="#contact" className="text-muted-foreground hover:text-apearmor-teal transition-colors">
                   Contact
                 </a>
