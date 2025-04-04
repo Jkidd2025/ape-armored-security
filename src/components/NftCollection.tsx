@@ -28,7 +28,7 @@ const NftCollection = () => {
       description: "Legendary tier NFTs that offer the highest level of exclusive perks.",
       image: "/lovable-uploads/2dc0d6ac-52f6-4006-8b18-6e85d298776a.png",
       rarity: "Legendary",
-      benefits: ["DAO Access", "Access to All Treasury Projects", "Full Voting Power", "Project Reviews", "Proposal Submission", "Ape Armor Council Seat"]
+      benefits: ["DAO Access", "Access to All Treasury Projects", "Full Voting Power", "Project Reviews", "Proposal Submission", "Ape Armor Council Seat", "Full Governance Rights"]
     }
   ];
 
