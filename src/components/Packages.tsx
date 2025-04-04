@@ -19,6 +19,7 @@ const packages = [
       "Transaction Insurance",
       "24/7 Live Scam Support",
       "Minimum ApeArmor Token holding is equal to or greater than 1 Million",
+      "10% of all NFTs",
     ],
     cta: "Get Started",
     popular: false,
