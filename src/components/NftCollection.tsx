@@ -1,4 +1,3 @@
-
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -20,7 +19,7 @@ const NftCollection = () => {
       description: "Exclusive protector NFTs that provide enhanced access and benefits for holders.",
       image: "/lovable-uploads/d62bf749-46f4-4484-a592-a8f81cf79a81.png",
       rarity: "Epic",
-      benefits: ["Threat Detection Alerts", "Weekly Security Reports", "Exclusive Webinars"]
+      benefits: ["DAO Access", "Proposal Submission", "Project Reviews", "Voting w/ Governance Rights"]
     },
     {
       id: 3,
