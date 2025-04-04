@@ -63,6 +63,7 @@ const packages = [
       "24/7 Live Scam Support",
       "DAO Community Access",
       "Minimum ApeArmor Token holding is equal to or greater than 15 Million",
+      "35% off of all NFTs",
     ],
     cta: "Maximum Security",
     popular: false,
