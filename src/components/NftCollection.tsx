@@ -26,7 +26,7 @@ const NftCollection = () => {
     },
     {
       id: 3,
-      title: "Sentinel Prime",
+      title: "Sentinel Silverback",
       description: "Legendary tier NFTs that offer the highest level of protection and exclusive perks.",
       image: "/lovable-uploads/2dc0d6ac-52f6-4006-8b18-6e85d298776a.png",
       price: "1.2 ETH",
