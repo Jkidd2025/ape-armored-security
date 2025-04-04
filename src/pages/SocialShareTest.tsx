@@ -4,13 +4,15 @@ import { Link } from 'react-router-dom';
 import { Button } from "@/components/ui/button";
 import { RefreshCw, ExternalLink, Copy, CheckCircle2, AlertCircle } from 'lucide-react';
 import { Alert, AlertTitle, AlertDescription } from "@/components/ui/alert";
+import { Separator } from "@/components/ui/separator";
 
 const SocialShareTest = () => {
   const [copied, setCopied] = useState(false);
-  const imageUrl = "https://apearmorsecure.com/lovable-uploads/5a70e743-1c9c-4a26-b070-1550be168a7c.png";
+  const imageUrl = "https://opengraph.b-cdn.net/production/images/c0e75856-684c-46bb-95b6-0a8600e74561.png?token=BrjgXSURgOH7iiLLMV2Yeev3JJLliUYjp3MpphrD8bM&height=630&width=1200&expires=33279735402";
   const [imageLoaded, setImageLoaded] = useState(false);
   const [imageError, setImageError] = useState(false);
   const [metaTags, setMetaTags] = useState<{property: string, content: string}[]>([]);
+  const [lastUpdated, setLastUpdated] = useState<Date>(new Date());
 
   useEffect(() => {
     // Log that the page is loaded to help with debugging
@@ -32,6 +34,7 @@ const SocialShareTest = () => {
     }
     
     setMetaTags(relevantTags);
+    setLastUpdated(new Date());
 
     // Check if the image is directly accessible
     const testImage = new Image();
@@ -78,6 +81,14 @@ const SocialShareTest = () => {
     <div className="min-h-screen bg-background flex flex-col items-center justify-center p-4">
       <div className="max-w-3xl w-full space-y-8 bg-card p-8 rounded-lg shadow-lg">
         <h1 className="text-3xl font-bold text-center text-gradient-gold">Social Media Sharing Test Page</h1>
+        
+        <Alert className="bg-blue-50 border-blue-200">
+          <AlertCircle className="h-4 w-4 text-blue-600" />
+          <AlertTitle className="text-blue-800">Meta Tags Updated</AlertTitle>
+          <AlertDescription className="text-blue-700">
+            Using new image from opengraph.b-cdn.net. Last checked: {lastUpdated.toLocaleTimeString()}
+          </AlertDescription>
+        </Alert>
         
         {!imageLoaded && !imageError && (
           <Alert className="bg-amber-50 border-amber-200">
@@ -177,6 +188,8 @@ const SocialShareTest = () => {
           </div>
         </div>
         
+        <Separator />
+        
         <div className="space-y-4">
           <h2 className="text-xl font-semibold">Test on Major Platforms:</h2>
           <div className="grid gap-3">
@@ -208,10 +221,11 @@ const SocialShareTest = () => {
           <div className="text-sm bg-blue-50 p-4 rounded-md border border-blue-200">
             <p className="font-medium text-blue-800 mb-2">Important Debugging Tips:</p>
             <ul className="list-disc pl-5 space-y-1 text-blue-700">
-              <li>After making changes to meta tags, use the Facebook debugger to force a cache refresh</li>
+              <li>Meta tags have been updated with the new image URL from opengraph.b-cdn.net</li>
+              <li>After changes to meta tags, use the Facebook debugger to force a cache refresh</li>
               <li>Some platforms cache previews for up to 24 hours</li>
-              <li>Check that your images are properly sized (Facebook recommends 1200×630 pixels)</li>
-              <li>Ensure all URLs are absolute (starting with https://)</li>
+              <li>The current image is properly sized (1200×630 pixels)</li>
+              <li>All URLs are absolute (starting with https://)</li>
               <li>Test your site from the actual production URL, not localhost</li>
             </ul>
           </div>
