@@ -19,7 +19,7 @@ const NftCollection = () => {
       id: 2,
       title: "CryptoGuardian",
       description: "Exclusive protector NFTs that provide enhanced security features and early warnings.",
-      image: "/lovable-uploads/dd5beeb0-b546-4c19-8208-909944b66f6b.png",
+      image: "/lovable-uploads/d62bf749-46f4-4484-a592-a8f81cf79a81.png",
       price: "0.75 ETH",
       rarity: "Epic",
       benefits: ["Threat Detection Alerts", "Weekly Security Reports", "Exclusive Webinars"]
