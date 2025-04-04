@@ -44,7 +44,7 @@ const NftCollection = () => {
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {nfts.map((nft) => (
-            <Card key={nft.id} className="border border-apearmor-darkbronze hover:border-apearmor-teal transition-all duration-300 overflow-hidden">
+            <Card key={nft.id} className="border border-apearmor-darkbronze hover:border-apearmor-teal transition-all duration-300 overflow-hidden flex flex-col">
               <div className={`relative overflow-hidden w-full ${nft.id === 1 ? 'h-64' : 'h-56'}`}>
                 <img 
                   src={nft.image} 
@@ -59,7 +59,7 @@ const NftCollection = () => {
                 <CardTitle>{nft.title}</CardTitle>
                 <CardDescription>{nft.description}</CardDescription>
               </CardHeader>
-              <CardContent>
+              <CardContent className="flex-grow">
                 <div className="space-y-2">
                   <h4 className="text-sm font-medium">Benefits:</h4>
                   <ul className="list-disc list-inside text-sm text-muted-foreground space-y-1">
@@ -69,7 +69,7 @@ const NftCollection = () => {
                   </ul>
                 </div>
               </CardContent>
-              <CardFooter className="flex justify-between">
+              <CardFooter className="flex justify-between mt-auto">
                 <Button variant="outline" size="sm" className="flex gap-1 items-center">
                   <Eye size={16} />
                   View Details
