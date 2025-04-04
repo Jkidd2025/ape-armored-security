@@ -1,3 +1,4 @@
+
 import { X, Github, Send, Facebook } from "lucide-react";
 import { Link } from "react-router-dom";
 
@@ -44,22 +45,27 @@ const Footer = () => {
             <h3 className="text-lg font-semibold mb-4">Quick Links</h3>
             <ul className="space-y-2">
               <li>
-                <a href="#" className="text-muted-foreground hover:text-apearmor-teal transition-colors">
+                <a href="#features" className="text-muted-foreground hover:text-apearmor-teal transition-colors">
                   Features
                 </a>
               </li>
               <li>
-                <a href="#" className="text-muted-foreground hover:text-apearmor-teal transition-colors">
+                <a href="#packages" className="text-muted-foreground hover:text-apearmor-teal transition-colors">
                   Packages
                 </a>
               </li>
               <li>
-                <a href="#" className="text-muted-foreground hover:text-apearmor-teal transition-colors">
+                <a href="#about" className="text-muted-foreground hover:text-apearmor-teal transition-colors">
                   About Us
                 </a>
               </li>
               <li>
-                <a href="#" className="text-muted-foreground hover:text-apearmor-teal transition-colors">
+                <a href="#nft-collection" className="text-muted-foreground hover:text-apearmor-teal transition-colors">
+                  NFT Collection
+                </a>
+              </li>
+              <li>
+                <a href="#contact" className="text-muted-foreground hover:text-apearmor-teal transition-colors">
                   Contact
                 </a>
               </li>

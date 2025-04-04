@@ -10,6 +10,7 @@ import Testimonials from "@/components/Testimonials";
 import Roadmap from "@/components/Roadmap";
 import Cta from "@/components/Cta";
 import Footer from "@/components/Footer";
+import NftCollection from "@/components/NftCollection";
 
 const Index = () => {
   return (
@@ -21,6 +22,7 @@ const Index = () => {
         <Packages />
         <About />
         <ApprovedProjects />
+        <NftCollection />
         <Testimonials />
         <Roadmap />
         <Cta />
