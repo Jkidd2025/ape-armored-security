@@ -45,11 +45,11 @@ const NftCollection = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {nfts.map((nft) => (
             <Card key={nft.id} className="border border-apearmor-darkbronze hover:border-apearmor-teal transition-all duration-300 overflow-hidden flex flex-col">
-              <div className={`relative overflow-hidden w-full ${nft.id === 1 ? 'h-64' : 'h-56'}`}>
+              <div className="relative overflow-hidden w-full h-64">
                 <img 
                   src={nft.image} 
                   alt={nft.title} 
-                  className={`w-full h-full object-cover transition-transform duration-300 hover:scale-105 ${nft.id === 1 ? 'object-contain p-2' : 'object-cover'}`}
+                  className="w-full h-full object-contain p-2 transition-transform duration-300 hover:scale-105"
                 />
                 <Badge className="absolute top-3 right-3 bg-apearmor-teal text-black">
                   {nft.rarity}
