@@ -8,7 +8,7 @@ export const packages = [
     name: "Chimp",
     subtitle: "Basic Protection",
     icon: <Shield className="h-10 w-10" />,
-    price: "5",
+    price: "3",
     interval: "/day",
     currency: "$",
     setupFee: "$25 Account Setup Fee",
