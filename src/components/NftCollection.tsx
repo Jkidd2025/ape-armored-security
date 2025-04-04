@@ -17,7 +17,7 @@ const NftCollection = () => {
     {
       id: 2,
       title: "Guardian Gorilla",
-      description: "Exclusive protector NFTs that provide enhanced security features and early warnings.",
+      description: "Exclusive protector NFTs that provide enhanced access and benefits for holders.",
       image: "/lovable-uploads/d62bf749-46f4-4484-a592-a8f81cf79a81.png",
       rarity: "Epic",
       benefits: ["Threat Detection Alerts", "Weekly Security Reports", "Exclusive Webinars"]
