@@ -18,7 +18,7 @@ export const packages = [
     name: "Gorilla",
     subtitle: "Advanced Protection",
     icon: <BadgeCheck className="h-10 w-10" />,
-    price: "10",
+    price: "8",
     currency: "$",
     interval: "/day",
     setupFee: "$50 Account Setup Fee",
