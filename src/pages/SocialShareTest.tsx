@@ -14,6 +14,7 @@ const SocialShareTest = () => {
   const [imageLoaded, setImageLoaded] = useState(false);
   const [imageError, setImageError] = useState(false);
   
+  // This is the correct CDN URL for the image
   const imageUrl = "https://opengraph.b-cdn.net/production/images/c0e75856-684c-46bb-95b6-0a8600e74561.png?token=BrjgXSURgOH7iiLLMV2Yeev3JJLliUYjp3MpphrD8bM&height=630&width=1200&expires=33279735402";
 
   useEffect(() => {
