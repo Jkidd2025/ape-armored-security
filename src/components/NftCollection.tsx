@@ -12,7 +12,7 @@ const NftCollection = () => {
       description: "First generation of ApeArmor NFTs with unique benefits for holders.",
       image: "/lovable-uploads/02e9a6cd-8406-489d-b332-525d61411216.png",
       rarity: "Rare",
-      benefits: ["Premium Discord Access", "Security Audits Priority", "Governance Rights"]
+      benefits: ["DAO Access", "Project Review", "Limited Governance Rights"]
     },
     {
       id: 2,
