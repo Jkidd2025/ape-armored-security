@@ -1,3 +1,4 @@
+
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -47,11 +48,11 @@ const NftCollection = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {nfts.map((nft) => (
             <Card key={nft.id} className="border border-apearmor-darkbronze hover:border-apearmor-teal transition-all duration-300 overflow-hidden">
-              <div className="relative overflow-hidden w-full h-56">
+              <div className={`relative overflow-hidden w-full ${nft.id === 1 ? 'h-64' : 'h-56'}`}>
                 <img 
                   src={nft.image} 
                   alt={nft.title} 
-                  className="w-full h-full object-cover transition-transform duration-300 hover:scale-105"
+                  className={`w-full h-full object-cover transition-transform duration-300 hover:scale-105 ${nft.id === 1 ? 'object-contain p-2' : 'object-cover'}`}
                 />
                 <Badge className="absolute top-3 right-3 bg-apearmor-teal text-black">
                   {nft.rarity}
