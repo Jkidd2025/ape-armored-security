@@ -1,4 +1,3 @@
-
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -10,7 +9,7 @@ const NftCollection = () => {
       id: 1,
       title: "ApeArmor Genesis",
       description: "First generation of ApeArmor NFTs with unique security benefits for holders.",
-      image: "/lovable-uploads/e90abdba-dcb2-49b7-b896-f8d7a491bc5c.png",
+      image: "/lovable-uploads/3abadd80-24aa-4428-8eef-1a7df0d7b245.png",
       price: "0.5 ETH",
       rarity: "Rare",
       benefits: ["Premium Discord Access", "Security Audits Priority", "Governance Rights"]
