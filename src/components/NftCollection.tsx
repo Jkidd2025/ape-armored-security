@@ -17,7 +17,7 @@ const NftCollection = () => {
     },
     {
       id: 2,
-      title: "CryptoGuardian",
+      title: "Guardian Gorilla",
       description: "Exclusive protector NFTs that provide enhanced security features and early warnings.",
       image: "/lovable-uploads/d62bf749-46f4-4484-a592-a8f81cf79a81.png",
       price: "0.75 ETH",
