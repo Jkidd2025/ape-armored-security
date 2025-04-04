@@ -20,7 +20,7 @@ const NftCollection = () => {
       description: "Exclusive protector NFTs that provide enhanced access and benefits for holders.",
       image: "/lovable-uploads/d62bf749-46f4-4484-a592-a8f81cf79a81.png",
       rarity: "Epic",
-      benefits: ["DAO Access", "Proposal Submission", "Project Reviews", "Voting w/ Governance Rights"]
+      benefits: ["DAO Access", "Proposal Submission", "Project Reviews", "Voting w/ Governance Rights", "Only 10,000 NFTs Minted"]
     },
     {
       id: 3,
