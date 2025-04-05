@@ -92,7 +92,7 @@ const Navbar = () => {
       
       <div className={cn(
         "md:hidden absolute w-full bg-background border-b border-apearmor-darkbronze transition-all duration-300 overflow-hidden",
-        isMenuOpen ? "max-h-[500px] opacity-100" : "max-h-0 opacity-0"
+        isMenuOpen ? "max-h-[80vh] opacity-100 overflow-y-auto" : "max-h-0 opacity-0"
       )}>
         <nav className="flex flex-col px-4 py-4 gap-2">
           <a 
@@ -177,12 +177,14 @@ const Navbar = () => {
             </Link>
           )}
           
-          <Button 
-            className="mt-2 bg-apearmor-teal hover:bg-apearmor-teal/80 text-black"
-            onClick={handlePaymentClick}
-          >
-            Apply Payment
-          </Button>
+          <div className="mt-4 pt-4 border-t border-apearmor-darkbronze">
+            <Button 
+              className="w-full bg-apearmor-teal hover:bg-apearmor-teal/80 text-black"
+              onClick={handlePaymentClick}
+            >
+              Apply Payment
+            </Button>
+          </div>
         </nav>
       </div>
     </header>
