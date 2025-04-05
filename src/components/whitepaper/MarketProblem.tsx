@@ -14,7 +14,7 @@ const MarketProblem = () => {
         <li>Transaction failures resulting in wasted gas fees</li>
       </ul>
       <p>
-        These issues have created a significant trust deficit in the market, with many potential investors remaining on the sidelines due to concerns about security and legitimacy.
+        These issues have created a significant trust deficit in the market, with many potential customers remaining on the sidelines due to concerns about security and legitimacy.
       </p>
     </section>
   );
