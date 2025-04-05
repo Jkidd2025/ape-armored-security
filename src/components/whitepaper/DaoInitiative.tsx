@@ -19,7 +19,7 @@ const DaoInitiative = () => {
       
       <h4 className="text-lg font-semibold mt-4 mb-2">Eligibility:</h4>
       <p className="mb-4">
-        Only Silverback package holders qualify to participate in the DAO decision-making process.
+        All NFT holders qualify to participate in the DAO, but only certain NFT are allowed to be part of the decision-making process.
       </p>
       
       <h4 className="text-lg font-semibold mt-4 mb-2">Process:</h4>
