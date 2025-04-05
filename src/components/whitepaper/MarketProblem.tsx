@@ -7,7 +7,7 @@ const MarketProblem = () => {
         The cryptocurrency market, despite its tremendous growth and potential, remains plagued by security concerns that deter both new and experienced investors:
       </p>
       <ul className="list-disc pl-6 space-y-2 mb-4">
-        <li>Rug pulls resulting in complete loss of invested capital</li>
+        <li>Rug pulls resulting in complete loss of capital</li>
         <li>Pump and dump schemes manipulating token prices</li>
         <li>Smart contract vulnerabilities leading to exploits</li>
         <li>Wallet blacklisting preventing fund access</li>
