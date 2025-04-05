@@ -27,7 +27,7 @@ const DaoInitiative = () => {
         <li><strong>Submission:</strong> Projects seeking coverage must submit their application through ApeArmor's official channels.</li>
         <li><strong>Initial Review:</strong> ApeArmor's internal team conducts a preliminary assessment to ensure minimum criteria compliance.</li>
         <li><strong>Silverback Vetting:</strong> Qualified projects proceed to the DAO, where NFT holders thoroughly evaluate project credentials, security audits, team backgrounds, tokenomics, and potential risks.</li>
-        <li><strong>Voting:</strong> NFT holders cast their votes on whether a project should be approved and covered under ApeArmor services.</li>
+        <li><strong>Voting:</strong> Silverback and Gorilla holders cast their votes on whether a project should be approved and covered under ApeArmor services.</li>
         <li><strong>Decision:</strong> Projects receiving majority approval from NFT holders are officially covered and announced publicly.</li>
       </ol>
       
