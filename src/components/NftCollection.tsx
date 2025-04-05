@@ -2,7 +2,6 @@
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { ShoppingCart, Eye } from "lucide-react";
 import { useIsMobile } from "@/hooks/use-mobile";
 
 const NftCollection = () => {
@@ -72,16 +71,6 @@ const NftCollection = () => {
                   </ul>
                 </div>
               </CardContent>
-              <CardFooter className={`flex justify-between mt-auto ${isMobile ? "p-3" : "p-4"}`}>
-                <Button variant="outline" size={isMobile ? "sm" : "default"} className="flex gap-1 items-center">
-                  <Eye size={isMobile ? 14 : 16} />
-                  <span>{isMobile ? "View" : "View Details"}</span>
-                </Button>
-                <Button size={isMobile ? "sm" : "default"} className="bg-apearmor-teal hover:bg-apearmor-teal/80 text-black flex gap-1 items-center">
-                  <ShoppingCart size={isMobile ? 14 : 16} />
-                  <span>Mint Now</span>
-                </Button>
-              </CardFooter>
             </Card>
           ))}
         </div>
