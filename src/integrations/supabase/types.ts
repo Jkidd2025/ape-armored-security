@@ -96,77 +96,6 @@ export type Database = {
         }
         Relationships: []
       }
-      listings: {
-        Row: {
-          created_at: string
-          escrow_address: string
-          id: string
-          nft_id: string | null
-          price: number
-          status: string
-        }
-        Insert: {
-          created_at?: string
-          escrow_address: string
-          id?: string
-          nft_id?: string | null
-          price: number
-          status?: string
-        }
-        Update: {
-          created_at?: string
-          escrow_address?: string
-          id?: string
-          nft_id?: string | null
-          price?: number
-          status?: string
-        }
-        Relationships: [
-          {
-            foreignKeyName: "listings_nft_id_fkey"
-            columns: ["nft_id"]
-            isOneToOne: false
-            referencedRelation: "nfts"
-            referencedColumns: ["id"]
-          },
-        ]
-      }
-      nfts: {
-        Row: {
-          created_at: string
-          id: string
-          image_url: string
-          mint_address: string
-          name: string
-          price: number
-          remaining_supply: number
-          tier: string
-          total_supply: number
-        }
-        Insert: {
-          created_at?: string
-          id?: string
-          image_url: string
-          mint_address: string
-          name: string
-          price: number
-          remaining_supply: number
-          tier: string
-          total_supply: number
-        }
-        Update: {
-          created_at?: string
-          id?: string
-          image_url?: string
-          mint_address?: string
-          name?: string
-          price?: number
-          remaining_supply?: number
-          tier?: string
-          total_supply?: number
-        }
-        Relationships: []
-      }
       payment_records: {
         Row: {
           amount_paid: string
@@ -247,44 +176,6 @@ export type Database = {
           x_username?: string | null
         }
         Relationships: []
-      }
-      sales: {
-        Row: {
-          buyer_address: string
-          created_at: string
-          id: string
-          nft_id: string | null
-          price: number
-          seller_address: string
-          transaction_signature: string
-        }
-        Insert: {
-          buyer_address: string
-          created_at?: string
-          id?: string
-          nft_id?: string | null
-          price: number
-          seller_address: string
-          transaction_signature: string
-        }
-        Update: {
-          buyer_address?: string
-          created_at?: string
-          id?: string
-          nft_id?: string | null
-          price?: number
-          seller_address?: string
-          transaction_signature?: string
-        }
-        Relationships: [
-          {
-            foreignKeyName: "sales_nft_id_fkey"
-            columns: ["nft_id"]
-            isOneToOne: false
-            referencedRelation: "nfts"
-            referencedColumns: ["id"]
-          },
-        ]
       }
       user_registrations: {
         Row: {
