@@ -9,7 +9,7 @@ const Introduction = () => {
       </p>
       <p className="mb-4">
         ApeArmor was founded on the principle that crypto buyers should be able to participate in this exciting market without constantly fearing the loss of their investments due to malicious actors.
-        Our platform provides comprehensive protection against the most common crypto threats, allowing investors to "ape in" to new projects with confidence.
+        Our platform provides comprehensive protection against the most common crypto threats, allowing buyers to "ape in" to new projects with confidence.
       </p>
     </section>
   );
