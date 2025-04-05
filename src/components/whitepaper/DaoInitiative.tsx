@@ -14,7 +14,7 @@ const DaoInitiative = () => {
       
       <h3 className="text-xl font-semibold mt-6 mb-3">Project Vetting and Qualification</h3>
       <p className="mb-4">
-        The ApeArmor DAO Initiative empowers Silverback token holders to actively participate in the vetting and qualification process of crypto projects that seek coverage under ApeArmor's protective services.
+        The ApeArmor DAO Initiative empowers NFT holders to actively participate in the vetting and qualification process of crypto projects that seek coverage under ApeArmor's protective services.
       </p>
       
       <h4 className="text-lg font-semibold mt-4 mb-2">Eligibility:</h4>
