@@ -20,7 +20,7 @@ interface NFT {
   remaining_supply: number;
   image_url: string;
   created_at: string;
-  benefits?: string[]; // Keep existing benefits field for compatibility
+  benefits?: string[]; // Optional field for UI display
 }
 
 const NftCollection = () => {
@@ -34,6 +34,7 @@ const NftCollection = () => {
     const fetchNFTs = async () => {
       try {
         setLoading(true);
+        // The 'nfts' table was just created in our database
         const { data, error } = await supabase
           .from('nfts')
           .select('*')
@@ -44,7 +45,7 @@ const NftCollection = () => {
         // If we have data from Supabase, use it
         if (data && data.length > 0) {
           // Map benefits from database if needed
-          setNfts(data.map(nft => ({
+          setNfts(data.map((nft: any) => ({
             ...nft,
             benefits: mapBenefitsByTier(nft.tier)
           })));
@@ -54,39 +55,36 @@ const NftCollection = () => {
             {
               id: "1",
               name: "ApeArmor Chimp",
-              description: "First generation of ApeArmor NFTs with unique benefits for holders.",
-              image_url: "/lovable-uploads/02e9a6cd-8406-489d-b332-525d61411216.png",
-              tier: "Rare",
               mint_address: "chimp123",
+              tier: "Rare",
               price: 0.5,
               total_supply: 1000000,
               remaining_supply: 900000,
+              image_url: "/lovable-uploads/02e9a6cd-8406-489d-b332-525d61411216.png",
               created_at: new Date().toISOString(),
               benefits: ["DAO Access", "Project Review", "Limited Governance Rights", "Only 1,000,000 NFTs Minted"]
             },
             {
               id: "2",
               name: "Guardian Gorilla",
-              description: "Exclusive protector NFTs that provide enhanced access and benefits for holders.",
-              image_url: "/lovable-uploads/8ce640c7-2f1c-49be-b8bf-61cf35b3271f.png",
-              tier: "Epic",
               mint_address: "gorilla123",
+              tier: "Epic",
               price: 1.5,
               total_supply: 10000,
               remaining_supply: 8000,
+              image_url: "/lovable-uploads/8ce640c7-2f1c-49be-b8bf-61cf35b3271f.png",
               created_at: new Date().toISOString(),
               benefits: ["DAO Access", "Proposal Submission", "Project Reviews", "Voting w/ Governance Rights", "Only 10,000 NFTs Minted"]
             },
             {
               id: "3",
               name: "Sentinel Silverback",
-              description: "Legendary tier NFTs that offer the highest level of exclusive perks.",
-              image_url: "/lovable-uploads/2dc0d6ac-52f6-4006-8b18-6e85d298776a.png",
-              tier: "Legendary",
               mint_address: "silverback123",
+              tier: "Legendary",
               price: 5,
               total_supply: 1001,
               remaining_supply: 500,
+              image_url: "/lovable-uploads/2dc0d6ac-52f6-4006-8b18-6e85d298776a.png",
               created_at: new Date().toISOString(),
               benefits: ["DAO Access", "Access to All Treasury Projects", "Full Voting Power", "Project Reviews", "Proposal Submission", "Ape Armor Council Seat", "Full Governance Rights", "Only 1,001 NFTs Minted"]
             }
@@ -227,7 +225,7 @@ const NftCollection = () => {
               <CardHeader className={isMobile ? "p-3" : "p-4"}>
                 <CardTitle className={isMobile ? "text-lg" : "text-xl"}>{nft.name}</CardTitle>
                 <CardDescription className={isMobile ? "text-sm" : ""}>
-                  {nft.description || `Tier ${nft.tier} NFT with exclusive ApeArmor benefits.`}
+                  Tier {nft.tier} NFT with exclusive ApeArmor benefits.
                 </CardDescription>
               </CardHeader>
               <CardContent className={`flex-grow ${isMobile ? "p-3 pt-0" : "p-4 pt-0"}`}>
