@@ -4,12 +4,12 @@ const ApeArmorSolution = () => {
     <section>
       <h2 className="text-2xl font-bold mb-4 text-apearmor-teal">3. ApeArmor Solution</h2>
       <p className="mb-4">
-        ApeArmor addresses these critical market problems through a comprehensive protection platform that safeguards investors' capital against various crypto threats.
+        ApeArmor addresses these critical market problems through a comprehensive protection platform that safeguards customers' capital against various crypto threats.
       </p>
       
       <h3 className="text-xl font-semibold mt-6 mb-3">3.1 Protection Packages</h3>
       <p className="mb-4">
-        We offer tiered protection packages to fit the needs and risk profiles of different investors:
+        We offer tiered protection packages to fit the needs and risk profiles of different customers:
       </p>
       <ul className="list-disc pl-6 space-y-2 mb-4">
         <li><strong>Chimp Package:</strong> Basic protection with up to 25% initial investment refund</li>
