@@ -3,8 +3,11 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { ShoppingCart, Eye } from "lucide-react";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 const NftCollection = () => {
+  const isMobile = useIsMobile();
+  
   const nfts = [
     {
       id: 1,
@@ -42,10 +45,10 @@ const NftCollection = () => {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
           {nfts.map((nft) => (
             <Card key={nft.id} className="border border-apearmor-darkbronze hover:border-apearmor-teal transition-all duration-300 overflow-hidden flex flex-col">
-              <div className="relative overflow-hidden w-full h-64">
+              <div className="relative overflow-hidden w-full h-48 md:h-64">
                 <img 
                   src={nft.image} 
                   alt={nft.title} 
@@ -55,35 +58,35 @@ const NftCollection = () => {
                   {nft.rarity}
                 </Badge>
               </div>
-              <CardHeader>
-                <CardTitle>{nft.title}</CardTitle>
-                <CardDescription>{nft.description}</CardDescription>
+              <CardHeader className={isMobile ? "p-3" : "p-4"}>
+                <CardTitle className={isMobile ? "text-lg" : "text-xl"}>{nft.title}</CardTitle>
+                <CardDescription className={isMobile ? "text-sm" : ""}>{nft.description}</CardDescription>
               </CardHeader>
-              <CardContent className="flex-grow">
+              <CardContent className={`flex-grow ${isMobile ? "p-3 pt-0" : "p-4 pt-0"}`}>
                 <div className="space-y-2">
                   <h4 className="text-sm font-medium">Benefits:</h4>
                   <ul className="list-disc list-inside text-sm text-muted-foreground space-y-1">
                     {nft.benefits.map((benefit, index) => (
-                      <li key={index}>{benefit}</li>
+                      <li key={index} className={isMobile ? "text-xs overflow-hidden text-ellipsis" : ""}>{benefit}</li>
                     ))}
                   </ul>
                 </div>
               </CardContent>
-              <CardFooter className="flex justify-between mt-auto">
-                <Button variant="outline" size="sm" className="flex gap-1 items-center">
-                  <Eye size={16} />
-                  View Details
+              <CardFooter className={`flex justify-between mt-auto ${isMobile ? "p-3" : "p-4"}`}>
+                <Button variant="outline" size={isMobile ? "sm" : "default"} className="flex gap-1 items-center">
+                  <Eye size={isMobile ? 14 : 16} />
+                  <span>{isMobile ? "View" : "View Details"}</span>
                 </Button>
-                <Button size="sm" className="bg-apearmor-teal hover:bg-apearmor-teal/80 text-black flex gap-1 items-center">
-                  <ShoppingCart size={16} />
-                  Mint Now
+                <Button size={isMobile ? "sm" : "default"} className="bg-apearmor-teal hover:bg-apearmor-teal/80 text-black flex gap-1 items-center">
+                  <ShoppingCart size={isMobile ? 14 : 16} />
+                  <span>Mint Now</span>
                 </Button>
               </CardFooter>
             </Card>
           ))}
         </div>
 
-        <div className="mt-12 text-center">
+        <div className="mt-8 md:mt-12 text-center">
           <Button className="bg-apearmor-teal hover:bg-apearmor-teal/80 text-black">
             View Complete Collection
           </Button>

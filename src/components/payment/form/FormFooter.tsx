@@ -13,7 +13,7 @@ const FormFooter = ({ isSubmitting }: FormFooterProps) => {
   const isMobile = useIsMobile();
   
   return (
-    <div className={`flex flex-col ${isMobile ? 'gap-4' : 'gap-6'}`}>
+    <div className={`flex flex-col ${isMobile ? 'gap-3' : 'gap-6'}`}>
       <DisclaimerBox />
       <PaymentSubmitButton isSubmitting={isSubmitting} />
       <div className="relative flex items-center py-2">
@@ -28,7 +28,7 @@ const FormFooter = ({ isSubmitting }: FormFooterProps) => {
         onClick={() => window.open('https://buy.stripe.com/test_00g5nJ0Zy24XabCfYY', '_blank')}
       >
         <CreditCard className="mr-2 h-4 w-4" />
-        Pay by Credit Card
+        {isMobile ? "Credit Card Payment" : "Pay by Credit Card"}
       </Button>
     </div>
   );

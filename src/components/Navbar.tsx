@@ -1,14 +1,16 @@
 
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { Button } from "@/components/ui/button";
 import { Menu, X, Share2 } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
+  const isMobile = useIsMobile();
   
   const isDevEnvironment = window.location.hostname === 'localhost' || 
                            window.location.hostname === '127.0.0.1';
@@ -39,10 +41,10 @@ const Navbar = () => {
             <img 
               src="/lovable-uploads/e90abdba-dcb2-49b7-b896-f8d7a491bc5c.png" 
               alt="ApeArmor Logo" 
-              className="h-14 w-14 md:h-16 md:w-16" 
+              className="h-10 w-10 md:h-14 md:w-14" 
             />
           </Link>
-          <Link to="/" className="text-xl font-bold text-gradient-gold">ApeArmor</Link>
+          <Link to="/" className="text-lg md:text-xl font-bold text-gradient-gold">ApeArmor</Link>
         </div>
         
         <nav className="hidden md:flex items-center gap-6">
@@ -92,7 +94,7 @@ const Navbar = () => {
         "md:hidden absolute w-full bg-background border-b border-apearmor-darkbronze transition-all duration-300 overflow-hidden",
         isMenuOpen ? "max-h-[500px] opacity-100" : "max-h-0 opacity-0"
       )}>
-        <nav className="flex flex-col px-4 py-4 gap-4">
+        <nav className="flex flex-col px-4 py-4 gap-2">
           <a 
             href="#features" 
             className="text-sm font-medium py-2 px-4 hover:bg-muted rounded-md hover:text-apearmor-teal transition-colors"
@@ -176,7 +178,7 @@ const Navbar = () => {
           )}
           
           <Button 
-            className="mt-4 bg-apearmor-teal hover:bg-apearmor-teal/80 text-black w-full mx-4"
+            className="mt-2 bg-apearmor-teal hover:bg-apearmor-teal/80 text-black"
             onClick={handlePaymentClick}
           >
             Apply Payment
