@@ -15,7 +15,8 @@ const NftCollection = () => {
       description: "First generation of ApeArmor NFTs with unique benefits for holders.",
       image: "/lovable-uploads/02e9a6cd-8406-489d-b332-525d61411216.png",
       rarity: "Rare",
-      benefits: ["DAO Access", "Project Review", "Limited Governance Rights", "Only 1,000,000 NFTs Minted"]
+      benefits: ["DAO Access", "Project Review", "Limited Governance Rights", "Only 1,000,000 NFTs Minted"],
+      buyLink: "https://magiceden.us/item-details/YPTHLRGpN7CDc4cP2oYmhsKyvZniun2fgVR9edrekHr"
     },
     {
       id: 2,
@@ -23,7 +24,8 @@ const NftCollection = () => {
       description: "Exclusive protector NFTs that provide enhanced access and benefits for holders.",
       image: "/lovable-uploads/8ce640c7-2f1c-49be-b8bf-61cf35b3271f.png",
       rarity: "Epic",
-      benefits: ["DAO Access", "Proposal Submission", "Project Reviews", "Voting w/ Governance Rights", "Only 10,000 NFTs Minted"]
+      benefits: ["DAO Access", "Proposal Submission", "Project Reviews", "Voting w/ Governance Rights", "Only 10,000 NFTs Minted"],
+      buyLink: "#"
     },
     {
       id: 3,
@@ -31,7 +33,8 @@ const NftCollection = () => {
       description: "Legendary tier NFTs that offer the highest level of exclusive perks.",
       image: "/lovable-uploads/2dc0d6ac-52f6-4006-8b18-6e85d298776a.png",
       rarity: "Legendary",
-      benefits: ["DAO Access", "Access to All Treasury Projects", "Full Voting Power", "Project Reviews", "Proposal Submission", "Ape Armor Council Seat", "Full Governance Rights", "Only 1,001 NFTs Minted"]
+      benefits: ["DAO Access", "Access to All Treasury Projects", "Full Voting Power", "Project Reviews", "Proposal Submission", "Ape Armor Council Seat", "Full Governance Rights", "Only 1,001 NFTs Minted"],
+      buyLink: "#"
     }
   ];
 
@@ -77,7 +80,11 @@ const NftCollection = () => {
                   <Eye size={isMobile ? 14 : 16} />
                   <span>{isMobile ? "View" : "View Details"}</span>
                 </Button>
-                <Button size={isMobile ? "sm" : "default"} className="bg-apearmor-teal hover:bg-apearmor-teal/80 text-black flex gap-1 items-center">
+                <Button 
+                  size={isMobile ? "sm" : "default"} 
+                  className="bg-apearmor-teal hover:bg-apearmor-teal/80 text-black flex gap-1 items-center"
+                  onClick={() => window.open(nft.buyLink, '_blank')}
+                >
                   <ShoppingCart size={isMobile ? 14 : 16} />
                   <span>Buy Now</span>
                 </Button>
