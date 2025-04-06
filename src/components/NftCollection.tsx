@@ -27,7 +27,7 @@ const NftCollection = () => {
       rarity: "Epic",
       benefits: ["DAO Access", "Proposal Submission", "Project Reviews", "Voting w/ Governance Rights", "Only 10,000 NFTs Minted"],
       buyLink: "#",
-      viewLink: "#"
+      viewLink: "https://solscan.io/token/HdQ4oBVfmdq14aknv6WeNkirkd9VereH3Rvex3HHb68v"
     },
     {
       id: 3,
