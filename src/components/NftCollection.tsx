@@ -36,7 +36,7 @@ const NftCollection = () => {
       image: "/lovable-uploads/2dc0d6ac-52f6-4006-8b18-6e85d298776a.png",
       rarity: "Legendary",
       benefits: ["DAO Access", "Access to All Treasury Projects", "Full Voting Power", "Project Reviews", "Proposal Submission", "Ape Armor Council Seat", "Full Governance Rights", "Only 1,001 NFTs Minted"],
-      buyLink: "#",
+      buyLink: "https://magiceden.us/item-details/AC2JQW9qYTao3wAHxPfrs2cKMpiLq3T7L997Tnqq3cTZ",
       viewLink: "https://solscan.io/token/AC2JQW9qYTao3wAHxPfrs2cKMpiLq3T7L997Tnqq3cTZ"
     }
   ];
