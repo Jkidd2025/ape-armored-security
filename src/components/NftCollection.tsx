@@ -26,7 +26,7 @@ const NftCollection = () => {
       image: "/lovable-uploads/8ce640c7-2f1c-49be-b8bf-61cf35b3271f.png",
       rarity: "Epic",
       benefits: ["DAO Access", "Proposal Submission", "Project Reviews", "Voting w/ Governance Rights", "Only 10,000 NFTs Minted"],
-      buyLink: "#",
+      buyLink: "https://magiceden.us/item-details/HdQ4oBVfmdq14aknv6WeNkirkd9VereH3Rvex3HHb68v",
       viewLink: "https://solscan.io/token/HdQ4oBVfmdq14aknv6WeNkirkd9VereH3Rvex3HHb68v"
     },
     {
