@@ -38,6 +38,25 @@ const Footer = () => {
                 <Send className="h-5 w-5" />
                 <span className="sr-only">Telegram</span>
               </a>
+              <a href="https://www.tiktok.com/@ape.armor" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-apearmor-teal transition-colors">
+                <svg 
+                  xmlns="http://www.w3.org/2000/svg" 
+                  width="20" 
+                  height="20" 
+                  viewBox="0 0 24 24" 
+                  fill="none" 
+                  stroke="currentColor" 
+                  strokeWidth="2" 
+                  strokeLinecap="round" 
+                  strokeLinejoin="round" 
+                  className="h-5 w-5"
+                >
+                  <path d="M9 12a4 4 0 1 0 0 8 4 4 0 0 0 0-8z"/>
+                  <path d="M15 8h.01"/>
+                  <path d="M11 16H7a4 4 0 0 1-4-4V6a4 4 0 0 1 4-4h12a4 4 0 0 1 4 4v4a4 4 0 0 1-4 4h-3.5"/>
+                </svg>
+                <span className="sr-only">TikTok</span>
+              </a>
             </div>
           </div>
           
