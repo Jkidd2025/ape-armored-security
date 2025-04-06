@@ -37,7 +37,7 @@ const NftCollection = () => {
       rarity: "Legendary",
       benefits: ["DAO Access", "Access to All Treasury Projects", "Full Voting Power", "Project Reviews", "Proposal Submission", "Ape Armor Council Seat", "Full Governance Rights", "Only 1,001 NFTs Minted"],
       buyLink: "#",
-      viewLink: "#"
+      viewLink: "https://solscan.io/token/AC2JQW9qYTao3wAHxPfrs2cKMpiLq3T7L997Tnqq3cTZ"
     }
   ];
 
