@@ -100,12 +100,6 @@ const NftCollection = () => {
             </Card>
           ))}
         </div>
-
-        <div className="mt-8 md:mt-12 text-center">
-          <Button className="bg-apearmor-teal hover:bg-apearmor-teal/80 text-black">
-            View Complete Collection
-          </Button>
-        </div>
       </div>
     </section>
   );
