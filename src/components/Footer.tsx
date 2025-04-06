@@ -1,4 +1,3 @@
-
 import { X, Github, Send, Facebook } from "lucide-react";
 import { Link } from "react-router-dom";
 
@@ -41,19 +40,11 @@ const Footer = () => {
               <a href="https://www.tiktok.com/@ape.armor" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-apearmor-teal transition-colors">
                 <svg 
                   xmlns="http://www.w3.org/2000/svg" 
-                  width="20" 
-                  height="20" 
-                  viewBox="0 0 24 24" 
-                  fill="none" 
-                  stroke="currentColor" 
-                  strokeWidth="2" 
-                  strokeLinecap="round" 
-                  strokeLinejoin="round" 
+                  viewBox="0 0 448 512" 
+                  fill="currentColor" 
                   className="h-5 w-5"
                 >
-                  <path d="M9 12a4 4 0 1 0 0 8 4 4 0 0 0 0-8z"/>
-                  <path d="M15 8h.01"/>
-                  <path d="M11 16H7a4 4 0 0 1-4-4V6a4 4 0 0 1 4-4h12a4 4 0 0 1 4 4v4a4 4 0 0 1-4 4h-3.5"/>
+                  <path d="M448,209.91a210.06,210.06,0,0,1-122.77-39.25V349.38A162.55,162.55,0,1,1,185,188.31V278.2a74.62,74.62,0,1,0,52.23,71.18V0l88,0a121.18,121.18,0,0,0,1.86,22.17h0A122.18,122.18,0,0,0,381,102.39a121.43,121.43,0,0,0,67,20.14Z"/>
                 </svg>
                 <span className="sr-only">TikTok</span>
               </a>
