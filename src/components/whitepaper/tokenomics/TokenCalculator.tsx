@@ -79,7 +79,7 @@ const TokenCalculator = () => {
             <div className="mt-4">
               <Tabs defaultValue="current" className="w-full">
                 <TabsList className="grid grid-cols-4 mb-4">
-                  <TabsTrigger value="current">Current</TabsTrigger>
+                  <TabsTrigger value="current">Public Launch Price</TabsTrigger>
                   <TabsTrigger value="presale1">Presale 1</TabsTrigger>
                   <TabsTrigger value="presale2">Presale 2</TabsTrigger>
                   <TabsTrigger value="presale3">Presale 3</TabsTrigger>
@@ -88,7 +88,7 @@ const TokenCalculator = () => {
                 <TabsContent value="current" className="p-4 bg-background rounded border border-border">
                   <div className="flex items-center justify-center gap-2 mb-2">
                     <DollarSign className="h-4 w-4 text-apearmor-teal" />
-                    <h5 className="font-medium">Current Value</h5>
+                    <h5 className="font-medium">Public Launch Price</h5>
                   </div>
                   <p className="text-center">
                     <span className="font-semibold">{formattedTokenAmount()}</span> tokens = 
