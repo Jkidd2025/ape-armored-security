@@ -23,6 +23,14 @@ const TokenCalculator = () => {
     setCalculatedValue(value);
   };
 
+  // Format the token amount to display
+  const formattedTokenAmount = () => {
+    if (!tokenAmount || isNaN(Number(tokenAmount))) {
+      return "Ape Armor";
+    }
+    return parseFloat(tokenAmount).toLocaleString();
+  };
+
   return (
     <div className="mb-10">
       <h3 className="text-xl font-semibold mt-6 mb-3">5.7 Token Value Calculator</h3>
@@ -55,7 +63,7 @@ const TokenCalculator = () => {
           {calculatedValue !== null && (
             <div className="mt-4 p-4 bg-background rounded border border-border">
               <p className="text-center">
-                <span className="font-semibold">{parseFloat(tokenAmount).toLocaleString()}</span> tokens = 
+                <span className="font-semibold">{formattedTokenAmount()}</span> tokens = 
                 <span className="ml-2 font-semibold text-apearmor-teal">
                   ${calculatedValue.toFixed(2)}
                 </span>
