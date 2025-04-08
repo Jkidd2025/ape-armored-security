@@ -5,6 +5,7 @@ import TokenAllocation from "./tokenomics/TokenAllocation";
 import PresaleOverview from "./tokenomics/PresaleOverview";
 import LiquidityPoolSetup from "./tokenomics/LiquidityPoolSetup";
 import VestingSchedule from "./tokenomics/VestingSchedule";
+import TokenCalculator from "./tokenomics/TokenCalculator";
 
 const Tokenomics = () => {
   return (
@@ -20,6 +21,7 @@ const Tokenomics = () => {
       <PresaleOverview />
       <LiquidityPoolSetup />
       <VestingSchedule />
+      <TokenCalculator />
     </section>
   );
 };
