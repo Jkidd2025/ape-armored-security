@@ -1,6 +1,7 @@
 
 import React from "react";
-import { DollarSign, CalendarDays } from "lucide-react";
+import { DollarSign, CalendarDays, AlertTriangle } from "lucide-react";
+import { Alert, AlertTitle, AlertDescription } from "@/components/ui/alert";
 import { 
   calculateTokenValue, 
   calculateDailyPayout, 
@@ -56,6 +57,14 @@ const TokenValueDisplay: React.FC<TokenValueDisplayProps> = ({
             : "0"} per day)
         </p>
       </div>
+
+      <Alert variant="default" className="mt-4 bg-muted/50 border-apearmor-teal/30">
+        <AlertTriangle className="h-4 w-4 text-apearmor-teal" />
+        <AlertTitle className="text-sm">Disclaimer</AlertTitle>
+        <AlertDescription className="text-xs text-muted-foreground">
+          Values are subject to change based on SOL's current market price. This calculator should only be used to estimate potential outcomes for token appreciation.
+        </AlertDescription>
+      </Alert>
     </div>
   );
 };
