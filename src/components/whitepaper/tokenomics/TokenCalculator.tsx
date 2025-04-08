@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
-import { Calculator, DollarSign } from "lucide-react";
+import { Calculator, DollarSign, CalendarDays } from "lucide-react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 const TokenCalculator = () => {
@@ -18,6 +18,9 @@ const TokenCalculator = () => {
     current: 0.00019065 // Current price (same as presale 3)
   };
 
+  // Vesting details - 20 days vesting period with equal distribution
+  const vestingDays = 20;
+
   const calculateValueForRound = (round: keyof typeof presalePrices) => {
     if (!tokenAmount || isNaN(Number(tokenAmount))) {
       return null;
@@ -25,6 +28,16 @@ const TokenCalculator = () => {
     
     const tokens = parseFloat(tokenAmount);
     return tokens * presalePrices[round];
+  };
+
+  const calculateDailyPayoutForRound = (round: keyof typeof presalePrices) => {
+    if (!tokenAmount || isNaN(Number(tokenAmount))) {
+      return null;
+    }
+    
+    const tokens = parseFloat(tokenAmount);
+    // Daily payout is total tokens divided by vesting days
+    return tokens / vestingDays;
   };
 
   const handleCalculate = () => {
@@ -44,6 +57,11 @@ const TokenCalculator = () => {
       return "Ape Armor";
     }
     return parseFloat(tokenAmount).toLocaleString();
+  };
+
+  // Format number with commas
+  const formatNumber = (num: number) => {
+    return num.toLocaleString(undefined, { maximumFractionDigits: 2 });
   };
 
   return (
@@ -115,6 +133,25 @@ const TokenCalculator = () => {
                   <p className="text-center text-sm text-muted-foreground mt-1">
                     at ${presalePrices.round1} per token
                   </p>
+                  
+                  <div className="mt-4 pt-4 border-t border-border">
+                    <div className="flex items-center justify-center gap-2 mb-2">
+                      <CalendarDays className="h-4 w-4 text-apearmor-teal" />
+                      <h5 className="font-medium">Daily Payout (20-day vesting)</h5>
+                    </div>
+                    <p className="text-center">
+                      <span className="font-semibold">
+                        {calculateDailyPayoutForRound('round1') 
+                          ? formatNumber(calculateDailyPayoutForRound('round1')!) 
+                          : "0"} tokens
+                      </span> per day
+                    </p>
+                    <p className="text-center text-sm text-muted-foreground mt-1">
+                      (${calculateDailyPayoutForRound('round1') && calculateValueForRound('round1') 
+                          ? ((calculateValueForRound('round1')! / vestingDays)).toFixed(2) 
+                          : "0"} per day)
+                    </p>
+                  </div>
                 </TabsContent>
                 
                 <TabsContent value="presale2" className="p-4 bg-background rounded border border-border">
@@ -131,6 +168,25 @@ const TokenCalculator = () => {
                   <p className="text-center text-sm text-muted-foreground mt-1">
                     at ${presalePrices.round2} per token
                   </p>
+                  
+                  <div className="mt-4 pt-4 border-t border-border">
+                    <div className="flex items-center justify-center gap-2 mb-2">
+                      <CalendarDays className="h-4 w-4 text-apearmor-teal" />
+                      <h5 className="font-medium">Daily Payout (20-day vesting)</h5>
+                    </div>
+                    <p className="text-center">
+                      <span className="font-semibold">
+                        {calculateDailyPayoutForRound('round2') 
+                          ? formatNumber(calculateDailyPayoutForRound('round2')!) 
+                          : "0"} tokens
+                      </span> per day
+                    </p>
+                    <p className="text-center text-sm text-muted-foreground mt-1">
+                      (${calculateDailyPayoutForRound('round2') && calculateValueForRound('round2') 
+                          ? ((calculateValueForRound('round2')! / vestingDays)).toFixed(2) 
+                          : "0"} per day)
+                    </p>
+                  </div>
                 </TabsContent>
                 
                 <TabsContent value="presale3" className="p-4 bg-background rounded border border-border">
@@ -147,6 +203,25 @@ const TokenCalculator = () => {
                   <p className="text-center text-sm text-muted-foreground mt-1">
                     at ${presalePrices.round3} per token
                   </p>
+                  
+                  <div className="mt-4 pt-4 border-t border-border">
+                    <div className="flex items-center justify-center gap-2 mb-2">
+                      <CalendarDays className="h-4 w-4 text-apearmor-teal" />
+                      <h5 className="font-medium">Daily Payout (20-day vesting)</h5>
+                    </div>
+                    <p className="text-center">
+                      <span className="font-semibold">
+                        {calculateDailyPayoutForRound('round3') 
+                          ? formatNumber(calculateDailyPayoutForRound('round3')!) 
+                          : "0"} tokens
+                      </span> per day
+                    </p>
+                    <p className="text-center text-sm text-muted-foreground mt-1">
+                      (${calculateDailyPayoutForRound('round3') && calculateValueForRound('round3') 
+                          ? ((calculateValueForRound('round3')! / vestingDays)).toFixed(2) 
+                          : "0"} per day)
+                    </p>
+                  </div>
                 </TabsContent>
               </Tabs>
             </div>
