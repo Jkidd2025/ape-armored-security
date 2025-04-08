@@ -3,14 +3,29 @@ import React, { useState } from "react";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
-import { Calculator } from "lucide-react";
+import { Calculator, DollarSign } from "lucide-react";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 const TokenCalculator = () => {
   const [tokenAmount, setTokenAmount] = useState<string>("");
   const [calculatedValue, setCalculatedValue] = useState<number | null>(null);
   
-  // Token price from the liquidity pool section
-  const tokenPrice = 0.00019065;
+  // Token prices from the presale rounds and liquidity pool
+  const presalePrices = {
+    round1: 0.0000953,
+    round2: 0.0001096,
+    round3: 0.00019065,
+    current: 0.00019065 // Current price (same as presale 3)
+  };
+
+  const calculateValueForRound = (round: keyof typeof presalePrices) => {
+    if (!tokenAmount || isNaN(Number(tokenAmount))) {
+      return null;
+    }
+    
+    const tokens = parseFloat(tokenAmount);
+    return tokens * presalePrices[round];
+  };
 
   const handleCalculate = () => {
     if (!tokenAmount || isNaN(Number(tokenAmount))) {
@@ -19,7 +34,7 @@ const TokenCalculator = () => {
     }
     
     const tokens = parseFloat(tokenAmount);
-    const value = tokens * tokenPrice;
+    const value = tokens * presalePrices.current;
     setCalculatedValue(value);
   };
 
@@ -60,17 +75,80 @@ const TokenCalculator = () => {
             Calculate Value
           </Button>
           
-          {calculatedValue !== null && (
-            <div className="mt-4 p-4 bg-background rounded border border-border">
-              <p className="text-center">
-                <span className="font-semibold">{formattedTokenAmount()}</span> tokens = 
-                <span className="ml-2 font-semibold text-apearmor-teal">
-                  ${calculatedValue.toFixed(2)}
-                </span>
-              </p>
-              <p className="text-center text-sm text-muted-foreground mt-1">
-                at ${tokenPrice} per token
-              </p>
+          {tokenAmount && !isNaN(Number(tokenAmount)) && (
+            <div className="mt-4">
+              <Tabs defaultValue="current" className="w-full">
+                <TabsList className="grid grid-cols-4 mb-4">
+                  <TabsTrigger value="current">Current</TabsTrigger>
+                  <TabsTrigger value="presale1">Presale 1</TabsTrigger>
+                  <TabsTrigger value="presale2">Presale 2</TabsTrigger>
+                  <TabsTrigger value="presale3">Presale 3</TabsTrigger>
+                </TabsList>
+                
+                <TabsContent value="current" className="p-4 bg-background rounded border border-border">
+                  <div className="flex items-center justify-center gap-2 mb-2">
+                    <DollarSign className="h-4 w-4 text-apearmor-teal" />
+                    <h5 className="font-medium">Current Value</h5>
+                  </div>
+                  <p className="text-center">
+                    <span className="font-semibold">{formattedTokenAmount()}</span> tokens = 
+                    <span className="ml-2 font-semibold text-apearmor-teal">
+                      ${(calculateValueForRound('current') || 0).toFixed(2)}
+                    </span>
+                  </p>
+                  <p className="text-center text-sm text-muted-foreground mt-1">
+                    at ${presalePrices.current} per token
+                  </p>
+                </TabsContent>
+                
+                <TabsContent value="presale1" className="p-4 bg-background rounded border border-border">
+                  <div className="flex items-center justify-center gap-2 mb-2">
+                    <DollarSign className="h-4 w-4 text-apearmor-teal" />
+                    <h5 className="font-medium">Presale Round 1 Value</h5>
+                  </div>
+                  <p className="text-center">
+                    <span className="font-semibold">{formattedTokenAmount()}</span> tokens = 
+                    <span className="ml-2 font-semibold text-apearmor-teal">
+                      ${(calculateValueForRound('round1') || 0).toFixed(2)}
+                    </span>
+                  </p>
+                  <p className="text-center text-sm text-muted-foreground mt-1">
+                    at ${presalePrices.round1} per token
+                  </p>
+                </TabsContent>
+                
+                <TabsContent value="presale2" className="p-4 bg-background rounded border border-border">
+                  <div className="flex items-center justify-center gap-2 mb-2">
+                    <DollarSign className="h-4 w-4 text-apearmor-teal" />
+                    <h5 className="font-medium">Presale Round 2 Value</h5>
+                  </div>
+                  <p className="text-center">
+                    <span className="font-semibold">{formattedTokenAmount()}</span> tokens = 
+                    <span className="ml-2 font-semibold text-apearmor-teal">
+                      ${(calculateValueForRound('round2') || 0).toFixed(2)}
+                    </span>
+                  </p>
+                  <p className="text-center text-sm text-muted-foreground mt-1">
+                    at ${presalePrices.round2} per token
+                  </p>
+                </TabsContent>
+                
+                <TabsContent value="presale3" className="p-4 bg-background rounded border border-border">
+                  <div className="flex items-center justify-center gap-2 mb-2">
+                    <DollarSign className="h-4 w-4 text-apearmor-teal" />
+                    <h5 className="font-medium">Presale Round 3 Value</h5>
+                  </div>
+                  <p className="text-center">
+                    <span className="font-semibold">{formattedTokenAmount()}</span> tokens = 
+                    <span className="ml-2 font-semibold text-apearmor-teal">
+                      ${(calculateValueForRound('round3') || 0).toFixed(2)}
+                    </span>
+                  </p>
+                  <p className="text-center text-sm text-muted-foreground mt-1">
+                    at ${presalePrices.round3} per token
+                  </p>
+                </TabsContent>
+              </Tabs>
             </div>
           )}
         </div>
