@@ -198,7 +198,7 @@ const Tokenomics = () => {
             </tr>
             <tr>
               <td className="border px-4 py-2">Liquidity Token Price</td>
-              <td className="border px-4 py-2">$0.0000953 per token</td>
+              <td className="border px-4 py-2">$0.00019065 per token</td>
               <td className="border px-4 py-2">$0.0001001 per token</td>
             </tr>
           </tbody>
