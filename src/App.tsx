@@ -36,9 +36,6 @@ const App = () => (
           <Route path="/claim-submission" element={<ClaimSubmission />} />
           <Route path="/social-share-test" element={<SocialShareTest />} />
           
-          {/* Redirect chart predictor to whitepaper tokenomics section */}
-          <Route path="/chart-predictor" element={<Navigate to="/whitepaper" replace />} />
-          
           {/* More comprehensive presale application routes */}
           <Route path="/presale-application" element={<PresaleApplication />} />
           <Route path="/presale-application/" element={<PresaleApplication />} />
