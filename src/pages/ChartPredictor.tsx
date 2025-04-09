@@ -10,7 +10,7 @@ const ChartPredictor = () => {
   return (
     <div className="min-h-screen flex flex-col bg-background">
       <Navbar />
-      <main className="flex-1 container max-w-6xl mx-auto px-4 py-20 mt-16">
+      <main className="flex-1 container max-w-6xl mx-auto px-4 py-16 mt-16 mb-8">
         <div className="flex flex-col items-center justify-center mb-8">
           <div className="flex items-center gap-2 mb-2">
             <LineChart className="h-8 w-8 text-apearmor-teal" />
@@ -26,7 +26,7 @@ const ChartPredictor = () => {
           This tool is for educational purposes only and does not constitute financial advice.
         </p>
         
-        <div className="bg-muted/30 p-4 rounded-lg mb-8 border border-apearmor-darkbronze">
+        <div className="bg-muted/30 p-4 rounded-lg mb-10 border border-apearmor-darkbronze">
           <p className="text-apearmor-light text-sm">
             <span className="text-apearmor-gold font-bold">Note:</span> The chart simulations represent theoretical market outcomes based on your inputs.
             Actual cryptocurrency markets are influenced by numerous factors including market sentiment, trading volume, and external events.
