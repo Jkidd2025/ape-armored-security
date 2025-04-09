@@ -1,8 +1,10 @@
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import TokenInput from "./calculators/TokenInput";
 import TokenValueDisplay from "./calculators/TokenValueDisplay";
+import { Slider } from "@/components/ui/slider";
+import { formatNumber } from "./calculators/tokenCalculationUtils";
 
 const TokenCalculator = () => {
   const [tokenAmount, setTokenAmount] = useState<string>("");
@@ -11,6 +13,19 @@ const TokenCalculator = () => {
   const handleCalculate = () => {
     setCalculatedValue(tokenAmount && !isNaN(Number(tokenAmount)) ? 1 : null);
   };
+
+  const handleSliderChange = (value: number[]) => {
+    const newAmount = value[0].toString();
+    setTokenAmount(newAmount);
+    if (calculatedValue !== null) {
+      setCalculatedValue(1); // Recalculate when slider changes
+    }
+  };
+
+  // Format the slider value for display
+  const formattedSliderValue = tokenAmount && !isNaN(Number(tokenAmount)) 
+    ? formatNumber(Number(tokenAmount))
+    : "0";
 
   return (
     <div className="mb-10">
@@ -21,6 +36,24 @@ const TokenCalculator = () => {
             tokenAmount={tokenAmount} 
             setTokenAmount={setTokenAmount} 
           />
+          
+          {/* Add the slider component */}
+          {calculatedValue !== null && (
+            <div className="space-y-2">
+              <div className="flex justify-between items-center">
+                <span className="text-sm text-muted-foreground">Adjust Token Amount</span>
+                <span className="text-sm font-medium">{formattedSliderValue}</span>
+              </div>
+              <Slider
+                defaultValue={[0]}
+                value={[tokenAmount ? Number(tokenAmount) : 0]}
+                max={1000000}
+                step={1000}
+                onValueChange={handleSliderChange}
+                className="bg-apearmor-teal/20"
+              />
+            </div>
+          )}
           
           <Button 
             onClick={handleCalculate}

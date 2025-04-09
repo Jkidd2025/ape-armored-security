@@ -13,6 +13,14 @@ const TokenInput: React.FC<TokenInputProps> = ({
   tokenAmount, 
   setTokenAmount 
 }) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    // Only allow numeric input and remove commas
+    const value = e.target.value.replace(/,/g, '');
+    if (value === '' || /^\d+$/.test(value)) {
+      setTokenAmount(value);
+    }
+  };
+
   return (
     <div className="flex flex-col gap-4">
       <div className="flex items-center justify-center gap-2 mb-2">
@@ -24,9 +32,9 @@ const TokenInput: React.FC<TokenInputProps> = ({
         <Label htmlFor="token-amount">Number of Tokens</Label>
         <Input
           id="token-amount"
-          type="number"
+          type="text"
           value={tokenAmount}
-          onChange={(e) => setTokenAmount(e.target.value)}
+          onChange={handleChange}
           placeholder="Enter token amount"
           className="w-full"
         />
