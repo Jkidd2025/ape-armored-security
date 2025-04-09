@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
 import TokenInput from "./calculators/TokenInput";
@@ -13,7 +12,6 @@ const TokenCalculator = () => {
   const [calculatedValue, setCalculatedValue] = useState<number | null>(null);
   const [priceAppreciation, setPriceAppreciation] = useState<number>(0);
   
-  // Calculate the token value based on the amount and public launch price
   const calculateTokenValue = () => {
     if (tokenAmount && !isNaN(Number(tokenAmount))) {
       const amount = parseFloat(tokenAmount);
