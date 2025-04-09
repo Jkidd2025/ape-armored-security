@@ -14,7 +14,6 @@ import PrivacyPolicy from "./pages/PrivacyPolicy";
 import ClaimSubmission from "./pages/ClaimSubmission";
 import PresaleApplication from "./pages/PresaleApplication";
 import SocialShareTest from "./pages/SocialShareTest";
-import ChartPredictor from "./pages/ChartPredictor";
 import NotFound from "./pages/NotFound";
 import CookieConsent from "./components/CookieConsent";
 
@@ -36,7 +35,9 @@ const App = () => (
           <Route path="/privacy-policy" element={<PrivacyPolicy />} />
           <Route path="/claim-submission" element={<ClaimSubmission />} />
           <Route path="/social-share-test" element={<SocialShareTest />} />
-          <Route path="/chart-predictor" element={<ChartPredictor />} />
+          
+          {/* Redirect chart predictor to whitepaper tokenomics section */}
+          <Route path="/chart-predictor" element={<Navigate to="/whitepaper" replace />} />
           
           {/* More comprehensive presale application routes */}
           <Route path="/presale-application" element={<PresaleApplication />} />

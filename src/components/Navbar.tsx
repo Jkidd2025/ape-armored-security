@@ -1,8 +1,7 @@
-
 import { useState } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { Button } from "@/components/ui/button";
-import { Menu, X, Share2, ChartBar } from "lucide-react";
+import { Menu, X, Share2 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useIsMobile } from "@/hooks/use-mobile";
 
@@ -56,10 +55,6 @@ const Navbar = () => {
           <a href="#nft-collection" className="text-sm font-medium hover:text-apearmor-teal transition-colors">NFTs</a>
           <a href="#dao" className="text-sm font-medium hover:text-apearmor-teal transition-colors">DAO</a>
           <Link to="/whitepaper" className="text-sm font-medium hover:text-apearmor-teal transition-colors">Whitepaper</Link>
-          <Link to="/chart-predictor" className="text-sm font-medium hover:text-apearmor-teal transition-colors flex items-center gap-1">
-            <ChartBar className="h-4 w-4" />
-            <span>Chart Predictor</span>
-          </Link>
           <a href="#contact" className="text-sm font-medium hover:text-apearmor-teal transition-colors">Contact</a>
           <Link to="/presale-application" className="text-sm font-medium hover:text-apearmor-teal transition-colors">Presale</Link>
           
@@ -154,14 +149,6 @@ const Navbar = () => {
             onClick={() => setIsMenuOpen(false)}
           >
             Whitepaper
-          </Link>
-          <Link 
-            to="/chart-predictor" 
-            className="text-sm font-medium py-2 px-4 hover:bg-muted rounded-md hover:text-apearmor-teal transition-colors flex items-center gap-2"
-            onClick={() => setIsMenuOpen(false)}
-          >
-            <ChartBar className="h-4 w-4" />
-            <span>Chart Predictor</span>
           </Link>
           <a 
             href="#contact" 
