@@ -67,7 +67,7 @@ const ChartVisualization: React.FC<ChartVisualizationProps> = ({
                 tick={(props) => {
                   const { x, y, payload } = props;
                   // Only show some of the labels to avoid overcrowding
-                  if (parseInt(payload.value.split(' ')[1]) % 3 !== 0) {
+                  if (parseInt(payload.value.split(' ')[1]) % 5 !== 0) {
                     return null;
                   }
                   return (
@@ -135,7 +135,7 @@ const ChartVisualization: React.FC<ChartVisualizationProps> = ({
                 tick={(props) => {
                   const { x, y, payload } = props;
                   // Only show some of the labels to avoid overcrowding
-                  if (parseInt(payload.value.split(' ')[1]) % 3 !== 0) {
+                  if (parseInt(payload.value.split(' ')[1]) % 5 !== 0) {
                     return null;
                   }
                   return (

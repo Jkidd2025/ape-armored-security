@@ -8,7 +8,7 @@ import { LineChart } from "lucide-react";
 
 const ChartPredictor = () => {
   return (
-    <div className="min-h-screen flex flex-col">
+    <div className="min-h-screen flex flex-col bg-background">
       <Navbar />
       <main className="flex-1 container max-w-6xl mx-auto px-4 py-20 mt-16">
         <div className="flex flex-col items-center justify-center mb-8">
