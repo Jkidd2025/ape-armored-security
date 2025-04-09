@@ -11,17 +11,8 @@ const TokenCalculator = () => {
   const [calculatedValue, setCalculatedValue] = useState<number | null>(null);
   const [tokenPrice, setTokenPrice] = useState<number>(publicLaunchPrice);
   
-  // Default slider range values
-  const minTokenAmount = 1000;
-  const maxTokenAmount = 1000000;
-  const defaultTokenAmount = 100000; // Middle value for initial position
-  
   const handleCalculate = () => {
-    if (!tokenAmount) {
-      // Set a default value if empty
-      setTokenAmount(defaultTokenAmount.toString());
-    }
-    setCalculatedValue(1);
+    setCalculatedValue(tokenAmount && !isNaN(Number(tokenAmount)) ? 1 : null);
   };
 
   const handleSliderChange = (value: number[]) => {
@@ -62,18 +53,13 @@ const TokenCalculator = () => {
                 <span className="text-sm font-medium">{formattedSliderValue}</span>
               </div>
               <Slider
-                defaultValue={[defaultTokenAmount]}
-                value={[tokenAmount ? Number(tokenAmount) : defaultTokenAmount]}
-                min={minTokenAmount}
-                max={maxTokenAmount}
+                defaultValue={[0]}
+                value={[tokenAmount ? Number(tokenAmount) : 0]}
+                max={1000000}
                 step={1000}
                 onValueChange={handleSliderChange}
                 className="bg-apearmor-teal/20"
               />
-              <div className="flex justify-between text-xs text-muted-foreground">
-                <span>{formatNumber(minTokenAmount)}</span>
-                <span>{formatNumber(maxTokenAmount)}</span>
-              </div>
             </div>
           )}
           
@@ -93,10 +79,6 @@ const TokenCalculator = () => {
                 onValueChange={handlePriceSliderChange}
                 className="bg-apearmor-teal/20"
               />
-              <div className="flex justify-between text-xs text-muted-foreground">
-                <span>${formatCurrency(0.00001)}</span>
-                <span>${formatCurrency(0.001)}</span>
-              </div>
             </div>
           )}
           
@@ -109,7 +91,7 @@ const TokenCalculator = () => {
           
           {calculatedValue !== null && (
             <TokenValueDisplay 
-              tokenAmount={tokenAmount || defaultTokenAmount.toString()} 
+              tokenAmount={tokenAmount} 
               tokenPrice={tokenPrice}
             />
           )}
