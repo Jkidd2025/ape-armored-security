@@ -1,4 +1,3 @@
-
 import React from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Slider } from "@/components/ui/slider";
@@ -37,11 +36,6 @@ const TokenValueDisplay: React.FC<TokenValueDisplayProps> = ({
             <h3 className="text-lg font-medium mb-2">Token Value Details</h3>
             
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
-              <div className="p-3 bg-muted/50 rounded-md">
-                <p className="text-sm text-muted-foreground mb-1">Number of Tokens</p>
-                <p className="text-lg font-semibold">{formatNumberWithCommas(parsedAmount)}</p>
-              </div>
-              
               <div className="p-3 bg-muted/50 rounded-md">
                 <p className="text-sm text-muted-foreground mb-1">Current Value</p>
                 <p className="text-lg font-semibold">${currentValue.toFixed(2)}</p>
