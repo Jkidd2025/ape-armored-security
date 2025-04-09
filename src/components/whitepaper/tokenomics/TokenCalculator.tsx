@@ -6,13 +6,25 @@ import TokenValueDisplay from "./calculators/TokenValueDisplay";
 import ChartPredictorMini from "./calculators/ChartPredictorMini";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Calculator, LineChart } from "lucide-react";
+import { publicLaunchPrice } from "./calculators/tokenCalculationUtils";
 
 const TokenCalculator = () => {
   const [tokenAmount, setTokenAmount] = useState<string>("");
   const [calculatedValue, setCalculatedValue] = useState<number | null>(null);
+  const [priceAppreciation, setPriceAppreciation] = useState<number>(0);
   
+  // Calculate the token value based on the amount and public launch price
+  const calculateTokenValue = () => {
+    if (tokenAmount && !isNaN(Number(tokenAmount))) {
+      const amount = parseFloat(tokenAmount);
+      setCalculatedValue(amount * publicLaunchPrice);
+      return amount * publicLaunchPrice;
+    }
+    return null;
+  };
+
   const handleCalculate = () => {
-    setCalculatedValue(tokenAmount && !isNaN(Number(tokenAmount)) ? 1 : null);
+    calculateTokenValue();
   };
 
   return (
@@ -46,13 +58,21 @@ const TokenCalculator = () => {
               </Button>
               
               {calculatedValue !== null && (
-                <TokenValueDisplay tokenAmount={tokenAmount} />
+                <TokenValueDisplay 
+                  tokenAmount={tokenAmount} 
+                  priceAppreciation={priceAppreciation}
+                  setPriceAppreciation={setPriceAppreciation}
+                />
               )}
             </div>
           </TabsContent>
           
           <TabsContent value="chart">
-            <ChartPredictorMini />
+            <ChartPredictorMini 
+              initialTokenAmount={tokenAmount !== "" ? parseFloat(tokenAmount) : undefined}
+              initialTokenPrice={publicLaunchPrice}
+              priceAppreciation={priceAppreciation}
+            />
           </TabsContent>
         </Tabs>
       </div>

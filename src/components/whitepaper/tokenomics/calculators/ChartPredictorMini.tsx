@@ -16,6 +16,12 @@ interface TokenMetrics {
   liquidityPool: number;
 }
 
+interface ChartPredictorMiniProps {
+  initialTokenAmount?: number;
+  initialTokenPrice?: number;
+  priceAppreciation?: number;
+}
+
 const initialMetrics: TokenMetrics = {
   tokenAmount: 1000,
   tokenPrice: 0.1,
@@ -24,17 +30,40 @@ const initialMetrics: TokenMetrics = {
   liquidityPool: 1000000, // $1M
 };
 
-const ChartPredictorMini = () => {
-  const [metrics, setMetrics] = useState<TokenMetrics>(initialMetrics);
+const ChartPredictorMini: React.FC<ChartPredictorMiniProps> = ({ 
+  initialTokenAmount, 
+  initialTokenPrice = 0.1,
+  priceAppreciation = 0
+}) => {
+  const [metrics, setMetrics] = useState<TokenMetrics>({
+    ...initialMetrics,
+    tokenAmount: initialTokenAmount || initialMetrics.tokenAmount,
+    tokenPrice: initialTokenPrice
+  });
   const [isCalculated, setIsCalculated] = useState(false);
   const [chartData, setChartData] = useState<any[]>([]);
 
   useEffect(() => {
-    // Generate chart data when calculated
-    if (isCalculated) {
+    // Update token amount if passed from parent
+    if (initialTokenAmount && initialTokenAmount > 0) {
+      setMetrics(prev => ({ ...prev, tokenAmount: initialTokenAmount }));
+    }
+  }, [initialTokenAmount]);
+
+  useEffect(() => {
+    // Update price based on price appreciation
+    if (initialTokenPrice && priceAppreciation !== undefined) {
+      const appreciatedPrice = initialTokenPrice * (1 + (priceAppreciation / 100));
+      setMetrics(prev => ({ ...prev, tokenPrice: appreciatedPrice }));
+    }
+  }, [initialTokenPrice, priceAppreciation]);
+
+  useEffect(() => {
+    // Generate chart data when calculated or when metrics change
+    if (isCalculated || (initialTokenAmount && priceAppreciation !== undefined)) {
       generateChartData();
     }
-  }, [metrics, isCalculated]);
+  }, [metrics, isCalculated, initialTokenAmount, priceAppreciation]);
 
   const handleInputChange = (name: keyof TokenMetrics, value: number) => {
     setMetrics((prev) => ({ ...prev, [name]: value }));
@@ -42,10 +71,15 @@ const ChartPredictorMini = () => {
 
   const handleCalculate = () => {
     setIsCalculated(true);
+    generateChartData();
   };
 
   const resetForm = () => {
-    setMetrics(initialMetrics);
+    setMetrics({
+      ...initialMetrics,
+      tokenAmount: initialTokenAmount || initialMetrics.tokenAmount,
+      tokenPrice: initialTokenPrice
+    });
     setIsCalculated(false);
     setChartData([]);
   };
@@ -71,7 +105,7 @@ const ChartPredictorMini = () => {
   const generateChartData = () => {
     // Simplified version of the price pattern generator
     const basePrice = metrics.tokenPrice;
-    const volatility = 0.05; 
+    const volatility = 0.05 + (priceAppreciation ? priceAppreciation / 500 : 0); 
     
     const prices = generatePricePattern(30, basePrice, volatility);
     
@@ -100,9 +134,12 @@ const ChartPredictorMini = () => {
     const pricePoints = [basePrice];
     let currentPrice = basePrice;
     
+    // Use price appreciation to add upward bias
+    const upwardBias = priceAppreciation ? priceAppreciation / 1000 : 0;
+    
     for (let i = 1; i < days; i++) {
-      // Random walk with slight upward bias
-      const direction = Math.random() > 0.45 ? 1 : -1;
+      // Random walk with upward bias
+      const direction = Math.random() > (0.45 - upwardBias) ? 1 : -1;
       const changePercent = (Math.random() * volatility) * direction;
       
       // Add some momentum to price movement
@@ -110,7 +147,7 @@ const ChartPredictorMini = () => {
         ? (pricePoints[i-1] - pricePoints[i-2]) / pricePoints[i-2] * 0.3
         : 0;
         
-      currentPrice = currentPrice * (1 + changePercent + momentum);
+      currentPrice = currentPrice * (1 + changePercent + momentum + upwardBias);
       
       // Ensure price doesn't go below a reasonable floor
       currentPrice = Math.max(currentPrice, basePrice * 0.7);
@@ -128,6 +165,15 @@ const ChartPredictorMini = () => {
     fdv: formatNumberWithCommas(metrics.fdv),
     liquidityPool: formatNumberWithCommas(metrics.liquidityPool),
   };
+
+  // Auto-calculate on first render when data is passed from parent
+  useEffect(() => {
+    if ((initialTokenAmount && initialTokenAmount > 0) || priceAppreciation !== undefined) {
+      if (!isCalculated) {
+        setIsCalculated(true);
+      }
+    }
+  }, []);
 
   return (
     <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">

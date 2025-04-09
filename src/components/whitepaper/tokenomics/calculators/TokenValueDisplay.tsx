@@ -1,5 +1,5 @@
 
-import React, { useState } from "react";
+import React from "react";
 import { DollarSign, CalendarDays, AlertTriangle, TrendingUp } from "lucide-react";
 import { Alert, AlertTitle, AlertDescription } from "@/components/ui/alert";
 import { Slider } from "@/components/ui/slider"; 
@@ -14,13 +14,15 @@ import {
 
 interface TokenValueDisplayProps {
   tokenAmount: string;
+  priceAppreciation: number;
+  setPriceAppreciation: (value: number) => void;
 }
 
 const TokenValueDisplay: React.FC<TokenValueDisplayProps> = ({ 
-  tokenAmount 
+  tokenAmount,
+  priceAppreciation,
+  setPriceAppreciation
 }) => {
-  const [priceAppreciation, setPriceAppreciation] = useState<number>(0);
-  
   const tokenValue = calculateTokenValue(tokenAmount);
   const dailyPayout = calculateDailyPayout(tokenAmount);
   
