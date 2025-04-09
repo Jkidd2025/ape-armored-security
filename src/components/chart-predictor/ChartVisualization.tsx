@@ -46,21 +46,21 @@ const ChartVisualization: React.FC<ChartVisualizationProps> = ({
   ];
 
   return (
-    <div className="space-y-4 mb-4">
+    <div className="space-y-8">
       {/* Price Chart */}
-      <div className="h-[250px] w-full bg-[#0d0c05] rounded-lg border border-apearmor-darkbronze">
+      <div className="h-[300px] w-full bg-[#0d0c05] rounded-lg border border-apearmor-darkbronze overflow-hidden">
         <ChartContainer
           config={{
             price: {
               label: "Price",
-              color: "#20c997" // Using the teal color directly for better visibility
+              color: "#20c997"
             },
           }}
         >
-          <ResponsiveContainer width="100%" height="100%">
+          <ResponsiveContainer width="100%" height={300}>
             <AreaChart 
               data={chartData}
-              margin={{ top: 10, right: 30, left: 10, bottom: 5 }}
+              margin={{ top: 15, right: 30, left: 10, bottom: 5 }}
             >
               <CartesianGrid strokeDasharray="3 3" opacity={0.2} stroke="#614e1a" />
               <XAxis
@@ -115,19 +115,19 @@ const ChartVisualization: React.FC<ChartVisualizationProps> = ({
       </div>
 
       {/* Volume Chart */}
-      <div className="h-[120px] w-full bg-[#0d0c05] rounded-lg border border-apearmor-darkbronze">
+      <div className="h-[180px] w-full bg-[#0d0c05] rounded-lg border border-apearmor-darkbronze overflow-hidden mt-8">
         <ChartContainer
           config={{
             volume: {
               label: "Volume",
-              color: "#D4AF37" // Using gold color for volume
+              color: "#D4AF37"
             },
           }}
         >
-          <ResponsiveContainer width="100%" height="100%">
+          <ResponsiveContainer width="100%" height={180}>
             <BarChart 
               data={chartData}
-              margin={{ top: 5, right: 30, left: 10, bottom: 5 }}
+              margin={{ top: 10, right: 30, left: 10, bottom: 20 }}
             >
               <CartesianGrid strokeDasharray="3 3" opacity={0.2} stroke="#614e1a" />
               <XAxis

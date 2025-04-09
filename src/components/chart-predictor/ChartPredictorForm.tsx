@@ -135,16 +135,16 @@ const ChartPredictorForm = () => {
         </CardContent>
       </Card>
       
-      <div className="lg:col-span-2 space-y-8">
+      <div className="lg:col-span-2 space-y-12">
         <Card>
           <CardContent className="pt-6">
-            <h3 className="text-xl font-semibold mb-4">Price Chart Simulation</h3>
+            <h3 className="text-xl font-semibold mb-6">Price Chart Simulation</h3>
             <ChartVisualization chartData={chartData} isCalculated={isCalculated} />
           </CardContent>
         </Card>
         
         {isCalculated && (
-          <Card>
+          <Card className="mt-12">
             <CardContent className="pt-6">
               <ResultsDisplay metrics={metrics} />
             </CardContent>
