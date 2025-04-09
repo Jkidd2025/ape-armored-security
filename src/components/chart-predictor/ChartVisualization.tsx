@@ -64,17 +64,9 @@ const ChartVisualization: React.FC<ChartVisualizationProps> = ({
                 tick={{ fontSize: 12, fill: "#e5d9a9" }}
                 tickLine={{ stroke: "#e5d9a9" }}
                 axisLine={{ stroke: "#614e1a" }}
-                tick={(props) => {
-                  const { x, y, payload } = props;
-                  // Only show some of the labels to avoid overcrowding
-                  if (parseInt(payload.value.split(' ')[1]) % 5 !== 0) {
-                    return null;
-                  }
-                  return (
-                    <text x={x} y={y + 10} fill="#e5d9a9" textAnchor="middle" fontSize={12}>
-                      {payload.value}
-                    </text>
-                  );
+                tickFormatter={(value) => {
+                  const dayNum = parseInt(value.split(' ')[1]);
+                  return dayNum % 5 === 0 ? value : '';
                 }}
               />
               <YAxis
@@ -132,17 +124,9 @@ const ChartVisualization: React.FC<ChartVisualizationProps> = ({
                 tick={{ fontSize: 10, fill: "#e5d9a9" }}
                 tickLine={{ stroke: "#e5d9a9" }}
                 axisLine={{ stroke: "#614e1a" }}
-                tick={(props) => {
-                  const { x, y, payload } = props;
-                  // Only show some of the labels to avoid overcrowding
-                  if (parseInt(payload.value.split(' ')[1]) % 5 !== 0) {
-                    return null;
-                  }
-                  return (
-                    <text x={x} y={y + 10} fill="#e5d9a9" textAnchor="middle" fontSize={10}>
-                      {payload.value}
-                    </text>
-                  );
+                tickFormatter={(value) => {
+                  const dayNum = parseInt(value.split(' ')[1]);
+                  return dayNum % 5 === 0 ? value : '';
                 }}
               />
               <YAxis
