@@ -53,24 +53,24 @@ const ChartVisualization: React.FC<ChartVisualizationProps> = ({
           config={{
             price: {
               label: "Price",
-              color: "hsl(var(--apearmor-teal))"
+              color: "#20c997" // Using the teal color directly for better visibility
             },
           }}
         >
           <ResponsiveContainer width="100%" height="100%">
             <AreaChart data={chartData}>
-              <CartesianGrid strokeDasharray="3 3" opacity={0.2} />
+              <CartesianGrid strokeDasharray="3 3" opacity={0.3} stroke="#614e1a" />
               <XAxis
                 dataKey="name"
-                tick={{ fontSize: 12 }}
-                tickLine={false}
-                axisLine={false}
+                tick={{ fontSize: 12, fill: "#FFF8E1" }}
+                tickLine={{ stroke: "#FFF8E1" }}
+                axisLine={{ stroke: "#614e1a" }}
               />
               <YAxis
                 domain={yAxisDomain}
-                tick={{ fontSize: 12 }}
-                tickLine={false}
-                axisLine={false}
+                tick={{ fontSize: 12, fill: "#FFF8E1" }}
+                tickLine={{ stroke: "#FFF8E1" }}
+                axisLine={{ stroke: "#614e1a" }}
                 tickFormatter={(value) => `$${value.toFixed(4)}`}
               />
               <ChartTooltip content={<CustomTooltip />} />
@@ -78,20 +78,21 @@ const ChartVisualization: React.FC<ChartVisualizationProps> = ({
                 <linearGradient id="colorPrice" x1="0" y1="0" x2="0" y2="1">
                   <stop
                     offset="5%"
-                    stopColor="hsl(var(--apearmor-teal))"
-                    stopOpacity={0.8}
+                    stopColor="#20c997"
+                    stopOpacity={0.9}
                   />
                   <stop
                     offset="95%"
-                    stopColor="hsl(var(--apearmor-teal))"
-                    stopOpacity={0}
+                    stopColor="#20c997"
+                    stopOpacity={0.2}
                   />
                 </linearGradient>
               </defs>
               <Area
                 type="monotone"
                 dataKey="price"
-                stroke="hsl(var(--apearmor-teal))"
+                stroke="#20c997"
+                strokeWidth={2}
                 fillOpacity={1}
                 fill="url(#colorPrice)"
               />
@@ -105,23 +106,23 @@ const ChartVisualization: React.FC<ChartVisualizationProps> = ({
           config={{
             volume: {
               label: "Volume",
-              color: "hsl(var(--muted-foreground))"
+              color: "#D4AF37" // Using gold color for volume
             },
           }}
         >
           <ResponsiveContainer width="100%" height="100%">
             <BarChart data={chartData}>
-              <CartesianGrid strokeDasharray="3 3" opacity={0.1} />
+              <CartesianGrid strokeDasharray="3 3" opacity={0.3} stroke="#614e1a" />
               <XAxis
                 dataKey="name"
-                tick={{ fontSize: 10 }}
-                tickLine={false}
-                axisLine={false}
+                tick={{ fontSize: 10, fill: "#FFF8E1" }}
+                tickLine={{ stroke: "#FFF8E1" }}
+                axisLine={{ stroke: "#614e1a" }}
               />
               <YAxis
-                tick={{ fontSize: 10 }}
-                tickLine={false}
-                axisLine={false}
+                tick={{ fontSize: 10, fill: "#FFF8E1" }}
+                tickLine={{ stroke: "#FFF8E1" }}
+                axisLine={{ stroke: "#614e1a" }}
                 tickFormatter={(value) => 
                   value >= 1000000
                     ? `$${(value / 1000000).toFixed(1)}M`
@@ -129,7 +130,7 @@ const ChartVisualization: React.FC<ChartVisualizationProps> = ({
                 }
               />
               <ChartTooltip content={<CustomVolumeTooltip />} />
-              <Bar dataKey="volume" fill="hsl(var(--muted-foreground))" opacity={0.5} />
+              <Bar dataKey="volume" fill="#D4AF37" opacity={0.8} />
             </BarChart>
           </ResponsiveContainer>
         </ChartContainer>
@@ -157,7 +158,7 @@ const CustomVolumeTooltip = ({ active, payload, label }: any) => {
     return (
       <Card className="p-2 border shadow-md bg-background text-foreground">
         <p className="text-sm font-medium">{label}</p>
-        <p className="text-muted-foreground font-medium">
+        <p className="text-apearmor-gold font-medium">
           Volume: ${payload[0].value.toLocaleString()}
         </p>
       </Card>

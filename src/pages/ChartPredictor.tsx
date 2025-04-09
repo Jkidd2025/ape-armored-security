@@ -18,6 +18,14 @@ const ChartPredictor = () => {
           This tool is for educational purposes only and does not constitute financial advice.
         </p>
         
+        <div className="bg-muted/30 p-4 rounded-lg mb-8 border border-apearmor-darkbronze">
+          <p className="text-apearmor-light text-sm">
+            <span className="text-apearmor-gold font-bold">Note:</span> The chart simulations represent theoretical market outcomes based on your inputs.
+            Actual cryptocurrency markets are influenced by numerous factors including market sentiment, trading volume, and external events.
+            Use this tool to experiment with different scenarios and understand potential relationships between key metrics.
+          </p>
+        </div>
+        
         <ChartPredictorForm />
       </main>
       <Footer />

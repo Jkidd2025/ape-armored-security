@@ -26,11 +26,20 @@ export const calculateTokenStats = (metrics: TokenMetrics) => {
   // Calculate token velocity (simplified approximation)
   const tokenVelocity = metrics.fdv / metrics.marketCap;
   
+  // Price stability indicator (higher is better)
+  let stabilityRating = "Low";
+  if (lpToMarketCapRatio >= 20 && tokenVelocity < 2) {
+    stabilityRating = "High";
+  } else if (lpToMarketCapRatio >= 10 || tokenVelocity < 3) {
+    stabilityRating = "Medium";
+  }
+  
   return {
     circulatingSupply,
     percentOfSupply,
     lpToMarketCapRatio,
     slippageImpact,
-    tokenVelocity
+    tokenVelocity,
+    stabilityRating
   };
 };
