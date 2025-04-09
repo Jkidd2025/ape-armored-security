@@ -63,16 +63,49 @@ const ChartPredictorForm = () => {
     const basePrice = metrics.tokenPrice;
     const volatility = 0.05; // 5% volatility
     
-    const data = Array.from({ length: 30 }, (_, i) => {
-      // Create some random price movement with an upward trend
-      const randomFactor = 1 + (Math.random() * volatility * 2 - volatility);
-      const trendFactor = 1 + (i * 0.01); // Small upward trend
-      const price = basePrice * randomFactor * trendFactor;
+    // Create a more realistic price movement pattern
+    const generatePricePattern = (days: number, basePrice: number, volatility: number) => {
+      // Create some key market movements with slightly higher probability of upward movement
+      const pricePoints = [basePrice];
+      let currentPrice = basePrice;
+      
+      for (let i = 1; i < days; i++) {
+        // Random walk with slight upward bias
+        const direction = Math.random() > 0.45 ? 1 : -1;
+        const changePercent = (Math.random() * volatility) * direction;
+        
+        // Add some momentum to price movement
+        const momentum = i > 1 
+          ? (pricePoints[i-1] - pricePoints[i-2]) / pricePoints[i-2] * 0.3
+          : 0;
+          
+        currentPrice = currentPrice * (1 + changePercent + momentum);
+        
+        // Ensure price doesn't go below a reasonable floor
+        currentPrice = Math.max(currentPrice, basePrice * 0.7);
+        pricePoints.push(currentPrice);
+      }
+      
+      return pricePoints;
+    };
+    
+    const prices = generatePricePattern(30, basePrice, volatility);
+    
+    // Generate volume data that somewhat correlates with price changes
+    const data = prices.map((price, i) => {
+      const prevPrice = i > 0 ? prices[i-1] : price;
+      const priceChange = Math.abs((price - prevPrice) / prevPrice);
+      
+      // Volume tends to be higher when price changes more dramatically
+      const volumeBase = metrics.liquidityPool / 10;
+      const volumeVariance = volumeBase * 0.5;
+      const volumeBoost = priceChange * volumeBase * 2;
+      const volume = volumeBase + (Math.random() * volumeVariance) + volumeBoost;
       
       return {
         name: `Day ${i + 1}`,
         price: Number(price.toFixed(6)),
-        volume: Math.round(metrics.liquidityPool * randomFactor / 10),
+        volume: Math.round(volume),
       };
     });
     

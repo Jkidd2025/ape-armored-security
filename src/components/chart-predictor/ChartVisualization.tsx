@@ -14,7 +14,6 @@ import {
 import {
   ChartContainer,
   ChartTooltip,
-  ChartTooltipContent,
 } from "@/components/ui/chart";
 import { Card } from "@/components/ui/card";
 
@@ -48,7 +47,7 @@ const ChartVisualization: React.FC<ChartVisualizationProps> = ({
 
   return (
     <div className="space-y-6">
-      <div className="h-[300px] w-full">
+      <div className="h-[300px] w-full bg-[#0d0c05] rounded-lg border border-apearmor-darkbronze">
         <ChartContainer
           config={{
             price: {
@@ -59,19 +58,33 @@ const ChartVisualization: React.FC<ChartVisualizationProps> = ({
         >
           <ResponsiveContainer width="100%" height="100%">
             <AreaChart data={chartData}>
-              <CartesianGrid strokeDasharray="3 3" opacity={0.3} stroke="#614e1a" />
+              <CartesianGrid strokeDasharray="3 3" opacity={0.2} stroke="#614e1a" />
               <XAxis
                 dataKey="name"
-                tick={{ fontSize: 12, fill: "#FFF8E1" }}
-                tickLine={{ stroke: "#FFF8E1" }}
+                tick={{ fontSize: 12, fill: "#e5d9a9" }}
+                tickLine={{ stroke: "#e5d9a9" }}
                 axisLine={{ stroke: "#614e1a" }}
+                tick={(props) => {
+                  const { x, y, payload } = props;
+                  // Only show some of the labels to avoid overcrowding
+                  if (parseInt(payload.value.split(' ')[1]) % 3 !== 0) {
+                    return null;
+                  }
+                  return (
+                    <text x={x} y={y + 10} fill="#e5d9a9" textAnchor="middle" fontSize={12}>
+                      {payload.value}
+                    </text>
+                  );
+                }}
               />
               <YAxis
                 domain={yAxisDomain}
-                tick={{ fontSize: 12, fill: "#FFF8E1" }}
-                tickLine={{ stroke: "#FFF8E1" }}
+                tick={{ fontSize: 12, fill: "#e5d9a9" }}
+                tickLine={{ stroke: "#e5d9a9" }}
                 axisLine={{ stroke: "#614e1a" }}
                 tickFormatter={(value) => `$${value.toFixed(4)}`}
+                orientation="left"
+                yAxisId="left"
               />
               <ChartTooltip content={<CustomTooltip />} />
               <defs>
@@ -84,7 +97,7 @@ const ChartVisualization: React.FC<ChartVisualizationProps> = ({
                   <stop
                     offset="95%"
                     stopColor="#20c997"
-                    stopOpacity={0.2}
+                    stopOpacity={0.1}
                   />
                 </linearGradient>
               </defs>
@@ -92,16 +105,17 @@ const ChartVisualization: React.FC<ChartVisualizationProps> = ({
                 type="monotone"
                 dataKey="price"
                 stroke="#20c997"
-                strokeWidth={2}
+                strokeWidth={2.5}
                 fillOpacity={1}
                 fill="url(#colorPrice)"
+                yAxisId="left"
               />
             </AreaChart>
           </ResponsiveContainer>
         </ChartContainer>
       </div>
 
-      <div className="h-[150px] w-full">
+      <div className="h-[150px] w-full bg-[#0d0c05] rounded-lg border border-apearmor-darkbronze">
         <ChartContainer
           config={{
             volume: {
@@ -112,16 +126,28 @@ const ChartVisualization: React.FC<ChartVisualizationProps> = ({
         >
           <ResponsiveContainer width="100%" height="100%">
             <BarChart data={chartData}>
-              <CartesianGrid strokeDasharray="3 3" opacity={0.3} stroke="#614e1a" />
+              <CartesianGrid strokeDasharray="3 3" opacity={0.2} stroke="#614e1a" />
               <XAxis
                 dataKey="name"
-                tick={{ fontSize: 10, fill: "#FFF8E1" }}
-                tickLine={{ stroke: "#FFF8E1" }}
+                tick={{ fontSize: 10, fill: "#e5d9a9" }}
+                tickLine={{ stroke: "#e5d9a9" }}
                 axisLine={{ stroke: "#614e1a" }}
+                tick={(props) => {
+                  const { x, y, payload } = props;
+                  // Only show some of the labels to avoid overcrowding
+                  if (parseInt(payload.value.split(' ')[1]) % 3 !== 0) {
+                    return null;
+                  }
+                  return (
+                    <text x={x} y={y + 10} fill="#e5d9a9" textAnchor="middle" fontSize={10}>
+                      {payload.value}
+                    </text>
+                  );
+                }}
               />
               <YAxis
-                tick={{ fontSize: 10, fill: "#FFF8E1" }}
-                tickLine={{ stroke: "#FFF8E1" }}
+                tick={{ fontSize: 10, fill: "#e5d9a9" }}
+                tickLine={{ stroke: "#e5d9a9" }}
                 axisLine={{ stroke: "#614e1a" }}
                 tickFormatter={(value) => 
                   value >= 1000000
@@ -130,7 +156,7 @@ const ChartVisualization: React.FC<ChartVisualizationProps> = ({
                 }
               />
               <ChartTooltip content={<CustomVolumeTooltip />} />
-              <Bar dataKey="volume" fill="#D4AF37" opacity={0.8} />
+              <Bar dataKey="volume" fill="#D4AF37" opacity={0.9} />
             </BarChart>
           </ResponsiveContainer>
         </ChartContainer>
