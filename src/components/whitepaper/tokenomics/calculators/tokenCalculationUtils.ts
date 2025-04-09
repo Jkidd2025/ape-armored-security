@@ -1,7 +1,7 @@
 
 // Utility functions for token calculations
 
-// Token price for public launch
+// Token price for public launch (default value)
 export const publicLaunchPrice = 0.00019065;
 
 // Vesting details - 20 days vesting period with equal distribution
@@ -10,13 +10,13 @@ export const vestingDays = 20;
 /**
  * Calculate the total value of tokens
  */
-export const calculateTokenValue = (tokenAmount: string): number | null => {
+export const calculateTokenValue = (tokenAmount: string, tokenPrice: number = publicLaunchPrice): number | null => {
   if (!tokenAmount || isNaN(Number(tokenAmount))) {
     return null;
   }
   
   const tokens = parseFloat(tokenAmount);
-  return tokens * publicLaunchPrice;
+  return tokens * tokenPrice;
 };
 
 /**
@@ -47,4 +47,11 @@ export const formatTokenAmount = (tokenAmount: string): string => {
     return "Ape Armor";
   }
   return parseFloat(tokenAmount).toLocaleString();
+};
+
+/**
+ * Format currency for display
+ */
+export const formatCurrency = (value: number): string => {
+  return value.toFixed(8).replace(/\.?0+$/, '');
 };

@@ -8,17 +8,20 @@ import {
   formatNumber, 
   formatTokenAmount,
   publicLaunchPrice,
-  vestingDays
+  vestingDays,
+  formatCurrency
 } from "./tokenCalculationUtils";
 
 interface TokenValueDisplayProps {
   tokenAmount: string;
+  tokenPrice: number;
 }
 
 const TokenValueDisplay: React.FC<TokenValueDisplayProps> = ({ 
-  tokenAmount 
+  tokenAmount,
+  tokenPrice = publicLaunchPrice
 }) => {
-  const tokenValue = calculateTokenValue(tokenAmount);
+  const tokenValue = calculateTokenValue(tokenAmount, tokenPrice);
   const dailyPayout = calculateDailyPayout(tokenAmount);
   
   if (!tokenAmount || isNaN(Number(tokenAmount))) {
@@ -29,7 +32,7 @@ const TokenValueDisplay: React.FC<TokenValueDisplayProps> = ({
     <div className="p-4 bg-background rounded border border-border mt-4">
       <div className="flex items-center justify-center gap-2 mb-2">
         <DollarSign className="h-4 w-4 text-apearmor-teal" />
-        <h5 className="font-medium">Public Launch Price</h5>
+        <h5 className="font-medium">Token Value</h5>
       </div>
       <p className="text-center">
         <span className="font-semibold">{formatTokenAmount(tokenAmount)}</span> tokens = 
@@ -38,7 +41,7 @@ const TokenValueDisplay: React.FC<TokenValueDisplayProps> = ({
         </span>
       </p>
       <p className="text-center text-sm text-muted-foreground mt-1">
-        at ${publicLaunchPrice} per token
+        at ${formatCurrency(tokenPrice)} per token
       </p>
       
       <div className="mt-4 pt-4 border-t border-border">

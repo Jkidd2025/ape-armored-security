@@ -4,11 +4,12 @@ import { Button } from "@/components/ui/button";
 import TokenInput from "./calculators/TokenInput";
 import TokenValueDisplay from "./calculators/TokenValueDisplay";
 import { Slider } from "@/components/ui/slider";
-import { formatNumber } from "./calculators/tokenCalculationUtils";
+import { formatNumber, formatCurrency, publicLaunchPrice } from "./calculators/tokenCalculationUtils";
 
 const TokenCalculator = () => {
   const [tokenAmount, setTokenAmount] = useState<string>("");
   const [calculatedValue, setCalculatedValue] = useState<number | null>(null);
+  const [tokenPrice, setTokenPrice] = useState<number>(publicLaunchPrice);
   
   const handleCalculate = () => {
     setCalculatedValue(tokenAmount && !isNaN(Number(tokenAmount)) ? 1 : null);
@@ -19,6 +20,13 @@ const TokenCalculator = () => {
     setTokenAmount(newAmount);
     if (calculatedValue !== null) {
       setCalculatedValue(1); // Recalculate when slider changes
+    }
+  };
+
+  const handlePriceSliderChange = (value: number[]) => {
+    setTokenPrice(value[0]);
+    if (calculatedValue !== null) {
+      setCalculatedValue(1); // Recalculate when price changes
     }
   };
 
@@ -37,7 +45,7 @@ const TokenCalculator = () => {
             setTokenAmount={setTokenAmount} 
           />
           
-          {/* Add the slider component */}
+          {/* Add the token amount slider component */}
           {calculatedValue !== null && (
             <div className="space-y-2">
               <div className="flex justify-between items-center">
@@ -55,6 +63,25 @@ const TokenCalculator = () => {
             </div>
           )}
           
+          {/* Add the token price slider component */}
+          {calculatedValue !== null && (
+            <div className="space-y-2 mt-2">
+              <div className="flex justify-between items-center">
+                <span className="text-sm text-muted-foreground">Adjust Token Price</span>
+                <span className="text-sm font-medium">${formatCurrency(tokenPrice)}</span>
+              </div>
+              <Slider
+                defaultValue={[publicLaunchPrice]}
+                value={[tokenPrice]}
+                min={0.00001}
+                max={0.001}
+                step={0.00001}
+                onValueChange={handlePriceSliderChange}
+                className="bg-apearmor-teal/20"
+              />
+            </div>
+          )}
+          
           <Button 
             onClick={handleCalculate}
             className="w-full bg-apearmor-teal hover:bg-apearmor-teal/90"
@@ -63,7 +90,10 @@ const TokenCalculator = () => {
           </Button>
           
           {calculatedValue !== null && (
-            <TokenValueDisplay tokenAmount={tokenAmount} />
+            <TokenValueDisplay 
+              tokenAmount={tokenAmount} 
+              tokenPrice={tokenPrice}
+            />
           )}
         </div>
       </div>
