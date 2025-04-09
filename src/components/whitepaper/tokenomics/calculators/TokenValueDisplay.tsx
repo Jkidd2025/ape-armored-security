@@ -4,7 +4,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Slider } from "@/components/ui/slider";
 import { Label } from "@/components/ui/label";
 import { Info } from "lucide-react";
-import { publicLaunchPrice } from "./tokenCalculationUtils";
+import { publicLaunchPrice, vestingDays, calculateDailyPayout } from "./tokenCalculationUtils";
 import { initialMetrics } from "./types/TokenTypes";
 import { formatNumberWithCommas } from "@/components/chart-predictor/utils";
 
@@ -22,6 +22,7 @@ const TokenValueDisplay: React.FC<TokenValueDisplayProps> = ({
   const parsedAmount = parseFloat(tokenAmount) || 0;
   const currentValue = parsedAmount * publicLaunchPrice;
   const appreciatedValue = currentValue * (1 + (priceAppreciation / 100));
+  const dailyTokens = calculateDailyPayout(tokenAmount) || 0;
   
   // Get values from initialMetrics
   const { marketCap, fdv, liquidityPool } = initialMetrics;
@@ -39,6 +40,11 @@ const TokenValueDisplay: React.FC<TokenValueDisplayProps> = ({
             
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
               <div className="p-3 bg-muted/50 rounded-md">
+                <p className="text-sm text-muted-foreground mb-1">Number of Tokens</p>
+                <p className="text-lg font-semibold">{formatNumberWithCommas(parsedAmount)}</p>
+              </div>
+              
+              <div className="p-3 bg-muted/50 rounded-md">
                 <p className="text-sm text-muted-foreground mb-1">Current Value</p>
                 <p className="text-lg font-semibold">${currentValue.toFixed(2)}</p>
               </div>
@@ -46,6 +52,12 @@ const TokenValueDisplay: React.FC<TokenValueDisplayProps> = ({
               <div className="p-3 bg-muted/50 rounded-md">
                 <p className="text-sm text-muted-foreground mb-1">Current Price</p>
                 <p className="text-lg font-semibold">${publicLaunchPrice.toFixed(6)}</p>
+              </div>
+              
+              <div className="p-3 bg-muted/50 rounded-md">
+                <p className="text-sm text-muted-foreground mb-1">Daily Token Payout</p>
+                <p className="text-lg font-semibold">{formatNumberWithCommas(dailyTokens)} / day</p>
+                <p className="text-xs text-muted-foreground">({vestingDays} day vesting period)</p>
               </div>
               
               <div className="p-3 bg-muted/50 rounded-md">
