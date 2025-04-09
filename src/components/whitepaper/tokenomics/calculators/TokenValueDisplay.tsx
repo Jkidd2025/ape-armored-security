@@ -1,9 +1,8 @@
-
 import React from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Slider } from "@/components/ui/slider";
 import { Label } from "@/components/ui/label";
-import { InfoCircle } from "lucide-react";
+import { Info } from "lucide-react";
 import { publicLaunchPrice } from "./tokenCalculationUtils";
 import { initialMetrics } from "./types/TokenTypes";
 import { formatNumberWithCommas } from "@/components/chart-predictor/utils";
@@ -23,7 +22,6 @@ const TokenValueDisplay: React.FC<TokenValueDisplayProps> = ({
   const currentValue = parsedAmount * publicLaunchPrice;
   const appreciatedValue = currentValue * (1 + (priceAppreciation / 100));
   
-  // Get values from initialMetrics
   const { marketCap, fdv, liquidityPool } = initialMetrics;
 
   const handleSliderChange = (value: number[]) => {
@@ -68,7 +66,7 @@ const TokenValueDisplay: React.FC<TokenValueDisplayProps> = ({
               <div className="flex items-center justify-between mb-1">
                 <Label htmlFor="appreciation-slider" className="flex items-center gap-1">
                   <span>Price Appreciation</span>
-                  <InfoCircle className="h-3.5 w-3.5 text-muted-foreground" />
+                  <Info className="h-3.5 w-3.5 text-muted-foreground" />
                 </Label>
                 <span className="text-sm font-medium">{priceAppreciation}%</span>
               </div>
