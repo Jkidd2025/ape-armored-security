@@ -57,7 +57,10 @@ const ChartVisualization: React.FC<ChartVisualizationProps> = ({
           }}
         >
           <ResponsiveContainer width="100%" height="100%">
-            <AreaChart data={chartData}>
+            <AreaChart 
+              data={chartData}
+              margin={{ top: 10, right: 30, left: 0, bottom: 0 }}
+            >
               <CartesianGrid strokeDasharray="3 3" opacity={0.2} stroke="#614e1a" />
               <XAxis
                 dataKey="name"
@@ -68,6 +71,8 @@ const ChartVisualization: React.FC<ChartVisualizationProps> = ({
                   const dayNum = parseInt(value.split(' ')[1]);
                   return dayNum % 5 === 0 ? value : '';
                 }}
+                height={40}
+                padding={{ left: 10, right: 10 }}
               />
               <YAxis
                 domain={yAxisDomain}
@@ -77,6 +82,7 @@ const ChartVisualization: React.FC<ChartVisualizationProps> = ({
                 tickFormatter={(value) => `$${value.toFixed(4)}`}
                 orientation="left"
                 yAxisId="left"
+                width={60}
               />
               <ChartTooltip content={<CustomTooltip />} />
               <defs>
@@ -117,7 +123,10 @@ const ChartVisualization: React.FC<ChartVisualizationProps> = ({
           }}
         >
           <ResponsiveContainer width="100%" height="100%">
-            <BarChart data={chartData}>
+            <BarChart 
+              data={chartData}
+              margin={{ top: 5, right: 30, left: 0, bottom: 0 }}
+            >
               <CartesianGrid strokeDasharray="3 3" opacity={0.2} stroke="#614e1a" />
               <XAxis
                 dataKey="name"
@@ -128,6 +137,8 @@ const ChartVisualization: React.FC<ChartVisualizationProps> = ({
                   const dayNum = parseInt(value.split(' ')[1]);
                   return dayNum % 5 === 0 ? value : '';
                 }}
+                height={30}
+                padding={{ left: 10, right: 10 }}
               />
               <YAxis
                 tick={{ fontSize: 10, fill: "#e5d9a9" }}
@@ -138,6 +149,7 @@ const ChartVisualization: React.FC<ChartVisualizationProps> = ({
                     ? `$${(value / 1000000).toFixed(1)}M`
                     : `$${(value / 1000).toFixed(0)}K`
                 }
+                width={50}
               />
               <ChartTooltip content={<CustomVolumeTooltip />} />
               <Bar dataKey="volume" fill="#D4AF37" opacity={0.9} />
