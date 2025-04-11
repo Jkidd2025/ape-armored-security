@@ -32,11 +32,14 @@ const App = () => (
           <Route path="/payment-confirmation" element={<PaymentConfirmation />} />
           <Route path="/terms-of-service" element={<TermsOfService />} />
           
-          {/* Whitepaper route - adding multiple path variations to ensure it's captured */}
+          {/* Comprehensive whitepaper routes to catch all variations */}
           <Route path="/whitepaper" element={<Whitepaper />} />
           <Route path="/whitepaper/" element={<Whitepaper />} />
           <Route path="whitepaper" element={<Whitepaper />} />
           <Route path="whitepaper/" element={<Whitepaper />} />
+          
+          {/* Catch-all redirect for whitepaper */}
+          <Route path="*whitepaper*" element={<Navigate to="/whitepaper" replace />} />
           
           <Route path="/privacy-policy" element={<PrivacyPolicy />} />
           <Route path="/claim-submission" element={<ClaimSubmission />} />

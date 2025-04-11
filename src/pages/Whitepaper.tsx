@@ -18,6 +18,9 @@ const Whitepaper = () => {
   // Add effect to scroll to top on component mount
   useEffect(() => {
     window.scrollTo(0, 0);
+    
+    // Add document title for better SEO
+    document.title = "ApeArmor Whitepaper - Security & Protection for Crypto Investments";
   }, []);
 
   return (
