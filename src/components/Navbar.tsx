@@ -1,4 +1,3 @@
-
 import { useState } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { Button } from "@/components/ui/button";
@@ -55,7 +54,12 @@ const Navbar = () => {
           <a href="#approved" className="text-sm font-medium hover:text-apearmor-teal transition-colors">Approved</a>
           <a href="#nft-collection" className="text-sm font-medium hover:text-apearmor-teal transition-colors">NFTs</a>
           <a href="#dao" className="text-sm font-medium hover:text-apearmor-teal transition-colors">DAO</a>
-          <Link to="/whitepaper" className="text-sm font-medium hover:text-apearmor-teal transition-colors">Whitepaper</Link>
+          <Link 
+            to="/whitepaper" 
+            className="text-sm font-medium hover:text-apearmor-teal transition-colors"
+          >
+            Whitepaper
+          </Link>
           <a href="#contact" className="text-sm font-medium hover:text-apearmor-teal transition-colors">Contact</a>
           <Link to="/presale-application" className="text-sm font-medium hover:text-apearmor-teal transition-colors">Presale</Link>
           

@@ -12,12 +12,18 @@ import DaoInitiative from "@/components/whitepaper/DaoInitiative";
 import Conclusion from "@/components/whitepaper/Conclusion";
 import SectionSeparator from "@/components/whitepaper/SectionSeparator";
 import WhitepaperQuote from "@/components/whitepaper/WhitepaperQuote";
+import { useEffect } from "react";
 
 const Whitepaper = () => {
+  // Add effect to scroll to top on component mount
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   return (
     <div className="min-h-screen flex flex-col bg-background text-foreground">
       <Navbar />
-      <main className="flex-1 py-16">
+      <main className="flex-1 py-16 mt-16">
         <div className="container px-4 md:px-6 max-w-5xl mx-auto">
           <WhitepaperHeader />
           

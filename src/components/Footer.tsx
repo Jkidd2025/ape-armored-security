@@ -94,6 +94,11 @@ const Footer = () => {
                   Presale Application
                 </Link>
               </li>
+              <li>
+                <Link to="/whitepaper" className="text-muted-foreground hover:text-apearmor-teal transition-colors">
+                  Whitepaper
+                </Link>
+              </li>
             </ul>
           </div>
           
