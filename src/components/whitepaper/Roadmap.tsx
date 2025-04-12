@@ -19,15 +19,17 @@ const Roadmap = () => {
             <li>Strategic partnerships with key projects and platforms</li>
             <li>Enhanced protection coverage for additional scam types</li>
             <li>Improved claim processing system</li>
+            <li>Launch of ApeArmor DAO for community governance on Realms</li>
           </ul>
         </div>
         
         <div>
           <h3 className="text-xl font-semibold mb-2">Phase 3: Ecosystem Growth (Upcoming)</h3>
           <ul className="list-disc pl-6 space-y-1">
-            <li>Launch of ApeArmor DAO for community governance</li>
+            <li>DAO-powered project vetting and qualification system</li>
             <li>Integration with major DeFi platforms</li>
             <li>Cross-chain protection expansion</li>
+            <li>Community-driven development initiatives through DAO proposals</li>
           </ul>
         </div>
         
@@ -37,6 +39,7 @@ const Roadmap = () => {
             <li>Decentralized insurance protocol</li>
             <li>Advanced risk analysis tools for the community</li>
             <li>Institutional-grade protection services</li>
+            <li>Cross-chain DAO governance framework</li>
           </ul>
         </div>
       </div>

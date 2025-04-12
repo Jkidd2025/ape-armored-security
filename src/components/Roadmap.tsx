@@ -1,5 +1,5 @@
 
-import { Check, Rocket, Users, Handshake, Calendar } from "lucide-react";
+import { Check, Rocket, Users, Handshake, Calendar, Search, Shield, ArrowUpRightSquare } from "lucide-react";
 
 const roadmapItems = [
   {
@@ -24,6 +24,24 @@ const roadmapItems = [
     title: "Strategic Partnerships",
     description: "Develop strategic partnerships to grow the ApeArmor ecosystem.",
     icon: Handshake,
+    completed: false
+  },
+  {
+    title: "DAO Formation",
+    description: "Launch of the ApeArmor DAO on Realms for community governance and collective decision-making.",
+    icon: ArrowUpRightSquare,
+    completed: false
+  },
+  {
+    title: "Project Vetting System",
+    description: "Implementation of DAO-powered vetting process for crypto projects seeking ApeArmor coverage.",
+    icon: Search,
+    completed: false
+  },
+  {
+    title: "Cross-Chain Protection",
+    description: "Expansion of ApeArmor DAO governance to support cross-chain security initiatives.",
+    icon: Shield,
     completed: false
   }
 ];
