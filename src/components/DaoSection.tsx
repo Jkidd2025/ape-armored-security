@@ -22,7 +22,8 @@ const DaoSection = () => {
             <p className="text-foreground">
               A Decentralized Autonomous Organization (DAO) is a community-led entity with no central authority. 
               The ApeArmor DAO empowers our community to collectively make decisions about platform development, 
-              projects, and treasury management.
+              projects, and treasury management. The DAO is run on Realms, a fully on-chain platform designed to simplify 
+              and enhance the management of decentralized autonomous organizations (DAOs) on the Solana blockchain.
             </p>
             
             <div className="space-y-3 md:space-y-4">
