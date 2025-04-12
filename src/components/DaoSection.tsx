@@ -77,19 +77,19 @@ const DaoSection = () => {
               <div className="space-y-3 md:space-y-4">
                 <div className="flex justify-between">
                   <span className="text-muted-foreground text-sm md:text-base">Total DAO Members</span>
-                  <span className="font-medium text-sm md:text-base">Pending Launch</span>
+                  <span className="font-medium text-sm md:text-base">Pending New Member Enrollment</span>
                 </div>
                 <div className="flex justify-between">
                   <span className="text-muted-foreground text-sm md:text-base">Active Proposals</span>
-                  <span className="font-medium text-sm md:text-base">Pending Launch</span>
+                  <span className="font-medium text-sm md:text-base">Pending</span>
                 </div>
                 <div className="flex justify-between">
                   <span className="text-muted-foreground text-sm md:text-base">Treasury Value</span>
-                  <span className="font-medium text-sm md:text-base">Pending Launch</span>
+                  <span className="font-medium text-sm md:text-base">Pending</span>
                 </div>
                 <div className="flex justify-between">
                   <span className="text-muted-foreground text-sm md:text-base">Voting Power Threshold</span>
-                  <span className="font-medium text-sm md:text-base">Pending Launch</span>
+                  <span className="font-medium text-sm md:text-base">60%</span>
                 </div>
               </div>
               
