@@ -52,7 +52,7 @@ const DaoSection = () => {
               <Button 
                 className="bg-apearmor-teal hover:bg-apearmor-teal/80 text-black group"
                 size={isMobile ? "default" : "lg"}
-                onClick={() => window.open("https://dao.apearmor.com", "_blank")}
+                onClick={() => window.open("https://app.realms.today/dao/3tBKF4YPAApZgto9KwPK7aVADa3e8V5B6V44Nb3oaHys", "_blank")}
               >
                 Join the ApeArmor DAO
                 <ArrowUpRight className="ml-2 h-4 w-4 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
