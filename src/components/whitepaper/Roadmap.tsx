@@ -28,7 +28,7 @@ const Roadmap = () => {
           <ul className="list-disc pl-6 space-y-1">
             <li>DAO-powered project vetting and qualification system</li>
             <li>Integration with major DeFi platforms</li>
-            <li>Cross-chain protection expansion</li>
+            <li>Cross-chain protection initiatives and partnerships</li>
             <li>Community-driven development initiatives through DAO proposals</li>
           </ul>
         </div>
@@ -39,7 +39,7 @@ const Roadmap = () => {
             <li>Decentralized insurance protocol</li>
             <li>Advanced risk analysis tools for the community</li>
             <li>Institutional-grade protection services</li>
-            <li>Cross-chain DAO governance framework</li>
+            <li>Cross-chain DAO governance framework for multi-chain protection</li>
           </ul>
         </div>
       </div>

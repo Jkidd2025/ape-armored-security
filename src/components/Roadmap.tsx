@@ -1,4 +1,3 @@
-
 import { Check, Rocket, Users, Handshake, Calendar, Search, Shield, ArrowUpRightSquare } from "lucide-react";
 
 const roadmapItems = [
@@ -40,7 +39,7 @@ const roadmapItems = [
   },
   {
     title: "Cross-Chain Protection",
-    description: "Expansion of ApeArmor DAO governance to support cross-chain security initiatives.",
+    description: "Expansion of ApeArmor DAO governance to support cross-chain protection initiatives.",
     icon: Shield,
     completed: false
   }
