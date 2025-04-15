@@ -69,10 +69,12 @@ export async function fetchTokenMetrics(tokenAddress: string): Promise<TokenMetr
     // Process the responses to extract the metrics
     // This is simplified and would need to be adapted to the actual API response structure
     
-    // Return processed data
+    // Return processed data - fixed to resolve TypeScript errors
+    const currentPrice = await fetchCurrentPrice(tokenAddress);
+    
     return {
       circulatingSupply: calculateCirculatingSupply(balanceData),
-      currentPrice: fetchCurrentPrice(tokenAddress),
+      currentPrice,
       holders: countUniqueHolders(balanceData),
       buyCount: countBuys(txData),
       sellCount: countSells(txData),
@@ -93,6 +95,7 @@ function calculateCirculatingSupply(data: any): number {
 
 async function fetchCurrentPrice(tokenAddress: string): Promise<number> {
   // This might require a separate API call to a price oracle or market API
+  // For now, we return the sample price directly to fix the TypeScript error
   return SAMPLE_DATA.currentPrice;
 }
 

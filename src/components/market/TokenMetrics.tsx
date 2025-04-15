@@ -19,13 +19,15 @@ const TokenMetrics: React.FC<TokenMetricsProps> = ({ tokenAddress }) => {
     queryFn: () => fetchTokenMetrics(tokenAddress),
     retry: 2,
     refetchInterval: 60000, // Refetch every minute
-    onError: (err) => {
-      console.error('Error fetching token metrics:', err);
-      toast({
-        title: "Error loading market data",
-        description: "Unable to fetch token metrics. Please try again later.",
-        variant: "destructive",
-      });
+    meta: {
+      onError: (err: Error) => {
+        console.error('Error fetching token metrics:', err);
+        toast({
+          title: "Error loading market data",
+          description: "Unable to fetch token metrics. Please try again later.",
+          variant: "destructive",
+        });
+      },
     },
   });
 
