@@ -14,6 +14,8 @@ import PrivacyPolicy from "./pages/PrivacyPolicy";
 import ClaimSubmission from "./pages/ClaimSubmission";
 import PresaleApplication from "./pages/PresaleApplication";
 import SocialShareTest from "./pages/SocialShareTest";
+import ApeWire from "./pages/ApeWire";
+import BlogPost from "./pages/BlogPost";
 import NotFound from "./pages/NotFound";
 import CookieConsent from "./components/CookieConsent";
 
@@ -54,6 +56,10 @@ const App = () => (
           {/* Catch-all redirect for presale */}
           <Route path="/presale" element={<Navigate to="/presale-application" replace />} />
           <Route path="presale" element={<Navigate to="/presale-application" replace />} />
+          
+          {/* New Ape Wire blog routes */}
+          <Route path="/ape-wire" element={<ApeWire />} />
+          <Route path="/ape-wire/:slug" element={<BlogPost />} />
           
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />

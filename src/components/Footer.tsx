@@ -1,3 +1,4 @@
+
 import { X, Github, Send, Facebook, Youtube } from "lucide-react";
 import { Link } from "react-router-dom";
 
@@ -87,6 +88,11 @@ const Footer = () => {
                 <a href="#contact" className="text-muted-foreground hover:text-apearmor-teal transition-colors">
                   Contact
                 </a>
+              </li>
+              <li>
+                <Link to="/ape-wire" className="text-muted-foreground hover:text-apearmor-teal transition-colors">
+                  Ape Wire
+                </Link>
               </li>
               <li>
                 <Link to="/claim-submission" className="text-muted-foreground hover:text-apearmor-teal transition-colors">
