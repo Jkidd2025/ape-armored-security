@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+
+import React, { useState, useEffect } from 'react';
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { Separator } from "@/components/ui/separator";
@@ -6,7 +7,10 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Link } from "react-router-dom";
-import { ChevronRight, Search, Clock, ArrowRight } from "lucide-react";
+import { ChevronRight, Search, Clock, ArrowRight, X } from "lucide-react";
+import { Badge } from "@/components/ui/badge";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList } from "@/components/ui/command";
 
 type BlogPost = {
   id: string;
@@ -19,6 +23,9 @@ type BlogPost = {
   slug: string;
 };
 
+const categories = ["All", "Crypto News", "Education", "Insights", "Markets", "Security", "DeFi", "NFTs", "Smart Contracts"];
+
+// Adding more blog posts with the new categories
 const blogPosts: BlogPost[] = [
   {
     id: "1",
@@ -59,19 +66,78 @@ const blogPosts: BlogPost[] = [
     imageUrl: "https://images.unsplash.com/photo-1646154205624-23b4f248c2c2?q=80&w=2232&auto=format&fit=crop",
     readTime: "7 min",
     slug: "nft-security"
+  },
+  {
+    id: "5",
+    title: "Latest Market Trends in Cryptocurrency",
+    excerpt: "Analysis of the latest market trends and what they mean for your investment strategy.",
+    date: "April 12, 2025",
+    category: "Markets",
+    imageUrl: "https://images.unsplash.com/photo-1642790551116-18e150f248e5?q=80&w=2232&auto=format&fit=crop",
+    readTime: "5 min",
+    slug: "market-trends-crypto"
+  },
+  {
+    id: "6",
+    title: "Blockchain Basics: Understanding the Technology",
+    excerpt: "A beginner's guide to understanding blockchain technology and its applications.",
+    date: "April 8, 2025",
+    category: "Education",
+    imageUrl: "https://images.unsplash.com/photo-1639762681057-408b52a4c1e2?q=80&w=2232&auto=format&fit=crop",
+    readTime: "10 min",
+    slug: "blockchain-basics"
+  },
+  {
+    id: "7",
+    title: "Top Crypto News of the Week",
+    excerpt: "Roundup of the most important cryptocurrency news and events from the past week.",
+    date: "April 7, 2025",
+    category: "Crypto News",
+    imageUrl: "https://images.unsplash.com/photo-1621761191319-c6fb62004040?q=80&w=2232&auto=format&fit=crop",
+    readTime: "4 min",
+    slug: "crypto-news-weekly"
+  },
+  {
+    id: "8",
+    title: "Future of Finance: DeFi and Traditional Banking",
+    excerpt: "Exploring how decentralized finance is disrupting traditional banking systems.",
+    date: "March 30, 2025",
+    category: "Insights",
+    imageUrl: "https://images.unsplash.com/photo-1642790551116-18e150f248e5?q=80&w=2232&auto=format&fit=crop",
+    readTime: "9 min",
+    slug: "defi-vs-banking"
   }
 ];
 
 const ApeWire = () => {
   const [searchQuery, setSearchQuery] = useState("");
+  const [selectedCategory, setSelectedCategory] = useState<string>("All");
+  const [isSearchFocused, setIsSearchFocused] = useState(false);
+  const [filteredPosts, setFilteredPosts] = useState<BlogPost[]>(blogPosts);
   
-  const filteredPosts = searchQuery.trim() === "" 
-    ? blogPosts 
-    : blogPosts.filter(post => 
+  // Filter posts based on search query and selected category
+  useEffect(() => {
+    const filtered = blogPosts.filter(post => {
+      const matchesSearch = searchQuery.trim() === "" || 
         post.title.toLowerCase().includes(searchQuery.toLowerCase()) || 
         post.excerpt.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        post.category.toLowerCase().includes(searchQuery.toLowerCase())
-      );
+        post.category.toLowerCase().includes(searchQuery.toLowerCase());
+        
+      const matchesCategory = selectedCategory === "All" || post.category === selectedCategory;
+      
+      return matchesSearch && matchesCategory;
+    });
+    
+    setFilteredPosts(filtered);
+  }, [searchQuery, selectedCategory]);
+
+  const handleClearSearch = () => {
+    setSearchQuery("");
+  };
+
+  const handleCategorySelect = (category: string) => {
+    setSelectedCategory(category);
+  };
 
   return (
     <div className="min-h-screen flex flex-col bg-background text-foreground">
@@ -86,15 +152,51 @@ const ApeWire = () => {
             </p>
             <Separator className="w-20 h-1 bg-apearmor-teal mb-8" />
             
-            <div className="relative w-full max-w-xl">
-              <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground h-5 w-5" />
-              <Input
-                type="search"
-                placeholder="Search articles..."
-                className="pl-10 bg-muted/50 border-apearmor-darkbronze focus:border-apearmor-teal"
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-              />
+            {/* Enhanced search with command palette styling */}
+            <div className="w-full max-w-3xl mb-8">
+              <div className="relative">
+                <Command className="rounded-lg border-apearmor-darkbronze overflow-visible">
+                  <div className="flex items-center border-b px-3">
+                    <Search className="mr-2 h-4 w-4 shrink-0 opacity-50" />
+                    <CommandInput 
+                      placeholder="Search articles..." 
+                      value={searchQuery}
+                      onValueChange={setSearchQuery}
+                      onFocus={() => setIsSearchFocused(true)}
+                      onBlur={() => setTimeout(() => setIsSearchFocused(false), 200)}
+                      className="flex h-11 w-full rounded-md bg-transparent py-3 text-sm outline-none placeholder:text-muted-foreground"
+                    />
+                    {searchQuery && (
+                      <Button
+                        variant="ghost"
+                        size="icon"
+                        onClick={handleClearSearch}
+                        className="h-6 w-6 p-0"
+                      >
+                        <X className="h-4 w-4" />
+                      </Button>
+                    )}
+                  </div>
+                </Command>
+              </div>
+            </div>
+            
+            {/* Category filter */}
+            <div className="w-full max-w-3xl flex flex-wrap justify-center gap-3 mb-10">
+              {categories.map((category) => (
+                <Badge
+                  key={category}
+                  variant={selectedCategory === category ? "default" : "outline"}
+                  className={`px-3 py-1.5 cursor-pointer text-sm ${
+                    selectedCategory === category 
+                      ? "bg-apearmor-teal text-black" 
+                      : "hover:bg-muted/50"
+                  }`}
+                  onClick={() => handleCategorySelect(category)}
+                >
+                  {category}
+                </Badge>
+              ))}
             </div>
           </div>
           
@@ -111,9 +213,9 @@ const ApeWire = () => {
                   </div>
                   <CardHeader>
                     <div className="flex justify-between items-center mb-2">
-                      <span className="text-xs font-medium text-apearmor-teal px-2 py-1 rounded-full bg-muted">
+                      <Badge className="bg-apearmor-teal/10 text-apearmor-teal border-none hover:bg-apearmor-teal/20">
                         {post.category}
-                      </span>
+                      </Badge>
                       <div className="flex items-center text-xs text-muted-foreground">
                         <Clock className="h-3 w-3 mr-1" />
                         {post.readTime}
@@ -137,24 +239,39 @@ const ApeWire = () => {
               ))
             ) : (
               <div className="col-span-full text-center py-12">
-                <p className="text-muted-foreground">No articles found matching your search.</p>
-                <Button 
-                  variant="link" 
-                  className="text-apearmor-teal mt-2"
-                  onClick={() => setSearchQuery("")}
-                >
-                  Clear search
-                </Button>
+                <p className="text-muted-foreground">No articles found matching your search or category filter.</p>
+                <div className="flex gap-2 justify-center mt-4">
+                  {searchQuery && (
+                    <Button 
+                      variant="outline" 
+                      className="text-apearmor-teal border-apearmor-teal hover:bg-apearmor-teal/10"
+                      onClick={handleClearSearch}
+                    >
+                      Clear search
+                    </Button>
+                  )}
+                  {selectedCategory !== "All" && (
+                    <Button 
+                      variant="outline" 
+                      className="text-apearmor-teal border-apearmor-teal hover:bg-apearmor-teal/10"
+                      onClick={() => setSelectedCategory("All")}
+                    >
+                      Reset category
+                    </Button>
+                  )}
+                </div>
               </div>
             )}
           </div>
           
-          <div className="flex justify-center">
-            <Button className="bg-apearmor-teal hover:bg-apearmor-teal/80 text-black">
-              Load More Articles
-              <ChevronRight className="ml-2 h-4 w-4" />
-            </Button>
-          </div>
+          {filteredPosts.length > 7 && (
+            <div className="flex justify-center">
+              <Button className="bg-apearmor-teal hover:bg-apearmor-teal/80 text-black">
+                Load More Articles
+                <ChevronRight className="ml-2 h-4 w-4" />
+              </Button>
+            </div>
+          )}
         </section>
       </main>
       
