@@ -54,6 +54,7 @@ const Navbar = () => {
           <a href="#approved" className="text-sm font-medium hover:text-apearmor-teal transition-colors">Approved</a>
           <a href="#nft-collection" className="text-sm font-medium hover:text-apearmor-teal transition-colors">NFTs</a>
           <a href="#dao" className="text-sm font-medium hover:text-apearmor-teal transition-colors">DAO</a>
+          <a href="#ape-market" className="text-sm font-medium hover:text-apearmor-teal transition-colors">Market</a>
           <Link 
             to="/whitepaper" 
             className="text-sm font-medium hover:text-apearmor-teal transition-colors"
@@ -153,6 +154,13 @@ const Navbar = () => {
             onClick={() => setIsMenuOpen(false)}
           >
             DAO
+          </a>
+          <a 
+            href="#ape-market" 
+            className="text-sm font-medium py-2 px-4 hover:bg-muted rounded-md hover:text-apearmor-teal transition-colors"
+            onClick={() => setIsMenuOpen(false)}
+          >
+            Market
           </a>
           <Link 
             to="/whitepaper" 
