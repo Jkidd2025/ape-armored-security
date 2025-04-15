@@ -17,7 +17,7 @@ const Footer = () => {
             </div>
             
             <p className="text-muted-foreground mb-4 max-w-md">
-              ApeArmor provides robust protection against scams, rug pulls, and security threats in the crypto space. Ape in with confidence – we've got your back.
+              ApeArmor provides robust protection services against scams, rug pulls, and exploits in the crypto space. Ape in - Get Protection.
             </p>
             
             <div className="flex space-x-4">
