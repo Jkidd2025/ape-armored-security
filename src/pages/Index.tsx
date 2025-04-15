@@ -12,7 +12,6 @@ import Cta from "@/components/Cta";
 import Footer from "@/components/Footer";
 import NftCollection from "@/components/NftCollection";
 import DaoSection from "@/components/DaoSection";
-import ApeMarket from "@/components/ApeMarket";
 
 const Index = () => {
   return (
@@ -26,7 +25,6 @@ const Index = () => {
         <ApprovedProjects />
         <NftCollection />
         <DaoSection />
-        <ApeMarket />
         <Testimonials />
         <Roadmap />
         <Cta />

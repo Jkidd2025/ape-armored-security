@@ -74,13 +74,6 @@ const MobileMenu = ({
         >
           DAO
         </a>
-        <a 
-          href="#ape-market" 
-          className="text-sm font-medium py-2 px-4 hover:bg-muted rounded-md hover:text-apearmor-teal transition-colors"
-          onClick={() => setIsMenuOpen(false)}
-        >
-          Market
-        </a>
         <Link 
           to="/whitepaper" 
           className="text-sm font-medium py-2 px-4 hover:bg-muted rounded-md hover:text-apearmor-teal transition-colors"

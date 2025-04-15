@@ -19,7 +19,6 @@ const DesktopNav = ({ isDevEnvironment, handlePaymentClick }: DesktopNavProps) =
         <a href="#approved" className="text-sm font-medium hover:text-apearmor-teal transition-colors">Approved</a>
         <a href="#nft-collection" className="text-sm font-medium hover:text-apearmor-teal transition-colors">NFTs</a>
         <a href="#dao" className="text-sm font-medium hover:text-apearmor-teal transition-colors">DAO</a>
-        <a href="#ape-market" className="text-sm font-medium hover:text-apearmor-teal transition-colors">Market</a>
         <Link 
           to="/whitepaper" 
           className="text-sm font-medium hover:text-apearmor-teal transition-colors"
