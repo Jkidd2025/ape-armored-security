@@ -1,4 +1,3 @@
-
 import { Info, Shield, Users } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
@@ -23,7 +22,7 @@ const About = () => {
               </div>
               <h3 className="text-xl font-semibold mb-2">Our Mission</h3>
               <p className="text-muted-foreground">
-                Our mission is to empower the crypto community—apes, degens, and moon-chasers alike—by providing robust protection against scams, rug pulls, and security threats.
+                Our mission is to empower the consumer by providing robust protection services against scams, rug pulls, and exploits.
               </p>
             </CardContent>
           </Card>

@@ -1,4 +1,3 @@
-
 import React from "react";
 
 const TermsAndConditions: React.FC<{ children: React.ReactNode }> = ({ children }) => {
@@ -76,7 +75,7 @@ const TermsAndConditions: React.FC<{ children: React.ReactNode }> = ({ children 
         <p className="mb-2">"Ape in with Confidence – Armor Up Against Crypto Chaos!"</p>
         
         <h5 className="font-semibold mt-3 mb-1">🏅 Mission Statement:</h5>
-        <p>"At ApeArmor, our mission is to empower the crypto community—apes, degens, and moon-chasers alike—by providing robust protection against scams, rug pulls, and security threats. We're dedicated to making the meme coin space safer, so you can ape in boldly and securely."</p>
+        <p>"Our mission is to empower the consumer by providing robust protection services against scams, rug pulls, and exploits."</p>
       </div>
       {children}
     </div>
