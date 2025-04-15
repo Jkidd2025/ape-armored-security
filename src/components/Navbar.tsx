@@ -1,8 +1,7 @@
-
 import { useState } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { Button } from "@/components/ui/button";
-import { Menu, X, Share2, BookOpen } from "lucide-react";
+import { Menu, X, Share2 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useIsMobile } from "@/hooks/use-mobile";
 
@@ -63,10 +62,9 @@ const Navbar = () => {
           </Link>
           <Link 
             to="/ape-wire" 
-            className="text-sm font-medium hover:text-apearmor-teal transition-colors flex items-center gap-1"
+            className="text-sm font-medium hover:text-apearmor-teal transition-colors"
           >
-            <BookOpen className="h-4 w-4" />
-            <span>Ape Wire</span>
+            Ape Wire
           </Link>
           <a href="#contact" className="text-sm font-medium hover:text-apearmor-teal transition-colors">Contact</a>
           <Link to="/presale-application" className="text-sm font-medium hover:text-apearmor-teal transition-colors">Presale</Link>
@@ -165,11 +163,10 @@ const Navbar = () => {
           </Link>
           <Link 
             to="/ape-wire" 
-            className="text-sm font-medium py-2 px-4 hover:bg-muted rounded-md hover:text-apearmor-teal transition-colors flex items-center gap-2"
+            className="text-sm font-medium py-2 px-4 hover:bg-muted rounded-md hover:text-apearmor-teal transition-colors"
             onClick={() => setIsMenuOpen(false)}
           >
-            <BookOpen className="h-4 w-4" />
-            <span>Ape Wire</span>
+            Ape Wire
           </Link>
           <a 
             href="#contact" 
