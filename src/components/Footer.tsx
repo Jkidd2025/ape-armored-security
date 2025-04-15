@@ -1,4 +1,3 @@
-
 import { X, Github, Send, Facebook, Youtube } from "lucide-react";
 import { Link } from "react-router-dom";
 
@@ -49,7 +48,7 @@ const Footer = () => {
                 </svg>
                 <span className="sr-only">TikTok</span>
               </a>
-              <a href="https://www.youtube.com/@ApeArmorSecure" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-apearmor-teal transition-colors">
+              <a href="https://www.youtube.com/channel/UCXDVfHy6UMRHCwGCJtrT32g" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-apearmor-teal transition-colors">
                 <Youtube className="h-5 w-5" />
                 <span className="sr-only">YouTube</span>
               </a>

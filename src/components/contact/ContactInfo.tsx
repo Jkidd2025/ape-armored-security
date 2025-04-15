@@ -1,4 +1,3 @@
-
 import React from "react";
 import { Mail, Phone, Github, Youtube } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
@@ -37,7 +36,7 @@ const ContactInfo = () => {
             <a href="https://github.com/ApeArmorSecure" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-apearmor-teal transition-colors">
               <Github className="h-5 w-5" />
             </a>
-            <a href="https://www.youtube.com/@ApeArmorSecure" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-apearmor-teal transition-colors">
+            <a href="https://www.youtube.com/channel/UCXDVfHy6UMRHCwGCJtrT32g" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-apearmor-teal transition-colors">
               <Youtube className="h-5 w-5" />
             </a>
             <a href="#" className="text-muted-foreground hover:text-apearmor-teal transition-colors">
