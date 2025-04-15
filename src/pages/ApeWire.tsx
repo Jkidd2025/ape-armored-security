@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -25,7 +24,6 @@ type BlogPost = {
 
 const categories = ["All", "Crypto News", "Education", "Insights", "Markets", "Security", "DeFi", "NFTs", "Smart Contracts"];
 
-// Adding more blog posts with the new categories
 const blogPosts: BlogPost[] = [
   {
     id: "1",
@@ -115,7 +113,6 @@ const ApeWire = () => {
   const [isSearchFocused, setIsSearchFocused] = useState(false);
   const [filteredPosts, setFilteredPosts] = useState<BlogPost[]>(blogPosts);
   
-  // Filter posts based on search query and selected category
   useEffect(() => {
     const filtered = blogPosts.filter(post => {
       const matchesSearch = searchQuery.trim() === "" || 
@@ -152,7 +149,23 @@ const ApeWire = () => {
             </p>
             <Separator className="w-20 h-1 bg-apearmor-teal mb-8" />
             
-            {/* Enhanced search with command palette styling */}
+            <div className="w-full max-w-3xl flex flex-wrap justify-center gap-3 mb-6">
+              {categories.map((category) => (
+                <Badge
+                  key={category}
+                  variant={selectedCategory === category ? "default" : "outline"}
+                  className={`px-3 py-1.5 cursor-pointer text-sm ${
+                    selectedCategory === category 
+                      ? "bg-apearmor-teal text-black" 
+                      : "hover:bg-muted/50"
+                  }`}
+                  onClick={() => handleCategorySelect(category)}
+                >
+                  {category}
+                </Badge>
+              ))}
+            </div>
+            
             <div className="w-full max-w-3xl mb-8">
               <div className="relative">
                 <Command className="rounded-lg border-apearmor-darkbronze overflow-visible">
@@ -181,97 +194,79 @@ const ApeWire = () => {
               </div>
             </div>
             
-            {/* Category filter */}
-            <div className="w-full max-w-3xl flex flex-wrap justify-center gap-3 mb-10">
-              {categories.map((category) => (
-                <Badge
-                  key={category}
-                  variant={selectedCategory === category ? "default" : "outline"}
-                  className={`px-3 py-1.5 cursor-pointer text-sm ${
-                    selectedCategory === category 
-                      ? "bg-apearmor-teal text-black" 
-                      : "hover:bg-muted/50"
-                  }`}
-                  onClick={() => handleCategorySelect(category)}
-                >
-                  {category}
-                </Badge>
-              ))}
-            </div>
-          </div>
-          
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
-            {filteredPosts.length > 0 ? (
-              filteredPosts.map((post) => (
-                <Card key={post.id} className="bg-card/50 backdrop-blur-sm border-apearmor-darkbronze hover:border-apearmor-teal transition-all duration-300 overflow-hidden">
-                  <div className="aspect-video w-full overflow-hidden">
-                    <img 
-                      src={post.imageUrl} 
-                      alt={post.title} 
-                      className="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
-                    />
-                  </div>
-                  <CardHeader>
-                    <div className="flex justify-between items-center mb-2">
-                      <Badge className="bg-apearmor-teal/10 text-apearmor-teal border-none hover:bg-apearmor-teal/20">
-                        {post.category}
-                      </Badge>
-                      <div className="flex items-center text-xs text-muted-foreground">
-                        <Clock className="h-3 w-3 mr-1" />
-                        {post.readTime}
-                      </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
+              {filteredPosts.length > 0 ? (
+                filteredPosts.map((post) => (
+                  <Card key={post.id} className="bg-card/50 backdrop-blur-sm border-apearmor-darkbronze hover:border-apearmor-teal transition-all duration-300 overflow-hidden">
+                    <div className="aspect-video w-full overflow-hidden">
+                      <img 
+                        src={post.imageUrl} 
+                        alt={post.title} 
+                        className="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
+                      />
                     </div>
-                    <CardTitle className="text-xl hover:text-apearmor-teal transition-colors">
-                      <Link to={`/ape-wire/${post.slug}`}>{post.title}</Link>
-                    </CardTitle>
-                    <CardDescription className="text-muted-foreground">{post.date}</CardDescription>
-                  </CardHeader>
-                  <CardContent>
-                    <p className="text-sm">{post.excerpt}</p>
-                  </CardContent>
-                  <CardFooter>
-                    <Link to={`/ape-wire/${post.slug}`} className="text-apearmor-teal hover:text-apearmor-teal/80 flex items-center group">
-                      <span className="mr-2">Read more</span>
-                      <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
-                    </Link>
-                  </CardFooter>
-                </Card>
-              ))
-            ) : (
-              <div className="col-span-full text-center py-12">
-                <p className="text-muted-foreground">No articles found matching your search or category filter.</p>
-                <div className="flex gap-2 justify-center mt-4">
-                  {searchQuery && (
-                    <Button 
-                      variant="outline" 
-                      className="text-apearmor-teal border-apearmor-teal hover:bg-apearmor-teal/10"
-                      onClick={handleClearSearch}
-                    >
-                      Clear search
-                    </Button>
-                  )}
-                  {selectedCategory !== "All" && (
-                    <Button 
-                      variant="outline" 
-                      className="text-apearmor-teal border-apearmor-teal hover:bg-apearmor-teal/10"
-                      onClick={() => setSelectedCategory("All")}
-                    >
-                      Reset category
-                    </Button>
-                  )}
+                    <CardHeader>
+                      <div className="flex justify-between items-center mb-2">
+                        <Badge className="bg-apearmor-teal/10 text-apearmor-teal border-none hover:bg-apearmor-teal/20">
+                          {post.category}
+                        </Badge>
+                        <div className="flex items-center text-xs text-muted-foreground">
+                          <Clock className="h-3 w-3 mr-1" />
+                          {post.readTime}
+                        </div>
+                      </div>
+                      <CardTitle className="text-xl hover:text-apearmor-teal transition-colors">
+                        <Link to={`/ape-wire/${post.slug}`}>{post.title}</Link>
+                      </CardTitle>
+                      <CardDescription className="text-muted-foreground">{post.date}</CardDescription>
+                    </CardHeader>
+                    <CardContent>
+                      <p className="text-sm">{post.excerpt}</p>
+                    </CardContent>
+                    <CardFooter>
+                      <Link to={`/ape-wire/${post.slug}`} className="text-apearmor-teal hover:text-apearmor-teal/80 flex items-center group">
+                        <span className="mr-2">Read more</span>
+                        <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
+                      </Link>
+                    </CardFooter>
+                  </Card>
+                ))
+              ) : (
+                <div className="col-span-full text-center py-12">
+                  <p className="text-muted-foreground">No articles found matching your search or category filter.</p>
+                  <div className="flex gap-2 justify-center mt-4">
+                    {searchQuery && (
+                      <Button 
+                        variant="outline" 
+                        className="text-apearmor-teal border-apearmor-teal hover:bg-apearmor-teal/10"
+                        onClick={handleClearSearch}
+                      >
+                        Clear search
+                      </Button>
+                    )}
+                    {selectedCategory !== "All" && (
+                      <Button 
+                        variant="outline" 
+                        className="text-apearmor-teal border-apearmor-teal hover:bg-apearmor-teal/10"
+                        onClick={() => setSelectedCategory("All")}
+                      >
+                        Reset category
+                      </Button>
+                    )}
+                  </div>
                 </div>
+              )}
+            </div>
+            
+            {filteredPosts.length > 7 && (
+              <div className="flex justify-center">
+                <Button className="bg-apearmor-teal hover:bg-apearmor-teal/80 text-black">
+                  Load More Articles
+                  <ChevronRight className="ml-2 h-4 w-4" />
+                </Button>
               </div>
             )}
           </div>
-          
-          {filteredPosts.length > 7 && (
-            <div className="flex justify-center">
-              <Button className="bg-apearmor-teal hover:bg-apearmor-teal/80 text-black">
-                Load More Articles
-                <ChevronRight className="ml-2 h-4 w-4" />
-              </Button>
-            </div>
-          )}
         </section>
       </main>
       
