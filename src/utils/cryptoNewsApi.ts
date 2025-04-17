@@ -64,12 +64,26 @@ export const newsItemsToContent = (items: CryptoNewsItem[]): string => {
     <p class="mb-6">Here's a roundup of the most significant cryptocurrency news and events from this week:</p>
   `;
   
+  // Fallback images to use if the API doesn't provide an image
+  const fallbackImages = [
+    "https://images.unsplash.com/photo-1621761191319-c6fb62004040?q=80&w=2232&auto=format&fit=crop",
+    "https://images.unsplash.com/photo-1639762681485-074b7f938ba0?q=80&w=2232&auto=format&fit=crop",
+    "https://images.unsplash.com/photo-1638913662529-1d2f1eb5b526?q=80&w=2232&auto=format&fit=crop",
+    "https://images.unsplash.com/photo-1639762681057-408b52a4c1e2?q=80&w=2232&auto=format&fit=crop",
+    "https://images.unsplash.com/photo-1642790551116-18e150f248e5?q=80&w=2232&auto=format&fit=crop"
+  ];
+  
   items.forEach((item, index) => {
     const formattedDate = new Date(item.date).toLocaleDateString('en-US', {
       year: 'numeric',
       month: 'long',
       day: 'numeric'
     });
+    
+    // Use the item's image_url if it exists and is valid, otherwise use a fallback image
+    const imageUrl = (item.image_url && item.image_url.startsWith('http')) 
+      ? item.image_url 
+      : fallbackImages[index % fallbackImages.length];
     
     content += `
       <div class="mb-6 pb-6 ${index < items.length - 1 ? "border-b border-gray-700" : ""}">
@@ -80,7 +94,7 @@ export const newsItemsToContent = (items: CryptoNewsItem[]): string => {
           <span>${formattedDate}</span>
         </div>
         <p class="mb-4">${item.text}</p>
-        ${item.image_url ? `<img src="${item.image_url}" alt="${item.title}" class="rounded-md mb-4 max-w-full h-auto">` : ''}
+        <img src="${imageUrl}" alt="${item.title}" class="rounded-md mb-4 max-w-full h-auto">
         ${item.tickers && item.tickers.length > 0 ? `
           <div class="flex flex-wrap gap-2 mt-2">
             ${item.tickers.map(ticker => `<span class="bg-apearmor-teal/10 text-apearmor-teal text-xs px-2 py-1 rounded">${ticker}</span>`).join('')}
