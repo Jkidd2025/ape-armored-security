@@ -17,6 +17,7 @@ export interface CryptoNewsItem {
   sentiment: string;
   type: string;
   tickers?: string[];
+  news_url?: string;
 }
 
 export interface CryptoNewsResponse {
@@ -44,11 +45,23 @@ export const fetchTopCryptoNews = async (count: number = 3): Promise<CryptoNewsI
     }
     
     const data: CryptoNewsResponse = await response.json();
+    console.log("Fetched crypto news data:", data.data);
     return data.data || [];
   } catch (error) {
     console.error("Error fetching crypto news:", error);
     return [];
   }
+};
+
+/**
+ * Checks if a URL is valid and points to an image
+ */
+const isValidImageUrl = (url: string): boolean => {
+  if (!url || typeof url !== 'string') return false;
+  return url.startsWith('http') && 
+    (url.endsWith('.jpg') || url.endsWith('.jpeg') || url.endsWith('.png') || 
+     url.endsWith('.gif') || url.endsWith('.webp') || url.includes('.jpg?') || 
+     url.includes('.png?') || url.includes('.jpeg?') || url.includes('.webp?'));
 };
 
 /**
@@ -80,10 +93,15 @@ export const newsItemsToContent = (items: CryptoNewsItem[]): string => {
       day: 'numeric'
     });
     
-    // Use the item's image_url if it exists and is valid, otherwise use a fallback image
-    const imageUrl = (item.image_url && item.image_url.startsWith('http')) 
-      ? item.image_url 
-      : fallbackImages[index % fallbackImages.length];
+    // More robust image URL validation and selection
+    let imageUrl = fallbackImages[index % fallbackImages.length];
+    
+    if (isValidImageUrl(item.image_url)) {
+      imageUrl = item.image_url;
+      console.log(`Using API-provided image for article ${index}: ${imageUrl}`);
+    } else {
+      console.log(`Using fallback image for article ${index}: ${imageUrl}`);
+    }
     
     content += `
       <div class="mb-6 pb-6 ${index < items.length - 1 ? "border-b border-gray-700" : ""}">
@@ -98,6 +116,13 @@ export const newsItemsToContent = (items: CryptoNewsItem[]): string => {
         ${item.tickers && item.tickers.length > 0 ? `
           <div class="flex flex-wrap gap-2 mt-2">
             ${item.tickers.map(ticker => `<span class="bg-apearmor-teal/10 text-apearmor-teal text-xs px-2 py-1 rounded">${ticker}</span>`).join('')}
+          </div>
+        ` : ''}
+        ${item.news_url ? `
+          <div class="mt-3">
+            <a href="${item.news_url}" target="_blank" rel="noopener noreferrer" class="text-apearmor-teal hover:underline">
+              Read original article
+            </a>
           </div>
         ` : ''}
       </div>
