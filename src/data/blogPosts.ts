@@ -1,9 +1,18 @@
-
 import { BlogPost } from "@/types/blog";
 
 export const categories = ["All", "Crypto News", "Education", "Insights", "Markets", "Security", "DeFi", "NFTs", "Smart Contracts"];
 
 export const blogPosts: BlogPost[] = [
+  {
+    id: "9",
+    title: "Crypto Coin News Today: Market Shifts and Regulatory Updates",
+    excerpt: "The latest cryptocurrency market movements, regulatory developments, and notable project launches from this week's crypto landscape.",
+    date: "April 17, 2025",
+    category: "Crypto News",
+    imageUrl: "https://images.unsplash.com/photo-1621761191319-c6fb62004040?q=80&w=2232&auto=format&fit=crop",
+    readTime: "3 min",
+    slug: "crypto-news-today-april-2025"
+  },
   {
     id: "1",
     title: "Understanding Rug Pulls: How to Identify and Avoid Them",
