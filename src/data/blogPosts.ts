@@ -1,16 +1,5 @@
 import { BlogPost } from "@/types/blog";
 
-export interface BlogPost {
-  id: string;
-  title: string;
-  slug: string;
-  excerpt: string;
-  date: string;
-  readTime: string;
-  category: string;
-  imageUrl: string;
-}
-
 export const categories = ["All", "Crypto News", "Education", "Insights", "Markets", "Security", "DeFi", "NFTs", "Smart Contracts"];
 
 export const blogPosts: BlogPost[] = [
