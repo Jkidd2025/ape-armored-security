@@ -54,6 +54,30 @@ export const fetchTopCryptoNews = async (count: number = 3): Promise<CryptoNewsI
 };
 
 /**
+ * Fetch NFT-related news articles
+ * @param count Number of articles to fetch
+ * @returns Array of NFT news articles
+ */
+export const fetchNFTNews = async (count: number = 3): Promise<CryptoNewsItem[]> => {
+  try {
+    const response = await fetch(
+      `${API_BASE_URL}/category?section=general&items=${count}&topic=NFT&page=1&token=${API_TOKEN}`
+    );
+    
+    if (!response.ok) {
+      throw new Error(`API error: ${response.status}`);
+    }
+    
+    const data: CryptoNewsResponse = await response.json();
+    console.log("Fetched NFT news data:", data.data);
+    return data.data || [];
+  } catch (error) {
+    console.error("Error fetching NFT news:", error);
+    return [];
+  }
+};
+
+/**
  * Checks if a URL is valid and points to an image
  */
 const isValidImageUrl = (url: string): boolean => {
@@ -67,14 +91,14 @@ const isValidImageUrl = (url: string): boolean => {
 /**
  * Convert API news items to HTML content string
  */
-export const newsItemsToContent = (items: CryptoNewsItem[]): string => {
+export const newsItemsToContent = (items: CryptoNewsItem[], title: string = "Latest Cryptocurrency Updates", intro: string = "Here's a roundup of the most significant cryptocurrency news and events from this week:"): string => {
   if (!items || items.length === 0) {
     return "<p class='mb-4'>Unable to fetch the latest crypto news at this time. Please check back later.</p>";
   }
   
   let content = `
-    <h2 class="text-2xl font-bold mt-8 mb-4">Latest Cryptocurrency Updates</h2>
-    <p class="mb-6">Here's a roundup of the most significant cryptocurrency news and events from this week:</p>
+    <h2 class="text-2xl font-bold mt-8 mb-4">${title}</h2>
+    <p class="mb-6">${intro}</p>
   `;
   
   // Fallback images to use if the API doesn't provide an image
@@ -134,4 +158,15 @@ export const newsItemsToContent = (items: CryptoNewsItem[]): string => {
   `;
   
   return content;
+};
+
+/**
+ * Convert API news items to HTML content string specifically for NFT news
+ */
+export const nftNewsItemsToContent = (items: CryptoNewsItem[]): string => {
+  return newsItemsToContent(
+    items, 
+    "Latest NFT Market Updates",
+    "Check out the most recent developments in the NFT space:"
+  );
 };

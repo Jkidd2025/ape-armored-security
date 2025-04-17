@@ -1,8 +1,29 @@
 import { BlogPost } from "@/types/blog";
 
+export interface BlogPost {
+  id: string;
+  title: string;
+  slug: string;
+  excerpt: string;
+  date: string;
+  readTime: string;
+  category: string;
+  imageUrl: string;
+}
+
 export const categories = ["All", "Crypto News", "Education", "Insights", "Markets", "Security", "DeFi", "NFTs", "Smart Contracts"];
 
 export const blogPosts: BlogPost[] = [
+  {
+    id: "nft1",
+    title: "NFT Market Trends and Emerging Collections",
+    slug: "nft-market-trends",
+    excerpt: "Explore the latest trends in the NFT market, from blue-chip collections to emerging artists making waves in the digital art space.",
+    date: "April 15, 2025",
+    readTime: "4 min",
+    category: "NFT",
+    imageUrl: "https://images.unsplash.com/photo-1639762681485-074b7f938ba0?q=80&w=2232&auto=format&fit=crop"
+  },
   {
     id: "9",
     title: "Crypto Coin News Today: Market Shifts and Regulatory Updates",

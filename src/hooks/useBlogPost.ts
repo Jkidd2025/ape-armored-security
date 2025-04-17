@@ -1,6 +1,5 @@
-
 import { useState, useEffect } from "react";
-import { fetchTopCryptoNews, newsItemsToContent, CryptoNewsItem } from "@/utils/cryptoNewsApi";
+import { fetchTopCryptoNews, fetchNFTNews, newsItemsToContent, nftNewsItemsToContent, CryptoNewsItem } from "@/utils/cryptoNewsApi";
 import { blogPosts } from "@/data/blogPosts";
 
 export interface BlogPostData {
@@ -12,6 +11,7 @@ export interface BlogPostData {
   imageUrl: string;
   content: string;
   useRealTimeData?: boolean;
+  useNFTData?: boolean;
   relatedPosts: {
     id: string;
     title: string;
@@ -84,6 +84,33 @@ export const getBlogPost = (slug: string): BlogPostData => {
           id: "5",
           title: "Latest Market Trends in Cryptocurrency",
           slug: "market-trends-crypto"
+        }
+      ]
+    };
+  }
+
+  if (slug === "nft-market-trends") {
+    // This post will use real-time NFT API data
+    return {
+      title: "NFT Market Trends and Emerging Collections",
+      publishDate: "April 15, 2025",
+      author: "ApeArmor NFT Team",
+      readTime: "4 min",
+      category: "NFT",
+      imageUrl: "https://images.unsplash.com/photo-1639762681485-074b7f938ba0?q=80&w=2232&auto=format&fit=crop",
+      // Content will be dynamically loaded from API
+      content: `<p class="mb-4">Loading the latest NFT market news...</p>`,
+      useNFTData: true,
+      relatedPosts: [
+        {
+          id: "10",
+          title: "Understanding Rug Pulls: How to Identify and Avoid Them",
+          slug: "understanding-rug-pulls"
+        },
+        {
+          id: "11",
+          title: "Top Crypto News of the Week",
+          slug: "crypto-news-weekly"
         }
       ]
     };
@@ -169,21 +196,36 @@ export const useBlogPost = (slug: string) => {
   const [isLoading, setIsLoading] = useState(false);
   const [newsItems, setNewsItems] = useState<CryptoNewsItem[]>([]);
 
-  // Fetch real-time data for crypto-news-weekly
+  // Fetch real-time data for posts that need it
   useEffect(() => {
     const loadRealTimeData = async () => {
-      if (post.useRealTimeData) {
+      if (post.useRealTimeData || post.useNFTData) {
         setIsLoading(true);
         try {
-          const newsData = await fetchTopCryptoNews(3);
-          setNewsItems(newsData);
+          let newsData: CryptoNewsItem[] = [];
           
-          // Update the post with real-time content
-          if (newsData.length > 0) {
-            setPost(prev => ({
-              ...prev,
-              content: newsItemsToContent(newsData)
-            }));
+          if (post.useRealTimeData) {
+            newsData = await fetchTopCryptoNews(3);
+            setNewsItems(newsData);
+            
+            // Update the post with real-time content
+            if (newsData.length > 0) {
+              setPost(prev => ({
+                ...prev,
+                content: newsItemsToContent(newsData)
+              }));
+            }
+          } else if (post.useNFTData) {
+            newsData = await fetchNFTNews(3);
+            setNewsItems(newsData);
+            
+            // Update the post with NFT-specific content
+            if (newsData.length > 0) {
+              setPost(prev => ({
+                ...prev,
+                content: nftNewsItemsToContent(newsData)
+              }));
+            }
           }
         } catch (error) {
           console.error("Failed to load real-time news data:", error);
@@ -194,7 +236,7 @@ export const useBlogPost = (slug: string) => {
     };
 
     loadRealTimeData();
-  }, [post.useRealTimeData]);
+  }, [post.useRealTimeData, post.useNFTData]);
 
   return { post, isLoading, newsItems };
 };
