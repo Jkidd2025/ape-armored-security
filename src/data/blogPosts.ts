@@ -21,7 +21,7 @@ export const blogPosts: BlogPost[] = [
     excerpt: "Explore the latest trends in the NFT market, from blue-chip collections to emerging artists making waves in the digital art space.",
     date: "April 15, 2025",
     readTime: "4 min",
-    category: "NFT",
+    category: "NFTs",
     imageUrl: "https://images.unsplash.com/photo-1639762681485-074b7f938ba0?q=80&w=2232&auto=format&fit=crop"
   },
   {
