@@ -1,3 +1,5 @@
+
+import { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -6,6 +8,7 @@ import { Separator } from "@/components/ui/separator";
 import { Button } from "@/components/ui/button";
 import { Clock, Calendar, Tag, ArrowLeft, Share2 } from "lucide-react";
 import { blogPosts } from "@/data/blogPosts";
+import { fetchTopCryptoNews, newsItemsToContent, CryptoNewsItem } from "@/utils/cryptoNewsApi";
 
 const getBlogPost = (slug: string) => {
   const foundPost = blogPosts.find(post => post.slug === slug);
@@ -40,6 +43,33 @@ const getBlogPost = (slug: string) => {
           id: "7",
           title: "Top Crypto News of the Week",
           slug: "crypto-news-weekly"
+        },
+        {
+          id: "5",
+          title: "Latest Market Trends in Cryptocurrency",
+          slug: "market-trends-crypto"
+        }
+      ]
+    };
+  }
+  
+  if (slug === "crypto-news-weekly") {
+    // This post will use real-time API data
+    return {
+      title: "Top Crypto News of the Week",
+      publishDate: "April 7, 2025",
+      author: "ApeArmor News Team",
+      readTime: "4 min",
+      category: "Crypto News",
+      imageUrl: "https://images.unsplash.com/photo-1621761191319-c6fb62004040?q=80&w=2232&auto=format&fit=crop",
+      // Content will be dynamically loaded from API
+      content: `<p class="mb-4">Loading the latest cryptocurrency news...</p>`,
+      useRealTimeData: true,
+      relatedPosts: [
+        {
+          id: "9",
+          title: "Crypto Coin News Today: Market Shifts and Regulatory Updates",
+          slug: "crypto-news-today-april-2025"
         },
         {
           id: "5",
@@ -127,7 +157,36 @@ const getBlogPost = (slug: string) => {
 
 const BlogPost = () => {
   const { slug } = useParams<{ slug: string }>();
-  const post = getBlogPost(slug || "");
+  const [post, setPost] = useState(getBlogPost(slug || ""));
+  const [isLoading, setIsLoading] = useState(false);
+  const [newsItems, setNewsItems] = useState<CryptoNewsItem[]>([]);
+
+  // Fetch real-time data for crypto-news-weekly
+  useEffect(() => {
+    const loadRealTimeData = async () => {
+      if (post.useRealTimeData) {
+        setIsLoading(true);
+        try {
+          const newsData = await fetchTopCryptoNews(3);
+          setNewsItems(newsData);
+          
+          // Update the post with real-time content
+          if (newsData.length > 0) {
+            setPost(prev => ({
+              ...prev,
+              content: newsItemsToContent(newsData)
+            }));
+          }
+        } catch (error) {
+          console.error("Failed to load real-time news data:", error);
+        } finally {
+          setIsLoading(false);
+        }
+      }
+    };
+
+    loadRealTimeData();
+  }, [post.useRealTimeData]);
 
   return (
     <div className="min-h-screen flex flex-col bg-background text-foreground">
@@ -186,10 +245,17 @@ const BlogPost = () => {
               />
             </div>
             
-            <div 
-              className="prose prose-invert max-w-none prose-headings:text-foreground prose-headings:font-bold prose-p:text-foreground/90 prose-strong:text-foreground prose-strong:font-semibold"
-              dangerouslySetInnerHTML={{ __html: post.content }}
-            />
+            {isLoading ? (
+              <div className="flex flex-col items-center justify-center py-8">
+                <div className="h-8 w-8 border-4 border-t-apearmor-teal border-r-transparent border-b-transparent border-l-transparent rounded-full animate-spin mb-4"></div>
+                <p className="text-muted-foreground">Fetching the latest crypto news...</p>
+              </div>
+            ) : (
+              <div 
+                className="prose prose-invert max-w-none prose-headings:text-foreground prose-headings:font-bold prose-p:text-foreground/90 prose-strong:text-foreground prose-strong:font-semibold"
+                dangerouslySetInnerHTML={{ __html: post.content }}
+              />
+            )}
             
             <Separator className="my-12" />
             
