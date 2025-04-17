@@ -1,10 +1,8 @@
 
 /**
- * Utility functions for fetching crypto news from Cryptonews API
+ * Utility functions for fetching crypto news from our Supabase edge function
  */
-
-const API_TOKEN = "vrwreq6s0duswvyvfnpv4ajsge8eypzxgx0z6dyj";
-const API_BASE_URL = "https://cryptonews-api.com/api/v1";
+import { supabase } from "@/integrations/supabase/client";
 
 export interface CryptoNewsItem {
   news_id: string;
@@ -36,15 +34,21 @@ export interface CryptoNewsResponse {
  */
 export const fetchTopCryptoNews = async (count: number = 3): Promise<CryptoNewsItem[]> => {
   try {
-    const response = await fetch(
-      `${API_BASE_URL}/category?section=alltickers&items=${count}&page=1&token=${API_TOKEN}`
-    );
+    const { data, error } = await supabase.functions.invoke("crypto-news", {
+      body: {
+        endpoint: "category",
+        params: {
+          section: "alltickers",
+          items: count,
+          page: 1
+        }
+      }
+    });
     
-    if (!response.ok) {
-      throw new Error(`API error: ${response.status}`);
+    if (error) {
+      throw new Error(`Edge function error: ${error.message}`);
     }
     
-    const data: CryptoNewsResponse = await response.json();
     console.log("Fetched crypto news data:", data.data);
     return data.data || [];
   } catch (error) {
@@ -60,15 +64,22 @@ export const fetchTopCryptoNews = async (count: number = 3): Promise<CryptoNewsI
  */
 export const fetchNFTNews = async (count: number = 3): Promise<CryptoNewsItem[]> => {
   try {
-    const response = await fetch(
-      `${API_BASE_URL}/category?section=general&items=${count}&topic=NFT&page=1&token=${API_TOKEN}`
-    );
+    const { data, error } = await supabase.functions.invoke("crypto-news", {
+      body: {
+        endpoint: "category",
+        params: {
+          section: "general",
+          items: count,
+          topic: "NFT",
+          page: 1
+        }
+      }
+    });
     
-    if (!response.ok) {
-      throw new Error(`API error: ${response.status}`);
+    if (error) {
+      throw new Error(`Edge function error: ${error.message}`);
     }
     
-    const data: CryptoNewsResponse = await response.json();
     console.log("Fetched NFT news data:", data.data);
     return data.data || [];
   } catch (error) {
