@@ -195,7 +195,7 @@ export const getBlogPost = (slug: string): BlogPostData => {
       author: "ApeArmor NFT Team",
       readTime: "4 min",
       category: "NFT",
-      imageUrl: "https://images.unsplash.com/photo-1639762681485-074b7f938ba0?q=80&w=2232&auto=format&fit=crop",
+      imageUrl: "", // Removed the image URL here
       // Content will be dynamically loaded from API
       content: `<p class="mb-4">Loading the latest NFT market news...</p>`,
       ...dynamicConfig,
