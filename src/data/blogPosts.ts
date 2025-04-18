@@ -1,7 +1,6 @@
-
 import { BlogPost } from "@/types/blog";
 
-export const categories = ["All", "Crypto News", "Education", "Insights", "Markets", "NFTs"];
+export const categories = ["All", "Crypto News", "Education", "Markets", "NFTs"];
 
 export const blogPosts: BlogPost[] = [
   {
@@ -79,7 +78,7 @@ export const blogPosts: BlogPost[] = [
     title: "Future of Finance: DeFi and Traditional Banking",
     excerpt: "Exploring how decentralized finance is disrupting traditional banking systems.",
     date: "March 30, 2025",
-    category: "Insights",
+    category: "Markets",
     imageUrl: "https://images.unsplash.com/photo-1642790551116-18e150f248e5?q=80&w=2232&auto=format&fit=crop",
     readTime: "9 min",
     slug: "defi-vs-banking"
