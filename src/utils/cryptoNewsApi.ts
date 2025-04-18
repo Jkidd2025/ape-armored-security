@@ -182,6 +182,6 @@ export const nftNewsItemsToContent = (items: CryptoNewsItem[]): string => {
     items, 
     "Latest NFT Market Updates",
     "Check out the most recent developments in the NFT space:",
-    false // Don't include images for NFT content
+    true // Changed to true to include images in NFT content
   );
 };
