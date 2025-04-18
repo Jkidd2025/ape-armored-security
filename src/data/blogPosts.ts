@@ -1,3 +1,4 @@
+
 import { BlogPost } from "@/types/blog";
 
 export const categories = ["All", "Crypto News", "Education", "Markets", "NFTs"];
@@ -69,7 +70,7 @@ export const blogPosts: BlogPost[] = [
     excerpt: "Roundup of the most important cryptocurrency news and events from the past week.",
     date: "April 7, 2025",
     category: "Crypto News",
-    imageUrl: "https://images.unsplash.com/photo-1621761191319-c6fb62004040?q=80&w=2232&auto=format&fit=crop",
+    imageUrl: "/lovable-uploads/7187bcba-a332-404f-b5e1-f82cc4832d2e.png",
     readTime: "4 min",
     slug: "crypto-news-weekly"
   },

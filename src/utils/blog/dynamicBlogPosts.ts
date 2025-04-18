@@ -14,7 +14,7 @@ export const getDynamicBlogPost = (slug: string): Partial<BlogPostData> => {
       author: "ApeArmor News Team",
       readTime: "4 min",
       category: "Crypto News",
-      imageUrl: "https://images.unsplash.com/photo-1621761191319-c6fb62004040?q=80&w=2232&auto=format&fit=crop",
+      imageUrl: "/lovable-uploads/7187bcba-a332-404f-b5e1-f82cc4832d2e.png",
       content: `<p class="mb-4">Loading the latest cryptocurrency news...</p>`,
       ...dynamicConfig,
       relatedPosts: [
