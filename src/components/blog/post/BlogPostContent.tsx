@@ -1,5 +1,6 @@
 
 import { CryptoNewsItem } from "@/utils/cryptoNewsApi";
+import MarketDataDisplay from "./MarketDataDisplay";
 
 interface BlogPostContentProps {
   content: string;
@@ -16,11 +17,18 @@ const BlogPostContent = ({ content, isLoading }: BlogPostContentProps) => {
     );
   }
 
+  // Create a wrapper div to hold our content
+  const wrapper = document.createElement('div');
+  wrapper.innerHTML = content;
+
+  // Check if we need to inject the market data component
+  const hasMarketDataContainer = content.includes('id="market-data-container"');
+
   return (
-    <div 
-      className="prose prose-invert max-w-none prose-headings:text-foreground prose-headings:font-bold prose-p:text-foreground/90 prose-strong:text-foreground prose-strong:font-semibold"
-      dangerouslySetInnerHTML={{ __html: content }}
-    />
+    <div className="prose prose-invert max-w-none prose-headings:text-foreground prose-headings:font-bold prose-p:text-foreground/90 prose-strong:text-foreground prose-strong:font-semibold">
+      {hasMarketDataContainer && <MarketDataDisplay />}
+      <div dangerouslySetInnerHTML={{ __html: content }} />
+    </div>
   );
 };
 
