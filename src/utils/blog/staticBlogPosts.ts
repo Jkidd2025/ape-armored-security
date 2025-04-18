@@ -1,4 +1,3 @@
-
 import { BlogPostData } from "@/types/blogTypes";
 import { blogPosts } from "@/data/blogPosts";
 
@@ -14,9 +13,7 @@ export const getStaticBlogPost = (slug: string): BlogPostData => {
       category: "Markets",
       imageUrl: "https://images.unsplash.com/photo-1642790551116-18e150f248e5?q=80&w=2232&auto=format&fit=crop",
       content: `
-        <p class="mb-4">In the fast-paced world of cryptocurrency trading, understanding market data is crucial for making informed decisions. Below you can find real-time cryptocurrency prices, followed by key metrics that every trader should monitor.</p>
-        
-        <div id="market-data-container"></div>
+        <p class="mb-4">In the fast-paced world of cryptocurrency trading, understanding market data is crucial for making informed decisions.</p>
         
         <h2 class="text-2xl font-bold mt-8 mb-4">Trading Volume</h2>
         <p class="mb-4">Trading volume represents the total amount of a cryptocurrency traded during a specific period. High volume often indicates strong market interest and can validate price movements, while low volume might suggest weak market conviction.</p>
