@@ -1,7 +1,6 @@
-
 import React from 'react';
 import { Badge } from "@/components/ui/badge";
-import { categories } from "@/data/blogPosts";
+import { categories } from "@/utils/blog/constants";
 
 interface CategoryFilterProps {
   selectedCategory: string;

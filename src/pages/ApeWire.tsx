@@ -7,17 +7,19 @@ import CategoryFilter from "@/components/blog/CategoryFilter";
 import SearchBar from "@/components/blog/SearchBar";
 import BlogPostGrid from "@/components/blog/BlogPostGrid";
 import LoadMoreButton from "@/components/blog/LoadMoreButton";
-import { blogPosts } from "@/data/blogPosts";
+import { useBlogPosts } from "@/hooks/useBlogPosts";
 import { BlogPost } from "@/types/blog";
 
 const ApeWire = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCategory, setSelectedCategory] = useState<string>("All");
   const [isSearchFocused, setIsSearchFocused] = useState(false);
-  const [filteredPosts, setFilteredPosts] = useState<BlogPost[]>(blogPosts);
+  const [filteredPosts, setFilteredPosts] = useState<BlogPost[]>([]);
+  
+  const allPosts = useBlogPosts();
   
   useEffect(() => {
-    const filtered = blogPosts.filter(post => {
+    const filtered = allPosts.filter(post => {
       const matchesSearch = searchQuery.trim() === "" || 
         post.title.toLowerCase().includes(searchQuery.toLowerCase()) || 
         post.excerpt.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -29,7 +31,7 @@ const ApeWire = () => {
     });
     
     setFilteredPosts(filtered);
-  }, [searchQuery, selectedCategory]);
+  }, [searchQuery, selectedCategory, allPosts]);
 
   const handleClearSearch = () => {
     setSearchQuery("");
