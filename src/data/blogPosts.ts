@@ -54,16 +54,6 @@ export const blogPosts: BlogPost[] = [
     slug: "smart-contract-audits"
   },
   {
-    id: "4",
-    title: "NFT Security: Protecting Your Digital Assets",
-    excerpt: "Learn essential strategies to secure your NFT collection against theft and scams in the growing digital art marketplace.",
-    date: "March 22, 2025",
-    category: "NFTs",
-    imageUrl: "/lovable-uploads/9f6a26c5-ea69-422d-aea3-9598fa356cad.png",
-    readTime: "7 min",
-    slug: "nft-security"
-  },
-  {
     id: "5",
     title: "Latest Market Trends in Cryptocurrency",
     excerpt: "Analysis of the latest market trends and what they mean for your investment strategy.",
