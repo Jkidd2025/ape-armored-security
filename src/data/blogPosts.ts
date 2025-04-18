@@ -11,7 +11,7 @@ export const blogPosts: BlogPost[] = [
     date: "April 15, 2025",
     readTime: "4 min", 
     category: "NFTs",
-    imageUrl: "/lovable-uploads/d4643cc6-7f22-4a31-9828-31ff513612c4.png"
+    imageUrl: ""
   },
   {
     id: "9",
