@@ -1,3 +1,4 @@
+
 import { BlogPost } from "@/types/blog";
 
 export const categories = ["All", "Crypto News", "Education", "Markets", "NFTs"];
@@ -49,7 +50,7 @@ export const blogPosts: BlogPost[] = [
     excerpt: "A beginner's guide to understanding blockchain technology and its applications.",
     date: "April 8, 2025",
     category: "Education",
-    imageUrl: "https://images.unsplash.com/photo-1639762681057-408b52a4c1e2?q=80&w=2232&auto=format&fit=crop",
+    imageUrl: "/lovable-uploads/c129d5f2-d603-4e13-9ffe-3971adc1dedd.png",
     readTime: "10 min",
     slug: "blockchain-basics"
   },
