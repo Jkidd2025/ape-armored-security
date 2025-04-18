@@ -11,7 +11,7 @@ export const getStaticBlogPost = (slug: string): BlogPostData => {
       author: "ApeArmor Research Team",
       readTime: "6 min",
       category: "Markets",
-      imageUrl: "https://images.unsplash.com/photo-1642790551116-18e150f248e5?q=80&w=2232&auto=format&fit=crop",
+      imageUrl: "/lovable-uploads/da785f2c-2e2b-4eb1-9a0f-4257780baab6.png",
       content: `
         <p class="mb-4">In the fast-paced world of cryptocurrency trading, understanding market data is crucial for making informed decisions.</p>
         
