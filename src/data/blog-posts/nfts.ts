@@ -1,51 +1,6 @@
-
 import { BlogPostData } from "@/types/blogTypes";
 
 export const getNFTPosts = (): Record<string, BlogPostData> => ({
-  "nft-security": {
-    title: "NFT Security: Protecting Your Digital Assets",
-    publishDate: "April 14, 2025",
-    author: "ApeArmor NFT Team",
-    readTime: "6 min",
-    category: "NFTs",
-    imageUrl: "/lovable-uploads/facc324c-ba2c-40d7-b1a7-53578ea631c9.png",
-    content: `
-        <p class="mb-4">As NFTs continue to gain popularity, understanding how to secure your digital assets becomes increasingly important.</p>
-        
-        <h2 class="text-2xl font-bold mt-8 mb-4">Key Security Risks for NFT Owners</h2>
-        <p class="mb-4">NFT owners face various security risks, including phishing attacks, smart contract vulnerabilities, and marketplace exploits. Understanding these risks is the first step toward protecting your digital assets.</p>
-        
-        <h2 class="text-2xl font-bold mt-8 mb-4">Best Practices for NFT Security</h2>
-        <p class="mb-4">Here are some essential security practices for NFT collectors:</p>
-        <ul class="list-disc pl-6 mb-6 space-y-2">
-          <li>Use a hardware wallet for storing high-value NFTs</li>
-          <li>Enable two-factor authentication on all platforms</li>
-          <li>Verify smart contracts before interacting with them</li>
-          <li>Be cautious of offers that seem too good to be true</li>
-          <li>Research projects thoroughly before investing</li>
-        </ul>
-        
-        <h2 class="text-2xl font-bold mt-8 mb-4">Understanding Smart Contract Risks</h2>
-        <p class="mb-4">Smart contracts power NFT transactions, but they can contain vulnerabilities. Always check if a project's smart contracts have been audited by reputable security firms before investing.</p>
-        
-        <h2 class="text-2xl font-bold mt-8 mb-4">Marketplace Safety</h2>
-        <p class="mb-4">When buying or selling NFTs, stick to established marketplaces with good security track records. Be especially careful with new or unverified marketplaces that may lack proper security measures.</p>
-        
-        <p class="mb-4">By following these security practices, you can better protect your NFT investments in this rapidly evolving digital asset class.</p>
-      `,
-    relatedPosts: [
-      {
-        id: "10",
-        title: "NFT Market Trends and Emerging Collections",
-        slug: "nft-market-trends"
-      },
-      {
-        id: "7",
-        title: "Top Crypto News of the Week",
-        slug: "crypto-news-weekly"
-      }
-    ]
-  },
   "nft-market-trends": {
     title: "NFT Market Trends and Emerging Collections",
     publishDate: "April 15, 2025",
@@ -72,16 +27,10 @@ export const getNFTPosts = (): Record<string, BlogPostData> => ({
       `,
     relatedPosts: [
       {
-        id: "4",
-        title: "NFT Security: Protecting Your Digital Assets",
-        slug: "nft-security"
-      },
-      {
         id: "7",
         title: "Top Crypto News of the Week",
         slug: "crypto-news-weekly"
       }
-    ],
-    useNFTData: true
+    ]
   }
 });
