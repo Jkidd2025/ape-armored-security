@@ -4,12 +4,12 @@ export const categories = ["All", "Crypto News", "Education", "Insights", "Marke
 
 export const blogPosts: BlogPost[] = [
   {
-    id: "nft1",
-    title: "NFT Market Trends and Emerging Collections",
+    id: "nft1", 
+    title: "NFT Market Trends and Emerging Collections", 
     slug: "nft-market-trends",
-    excerpt: "Explore the latest trends in the NFT market, from blue-chip collections to emerging artists making waves in the digital art space.",
+    excerpt: "Explore the latest trends in the NFT market, from blue-chip collections to emerging artists making waves in the digital art space.", 
     date: "April 15, 2025",
-    readTime: "4 min",
+    readTime: "4 min", 
     category: "NFTs",
     imageUrl: "/lovable-uploads/9f6a26c5-ea69-422d-aea3-9598fa356cad.png"
   },
@@ -59,7 +59,7 @@ export const blogPosts: BlogPost[] = [
     excerpt: "Learn essential strategies to secure your NFT collection against theft and scams in the growing digital art marketplace.",
     date: "March 22, 2025",
     category: "NFTs",
-    imageUrl: "https://images.unsplash.com/photo-1646154205624-23b4f248c2c2?q=80&w=2232&auto=format&fit=crop",
+    imageUrl: "/lovable-uploads/9f6a26c5-ea69-422d-aea3-9598fa356cad.png",
     readTime: "7 min",
     slug: "nft-security"
   },
