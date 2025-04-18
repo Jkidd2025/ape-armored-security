@@ -1,4 +1,3 @@
-
 /**
  * Utility functions for fetching crypto news from our Supabase edge function
  */
@@ -102,7 +101,7 @@ const isValidImageUrl = (url: string): boolean => {
 /**
  * Convert API news items to HTML content string
  */
-export const newsItemsToContent = (items: CryptoNewsItem[], title: string = "Latest Cryptocurrency Updates", intro: string = "Here's a roundup of the most significant cryptocurrency news and events from this week:"): string => {
+export const newsItemsToContent = (items: CryptoNewsItem[], title: string = "Latest Cryptocurrency Updates", intro: string = "Here's a roundup of the most significant cryptocurrency news and events from this week:", includeImages: boolean = true): string => {
   if (!items || items.length === 0) {
     return "<p class='mb-4'>Unable to fetch the latest crypto news at this time. Please check back later.</p>";
   }
@@ -147,7 +146,11 @@ export const newsItemsToContent = (items: CryptoNewsItem[], title: string = "Lat
           <span>${formattedDate}</span>
         </div>
         <p class="mb-4">${item.text}</p>
-        <img src="${imageUrl}" alt="${item.title}" class="rounded-md mb-4 max-w-full h-auto">
+        ${includeImages ? `
+          <img src="${isValidImageUrl(item.image_url) ? item.image_url : fallbackImages[index % fallbackImages.length]}" 
+               alt="${item.title}" 
+               class="rounded-md mb-4 max-w-full h-auto">
+        ` : ''}
         ${item.tickers && item.tickers.length > 0 ? `
           <div class="flex flex-wrap gap-2 mt-2">
             ${item.tickers.map(ticker => `<span class="bg-apearmor-teal/10 text-apearmor-teal text-xs px-2 py-1 rounded">${ticker}</span>`).join('')}
@@ -178,6 +181,7 @@ export const nftNewsItemsToContent = (items: CryptoNewsItem[]): string => {
   return newsItemsToContent(
     items, 
     "Latest NFT Market Updates",
-    "Check out the most recent developments in the NFT space:"
+    "Check out the most recent developments in the NFT space:",
+    false // Don't include images for NFT content
   );
 };
