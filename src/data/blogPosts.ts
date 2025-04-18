@@ -1,3 +1,4 @@
+
 import { BlogPost } from "@/types/blog";
 
 export const categories = ["All", "Crypto News", "Education", "Markets", "NFTs"];
@@ -19,7 +20,7 @@ export const blogPosts: BlogPost[] = [
     excerpt: "Learn the warning signs of potential rug pulls and how ApeArmor's protection services can keep your investments safe.",
     date: "April 10, 2025",
     category: "Education",
-    imageUrl: "https://images.unsplash.com/photo-1639762681485-074b7f938ba0?q=80&w=2232&auto=format&fit=crop",
+    imageUrl: "/lovable-uploads/50c3c6ba-b7be-4937-8f4c-f75237cb7c15.png",
     readTime: "5 min",
     slug: "understanding-rug-pulls"
   },

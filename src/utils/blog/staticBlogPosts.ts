@@ -1,4 +1,3 @@
-
 import { BlogPostData } from "@/types/blogTypes";
 import { blogPosts } from "@/data/blogPosts";
 
@@ -55,7 +54,7 @@ export const getStaticBlogPost = (slug: string): BlogPostData => {
       author: "ApeArmor Security Team",
       readTime: "5 min",
       category: "Security",
-      imageUrl: "https://images.unsplash.com/photo-1639762681485-074b7f938ba0?q=80&w=2232&auto=format&fit=crop",
+      imageUrl: "/lovable-uploads/50c3c6ba-b7be-4937-8f4c-f75237cb7c15.png",
       content: `
         <p class="mb-4">The crypto space is filled with opportunities, but also with risks. One of the most notorious risks is the "rug pull" - a type of scam where developers abandon a project and run away with investors' funds.</p>
         
@@ -122,4 +121,3 @@ export const getStaticBlogPost = (slug: string): BlogPostData => {
     ]
   };
 };
-
