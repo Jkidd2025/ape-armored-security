@@ -1,4 +1,3 @@
-
 import { BlogPost } from "@/types/blog";
 
 export const categories = ["All", "Crypto News", "Education", "Markets", "NFTs"];
@@ -23,6 +22,16 @@ export const blogPosts: BlogPost[] = [
     readTime: "4 min", 
     category: "NFTs",
     imageUrl: "/lovable-uploads/facc324c-ba2c-40d7-b1a7-53578ea631c9.png"
+  },
+  {
+    id: "smart-contracts-1",
+    title: "Smart Contracts: The Building Blocks of Web3",
+    slug: "smart-contracts-basics",
+    excerpt: "Discover how smart contracts are revolutionizing digital agreements and powering decentralized applications in the blockchain ecosystem.",
+    date: "April 16, 2025",
+    readTime: "7 min",
+    category: "Education",
+    imageUrl: "/lovable-uploads/f15cea00-0f09-4da3-ab78-f1ad7717ac39.png"
   },
   {
     id: "1",
