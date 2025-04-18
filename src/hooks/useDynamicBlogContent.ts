@@ -7,7 +7,7 @@ import {
   nftNewsItemsToContent, 
   CryptoNewsItem 
 } from "@/utils/cryptoNewsApi";
-import { BlogPostData } from "@/utils/blogPostUtils";
+import { BlogPostData } from "@/types/blogTypes";
 
 /**
  * Hook for fetching and formatting dynamic content for blog posts
