@@ -1,4 +1,3 @@
-
 import { BlogPost } from "@/types/blog";
 
 export const categories = ["All", "Crypto News", "Education", "Markets", "NFTs"];
@@ -83,5 +82,15 @@ export const blogPosts: BlogPost[] = [
     imageUrl: "https://images.unsplash.com/photo-1642790551116-18e150f248e5?q=80&w=2232&auto=format&fit=crop",
     readTime: "9 min",
     slug: "defi-vs-banking"
+  },
+  {
+    id: "historical-news-1",
+    title: "Historical News: Major Milestones in Crypto History",
+    excerpt: "A comprehensive look at the pivotal moments that shaped the cryptocurrency landscape, from Bitcoin's inception to present day.",
+    date: "April 16, 2025",
+    category: "Crypto News",
+    imageUrl: "/lovable-uploads/7187bcba-a332-404f-b5e1-f82cc4832d2e.png",
+    readTime: "7 min",
+    slug: "historical-crypto-news"
   }
 ];
