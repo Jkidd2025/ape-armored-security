@@ -182,7 +182,7 @@ export const getStaticBlogPost = (slug: string): BlogPostData => {
       author: "ApeArmor Research Team",
       readTime: "7 min",
       category: "Education",
-      imageUrl: "/lovable-uploads/f15cea00-0f09-4da3-ab78-f1ad7717ac39.png",
+      imageUrl: "/lovable-uploads/bd903ee3-fb0a-42d4-8095-8e34e44156fa.png",
       content: `
         <p class="mb-4">Smart contracts are self-executing contracts with the terms of the agreement directly written into code. They run on blockchain networks, enabling trustless and automated transactions without the need for intermediaries.</p>
         

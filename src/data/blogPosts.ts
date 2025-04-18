@@ -31,7 +31,7 @@ export const blogPosts: BlogPost[] = [
     date: "April 16, 2025",
     readTime: "7 min",
     category: "Education",
-    imageUrl: "/lovable-uploads/f15cea00-0f09-4da3-ab78-f1ad7717ac39.png"
+    imageUrl: "/lovable-uploads/bd903ee3-fb0a-42d4-8095-8e34e44156fa.png"
   },
   {
     id: "1",
