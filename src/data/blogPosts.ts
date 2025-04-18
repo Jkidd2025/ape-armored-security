@@ -14,16 +14,6 @@ export const blogPosts: BlogPost[] = [
     imageUrl: "/lovable-uploads/facc324c-ba2c-40d7-b1a7-53578ea631c9.png"
   },
   {
-    id: "9",
-    title: "Crypto Coin News Today: Market Shifts and Regulatory Updates",
-    excerpt: "The latest cryptocurrency market movements, regulatory developments, and notable project launches from this week's crypto landscape.",
-    date: "April 17, 2025",
-    category: "Crypto News",
-    imageUrl: "https://images.unsplash.com/photo-1621761191319-c6fb62004040?q=80&w=2232&auto=format&fit=crop",
-    readTime: "3 min",
-    slug: "crypto-news-today-april-2025"
-  },
-  {
     id: "1",
     title: "Understanding Rug Pulls: How to Identify and Avoid Them",
     excerpt: "Learn the warning signs of potential rug pulls and how ApeArmor's protection services can keep your investments safe.",
