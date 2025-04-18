@@ -1,4 +1,3 @@
-
 import { BlogPostData } from "@/types/blogTypes";
 import { getDynamicBlogPostConfig } from "./dynamicBlogConfig";
 
@@ -40,7 +39,7 @@ export const getDynamicBlogPost = (slug: string): Partial<BlogPostData> => {
       author: "ApeArmor NFT Team",
       readTime: "4 min",
       category: "NFT",
-      imageUrl: "",
+      imageUrl: "/lovable-uploads/facc324c-ba2c-40d7-b1a7-53578ea631c9.png",
       content: `<p class="mb-4">Loading the latest NFT market news...</p>`,
       ...dynamicConfig,
       relatedPosts: [
@@ -60,4 +59,3 @@ export const getDynamicBlogPost = (slug: string): Partial<BlogPostData> => {
   
   return dynamicConfig;
 };
-
