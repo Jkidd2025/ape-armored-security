@@ -3,15 +3,17 @@ import { BlogPostData } from "@/types/blogTypes";
 import { getEducationPosts } from "@/data/blog-posts/education";
 import { getMarketsPosts } from "@/data/blog-posts/markets";
 import { getCryptoNewsPosts } from "@/data/blog-posts/crypto-news";
+import { getNFTPosts } from "@/data/blog-posts/nfts";
 
 export const getStaticBlogPost = (slug: string): BlogPostData => {
   // Get all post collections
   const educationPosts = getEducationPosts();
   const marketsPosts = getMarketsPosts();
   const cryptoNewsPosts = getCryptoNewsPosts();
+  const nftPosts = getNFTPosts();
   
   // Try to find the post in each collection
-  const post = educationPosts[slug] || marketsPosts[slug] || cryptoNewsPosts[slug];
+  const post = educationPosts[slug] || marketsPosts[slug] || cryptoNewsPosts[slug] || nftPosts[slug];
   
   if (!post) {
     // Return default post data if not found
