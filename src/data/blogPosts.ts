@@ -1,3 +1,4 @@
+
 import { BlogPost } from "@/types/blog";
 
 export const categories = ["All", "Crypto News", "Education", "Markets", "NFTs"];
@@ -49,7 +50,7 @@ export const blogPosts: BlogPost[] = [
     excerpt: "Analysis of the latest market trends and what they mean for your investment strategy.",
     date: "April 12, 2025",
     category: "Markets",
-    imageUrl: "https://images.unsplash.com/photo-1642790551116-18e150f248e5?q=80&w=2232&auto=format&fit=crop",
+    imageUrl: "/lovable-uploads/a2e0afe5-1eff-442a-a344-aa33e933b053.png",
     readTime: "5 min",
     slug: "market-trends-crypto"
   },
