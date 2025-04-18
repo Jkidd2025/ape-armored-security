@@ -1,22 +1,6 @@
 
+import { BlogPostData } from "@/types/blogTypes";
 import { blogPosts } from "@/data/blogPosts";
-
-export interface BlogPostData {
-  title: string;
-  publishDate: string;
-  author: string;
-  readTime: string;
-  category: string;
-  imageUrl: string;
-  content: string;
-  useRealTimeData?: boolean;
-  useNFTData?: boolean;
-  relatedPosts: {
-    id: string;
-    title: string;
-    slug: string;
-  }[];
-}
 
 /**
  * Returns static blog post data based on slug
@@ -139,83 +123,3 @@ export const getStaticBlogPost = (slug: string): BlogPostData => {
   };
 };
 
-/**
- * Get the specific blog post configuration for dynamic content posts
- */
-export const getDynamicBlogPostConfig = (slug: string): { useRealTimeData?: boolean; useNFTData?: boolean } => {
-  if (slug === "crypto-news-weekly") {
-    return { useRealTimeData: true };
-  }
-  
-  if (slug === "nft-market-trends") {
-    return { useNFTData: true };
-  }
-  
-  return {};
-};
-
-/**
- * Get the blog post data by slug, combining static and dynamic content configurations
- */
-export const getBlogPost = (slug: string): BlogPostData => {
-  const staticPost = getStaticBlogPost(slug);
-  const dynamicConfig = getDynamicBlogPostConfig(slug);
-  
-  // Special cases for dynamic content posts
-  if (slug === "crypto-news-weekly") {
-    return {
-      title: "Top Crypto News of the Week",
-      publishDate: "April 7, 2025",
-      author: "ApeArmor News Team",
-      readTime: "4 min",
-      category: "Crypto News",
-      imageUrl: "https://images.unsplash.com/photo-1621761191319-c6fb62004040?q=80&w=2232&auto=format&fit=crop",
-      // Content will be dynamically loaded from API
-      content: `<p class="mb-4">Loading the latest cryptocurrency news...</p>`,
-      ...dynamicConfig,
-      relatedPosts: [
-        {
-          id: "9",
-          title: "Crypto Coin News Today: Market Shifts and Regulatory Updates",
-          slug: "crypto-news-today-april-2025"
-        },
-        {
-          id: "5",
-          title: "Latest Market Trends in Cryptocurrency",
-          slug: "market-trends-crypto"
-        }
-      ]
-    };
-  }
-
-  if (slug === "nft-market-trends") {
-    return {
-      title: "NFT Market Trends and Emerging Collections",
-      publishDate: "April 15, 2025",
-      author: "ApeArmor NFT Team",
-      readTime: "4 min",
-      category: "NFT",
-      imageUrl: "", // Removed the image URL here
-      // Content will be dynamically loaded from API
-      content: `<p class="mb-4">Loading the latest NFT market news...</p>`,
-      ...dynamicConfig,
-      relatedPosts: [
-        {
-          id: "4",
-          title: "NFT Security: Protecting Your Digital Assets",
-          slug: "nft-security"
-        },
-        {
-          id: "7",
-          title: "Top Crypto News of the Week",
-          slug: "crypto-news-weekly"
-        }
-      ]
-    };
-  }
-  
-  return {
-    ...staticPost,
-    ...dynamicConfig
-  };
-};

@@ -1,6 +1,5 @@
-
 import { useState } from "react";
-import { getBlogPost } from "@/utils/blogPostUtils";
+import { getBlogPost, BlogPostData } from "@/utils/blog";
 import { useDynamicBlogContent } from "@/hooks/useDynamicBlogContent";
 
 /**
@@ -22,4 +21,4 @@ export const useBlogPost = (slug: string) => {
 };
 
 // Re-export the BlogPostData interface for components that import it from this file
-export type { BlogPostData } from "@/utils/blogPostUtils";
+export type { BlogPostData };
