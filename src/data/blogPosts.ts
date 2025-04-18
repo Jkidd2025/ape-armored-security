@@ -1,9 +1,18 @@
-
 import { BlogPost } from "@/types/blog";
 
 export const categories = ["All", "Crypto News", "Education", "Markets", "NFTs"];
 
 export const blogPosts: BlogPost[] = [
+  {
+    id: "market-data-1",
+    title: "Understanding Crypto Market Data: Key Metrics for Traders",
+    slug: "crypto-market-data-metrics",
+    excerpt: "Learn about essential market data metrics including volume, market cap, and liquidity indicators that shape crypto trading decisions.",
+    date: "April 18, 2025",
+    readTime: "6 min",
+    category: "Markets",
+    imageUrl: "https://images.unsplash.com/photo-1642790551116-18e150f248e5?q=80&w=2232&auto=format&fit=crop"
+  },
   {
     id: "nft1", 
     title: "NFT Market Trends and Emerging Collections", 

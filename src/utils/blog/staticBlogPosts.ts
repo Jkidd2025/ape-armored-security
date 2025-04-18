@@ -6,6 +6,52 @@ import { blogPosts } from "@/data/blogPosts";
  */
 export const getStaticBlogPost = (slug: string): BlogPostData => {
   const foundPost = blogPosts.find(post => post.slug === slug);
+
+  if (slug === "crypto-market-data-metrics") {
+    return {
+      title: "Understanding Crypto Market Data: Key Metrics for Traders",
+      publishDate: "April 18, 2025",
+      author: "ApeArmor Research Team",
+      readTime: "6 min",
+      category: "Markets",
+      imageUrl: "https://images.unsplash.com/photo-1642790551116-18e150f248e5?q=80&w=2232&auto=format&fit=crop",
+      content: `
+        <p class="mb-4">In the fast-paced world of cryptocurrency trading, understanding market data is crucial for making informed decisions. Let's explore the key metrics that every trader should monitor.</p>
+        
+        <h2 class="text-2xl font-bold mt-8 mb-4">Trading Volume</h2>
+        <p class="mb-4">Trading volume represents the total amount of a cryptocurrency traded during a specific period. High volume often indicates strong market interest and can validate price movements, while low volume might suggest weak market conviction.</p>
+        
+        <h2 class="text-2xl font-bold mt-8 mb-4">Market Capitalization</h2>
+        <p class="mb-4">Market cap is calculated by multiplying the current price by the circulating supply. It helps compare different cryptocurrencies and assess their relative size in the market. However, it's important to consider that market cap alone doesn't tell the whole story.</p>
+        
+        <h2 class="text-2xl font-bold mt-8 mb-4">Liquidity Indicators</h2>
+        <p class="mb-4">Liquidity measures how easily an asset can be bought or sold without causing a dramatic price change. Key liquidity indicators include:</p>
+        <ul class="list-disc pl-6 mb-6 space-y-2">
+          <li>Bid-Ask Spread</li>
+          <li>Order Book Depth</li>
+          <li>Average Daily Trading Volume</li>
+          <li>Number of Active Markets</li>
+        </ul>
+        
+        <h2 class="text-2xl font-bold mt-8 mb-4">Order Book Analysis</h2>
+        <p class="mb-4">The order book shows pending buy and sell orders at different price levels. Understanding order book dynamics can help identify potential support and resistance levels, as well as possible price manipulation attempts.</p>
+        
+        <p class="mb-4">By monitoring these key metrics and understanding their implications, traders can better assess market conditions and make more informed trading decisions.</p>
+      `,
+      relatedPosts: [
+        {
+          id: "5",
+          title: "Latest Market Trends in Cryptocurrency",
+          slug: "market-trends-crypto"
+        },
+        {
+          id: "8",
+          title: "Future of Finance: DeFi and Traditional Banking",
+          slug: "defi-vs-banking"
+        }
+      ]
+    };
+  }
   
   if (slug === "crypto-news-today-april-2025") {
     return {
