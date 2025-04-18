@@ -88,6 +88,38 @@ export const fetchNFTNews = async (count: number = 3): Promise<CryptoNewsItem[]>
 };
 
 /**
+ * Fetch historical crypto news articles from a specific date range
+ * @param startDate Start date in format DDMMYYYY
+ * @param endDate End date in format DDMMYYYY
+ * @returns Array of historical news articles
+ */
+export const fetchHistoricalNews = async (startDate: string, endDate: string): Promise<CryptoNewsItem[]> => {
+  try {
+    const { data, error } = await supabase.functions.invoke("crypto-news", {
+      body: {
+        endpoint: "category",
+        params: {
+          section: "alltickers",
+          items: 3,
+          page: 1,
+          date: `${startDate}-${endDate}`
+        }
+      }
+    });
+    
+    if (error) {
+      throw new Error(`Edge function error: ${error.message}`);
+    }
+    
+    console.log("Fetched historical crypto news data:", data.data);
+    return data.data || [];
+  } catch (error) {
+    console.error("Error fetching historical crypto news:", error);
+    return [];
+  }
+};
+
+/**
  * Checks if a URL is valid and points to an image
  */
 const isValidImageUrl = (url: string): boolean => {
@@ -183,5 +215,17 @@ export const nftNewsItemsToContent = (items: CryptoNewsItem[]): string => {
     "Latest NFT Market Updates",
     "Check out the most recent developments in the NFT space:",
     true // Changed to true to include images in NFT content
+  );
+};
+
+/**
+ * Convert API news items to HTML content string specifically for historical news
+ */
+export const historicalNewsToContent = (items: CryptoNewsItem[]): string => {
+  return newsItemsToContent(
+    items, 
+    "Historical Cryptocurrency Milestones",
+    "A look back at some of the most significant moments in cryptocurrency history:",
+    true
   );
 };

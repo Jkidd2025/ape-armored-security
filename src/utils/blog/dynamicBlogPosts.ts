@@ -57,5 +57,31 @@ export const getDynamicBlogPost = (slug: string): Partial<BlogPostData> => {
     };
   }
   
+  if (slug === "historical-crypto-news") {
+    return {
+      title: "Historical News: Major Milestones in Crypto History",
+      publishDate: "April 16, 2025",
+      author: "ApeArmor Research Team",
+      readTime: "7 min",
+      category: "Crypto News",
+      imageUrl: "/lovable-uploads/7187bcba-a332-404f-b5e1-f82cc4832d2e.png",
+      content: `<p class="mb-4">Loading historical cryptocurrency news...</p>`,
+      useHistoricalNews: true,
+      ...dynamicConfig,
+      relatedPosts: [
+        {
+          id: "7",
+          title: "Top Crypto News of the Week",
+          slug: "crypto-news-weekly"
+        },
+        {
+          id: "5",
+          title: "Latest Market Trends in Cryptocurrency",
+          slug: "market-trends-crypto"
+        }
+      ]
+    };
+  }
+  
   return dynamicConfig;
 };
