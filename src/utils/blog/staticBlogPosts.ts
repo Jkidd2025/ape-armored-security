@@ -86,11 +86,6 @@ export const getStaticBlogPost = (slug: string): BlogPostData => {
       `,
       relatedPosts: [
         {
-          id: "2",
-          title: "The Evolution of DeFi Security in 2025",
-          slug: "defi-security-evolution"
-        },
-        {
           id: "3",
           title: "Smart Contract Audits: Why They Matter for Every Project",
           slug: "smart-contract-audits"
@@ -114,9 +109,9 @@ export const getStaticBlogPost = (slug: string): BlogPostData => {
         slug: "understanding-rug-pulls"
       },
       {
-        id: "2",
-        title: "The Evolution of DeFi Security in 2025",
-        slug: "defi-security-evolution"
+        id: "7",
+        title: "Top Crypto News of the Week",
+        slug: "crypto-news-weekly"
       }
     ]
   };

@@ -25,26 +25,6 @@ export const blogPosts: BlogPost[] = [
     slug: "understanding-rug-pulls"
   },
   {
-    id: "2",
-    title: "The Evolution of DeFi Security in 2025",
-    excerpt: "Explore how DeFi security measures have evolved and what new threats crypto investors need to be aware of.",
-    date: "April 5, 2025",
-    category: "Education",
-    imageUrl: "https://images.unsplash.com/photo-1639762681057-408b52a4c1e2?q=80&w=2232&auto=format&fit=crop",
-    readTime: "8 min",
-    slug: "defi-security-evolution"
-  },
-  {
-    id: "3",
-    title: "Smart Contract Audits: Why They Matter for Every Project",
-    excerpt: "Discover the importance of thorough smart contract audits and how they form the foundation of crypto security.",
-    date: "March 28, 2025",
-    category: "Education",
-    imageUrl: "https://images.unsplash.com/photo-1639762681057-408b52a4c1e2?q=80&w=2232&auto=format&fit=crop",
-    readTime: "6 min",
-    slug: "smart-contract-audits"
-  },
-  {
     id: "5",
     title: "Latest Market Trends in Cryptocurrency",
     excerpt: "Analysis of the latest market trends and what they mean for your investment strategy.",
