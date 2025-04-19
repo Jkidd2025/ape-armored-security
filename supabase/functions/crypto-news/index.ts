@@ -44,10 +44,11 @@ serve(async (req) => {
     const response = await fetch(url);
     
     if (!response.ok) {
-      throw new Error(`API error: ${response.status}`);
+      throw new Error(`API error: ${response.status} - ${await response.text()}`);
     }
     
     const data = await response.json();
+    console.log(`Successfully received data from API: ${JSON.stringify(data).slice(0, 150)}...`);
     
     // Return the API response to the client
     return new Response(JSON.stringify(data), {

@@ -11,6 +11,10 @@ export const getDynamicBlogPostConfig = (slug: string): { useRealTimeData?: bool
     return { useNFTData: true };
   }
   
+  if (slug === "crypto-news-today-april-2025") {
+    return { useRealTimeData: true };
+  }
+  
   return {};
 };
 
