@@ -207,5 +207,68 @@ export const getEducationPosts = (): Record<string, BlogPostData> => ({
         slug: "understanding-rug-pulls"
       }
     ]
+  },
+  "crypto-honey-pots": {
+    title: "Crypto Honey Pots: Understanding the Sweet Deception",
+    publishDate: "April 19, 2025",
+    author: "ApeArmor Security Team",
+    readTime: "6 min",
+    category: "Education",
+    imageUrl: "/lovable-uploads/50c3c6ba-b7be-4937-8f4c-f75237cb7c15.png",
+    content: `
+        <p class="mb-4">In the world of cryptocurrency, honey pots are sophisticated scams designed to lure investors with attractive opportunities, only to trap their funds through malicious smart contract code. Let's explore how these deceptive schemes work and how to avoid them.</p>
+        
+        <h2 class="text-2xl font-bold mt-8 mb-4">What is a Crypto Honey Pot?</h2>
+        <p class="mb-4">A crypto honey pot is a smart contract deliberately designed with malicious code that prevents investors from selling their tokens or withdrawing their funds. The name comes from the concept of a trap baited with "honey" to attract victims.</p>
+        
+        <h2 class="text-2xl font-bold mt-8 mb-4">How Honey Pots Work</h2>
+        <ul class="list-disc pl-6 mb-6 space-y-2">
+          <li>Attractive Marketing: Projects present compelling tokenomics and rewards</li>
+          <li>Buy Function Works: Users can successfully purchase tokens</li>
+          <li>Hidden Restrictions: Sell functions are blocked or limited to specific addresses</li>
+          <li>False Security: May show verified contract code but hide malicious functions</li>
+        </ul>
+        
+        <h2 class="text-2xl font-bold mt-8 mb-4">Common Types of Honey Pots</h2>
+        <ul class="list-disc pl-6 mb-6 space-y-2">
+          <li>Buy-Only Contracts: Users can buy but not sell tokens</li>
+          <li>Balance Manipulators: Contracts that show false wallet balances</li>
+          <li>Fee Traps: Excessive selling fees that make transactions impossible</li>
+          <li>Owner-Only Sells: Only specific addresses can execute sell functions</li>
+        </ul>
+        
+        <h2 class="text-2xl font-bold mt-8 mb-4">How to Identify Honey Pots</h2>
+        <ul class="list-disc pl-6 mb-6 space-y-2">
+          <li>Check contract verification and audit status</li>
+          <li>Review transaction history for successful sells by non-team wallets</li>
+          <li>Use honey pot checker tools and ApeArmor's security analysis</li>
+          <li>Look for unusual restrictions in the contract code</li>
+          <li>Verify the liquidity lock status and ownership renouncement</li>
+        </ul>
+        
+        <h2 class="text-2xl font-bold mt-8 mb-4">Protection Strategies</h2>
+        <p class="mb-4">To avoid honey pot scams:</p>
+        <ul class="list-disc pl-6 mb-6 space-y-2">
+          <li>Always use ApeArmor's contract analysis tools</li>
+          <li>Test with small amounts before large investments</li>
+          <li>Check community feedback and transaction patterns</li>
+          <li>Be wary of projects with unusually high rewards</li>
+          <li>Verify the development team's credibility</li>
+        </ul>
+        
+        <p class="mb-4">Remember, if a crypto project's promises seem too good to be true, approach with extreme caution. Always use protection tools like ApeArmor to analyze smart contracts before investing.</p>
+      `,
+    relatedPosts: [
+      {
+        id: "1",
+        title: "Crypto Rug Pulls: A Deep Dive into Deceptive Practices",
+        slug: "crypto-rug-pulls"
+      },
+      {
+        id: "2",
+        title: "Smart Contracts: The Building Blocks of Web3",
+        slug: "smart-contracts-basics"
+      }
+    ]
   }
 });
