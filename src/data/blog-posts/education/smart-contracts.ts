@@ -72,7 +72,7 @@ export const getSmartContractsPosts = (): Record<string, BlogPostData> => ({
     author: "ApeArmor Research Team",
     readTime: "10 min",
     category: "Education",
-    imageUrl: "/lovable-uploads/bd903ee3-fb0a-42d4-8095-8e34e44156fa.png",
+    imageUrl: "/lovable-uploads/87cd4ef9-2792-41d6-a522-46da70dca371.png",
     content: `
         <p class="mb-4">Understanding how to read smart contracts is a crucial skill in the cryptocurrency space. This guide will help beginners learn the basics of smart contract analysis and what to look for when reviewing contract code.</p>
         
