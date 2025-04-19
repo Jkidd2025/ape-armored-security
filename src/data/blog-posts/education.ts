@@ -214,7 +214,7 @@ export const getEducationPosts = (): Record<string, BlogPostData> => ({
     author: "ApeArmor Security Team",
     readTime: "6 min",
     category: "Education",
-    imageUrl: "/lovable-uploads/50c3c6ba-b7be-4937-8f4c-f75237cb7c15.png",
+    imageUrl: "/lovable-uploads/1fdcab54-9edc-464a-82be-259d2cc25a0d.png",
     content: `
         <p class="mb-4">In the world of cryptocurrency, honey pots are sophisticated scams designed to lure investors with attractive opportunities, only to trap their funds through malicious smart contract code. Let's explore how these deceptive schemes work and how to avoid them.</p>
         
