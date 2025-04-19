@@ -42,7 +42,9 @@ const BlogPost = () => {
             
             <Separator className="my-12" />
             
-            <RelatedPosts relatedPosts={post.relatedPosts} />
+            {post.relatedPosts && post.relatedPosts.length > 0 && (
+              <RelatedPosts relatedPosts={post.relatedPosts} />
+            )}
           </div>
         </article>
       </main>
