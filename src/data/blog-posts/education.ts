@@ -1,6 +1,69 @@
 import { BlogPostData } from "@/types/blogTypes";
 
 export const getEducationPosts = (): Record<string, BlogPostData> => ({
+  "crypto-rug-pulls": {
+    title: "Crypto Rug Pulls: A Deep Dive into Deceptive Practices",
+    publishDate: "April 19, 2025",
+    author: "ApeArmor Security Team",
+    readTime: "8 min",
+    category: "Education",
+    imageUrl: "/lovable-uploads/50c3c6ba-b7be-4937-8f4c-f75237cb7c15.png",
+    content: `
+        <p class="mb-4">In the rapidly evolving world of cryptocurrency, "rug pulls" have become one of the most notorious forms of fraud. Let's explore what they are, how they work, and most importantly, how to protect yourself.</p>
+        
+        <h2 class="text-2xl font-bold mt-8 mb-4">What is a Rug Pull?</h2>
+        <p class="mb-4">A rug pull occurs when cryptocurrency project developers abandon the project and run away with investors' funds. The term comes from the phrase "pulling the rug out from under someone," as victims are left with worthless tokens and empty promises.</p>
+        
+        <h2 class="text-2xl font-bold mt-8 mb-4">Common Types of Rug Pulls</h2>
+        <ul class="list-disc pl-6 mb-6 space-y-2">
+          <li>Liquidity Stealing: Developers remove all liquidity from the trading pool</li>
+          <li>Selling Pressure: Team dumps large amounts of tokens, crashing the price</li>
+          <li>Limited Sell Access: Investors can't sell their tokens due to contract restrictions</li>
+        </ul>
+        
+        <h2 class="text-2xl font-bold mt-8 mb-4">Warning Signs</h2>
+        <p class="mb-4">Watch out for these red flags:</p>
+        <ul class="list-disc pl-6 mb-6 space-y-2">
+          <li>Anonymous team members with no verifiable background</li>
+          <li>Unrealistic promises of returns</li>
+          <li>Aggressive marketing with little substance</li>
+          <li>No lock-up period for team tokens</li>
+          <li>Unaudited smart contracts</li>
+        </ul>
+        
+        <h2 class="text-2xl font-bold mt-8 mb-4">Protection Strategies</h2>
+        <ul class="list-disc pl-6 mb-6 space-y-2">
+          <li>Research the team thoroughly</li>
+          <li>Check if the smart contract is audited</li>
+          <li>Verify token distribution and vesting schedules</li>
+          <li>Look for locked liquidity</li>
+          <li>Use tools like ApeArmor for project verification</li>
+        </ul>
+        
+        <h2 class="text-2xl font-bold mt-8 mb-4">Recovery and Reporting</h2>
+        <p class="mb-4">If you've fallen victim to a rug pull:</p>
+        <ul class="list-disc pl-6 mb-6 space-y-2">
+          <li>Document all transactions and communications</li>
+          <li>Report to relevant authorities</li>
+          <li>Share information with the community to warn others</li>
+          <li>Consider legal action if the team is identified</li>
+        </ul>
+        
+        <p class="mb-4">Remember, in the crypto space, if something seems too good to be true, it probably is. Always DYOR (Do Your Own Research) and consider using protection services like ApeArmor to safeguard your investments.</p>
+      `,
+    relatedPosts: [
+      {
+        id: "1",
+        title: "Understanding Rug Pulls: How to Identify and Avoid Them",
+        slug: "understanding-rug-pulls"
+      },
+      {
+        id: "2",
+        title: "Smart Contracts: The Building Blocks of Web3",
+        slug: "smart-contracts-basics"
+      }
+    ]
+  },
   "understanding-rug-pulls": {
     title: "Understanding Rug Pulls: How to Identify and Avoid Them",
     publishDate: "April 10, 2025",
