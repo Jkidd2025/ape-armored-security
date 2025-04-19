@@ -1,4 +1,3 @@
-
 import { BlogPostData } from "@/types/blogTypes";
 
 export const getWalletBasics = (): Record<string, BlogPostData> => ({
@@ -8,7 +7,7 @@ export const getWalletBasics = (): Record<string, BlogPostData> => ({
     author: "ApeArmor Research Team",
     readTime: "8 min",
     category: "Education",
-    imageUrl: "/lovable-uploads/photo-1486312338219-ce68d2c6f44d.png",
+    imageUrl: "/lovable-uploads/6ebda19d-2c90-4c49-b57b-a8421db1366c.png",
     content: `
         <p class="mb-4">Understanding the differences between hot and cold wallets is crucial for anyone involved in cryptocurrency. These two types of wallets serve different purposes and come with their own sets of advantages and security considerations.</p>
         
