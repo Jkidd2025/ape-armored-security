@@ -146,7 +146,7 @@ export const getSmartContractsPosts = (): Record<string, BlogPostData> => ({
     author: "ApeArmor Research Team",
     readTime: "8 min",
     category: "Education",
-    imageUrl: "/lovable-uploads/87cd4ef9-2792-41d6-a522-46da70dca371.png",
+    imageUrl: "/lovable-uploads/e86ce9c1-421f-4fd5-9a0b-314a1b4a2bf3.png",
     content: `
         <p class="mb-4">Block explorers are essential tools for navigating and understanding blockchain networks. Whether you're using Etherscan for Ethereum, Solscan for Solana, or other blockchain-specific explorers, these platforms provide crucial insights into transactions, smart contracts, and network activity.</p>
         
