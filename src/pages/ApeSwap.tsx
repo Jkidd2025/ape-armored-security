@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -11,16 +12,42 @@ import { getTokensList, TokenInfo, getQuote } from "@/utils/jupiter";
 
 const ApeSwap = () => {
   const [tokens, setTokens] = useState<TokenInfo[]>([]);
-  const [fromToken, setFromToken] = useState("SOL");
+  const [fromToken, setFromToken] = useState("");
   const [toToken, setToToken] = useState("");
   const [fromAmount, setFromAmount] = useState("");
   const [toAmount, setToAmount] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-
+  const [isLoadingTokens, setIsLoadingTokens] = useState(false);
+  
   useEffect(() => {
     const fetchTokens = async () => {
-      const tokenList = await getTokensList();
-      setTokens(tokenList);
+      setIsLoadingTokens(true);
+      try {
+        const tokenList = await getTokensList();
+        if (tokenList && tokenList.length > 0) {
+          setTokens(tokenList);
+          // Set default tokens (SOL and USDC if available)
+          const solToken = tokenList.find(t => t.symbol === "SOL");
+          const usdcToken = tokenList.find(t => t.symbol === "USDC");
+          if (solToken) setFromToken(solToken.symbol);
+          if (usdcToken) setToToken(usdcToken.symbol);
+        } else {
+          toast({
+            title: "Warning",
+            description: "Could not load tokens. Please try again later.",
+            variant: "destructive",
+          });
+        }
+      } catch (error) {
+        console.error("Failed to fetch tokens:", error);
+        toast({
+          title: "Error",
+          description: "Failed to load tokens. Please refresh the page.",
+          variant: "destructive",
+        });
+      } finally {
+        setIsLoadingTokens(false);
+      }
     };
     fetchTokens();
   }, []);
@@ -54,30 +81,65 @@ const ApeSwap = () => {
   };
 
   const handleFromAmountChange = async (value: string) => {
+    if (value === "") {
+      setFromAmount("");
+      setToAmount("");
+      return;
+    }
+
+    if (isNaN(Number(value)) || Number(value) < 0) {
+      return;
+    }
+
     setFromAmount(value);
-    if (fromToken && toToken && value) {
-      try {
-        const fromTokenInfo = tokens.find(t => t.symbol === fromToken);
-        const toTokenInfo = tokens.find(t => t.symbol === toToken);
-        if (fromTokenInfo && toTokenInfo) {
-          const quote = await getQuote(
-            fromTokenInfo.address,
-            toTokenInfo.address,
-            parseFloat(value) * Math.pow(10, fromTokenInfo.decimals)
-          );
-          // Will implement quote handling in next step
-        }
-      } catch (error) {
-        console.error('Error getting quote:', error);
+    await fetchQuote(value);
+  };
+
+  const fetchQuote = async (value: string) => {
+    if (!fromToken || !toToken || !value || isNaN(Number(value)) || Number(value) <= 0) {
+      setToAmount("");
+      return;
+    }
+
+    try {
+      const fromTokenInfo = tokens.find(t => t.symbol === fromToken);
+      const toTokenInfo = tokens.find(t => t.symbol === toToken);
+      
+      if (!fromTokenInfo || !toTokenInfo) {
+        console.error("Token info not found", { fromToken, toToken });
+        return;
       }
+
+      const amount = parseFloat(value);
+      const scaledAmount = amount * Math.pow(10, fromTokenInfo.decimals);
+      
+      const quote = await getQuote(
+        fromTokenInfo.address,
+        toTokenInfo.address,
+        scaledAmount
+      );
+
+      if (quote && quote.outAmount) {
+        const outAmount = Number(quote.outAmount) / Math.pow(10, toTokenInfo.decimals);
+        setToAmount(outAmount.toFixed(6));
+      } else {
+        setToAmount("");
+      }
+    } catch (error) {
+      console.error('Error getting quote:', error);
+      setToAmount("");
     }
   };
 
   const handleSwapTokens = () => {
+    if (!fromToken || !toToken) return;
+    
     const tempFromToken = fromToken;
     const tempToToken = toToken;
     setFromToken(tempToToken);
     setToToken(tempFromToken);
+    setFromAmount("");
+    setToAmount("");
   };
 
   return (
@@ -99,7 +161,11 @@ const ApeSwap = () => {
                 <div className="space-y-2">
                   <label className="text-sm font-medium text-muted-foreground">From</label>
                   <div className="flex space-x-2">
-                    <Select value={fromToken} onValueChange={setFromToken}>
+                    <Select 
+                      value={fromToken} 
+                      onValueChange={setFromToken}
+                      disabled={isLoadingTokens}
+                    >
                       <SelectTrigger className="w-1/3 bg-muted border-apearmor-darkbronze">
                         <SelectValue placeholder="Select token" />
                       </SelectTrigger>
@@ -112,11 +178,12 @@ const ApeSwap = () => {
                       </SelectContent>
                     </Select>
                     <Input
-                      type="number"
+                      type="text"
                       placeholder="0.00"
                       value={fromAmount}
                       onChange={(e) => handleFromAmountChange(e.target.value)}
                       className="flex-1 bg-muted border-apearmor-darkbronze"
+                      disabled={isLoadingTokens}
                     />
                   </div>
                 </div>
@@ -128,6 +195,7 @@ const ApeSwap = () => {
                     size="icon" 
                     onClick={handleSwapTokens}
                     className="rounded-full h-8 w-8 bg-muted border border-apearmor-darkbronze hover:bg-apearmor-darkbronze/30"
+                    disabled={isLoadingTokens}
                   >
                     <RefreshCw className="h-4 w-4" />
                   </Button>
@@ -137,7 +205,11 @@ const ApeSwap = () => {
                 <div className="space-y-2">
                   <label className="text-sm font-medium text-muted-foreground">To</label>
                   <div className="flex space-x-2">
-                    <Select value={toToken} onValueChange={setToToken}>
+                    <Select 
+                      value={toToken} 
+                      onValueChange={setToToken}
+                      disabled={isLoadingTokens}
+                    >
                       <SelectTrigger className="w-1/3 bg-muted border-apearmor-darkbronze">
                         <SelectValue placeholder="Select token" />
                       </SelectTrigger>
@@ -150,7 +222,7 @@ const ApeSwap = () => {
                       </SelectContent>
                     </Select>
                     <Input
-                      type="number"
+                      type="text"
                       placeholder="0.00"
                       value={toAmount}
                       readOnly
@@ -162,10 +234,10 @@ const ApeSwap = () => {
                 {/* Swap Button */}
                 <Button 
                   className="w-full bg-gradient-armor hover:bg-apearmor-teal text-foreground mt-4"
-                  disabled={isLoading}
+                  disabled={isLoading || isLoadingTokens || !fromToken || !toToken || !fromAmount}
                   onClick={handleSwap}
                 >
-                  {isLoading ? "Loading..." : "Swap"}
+                  {isLoading ? "Loading..." : isLoadingTokens ? "Loading Tokens..." : "Swap"}
                 </Button>
                 
                 <div className="text-center mt-4">
