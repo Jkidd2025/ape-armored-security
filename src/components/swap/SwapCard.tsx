@@ -3,24 +3,28 @@ import { useJupiter } from '@jup-ag/react-hook';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardFooter } from '@/components/ui/card';
 import { ArrowDown } from 'lucide-react';
+import { useMemo } from 'react';
+import { PublicKey } from '@solana/web3.js';
 
 const SwapCard = () => {
-  const jupiter = useJupiter();
+  const jupiter = useJupiter({
+    amount: 1000000, // 0.001 SOL in lamports
+    inputMint: new PublicKey('So11111111111111111111111111111111111111112'), // SOL
+    outputMint: new PublicKey('EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v'), // USDC
+    slippageBps: 100, // 1%
+  });
 
-  // Check if wallet is connected based on jupiter state
-  const walletConnected = jupiter?.wallet?.publicKey != null;
+  // Check if wallet is connected
+  const walletConnected = useMemo(() => {
+    return jupiter.walletPublicKey !== null;
+  }, [jupiter.walletPublicKey]);
 
-  // Function to initialize swap with required configuration
+  // Function to handle swap
   const handleSwapInit = () => {
-    if (jupiter && jupiter.exchange) {
-      jupiter.exchange({
-        // Default configuration
-        inputMint: "So11111111111111111111111111111111111111112", // SOL
-        outputMint: "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v", // USDC
-        amount: 1000000, // 0.001 SOL (in lamports)
-        slippage: 1 // 1%
-      });
-    }
+    if (!jupiter || !walletConnected) return;
+
+    // Use the Jupiter API correctly
+    jupiter.exchange();
   };
 
   return (
