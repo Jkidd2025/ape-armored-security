@@ -5,7 +5,6 @@ import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Clock, ArrowRight } from "lucide-react";
 import { BlogPost } from "@/types/blog";
-import { AspectRatio } from "@/components/ui/aspect-ratio";
 
 interface BlogPostCardProps {
   post: BlogPost;
@@ -14,14 +13,12 @@ interface BlogPostCardProps {
 const BlogPostCard = ({ post }: BlogPostCardProps) => {
   return (
     <Card key={post.id} className="bg-card/50 backdrop-blur-sm border-apearmor-darkbronze hover:border-apearmor-teal transition-all duration-300 overflow-hidden">
-      <div className="w-full">
-        <AspectRatio ratio={16 / 9} className="bg-muted/20">
-          <img 
-            src={post.imageUrl} 
-            alt={post.title} 
-            className="w-full h-full object-cover object-center transition-transform duration-500 hover:scale-105"
-          />
-        </AspectRatio>
+      <div className="w-full h-[200px] bg-muted/20 overflow-hidden">
+        <img 
+          src={post.imageUrl} 
+          alt={post.title} 
+          className="w-full h-full object-contain"
+        />
       </div>
       <CardHeader>
         <div className="flex justify-between items-center mb-2">
