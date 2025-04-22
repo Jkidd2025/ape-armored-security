@@ -1,3 +1,4 @@
+
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -17,7 +18,6 @@ import ApeWire from "./pages/ApeWire";
 import BlogPost from "./pages/BlogPost";
 import NotFound from "./pages/NotFound";
 import CookieConsent from "./components/CookieConsent";
-import ApeSwap from "./pages/ApeSwap";
 
 const queryClient = new QueryClient();
 
@@ -56,8 +56,6 @@ const App = () => (
           <Route path="/ape-wire" element={<ApeWire />} />
           <Route path="/ape-wire/:slug" element={<BlogPost />} />
           
-          <Route path="/ape-swap" element={<ApeSwap />} />
-          
           <Route path="*" element={<NotFound />} />
         </Routes>
         <CookieConsent />
@@ -67,3 +65,4 @@ const App = () => (
 );
 
 export default App;
+
