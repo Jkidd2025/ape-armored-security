@@ -1,4 +1,3 @@
-
 import { BlogPostData } from "@/types/blogTypes";
 
 export const getNFTPosts = (): Record<string, BlogPostData> => ({
@@ -41,7 +40,7 @@ export const getNFTPosts = (): Record<string, BlogPostData> => ({
     author: "ApeArmor NFT Team",
     readTime: "6 min",
     category: "NFTs",
-    imageUrl: "/lovable-uploads/6388af58-12e8-4832-8db7-92d4fb5f2b3b.png",
+    imageUrl: "/lovable-uploads/3dd59d92-4e47-4404-9034-2b93f0b80772.png",
     content: `
       <p class="mb-4">As we move deeper into 2025, the NFT space is buzzing with new innovations, larger adoption, and smarter security. Here are the biggest NFT trends that everyone in the community—from collectors to creators—should keep an eye on.</p>
       <h2 class="text-2xl font-bold mt-8 mb-4">1. NFTs Get Real: Beyond Digital Art</h2>
