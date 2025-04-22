@@ -9,6 +9,15 @@ export const getCryptoNewsPosts = (): Record<string, BlogPostData> => ({
     readTime: "3 min",
     category: "Crypto News",
     imageUrl: "https://images.unsplash.com/photo-1621761191319-c6fb62004040?q=80&w=2232&auto=format&fit=crop",
+    keywords: [
+      "crypto news today",
+      "cryptocurrency updates",
+      "market analysis",
+      "bitcoin news",
+      "ethereum news",
+      "regulatory updates",
+      "crypto market shifts"
+    ],
     content: `<p class="mb-4">Loading the latest cryptocurrency news...</p>`,
     useRealTimeData: true,
     relatedPosts: [
