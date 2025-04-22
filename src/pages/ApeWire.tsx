@@ -6,7 +6,7 @@ import BlogHeader from "@/components/blog/BlogHeader";
 import CategoryFilter from "@/components/blog/CategoryFilter";
 import SearchBar from "@/components/blog/SearchBar";
 import BlogPostGrid from "@/components/blog/BlogPostGrid";
-import LoadMoreButton from "@/components/blog/LoadMoreButton";
+// Remove LoadMoreButton import
 import { useBlogPosts } from "@/hooks/useBlogPosts";
 import { BlogPost } from "@/types/blog";
 
@@ -45,11 +45,6 @@ const ApeWire = () => {
     setSelectedCategory("All");
   };
 
-  // This would be implemented in a real app with pagination
-  const handleLoadMore = () => {
-    console.log("Load more clicked - would implement pagination here");
-  };
-
   return (
     <div className="min-h-screen flex flex-col bg-background text-foreground">
       <Navbar />
@@ -78,10 +73,7 @@ const ApeWire = () => {
             onResetCategory={handleResetCategory}
           />
           
-          <LoadMoreButton 
-            onClick={handleLoadMore}
-            visible={filteredPosts.length > 7}
-          />
+          {/* Remove LoadMoreButton */}
         </section>
       </main>
       
