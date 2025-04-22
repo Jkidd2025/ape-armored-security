@@ -1,3 +1,4 @@
+
 import { BlogPostData } from "@/types/blogTypes";
 
 export const getSmartContractsBasics = (): Record<string, BlogPostData> => ({
@@ -8,6 +9,13 @@ export const getSmartContractsBasics = (): Record<string, BlogPostData> => ({
     readTime: "7 min",
     category: "Education",
     imageUrl: "/lovable-uploads/bd903ee3-fb0a-42d4-8095-8e34e44156fa.png",
+    keywords: [
+      "smart contracts",
+      "web3",
+      "defi",
+      "blockchain development",
+      "crypto security"
+    ],
     content: `
         <p class="mb-4">Smart contracts are self-executing contracts with the terms of the agreement directly written into code. They run on blockchain networks, enabling trustless and automated transactions without the need for intermediaries.</p>
         

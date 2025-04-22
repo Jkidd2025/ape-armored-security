@@ -1,3 +1,4 @@
+
 import { BlogPostData } from "@/types/blogTypes";
 
 export const getBlockchainPosts = (): Record<string, BlogPostData> => ({
@@ -8,6 +9,13 @@ export const getBlockchainPosts = (): Record<string, BlogPostData> => ({
     readTime: "10 min",
     category: "Education",
     imageUrl: "/lovable-uploads/c129d5f2-d603-4e13-9ffe-3971adc1dedd.png",
+    keywords: [
+      "blockchain technology",
+      "cryptocurrency",
+      "web3",
+      "decentralized ledger",
+      "blockchain basics"
+    ],
     content: `
         <p class="mb-4">Blockchain technology is a decentralized digital ledger that records transactions across multiple computers in a secure and transparent manner. It is the underlying technology behind cryptocurrencies like Bitcoin and Ethereum.</p>
         

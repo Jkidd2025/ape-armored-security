@@ -1,3 +1,4 @@
+
 import { BlogPostData } from "@/types/blogTypes";
 
 export const getSmartContractsReading = (): Record<string, BlogPostData> => ({
@@ -8,6 +9,13 @@ export const getSmartContractsReading = (): Record<string, BlogPostData> => ({
     readTime: "10 min",
     category: "Education",
     imageUrl: "/lovable-uploads/87cd4ef9-2792-41d6-a522-46da70dca371.png",
+    keywords: [
+      "smart contract analysis",
+      "blockchain security",
+      "code review",
+      "solidity",
+      "crypto safety"
+    ],
     content: `
         <p class="mb-4">Understanding how to read smart contracts is a crucial skill in the cryptocurrency space. This guide will help beginners learn the basics of smart contract analysis and what to look for when reviewing contract code.</p>
         

@@ -7,11 +7,68 @@ import { useBlogPost } from "@/hooks/useBlogPost";
 import BlogPostHeader from "@/components/blog/post/BlogPostHeader";
 import BlogPostContent from "@/components/blog/post/BlogPostContent";
 import RelatedPosts from "@/components/blog/post/RelatedPosts";
-import { AspectRatio } from "@/components/ui/aspect-ratio";
+import { useEffect } from "react";
 
 const BlogPost = () => {
   const { slug } = useParams<{ slug: string }>();
   const { post, isLoading } = useBlogPost(slug || "");
+
+  // Set dynamic meta tags for SEO
+  useEffect(() => {
+    // Update page title
+    document.title = `${post.title} | ApeArmor Blog`;
+    
+    // Remove any existing meta tags we're about to replace
+    document.querySelectorAll('meta[data-dynamic="true"]').forEach(el => el.remove());
+    
+    // Create and add meta description
+    const metaDescription = document.createElement('meta');
+    metaDescription.setAttribute('name', 'description');
+    metaDescription.setAttribute('content', post.content.substring(0, 160).replace(/<[^>]*>/g, ''));
+    metaDescription.setAttribute('data-dynamic', 'true');
+    document.head.appendChild(metaDescription);
+    
+    // Create and add keywords if available
+    if (post.keywords && post.keywords.length > 0) {
+      const metaKeywords = document.createElement('meta');
+      metaKeywords.setAttribute('name', 'keywords');
+      metaKeywords.setAttribute('content', post.keywords.join(', '));
+      metaKeywords.setAttribute('data-dynamic', 'true');
+      document.head.appendChild(metaKeywords);
+    }
+    
+    // Create and add OpenGraph tags
+    const metaTags = [
+      { property: 'og:title', content: post.title },
+      { property: 'og:description', content: post.content.substring(0, 160).replace(/<[^>]*>/g, '') },
+      { property: 'og:type', content: 'article' },
+      { property: 'og:url', content: window.location.href },
+      { property: 'og:image', content: post.imageUrl.startsWith('http') ? post.imageUrl : window.location.origin + post.imageUrl },
+      { property: 'article:published_time', content: post.publishDate },
+      { property: 'article:author', content: post.author },
+      { property: 'article:section', content: post.category },
+      
+      // Twitter Card tags
+      { property: 'twitter:card', content: 'summary_large_image' },
+      { property: 'twitter:title', content: post.title },
+      { property: 'twitter:description', content: post.content.substring(0, 160).replace(/<[^>]*>/g, '') },
+      { property: 'twitter:image', content: post.imageUrl.startsWith('http') ? post.imageUrl : window.location.origin + post.imageUrl },
+    ];
+    
+    metaTags.forEach(tag => {
+      const metaTag = document.createElement('meta');
+      metaTag.setAttribute('property', tag.property);
+      metaTag.setAttribute('content', tag.content);
+      metaTag.setAttribute('data-dynamic', 'true');
+      document.head.appendChild(metaTag);
+    });
+    
+    // Clean up function to remove tags when component unmounts
+    return () => {
+      document.querySelectorAll('meta[data-dynamic="true"]').forEach(el => el.remove());
+      document.title = 'ApeArmor | Web3 Security';
+    };
+  }, [post]);
 
   return (
     <div className="min-h-screen flex flex-col bg-background text-foreground">
