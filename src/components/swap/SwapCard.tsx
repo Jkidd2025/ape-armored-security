@@ -10,7 +10,7 @@ const SwapCard = () => {
       </CardHeader>
       <CardContent>
         <iframe
-          src="https://terminal.jup.ag/swap?injectStyles=false&hideSettings=true&hideWalletFeatures=false&hideInfoFeature=false"
+          src="https://jup.ag/swap?embed=true&simple=true&hideAnalytics=true&hideInfoFeature=true"
           frameBorder="0"
           className="w-full min-h-[600px] rounded-lg"
           title="Jupiter Terminal"
