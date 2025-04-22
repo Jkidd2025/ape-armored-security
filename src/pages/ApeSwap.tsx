@@ -8,8 +8,8 @@ const ApeSwap = () => {
   return (
     <div className="min-h-screen flex flex-col bg-background text-foreground">
       <Navbar />
-      <main className="flex-1 container px-4 md:px-6 py-8">
-        <div className="max-w-2xl mx-auto">
+      <main className="flex-1 container px-4 md:px-6 py-8 flex items-center justify-center">
+        <div className="w-full max-w-2xl">
           <h1 className="text-3xl md:text-4xl font-bold mb-3 text-gradient-gold text-center">
             Swap Tokens
           </h1>
