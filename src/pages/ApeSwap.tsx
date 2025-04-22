@@ -1,5 +1,4 @@
-
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { Card, CardContent } from "@/components/ui/card";
@@ -8,15 +7,25 @@ import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { RefreshCw } from "lucide-react";
 import { toast } from "@/hooks/use-toast";
+import { getTokensList, TokenInfo, getQuote } from "@/utils/jupiter";
 
 const ApeSwap = () => {
+  const [tokens, setTokens] = useState<TokenInfo[]>([]);
   const [fromToken, setFromToken] = useState("SOL");
   const [toToken, setToToken] = useState("");
   const [fromAmount, setFromAmount] = useState("");
   const [toAmount, setToAmount] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
-  const handleSwap = () => {
+  useEffect(() => {
+    const fetchTokens = async () => {
+      const tokenList = await getTokensList();
+      setTokens(tokenList);
+    };
+    fetchTokens();
+  }, []);
+
+  const handleSwap = async () => {
     if (!fromToken || !toToken || !fromAmount) {
       toast({
         title: "Invalid Input",
@@ -27,14 +36,41 @@ const ApeSwap = () => {
     }
 
     setIsLoading(true);
-    // This would eventually connect to Jupiter Ultra API
-    setTimeout(() => {
-      setIsLoading(false);
+    try {
+      // This will be implemented in the next step with wallet integration
       toast({
         title: "Coming Soon",
-        description: "Jupiter Ultra API integration is in progress. This functionality will be available soon.",
+        description: "Wallet integration and swap functionality will be available soon.",
       });
-    }, 1500);
+    } catch (error) {
+      toast({
+        title: "Error",
+        description: "Failed to execute swap",
+        variant: "destructive",
+      });
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const handleFromAmountChange = async (value: string) => {
+    setFromAmount(value);
+    if (fromToken && toToken && value) {
+      try {
+        const fromTokenInfo = tokens.find(t => t.symbol === fromToken);
+        const toTokenInfo = tokens.find(t => t.symbol === toToken);
+        if (fromTokenInfo && toTokenInfo) {
+          const quote = await getQuote(
+            fromTokenInfo.address,
+            toTokenInfo.address,
+            parseFloat(value) * Math.pow(10, fromTokenInfo.decimals)
+          );
+          // Will implement quote handling in next step
+        }
+      } catch (error) {
+        console.error('Error getting quote:', error);
+      }
+    }
   };
 
   const handleSwapTokens = () => {
@@ -68,16 +104,18 @@ const ApeSwap = () => {
                         <SelectValue placeholder="Select token" />
                       </SelectTrigger>
                       <SelectContent>
-                        <SelectItem value="SOL">SOL</SelectItem>
-                        <SelectItem value="USDC">USDC</SelectItem>
-                        <SelectItem value="APE">APE</SelectItem>
+                        {tokens.map((token) => (
+                          <SelectItem key={token.address} value={token.symbol}>
+                            {token.symbol}
+                          </SelectItem>
+                        ))}
                       </SelectContent>
                     </Select>
                     <Input
                       type="number"
                       placeholder="0.00"
                       value={fromAmount}
-                      onChange={(e) => setFromAmount(e.target.value)}
+                      onChange={(e) => handleFromAmountChange(e.target.value)}
                       className="flex-1 bg-muted border-apearmor-darkbronze"
                     />
                   </div>
@@ -104,9 +142,11 @@ const ApeSwap = () => {
                         <SelectValue placeholder="Select token" />
                       </SelectTrigger>
                       <SelectContent>
-                        <SelectItem value="SOL">SOL</SelectItem>
-                        <SelectItem value="USDC">USDC</SelectItem>
-                        <SelectItem value="APE">APE</SelectItem>
+                        {tokens.map((token) => (
+                          <SelectItem key={token.address} value={token.symbol}>
+                            {token.symbol}
+                          </SelectItem>
+                        ))}
                       </SelectContent>
                     </Select>
                     <Input
@@ -140,7 +180,7 @@ const ApeSwap = () => {
           <Card className="w-full bg-black/40 border-apearmor-darkbronze border shadow-lg mt-4">
             <CardContent className="p-6 text-center">
               <p className="text-sm text-muted-foreground">
-                Full swap functionality coming soon. We are implementing Jupiter Ultra API integration for the best trade execution and competitive rates across Solana.
+                Jupiter Ultra API integration is in progress. Next steps include wallet integration and swap execution.
               </p>
             </CardContent>
           </Card>
