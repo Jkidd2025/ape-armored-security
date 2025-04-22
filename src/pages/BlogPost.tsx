@@ -27,6 +27,22 @@ const BlogPost = () => {
               category={post.category}
               author={post.author}
             />
+
+            {/* Show SEO Keywords if present */}
+            {post.keywords && post.keywords.length > 0 && (
+              <div className="mb-4 flex flex-wrap gap-2">
+                <div className="text-xs font-medium text-muted-foreground flex items-center gap-1">
+                  <span className="uppercase tracking-wide font-bold text-primary">
+                    SEO Keywords:
+                  </span>
+                  {post.keywords.map(k => (
+                    <span key={k} className="bg-muted px-2 py-0.5 rounded text-xs text-foreground border border-primary/10">
+                      {k}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            )}
             
             <div className="w-full mb-10 bg-muted/20 rounded-lg overflow-hidden">
               <img 

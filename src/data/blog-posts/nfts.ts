@@ -1,3 +1,4 @@
+
 import { BlogPostData } from "@/types/blogTypes";
 
 export const getNFTPosts = (): Record<string, BlogPostData> => ({
@@ -8,6 +9,13 @@ export const getNFTPosts = (): Record<string, BlogPostData> => ({
     readTime: "4 min",
     category: "NFTs",
     imageUrl: "/lovable-uploads/facc324c-ba2c-40d7-b1a7-53578ea631c9.png",
+    keywords: [
+      "NFT trends",
+      "NFT market",
+      "crypto collectibles",
+      "NFT projects",
+      "digital art"
+    ],
     content: `
         <p class="mb-4">The NFT market continues to evolve rapidly, with new collections and use cases emerging regularly. Let's explore the latest trends and developments in this dynamic space.</p>
         
@@ -33,7 +41,6 @@ export const getNFTPosts = (): Record<string, BlogPostData> => ({
       }
     ]
   },
-
   "nft-trends-2025": {
     title: "NFT Trends to Watch in 2025: Evolving Utility and Trust",
     publishDate: "April 22, 2025",
@@ -41,6 +48,13 @@ export const getNFTPosts = (): Record<string, BlogPostData> => ({
     readTime: "6 min",
     category: "NFTs",
     imageUrl: "/lovable-uploads/3dd59d92-4e47-4404-9034-2b93f0b80772.png",
+    keywords: [
+      "NFTs 2025",
+      "NFT security",
+      "web3 trends",
+      "crypto adoption",
+      "dynamic NFTs"
+    ],
     content: `
       <p class="mb-4">As we move deeper into 2025, the NFT space is buzzing with new innovations, larger adoption, and smarter security. Here are the biggest NFT trends that everyone in the community—from collectors to creators—should keep an eye on.</p>
       <h2 class="text-2xl font-bold mt-8 mb-4">1. NFTs Get Real: Beyond Digital Art</h2>

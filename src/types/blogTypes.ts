@@ -9,10 +9,10 @@ export interface BlogPostData {
   content: string;
   useRealTimeData?: boolean;
   useNFTData?: boolean;
+  keywords?: string[]; // <-- Added for SEO
   relatedPosts: {
     id: string;
     title: string;
     slug: string;
   }[];
 }
-
