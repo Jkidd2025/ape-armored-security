@@ -1,4 +1,5 @@
 
+import React from 'react';
 import { Shield, Wallet, Eye, Lock, ShieldAlert, Users, TrendingUp, TrendingDown } from "lucide-react";
 
 const featureItems = [
