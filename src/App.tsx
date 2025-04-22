@@ -1,4 +1,3 @@
-
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -18,6 +17,7 @@ import ApeWire from "./pages/ApeWire";
 import BlogPost from "./pages/BlogPost";
 import NotFound from "./pages/NotFound";
 import CookieConsent from "./components/CookieConsent";
+import JupiterSwap from "./components/swap/JupiterSwap";
 
 const queryClient = new QueryClient();
 
@@ -34,34 +34,30 @@ const App = () => (
           <Route path="/payment-confirmation" element={<PaymentConfirmation />} />
           <Route path="/terms-of-service" element={<TermsOfService />} />
           
-          {/* Comprehensive whitepaper routes to catch all variations */}
           <Route path="/whitepaper" element={<Whitepaper />} />
           <Route path="/whitepaper/" element={<Whitepaper />} />
           <Route path="whitepaper" element={<Whitepaper />} />
           <Route path="whitepaper/" element={<Whitepaper />} />
           
-          {/* Catch-all redirect for whitepaper */}
           <Route path="*whitepaper*" element={<Navigate to="/whitepaper" replace />} />
           
           <Route path="/privacy-policy" element={<PrivacyPolicy />} />
           <Route path="/claim-submission" element={<ClaimSubmission />} />
           <Route path="/social-share-test" element={<SocialShareTest />} />
           
-          {/* More comprehensive presale application routes */}
           <Route path="/presale-application" element={<PresaleApplication />} />
           <Route path="/presale-application/" element={<PresaleApplication />} />
           <Route path="presale-application" element={<PresaleApplication />} />
           <Route path="presale-application/" element={<PresaleApplication />} />
           
-          {/* Catch-all redirect for presale */}
           <Route path="/presale" element={<Navigate to="/presale-application" replace />} />
           <Route path="presale" element={<Navigate to="/presale-application" replace />} />
           
-          {/* New Ape Wire blog routes */}
           <Route path="/ape-wire" element={<ApeWire />} />
           <Route path="/ape-wire/:slug" element={<BlogPost />} />
           
-          {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+          <Route path="/swap" element={<JupiterSwap />} />
+          
           <Route path="*" element={<NotFound />} />
         </Routes>
         <CookieConsent />
