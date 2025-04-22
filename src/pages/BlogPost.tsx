@@ -7,6 +7,7 @@ import { useBlogPost } from "@/hooks/useBlogPost";
 import BlogPostHeader from "@/components/blog/post/BlogPostHeader";
 import BlogPostContent from "@/components/blog/post/BlogPostContent";
 import RelatedPosts from "@/components/blog/post/RelatedPosts";
+import { AspectRatio } from "@/components/ui/aspect-ratio";
 
 const BlogPost = () => {
   const { slug } = useParams<{ slug: string }>();
@@ -27,13 +28,13 @@ const BlogPost = () => {
               author={post.author}
             />
             
-            <div className="aspect-video w-full overflow-hidden rounded-lg mb-10">
+            <AspectRatio ratio={16 / 9} className="w-full overflow-hidden rounded-lg mb-10">
               <img 
                 src={post.imageUrl} 
                 alt={post.title} 
                 className="w-full h-full object-cover"
               />
-            </div>
+            </AspectRatio>
             
             <BlogPostContent 
               content={post.content}
