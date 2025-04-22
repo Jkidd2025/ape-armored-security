@@ -1,4 +1,3 @@
-
 import { Link, useNavigate } from 'react-router-dom';
 import { Button } from "@/components/ui/button";
 import { Share2 } from "lucide-react";
@@ -87,6 +86,13 @@ const MobileMenu = ({
           onClick={() => setIsMenuOpen(false)}
         >
           Ape Wire
+        </Link>
+        <Link 
+          to="/ape-swap" 
+          className="text-sm font-medium py-2 px-4 hover:bg-muted rounded-md hover:text-apearmor-teal transition-colors"
+          onClick={() => setIsMenuOpen(false)}
+        >
+          Ape Swap
         </Link>
         <a 
           href="#contact" 

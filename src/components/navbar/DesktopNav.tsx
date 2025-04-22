@@ -1,4 +1,3 @@
-
 import { Link } from 'react-router-dom';
 import { Button } from "@/components/ui/button";
 import { Share2 } from "lucide-react";
@@ -30,6 +29,12 @@ const DesktopNav = ({ isDevEnvironment, handlePaymentClick }: DesktopNavProps) =
           className="text-sm font-medium hover:text-apearmor-teal transition-colors"
         >
           Ape Wire
+        </Link>
+        <Link 
+          to="/ape-swap" 
+          className="text-sm font-medium hover:text-apearmor-teal transition-colors"
+        >
+          Ape Swap
         </Link>
         <a href="#contact" className="text-sm font-medium hover:text-apearmor-teal transition-colors">Contact</a>
         <Link to="/presale-application" className="text-sm font-medium hover:text-apearmor-teal transition-colors">Presale</Link>

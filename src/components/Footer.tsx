@@ -108,6 +108,11 @@ const Footer = () => {
                   Whitepaper
                 </Link>
               </li>
+              <li>
+                <Link to="/ape-swap" className="text-muted-foreground hover:text-apearmor-teal transition-colors">
+                  Ape Swap
+                </Link>
+              </li>
             </ul>
           </div>
           
