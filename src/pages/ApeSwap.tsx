@@ -16,7 +16,7 @@ const ApeSwap = () => {
           <p className="text-center mb-6 text-muted-foreground">
             Trade tokens instantly with the best rates across Solana
           </p>
-          <Card className="w-full shadow-lg">
+          <Card className="w-full bg-black/40 border-apearmor-darkbronze border shadow-lg">
             <CardContent className="p-6 text-center">
               <p className="text-lg text-muted-foreground">
                 Swap functionality coming soon. We are working on making token swaps available.
