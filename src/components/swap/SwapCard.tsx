@@ -15,18 +15,20 @@ const SwapCard = () => {
     slippageBps: 100, // 1%
   });
 
-  // Check if wallet is connected using the correct property
+  // Check if wallet is connected using the correct property from Jupiter hook
   const walletConnected = useMemo(() => {
-    // The @jup-ag/react-hook API uses connected property instead of walletPublicKey
-    return jupiter.connected === true;
-  }, [jupiter.connected]);
+    // In @jup-ag/react-hook, we need to check if wallet exists
+    return !!jupiter.wallet;
+  }, [jupiter.wallet]);
 
   // Function to handle swap
   const handleSwapInit = () => {
-    if (!jupiter || !walletConnected) return;
+    if (!jupiter || !walletConnected || !jupiter.routeInfo) return;
 
-    // Use the Jupiter API correctly with required parameter (route)
-    jupiter.exchange({ routeInfo: jupiter.routes?.[0] });
+    // Execute the swap with the route information
+    jupiter.exchange({
+      routeInfo: jupiter.routeInfo,
+    });
   };
 
   return (
@@ -48,7 +50,7 @@ const SwapCard = () => {
       <CardFooter className="px-6 pb-6">
         <Button 
           onClick={handleSwapInit}
-          disabled={!walletConnected || !jupiter.routes?.[0]}
+          disabled={!walletConnected || !jupiter.routeInfo}
           className="w-full bg-apearmor-teal hover:bg-apearmor-teal/80 text-black"
         >
           {walletConnected ? 'Swap Tokens' : 'Connect Wallet to Swap'}
