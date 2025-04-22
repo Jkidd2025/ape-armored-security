@@ -7,12 +7,12 @@ const SwapCard = () => {
     <Card className="w-full shadow-lg">
       <CardContent className="p-0 overflow-hidden rounded-lg">
         <iframe
-          src="https://jup.ag/swap?embed=true&simple=true&hideAnalytics=true&hideInfoFeature=true&theme=dark"
+          src="https://jup.ag/swap/SOL-USDC?embed=true&fullWidth=true&theme=dark&allowWalletChange=true"
           frameBorder="0"
           className="w-full min-h-[640px]"
           title="Ape Swap powered by Jupiter"
-          allow="clipboard-write"
-          sandbox="allow-scripts allow-same-origin allow-popups allow-forms"
+          allow="clipboard-write clipboard-read"
+          sandbox="allow-scripts allow-same-origin allow-popups allow-forms allow-top-navigation"
         />
       </CardContent>
     </Card>
