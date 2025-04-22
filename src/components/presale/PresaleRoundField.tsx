@@ -39,7 +39,6 @@ const PresaleRoundField = ({ control }: PresaleRoundFieldProps) => {
               </SelectTrigger>
             </FormControl>
             <SelectContent>
-              <SelectItem value="round2">Round 2</SelectItem>
               <SelectItem value="round3">Round 3</SelectItem>
             </SelectContent>
           </Select>

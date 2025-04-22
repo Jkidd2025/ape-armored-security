@@ -27,7 +27,7 @@ const formSchema = z.object({
   name: z.string().min(2, { message: "Name must be at least 2 characters" }),
   email: z.string().email({ message: "Please enter a valid email address" }),
   walletAddress: z.string().min(32, { message: "Please enter a valid wallet address" }),
-  presaleRound: z.string().min(1, { message: "Please select a presale round" }),
+  presaleRound: z.literal("round3", { message: "Please select Round 3" }),
   telegramUsername: z.string().optional(),
   xUsername: z.string().optional(),
   investmentAmount: z.string().min(1, { message: "Please enter a valid amount" }),
