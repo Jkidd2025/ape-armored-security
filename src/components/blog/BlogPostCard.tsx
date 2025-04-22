@@ -14,13 +14,15 @@ interface BlogPostCardProps {
 const BlogPostCard = ({ post }: BlogPostCardProps) => {
   return (
     <Card key={post.id} className="bg-card/50 backdrop-blur-sm border-apearmor-darkbronze hover:border-apearmor-teal transition-all duration-300 overflow-hidden">
-      <AspectRatio ratio={16 / 9} className="w-full overflow-hidden">
-        <img 
-          src={post.imageUrl} 
-          alt={post.title} 
-          className="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
-        />
-      </AspectRatio>
+      <div className="w-full">
+        <AspectRatio ratio={16 / 9} className="bg-muted/20">
+          <img 
+            src={post.imageUrl} 
+            alt={post.title} 
+            className="w-full h-full object-cover object-center transition-transform duration-500 hover:scale-105"
+          />
+        </AspectRatio>
+      </div>
       <CardHeader>
         <div className="flex justify-between items-center mb-2">
           <Badge className="bg-apearmor-teal/10 text-apearmor-teal border-none hover:bg-apearmor-teal/20">

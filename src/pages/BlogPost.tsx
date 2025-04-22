@@ -28,13 +28,15 @@ const BlogPost = () => {
               author={post.author}
             />
             
-            <AspectRatio ratio={16 / 9} className="w-full overflow-hidden rounded-lg mb-10">
-              <img 
-                src={post.imageUrl} 
-                alt={post.title} 
-                className="w-full h-full object-cover"
-              />
-            </AspectRatio>
+            <div className="w-full mb-10">
+              <AspectRatio ratio={16 / 9} className="bg-muted/20 rounded-lg overflow-hidden">
+                <img 
+                  src={post.imageUrl} 
+                  alt={post.title} 
+                  className="w-full h-full object-cover object-center"
+                />
+              </AspectRatio>
+            </div>
             
             <BlogPostContent 
               content={post.content}
