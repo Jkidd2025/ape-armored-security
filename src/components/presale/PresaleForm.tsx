@@ -50,7 +50,7 @@ const PresaleForm = () => {
       name: "",
       email: "",
       walletAddress: "",
-      presaleRound: "",
+      presaleRound: "round3", // Update this to match the Zod schema
       telegramUsername: "",
       xUsername: "",
       investmentAmount: "",
@@ -195,3 +195,4 @@ const PresaleForm = () => {
 };
 
 export default PresaleForm;
+
