@@ -1,3 +1,4 @@
+
 import { Link } from 'react-router-dom';
 import { Button } from "@/components/ui/button";
 import { Share2 } from "lucide-react";
@@ -43,12 +44,6 @@ const DesktopNav = ({ isDevEnvironment, handlePaymentClick }: DesktopNavProps) =
             <span>Share Test</span>
           </Link>
         )}
-        <Link 
-          to="/swap" 
-          className="text-sm font-medium hover:text-apearmor-teal transition-colors"
-        >
-          Swap
-        </Link>
       </nav>
       
       <div className="hidden md:flex items-center">
