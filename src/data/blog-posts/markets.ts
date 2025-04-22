@@ -8,6 +8,15 @@ export const getMarketsPosts = (): Record<string, BlogPostData> => ({
     readTime: "6 min",
     category: "Markets",
     imageUrl: "/lovable-uploads/da785f2c-2e2b-4eb1-9a0f-4257780baab6.png",
+    keywords: [
+      "crypto market metrics",
+      "trading volume",
+      "market capitalization",
+      "cryptocurrency trading",
+      "liquidity indicators",
+      "order book analysis",
+      "crypto market data"
+    ],
     content: `
         <p class="mb-4">In the fast-paced world of cryptocurrency trading, understanding market data is crucial for making informed decisions.</p>
         
@@ -51,6 +60,15 @@ export const getMarketsPosts = (): Record<string, BlogPostData> => ({
     readTime: "5 min",
     category: "Markets",
     imageUrl: "/lovable-uploads/a2e0afe5-1eff-442a-a344-aa33e933b053.png",
+    keywords: [
+      "cryptocurrency market trends",
+      "DeFi growth",
+      "NFT market evolution",
+      "crypto regulatory updates",
+      "institutional crypto adoption",
+      "blockchain market trends",
+      "crypto investment insights"
+    ],
     content: `
         <p class="mb-4">Cryptocurrency markets are constantly evolving, influenced by technological advancements, regulatory changes, and macroeconomic factors. Staying informed about the latest trends is crucial for making sound investment decisions.</p>
 
