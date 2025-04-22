@@ -105,7 +105,7 @@ export const getMarketsPosts = (): Record<string, BlogPostData> => ({
     author: "ApeArmor Research Team",
     readTime: "4 min",
     category: "Markets",
-    imageUrl: "https://images.unsplash.com/photo-1488590528505-98d2b5aba04b?q=80&w=2232&auto=format&fit=crop",
+    imageUrl: "/lovable-uploads/97428e6b-fe42-4e25-b8d2-d2c7ddc3aaeb.png",
     keywords: [
       "bitcoin price",
       "crypto regulation 2025",
