@@ -4,7 +4,7 @@ import SwapCard from './SwapCard';
 
 const JupiterSwap = () => {
   return (
-    <JupiterProvider cluster="mainnet-beta">
+    <JupiterProvider>
       <div className="min-h-screen bg-background">
         <div className="container px-4 md:px-6 py-24">
           <div className="max-w-xl mx-auto text-center mb-12">
