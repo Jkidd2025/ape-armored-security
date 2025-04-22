@@ -8,6 +8,14 @@ export const getSecurityPosts = (): Record<string, BlogPostData> => ({
     readTime: "8 min",
     category: "Education",
     imageUrl: "/lovable-uploads/50c3c6ba-b7be-4937-8f4c-f75237cb7c15.png",
+    keywords: [
+      "crypto scams",
+      "rug pulls",
+      "cryptocurrency fraud",
+      "defi security",
+      "crypto investor protection",
+      "token security"
+    ],
     content: `
         <p class="mb-4">In the rapidly evolving world of cryptocurrency, "rug pulls" have become one of the most notorious forms of fraud. Let's explore what they are, how they work, and most importantly, how to protect yourself.</p>
         
@@ -71,6 +79,14 @@ export const getSecurityPosts = (): Record<string, BlogPostData> => ({
     readTime: "5 min",
     category: "Security",
     imageUrl: "/lovable-uploads/50c3c6ba-b7be-4937-8f4c-f75237cb7c15.png",
+    keywords: [
+      "rug pull detection",
+      "crypto scam prevention",
+      "cryptocurrency security",
+      "token vetting",
+      "defi risks",
+      "web3 security"
+    ],
     content: `
         <p class="mb-4">The crypto space is filled with opportunities, but also with risks. One of the most notorious risks is the "rug pull" - a type of scam where developers abandon a project and run away with investors' funds.</p>
         
@@ -115,6 +131,14 @@ export const getSecurityPosts = (): Record<string, BlogPostData> => ({
     readTime: "6 min",
     category: "Education",
     imageUrl: "/lovable-uploads/1fdcab54-9edc-464a-82be-259d2cc25a0d.png",
+    keywords: [
+      "crypto honeypots",
+      "defi scams",
+      "malicious smart contracts",
+      "smart contract security",
+      "token traps",
+      "blockchain security"
+    ],
     content: `
         <p class="mb-4">In the world of cryptocurrency, honey pots are sophisticated scams designed to lure investors with attractive opportunities, only to trap their funds through malicious smart contract code. Let's explore how these deceptive schemes work and how to avoid them.</p>
         

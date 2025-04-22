@@ -1,3 +1,4 @@
+
 import { BlogPostData } from "@/types/blogTypes";
 
 export const getBlockExplorersPosts = (): Record<string, BlogPostData> => ({
@@ -8,6 +9,14 @@ export const getBlockExplorersPosts = (): Record<string, BlogPostData> => ({
     readTime: "8 min",
     category: "Education",
     imageUrl: "/lovable-uploads/e86ce9c1-421f-4fd5-9a0b-314a1b4a2bf3.png",
+    keywords: [
+      "block explorers",
+      "blockchain transactions",
+      "etherscan",
+      "solscan",
+      "transaction verification",
+      "smart contract explorer"
+    ],
     content: `
         <p class="mb-4">Block explorers are essential tools for navigating and understanding blockchain networks. Whether you're using Etherscan for Ethereum, Solscan for Solana, or other blockchain-specific explorers, these platforms provide crucial insights into transactions, smart contracts, and network activity.</p>
         
