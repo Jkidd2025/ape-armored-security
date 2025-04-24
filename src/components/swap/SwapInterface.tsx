@@ -39,7 +39,6 @@ const SwapInterface = () => {
     updateToAmount,
     refreshPrice,
     wallet,
-    tokensLoaded,
     walletBalances
   } = useSwap(
     tokens && tokens.length > 0 ? tokens[0] : null, 
