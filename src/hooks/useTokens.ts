@@ -36,8 +36,8 @@ export function useTokensWithPrices() {
       
       console.log(`Fetching prices for ${tokens.length} tokens`);
       
-      // Process tokens in batches to avoid too many concurrent requests
-      const batchSize = 5;
+      // Process tokens in smaller batches to avoid too many concurrent requests
+      const batchSize = 3;
       const result: (TokenInfo & { price?: number, volume24h?: number })[] = [];
       
       for (let i = 0; i < tokens.length; i += batchSize) {
@@ -55,8 +55,8 @@ export function useTokensWithPrices() {
               console.warn(`Error fetching price for ${token.symbol}:`, error);
               return {
                 ...token,
-                price: 0,
-                volume24h: 0,
+                price: token.price || 0,
+                volume24h: token.volume24h || 0,
               };
             }
           })
@@ -67,6 +67,11 @@ export function useTokensWithPrices() {
             result.push(res.value);
           }
         });
+        
+        // Add a small delay between batches to avoid overwhelming the API
+        if (i + batchSize < tokens.length) {
+          await new Promise(resolve => setTimeout(resolve, 300));
+        }
       }
       
       return result;

@@ -19,7 +19,7 @@ export interface TokenPrice {
   timestamp: number;
 }
 
-// Fallback token list to use when API is unavailable
+// Improved fallback token list with more detailed information
 const FALLBACK_TOKENS: TokenInfo[] = [
   {
     symbol: "SOL",
@@ -65,8 +65,30 @@ const FALLBACK_TOKENS: TokenInfo[] = [
     logoURI: "https://raw.githubusercontent.com/sol-farm/token-logos/main/Jupiter.png",
     price: 0.58,
     volume24h: 120000000
+  },
+  {
+    symbol: "RAY",
+    name: "Raydium",
+    decimals: 6,
+    mintAddress: "4k3Dyjzvzp8eMZWUXbBCjEvwSkkk59S5iCNLY3QrkX6R",
+    logoURI: "https://raw.githubusercontent.com/solana-labs/token-list/main/assets/mainnet/4k3Dyjzvzp8eMZWUXbBCjEvwSkkk59S5iCNLY3QrkX6R/logo.png",
+    price: 0.35,
+    volume24h: 45000000
+  },
+  {
+    symbol: "PYTH",
+    name: "Pyth Network",
+    decimals: 6,
+    mintAddress: "HZ1JovNiVvGrGNiiYvEozEVgZ58xaU3RKwX8eACQBCt3",
+    logoURI: "https://raw.githubusercontent.com/solana-labs/token-list/main/assets/mainnet/HZ1JovNiVvGrGNiiYvEozEVgZ58xaU3RKwX8eACQBCt3/logo.png",
+    price: 0.76,
+    volume24h: 32000000
   }
 ];
+
+// Map of mintAddresses to cached token prices - improves performance by reducing API calls
+const tokenPriceCache: Record<string, TokenPrice & { expires: number }> = {};
+const CACHE_DURATION = 60 * 1000; // 60 seconds
 
 async function getApiKey() {
   try {
@@ -82,26 +104,48 @@ async function getApiKey() {
   }
 }
 
+// Try different endpoint patterns (for resiliency)
+const API_ENDPOINTS = [
+  "https://api.solanatracker.io/api/v1",
+  "https://api.solanatracker.io/v1", 
+  "https://solanatracker.io/api/v1"
+];
+
 export async function getTokenList(): Promise<TokenInfo[]> {
   try {
     // Try to fetch from the API
     const apiKey = await getApiKey();
     
-    console.log('Fetching token list from: https://api.solanatracker.io/api/v1/tokens');
+    // Try each endpoint until one works or all fail
+    let response = null;
+    let success = false;
     
-    // Updated endpoint based on the repository structure
-    const response = await fetch(`https://api.solanatracker.io/api/v1/tokens`, {
-      headers: { 'Authorization': `Bearer ${apiKey}` }
-    });
+    for (const baseUrl of API_ENDPOINTS) {
+      try {
+        console.log(`Fetching token list from: ${baseUrl}/tokens`);
+        
+        response = await fetch(`${baseUrl}/tokens`, {
+          headers: { 'Authorization': `Bearer ${apiKey}` }
+        });
+        
+        if (response.ok) {
+          success = true;
+          break;
+        }
+      } catch (endpointError) {
+        console.warn(`Failed to fetch from ${baseUrl}:`, endpointError);
+        // Continue to next endpoint
+      }
+    }
     
-    if (!response.ok) {
-      console.warn(`API response error: ${response.status} ${await response.text()}`);
+    if (success && response) {
+      const data = await response.json();
+      return data.tokens || data || [];
+    } else {
+      console.warn(`API response error: ${response?.status} ${await response?.text()}`);
       console.log('Using fallback token list');
       return FALLBACK_TOKENS;
     }
-    
-    const data = await response.json();
-    return data.tokens || data || [];
   } catch (error) {
     console.warn('Error fetching token list:', error);
     console.log('Using fallback token list due to API error');
@@ -110,29 +154,69 @@ export async function getTokenList(): Promise<TokenInfo[]> {
 }
 
 export async function getTokenPrice(mintAddress: string): Promise<TokenPrice> {
+  // Check cache first
+  const now = Date.now();
+  if (tokenPriceCache[mintAddress] && tokenPriceCache[mintAddress].expires > now) {
+    return {
+      price: tokenPriceCache[mintAddress].price,
+      volume24h: tokenPriceCache[mintAddress].volume24h,
+      timestamp: tokenPriceCache[mintAddress].timestamp
+    };
+  }
+
   try {
     // Try to fetch from the API
     const apiKey = await getApiKey();
     
-    // Updated endpoint based on the repository structure
-    const response = await fetch(`https://api.solanatracker.io/api/v1/tokens/${mintAddress}/price`, {
-      headers: { 'Authorization': `Bearer ${apiKey}` }
-    });
+    // Try each endpoint until one works or all fail
+    let response = null;
+    let success = false;
     
-    if (!response.ok) {
+    for (const baseUrl of API_ENDPOINTS) {
+      try {
+        response = await fetch(`${baseUrl}/tokens/${mintAddress}/price`, {
+          headers: { 'Authorization': `Bearer ${apiKey}` }
+        });
+        
+        if (response.ok) {
+          success = true;
+          break;
+        }
+      } catch (endpointError) {
+        // Continue to next endpoint
+      }
+    }
+    
+    if (success && response) {
+      const data = await response.json();
+      
+      // Cache the result
+      tokenPriceCache[mintAddress] = {
+        ...data,
+        expires: now + CACHE_DURATION
+      };
+      
+      return data;
+    } else {
       // If API fails, get from fallback data
       const fallbackToken = FALLBACK_TOKENS.find(t => t.mintAddress === mintAddress);
       if (fallbackToken) {
-        return {
+        const fallbackData = {
           price: fallbackToken.price || 0,
           volume24h: fallbackToken.volume24h || 0,
-          timestamp: Date.now()
+          timestamp: now
         };
+        
+        // Cache the fallback result
+        tokenPriceCache[mintAddress] = {
+          ...fallbackData,
+          expires: now + CACHE_DURATION
+        };
+        
+        return fallbackData;
       }
-      throw new Error(`Failed to fetch token price: ${response.status}`);
+      throw new Error(`Failed to fetch token price: ${response?.status}`);
     }
-    
-    return await response.json();
   } catch (error) {
     console.error('Error fetching token price:', error);
     
@@ -159,21 +243,35 @@ export async function getTokenMetadata(mintAddress: string): Promise<TokenInfo> 
   try {
     const apiKey = await getApiKey();
     
-    // Updated endpoint based on the repository structure
-    const response = await fetch(`https://api.solanatracker.io/api/v1/tokens/${mintAddress}`, {
-      headers: { 'Authorization': `Bearer ${apiKey}` }
-    });
+    // Try each endpoint until one works or all fail
+    let response = null;
+    let success = false;
     
-    if (!response.ok) {
+    for (const baseUrl of API_ENDPOINTS) {
+      try {
+        response = await fetch(`${baseUrl}/tokens/${mintAddress}`, {
+          headers: { 'Authorization': `Bearer ${apiKey}` }
+        });
+        
+        if (response.ok) {
+          success = true;
+          break;
+        }
+      } catch (endpointError) {
+        // Continue to next endpoint
+      }
+    }
+    
+    if (success && response) {
+      return await response.json();
+    } else {
       // If API fails, get from fallback data
       const fallbackToken = FALLBACK_TOKENS.find(t => t.mintAddress === mintAddress);
       if (fallbackToken) {
         return fallbackToken;
       }
-      throw new Error(`Failed to fetch token metadata: ${response.status}`);
+      throw new Error(`Failed to fetch token metadata: ${response?.status}`);
     }
-    
-    return await response.json();
   } catch (error) {
     console.error('Error fetching token metadata:', error);
     
