@@ -1,4 +1,3 @@
-
 import { Card } from "@/components/ui/card";
 import { RefreshCcw, Settings, AlertTriangle, ExternalLink } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -15,7 +14,7 @@ import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 
 const SwapInterface = () => {
   const [showSettings, setShowSettings] = useState(false);
-  const { tokens, isLoading, error, refetch, usesMockData } = useTokensWithPrices();
+  const { tokens, isLoading, error, refetch } = useTokensWithPrices();
   
   const {
     fromToken,
@@ -41,7 +40,7 @@ const SwapInterface = () => {
     tokens && tokens.length > 1 ? tokens[1] : null
   );
 
-  if (isLoading && !usesMockData) {
+  if (isLoading) {
     return (
       <div className="max-w-md mx-auto">
         <Card className="p-6 border border-apearmor-darkbronze bg-muted">
@@ -56,15 +55,15 @@ const SwapInterface = () => {
     );
   }
 
-  if (error && !usesMockData) {
+  if (error) {
     return (
       <div className="max-w-md mx-auto">
         <Card className="p-6 border border-apearmor-darkbronze bg-muted">
           <Alert variant="destructive" className="mb-4">
             <AlertTriangle className="h-4 w-4" />
-            <AlertTitle>API Connection Error</AlertTitle>
+            <AlertTitle>Service Temporarily Unavailable</AlertTitle>
             <AlertDescription>
-              Unable to connect to the token API. Please try again later.
+              We're experiencing technical difficulties. Please try again later or contact support if the issue persists.
             </AlertDescription>
           </Alert>
           <Button 
@@ -79,7 +78,7 @@ const SwapInterface = () => {
     );
   }
 
-  if ((!tokens || tokens.length === 0) && !usesMockData) {
+  if (!tokens || tokens.length === 0) {
     return (
       <div className="max-w-md mx-auto">
         <Card className="p-6 border border-apearmor-darkbronze bg-muted">
@@ -87,7 +86,7 @@ const SwapInterface = () => {
             <AlertTriangle className="h-4 w-4" />
             <AlertTitle>No Tokens Available</AlertTitle>
             <AlertDescription>
-              No token data is currently available. Please try again later.
+              Unable to load token data. Please try again later or contact support if the issue persists.
             </AlertDescription>
           </Alert>
           <Button 
@@ -127,16 +126,6 @@ const SwapInterface = () => {
             </Button>
           </div>
         </div>
-
-        {usesMockData && (
-          <Alert variant="default" className="mb-4 bg-yellow-50 border-yellow-200">
-            <AlertTriangle className="h-4 w-4 text-yellow-600" />
-            <AlertTitle className="text-yellow-800">Using Demo Data</AlertTitle>
-            <AlertDescription className="text-yellow-700">
-              Connected to demo environment with sample tokens.
-            </AlertDescription>
-          </Alert>
-        )}
 
         {showSettings && (
           <SwapSettings 
