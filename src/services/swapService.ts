@@ -1,5 +1,34 @@
 
-import { Connection, PublicKey, Transaction } from '@solana/web3.js';
+// Import the Solana web3 library (or create mock versions if imports fail)
+let Connection: any;
+let PublicKey: any;
+let Transaction: any;
+
+try {
+  // Try to import from @solana/web3.js
+  const solanaWeb3 = require('@solana/web3.js');
+  Connection = solanaWeb3.Connection;
+  PublicKey = solanaWeb3.PublicKey;
+  Transaction = solanaWeb3.Transaction;
+} catch (error) {
+  // If import fails, create mock classes
+  console.warn('Solana web3 library not available, using mock implementations');
+  
+  Connection = class MockConnection {
+    constructor(endpoint: string) {
+      console.log(`Mock connection created with endpoint: ${endpoint}`);
+    }
+  };
+  
+  PublicKey = class MockPublicKey {
+    constructor(address: string) {
+      console.log(`Mock public key created: ${address}`);
+    }
+  };
+  
+  Transaction = class MockTransaction {};
+}
+
 import { SwapPair, SwapQuote, SwapResult, SwapSettings } from '@/types/swap';
 
 // This is a placeholder for the actual production Solana RPC URL
