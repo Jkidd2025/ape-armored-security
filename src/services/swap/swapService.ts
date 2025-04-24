@@ -1,7 +1,8 @@
-
-import { SwapQuote, SwapResult } from '@/types/swap';
-import { getMockSwapQuote, getMockTokenBalance, executeMockSwap } from './mocks';
+import { SwapQuote } from '@/types/swap';
+import { getMockSwapQuote } from './mocks';
 export { requestWalletPermissions } from './walletPermissions';
+export { getTokenBalance } from './tokenBalances';
+export { executeSwap } from './swapExecutor';
 import { initConnection } from './solana';
 
 let isMockImplementation = true;
@@ -29,70 +30,15 @@ export const getSwapQuote = async (
   try {
     console.log('Getting quote for swap', { fromToken, toToken, amount, slippage });
     
-    if (isMockImplementation) {
-      return await getMockSwapQuote(fromToken, toToken, amount, slippage);
-    }
+    // For future real implementation:
+    // if (!isMockImplementation) {
+    //   // Implement real DEX quote logic here
+    // }
     
-    // TODO: Implement real DEX quote logic here
+    // Currently using mock implementation for all cases
     return await getMockSwapQuote(fromToken, toToken, amount, slippage);
   } catch (error) {
     console.error('Error getting swap quote:', error);
     return null;
-  }
-};
-
-export const executeSwap = async (
-  wallet: any,
-  fromToken: string,
-  toToken: string,
-  amount: string,
-  slippage: number,
-  deadline: number
-): Promise<SwapResult> => {
-  try {
-    if (!wallet.connected) {
-      throw new Error('Wallet not connected');
-    }
-    
-    console.log('Executing swap', { fromToken, toToken, amount, slippage, deadline });
-    console.log('Using wallet provider:', wallet.provider);
-    console.log('Wallet public key:', wallet.publicKey);
-    
-    if (isMockImplementation) {
-      return await executeMockSwap();
-    }
-    
-    // TODO: Implement real DEX swap logic here
-    return await executeMockSwap();
-  } catch (error: any) {
-    console.error('Error executing swap:', error);
-    return {
-      success: false,
-      error: error.message || 'Error executing swap',
-    };
-  }
-};
-
-export const getTokenBalance = async (
-  walletProvider: any,
-  tokenSymbol: string
-): Promise<{ amount: string; decimals: number }> => {
-  try {
-    if (!walletProvider || !walletProvider.isConnected) {
-      console.warn("Cannot get token balance: wallet not connected");
-      return { amount: '0', decimals: 9 };
-    }
-    
-    console.log(`Getting ${tokenSymbol} balance for wallet`);
-    
-    if (isMockImplementation) {
-      return await getMockTokenBalance(tokenSymbol);
-    }
-    
-    // TODO: Implement real token balance logic here
-    return await getMockTokenBalance(tokenSymbol);
-  } catch (error) {
-    console.error('Error getting token balance:', error);
-    return { amount: '0', decimals: 9 };
   }
 };
