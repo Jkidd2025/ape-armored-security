@@ -1,7 +1,8 @@
 
 import { supabase } from '@/integrations/supabase/client';
 
-const SOLANA_TRACKER_BASE_URL = 'https://api.solanatracker.io/v1';
+// Updated API base URL - We're using v1 but the correct endpoint might be different
+const SOLANA_TRACKER_BASE_URL = 'https://api.solanatracker.io/api/v1';
 
 export interface TokenInfo {
   symbol: string;
@@ -29,14 +30,20 @@ async function getApiKey() {
 export async function getTokenList(): Promise<TokenInfo[]> {
   try {
     const apiKey = await getApiKey();
-    const response = await fetch(`${SOLANA_TRACKER_BASE_URL}/token/list`, {
+    // Updating the endpoint to match the expected API structure
+    const response = await fetch(`${SOLANA_TRACKER_BASE_URL}/tokens`, {
       headers: { 'Authorization': `Bearer ${apiKey}` }
     });
+    
     if (!response.ok) {
-      throw new Error('Failed to fetch token list');
+      console.error('API response error:', response.status, await response.text());
+      throw new Error(`Failed to fetch token list: ${response.status}`);
     }
+    
     const data = await response.json();
-    return data.tokens;
+    // Adjust parsing based on the actual API response structure
+    const tokens = data.tokens || data || [];
+    return tokens;
   } catch (error) {
     console.error('Error fetching token list:', error);
     throw error;
@@ -46,12 +53,16 @@ export async function getTokenList(): Promise<TokenInfo[]> {
 export async function getTokenPrice(mintAddress: string): Promise<TokenPrice> {
   try {
     const apiKey = await getApiKey();
-    const response = await fetch(`${SOLANA_TRACKER_BASE_URL}/token/${mintAddress}/price`, {
+    // Updating the endpoint to match the expected API structure
+    const response = await fetch(`${SOLANA_TRACKER_BASE_URL}/tokens/${mintAddress}/price`, {
       headers: { 'Authorization': `Bearer ${apiKey}` }
     });
+    
     if (!response.ok) {
-      throw new Error('Failed to fetch token price');
+      console.error('API response error:', response.status, await response.text());
+      throw new Error(`Failed to fetch token price: ${response.status}`);
     }
+    
     const data = await response.json();
     return {
       price: data.price,
@@ -67,12 +78,16 @@ export async function getTokenPrice(mintAddress: string): Promise<TokenPrice> {
 export async function getTokenMetadata(mintAddress: string): Promise<TokenInfo> {
   try {
     const apiKey = await getApiKey();
-    const response = await fetch(`${SOLANA_TRACKER_BASE_URL}/token/${mintAddress}`, {
+    // Updating the endpoint to match the expected API structure
+    const response = await fetch(`${SOLANA_TRACKER_BASE_URL}/tokens/${mintAddress}`, {
       headers: { 'Authorization': `Bearer ${apiKey}` }
     });
+    
     if (!response.ok) {
-      throw new Error('Failed to fetch token metadata');
+      console.error('API response error:', response.status, await response.text());
+      throw new Error(`Failed to fetch token metadata: ${response.status}`);
     }
+    
     return await response.json();
   } catch (error) {
     console.error('Error fetching token metadata:', error);

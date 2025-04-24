@@ -25,25 +25,36 @@ export function useTokensWithPrices() {
   const tokensWithPrices = useQuery({
     queryKey: ['tokensWithPrices', tokens],
     queryFn: async () => {
-      if (!tokens) return [];
-      const tokensWithPrices = await Promise.all(
-        tokens.map(async (token) => {
-          try {
-            const price = await getTokenPrice(token.mintAddress);
-            return {
-              ...token,
-              price: price.price,
-              volume24h: price.volume24h,
-            };
-          } catch (error) {
-            console.error(`Error fetching price for ${token.symbol}:`, error);
-            return token;
-          }
-        })
-      );
-      return tokensWithPrices;
+      if (!tokens) {
+        console.log("No tokens available for price fetching");
+        return [];
+      }
+      
+      console.log(`Fetching prices for ${tokens.length} tokens`);
+      
+      try {
+        const tokensWithPrices = await Promise.all(
+          tokens.map(async (token) => {
+            try {
+              const price = await getTokenPrice(token.mintAddress);
+              return {
+                ...token,
+                price: price.price,
+                volume24h: price.volume24h,
+              };
+            } catch (error) {
+              console.error(`Error fetching price for ${token.symbol}:`, error);
+              return token;
+            }
+          })
+        );
+        return tokensWithPrices;
+      } catch (error) {
+        console.error("Error in bulk price fetching:", error);
+        return tokens;
+      }
     },
-    enabled: !!tokens,
+    enabled: !!tokens && tokens.length > 0,
     staleTime: 30000, // 30 seconds
   });
 

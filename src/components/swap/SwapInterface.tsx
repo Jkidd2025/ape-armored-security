@@ -1,4 +1,3 @@
-
 import { Card } from "@/components/ui/card";
 import { RefreshCcw, Settings } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -11,6 +10,7 @@ import { SwapActionButton } from "./SwapActionButton";
 import { TransactionInfo } from "./TransactionInfo";
 import { useSwap } from "@/hooks/useSwap";
 import { useState } from "react";
+import { useTokensWithPrices } from "@/hooks/useTokensWithPrices";
 
 const SwapInterface = () => {
   const [showSettings, setShowSettings] = useState(false);
@@ -34,7 +34,25 @@ const SwapInterface = () => {
     updateToAmount,
     refreshPrice,
     wallet,
-  } = useSwap(mockTokens[0], mockTokens[1]);
+  } = useSwap(
+    tokens && tokens.length > 0 ? tokens[0] : mockTokens[0], 
+    tokens && tokens.length > 1 ? tokens[1] : mockTokens[1]
+  );
+
+  if (isLoading) {
+    return (
+      <div className="max-w-md mx-auto">
+        <Card className="p-6 border border-apearmor-darkbronze bg-muted">
+          <div className="flex justify-center items-center h-60">
+            <div className="text-center">
+              <div className="animate-spin rounded-full h-10 w-10 border-t-2 border-apearmor-teal border-r-2 mb-4 mx-auto"></div>
+              <p>Loading swap interface...</p>
+            </div>
+          </div>
+        </Card>
+      </div>
+    );
+  }
 
   return (
     <div className="max-w-md mx-auto">
