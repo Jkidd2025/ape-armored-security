@@ -8,6 +8,10 @@ import { getNFTPosts } from "@/data/blog-posts/nfts";
 
 export const useBlogPosts = () => {
   const [allPosts, setAllPosts] = useState<BlogPost[]>([]);
+  const [filteredPosts, setFilteredPosts] = useState<BlogPost[]>([]);
+  const [searchQuery, setSearchQuery] = useState('');
+  const [selectedCategory, setSelectedCategory] = useState('All');
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     // Get posts from each category
@@ -60,7 +64,47 @@ export const useBlogPosts = () => {
       .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
 
     setAllPosts(posts);
+    setFilteredPosts(posts);
+    setIsLoading(false);
   }, []);
 
-  return allPosts;
+  // Filter posts when search query or category changes
+  useEffect(() => {
+    let result = [...allPosts];
+    
+    // Filter by search query
+    if (searchQuery) {
+      const query = searchQuery.toLowerCase();
+      result = result.filter(post =>
+        post.title.toLowerCase().includes(query) ||
+        post.excerpt.toLowerCase().includes(query)
+      );
+    }
+    
+    // Filter by category
+    if (selectedCategory !== 'All') {
+      result = result.filter(post => post.category === selectedCategory);
+    }
+    
+    setFilteredPosts(result);
+  }, [searchQuery, selectedCategory, allPosts]);
+
+  const clearSearch = () => {
+    setSearchQuery('');
+  };
+
+  const resetCategory = () => {
+    setSelectedCategory('All');
+  };
+
+  return {
+    posts: filteredPosts,
+    isLoading,
+    searchQuery,
+    setSearchQuery,
+    selectedCategory,
+    setSelectedCategory,
+    onClearSearch: clearSearch,
+    onResetCategory: resetCategory,
+  };
 };

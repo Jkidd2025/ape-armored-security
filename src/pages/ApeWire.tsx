@@ -1,5 +1,5 @@
 
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import BlogHeader from "@/components/blog/BlogHeader";
@@ -8,8 +8,26 @@ import SearchBar from "@/components/blog/SearchBar";
 import CategoryFilter from "@/components/blog/CategoryFilter";
 import { useBlogPosts } from "@/hooks/useBlogPosts";
 
+// Add type declaration for window.gtag
+declare global {
+  interface Window {
+    gtag: (command: string, action: string, params: object) => void;
+  }
+}
+
 const ApeWire = () => {
-  const { posts, isLoading, searchQuery, setSearchQuery, selectedCategory, setSelectedCategory } = useBlogPosts();
+  const { 
+    posts, 
+    isLoading, 
+    searchQuery, 
+    setSearchQuery, 
+    selectedCategory, 
+    setSelectedCategory,
+    onClearSearch,
+    onResetCategory
+  } = useBlogPosts();
+
+  const [isSearchFocused, setIsSearchFocused] = useState(false);
 
   useEffect(() => {
     // Add Google Tag conversion tracking for ApeWire page
@@ -26,18 +44,24 @@ const ApeWire = () => {
         
         <div className="container mx-auto px-4 py-8">
           <div className="flex flex-col md:flex-row justify-between gap-4 mb-8">
-            <SearchBar searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
+            <SearchBar 
+              searchQuery={searchQuery} 
+              setSearchQuery={setSearchQuery}
+              onClearSearch={onClearSearch}
+              setIsSearchFocused={setIsSearchFocused}
+            />
             <CategoryFilter 
               selectedCategory={selectedCategory} 
-              setSelectedCategory={setSelectedCategory} 
+              onCategorySelect={setSelectedCategory} 
             />
           </div>
           
           <BlogPostGrid 
-            posts={posts}
-            isLoading={isLoading}
+            filteredPosts={posts}
             searchQuery={searchQuery}
             selectedCategory={selectedCategory}
+            onClearSearch={onClearSearch}
+            onResetCategory={onResetCategory}
           />
         </div>
       </main>
