@@ -74,13 +74,15 @@ export function useTokensWithPrices() {
     enabled: !!(tokens && tokens.length > 0),
     staleTime: 30000, // 30 seconds
     retry: 2,
-    onError: (error) => {
-      console.error('Error fetching token prices:', error);
-      toast({
-        title: "Error loading token prices",
-        description: "Using cached data if available",
-        variant: "destructive",
-      });
+    meta: {
+      onError: (error: Error) => {
+        console.error('Error fetching token prices:', error);
+        toast({
+          title: "Error loading token prices",
+          description: "Using cached data if available",
+          variant: "destructive",
+        });
+      }
     }
   });
 
