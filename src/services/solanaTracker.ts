@@ -1,4 +1,6 @@
 
+import { supabase } from '@/integrations/supabase/client';
+
 const SOLANA_TRACKER_BASE_URL = 'https://api.solanatracker.io/v1';
 
 export interface TokenInfo {
@@ -9,7 +11,7 @@ export interface TokenInfo {
   logoURI?: string;
   price?: number;
   volume24h?: number;
-  balance?: number; // Added balance property to support both API and local usage
+  balance?: number;
 }
 
 export interface TokenPrice {
@@ -18,9 +20,18 @@ export interface TokenPrice {
   timestamp: number;
 }
 
+async function getApiKey() {
+  const { data, error } = await supabase.functions.invoke('get-solana-tracker-key');
+  if (error) throw new Error('Failed to retrieve API key');
+  return data;
+}
+
 export async function getTokenList(): Promise<TokenInfo[]> {
   try {
-    const response = await fetch(`${SOLANA_TRACKER_BASE_URL}/token/list`);
+    const apiKey = await getApiKey();
+    const response = await fetch(`${SOLANA_TRACKER_BASE_URL}/token/list`, {
+      headers: { 'Authorization': `Bearer ${apiKey}` }
+    });
     if (!response.ok) {
       throw new Error('Failed to fetch token list');
     }
@@ -34,7 +45,10 @@ export async function getTokenList(): Promise<TokenInfo[]> {
 
 export async function getTokenPrice(mintAddress: string): Promise<TokenPrice> {
   try {
-    const response = await fetch(`${SOLANA_TRACKER_BASE_URL}/token/${mintAddress}/price`);
+    const apiKey = await getApiKey();
+    const response = await fetch(`${SOLANA_TRACKER_BASE_URL}/token/${mintAddress}/price`, {
+      headers: { 'Authorization': `Bearer ${apiKey}` }
+    });
     if (!response.ok) {
       throw new Error('Failed to fetch token price');
     }
@@ -52,7 +66,10 @@ export async function getTokenPrice(mintAddress: string): Promise<TokenPrice> {
 
 export async function getTokenMetadata(mintAddress: string): Promise<TokenInfo> {
   try {
-    const response = await fetch(`${SOLANA_TRACKER_BASE_URL}/token/${mintAddress}`);
+    const apiKey = await getApiKey();
+    const response = await fetch(`${SOLANA_TRACKER_BASE_URL}/token/${mintAddress}`, {
+      headers: { 'Authorization': `Bearer ${apiKey}` }
+    });
     if (!response.ok) {
       throw new Error('Failed to fetch token metadata');
     }
