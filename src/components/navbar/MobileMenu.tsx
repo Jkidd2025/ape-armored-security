@@ -88,13 +88,6 @@ const MobileMenu = ({
         >
           Ape Wire
         </Link>
-        <Link 
-          to="/swap" 
-          className="text-sm font-medium py-2 px-4 hover:bg-muted rounded-md hover:text-apearmor-teal transition-colors"
-          onClick={() => setIsMenuOpen(false)}
-        >
-          Swap
-        </Link>
         <a 
           href="#contact" 
           className="text-sm font-medium py-2 px-4 hover:bg-muted rounded-md hover:text-apearmor-teal transition-colors"
@@ -135,3 +128,4 @@ const MobileMenu = ({
 };
 
 export default MobileMenu;
+

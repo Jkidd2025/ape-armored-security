@@ -31,12 +31,6 @@ const DesktopNav = ({ isDevEnvironment, handlePaymentClick }: DesktopNavProps) =
         >
           Ape Wire
         </Link>
-        <Link 
-          to="/swap" 
-          className="text-sm font-medium hover:text-apearmor-teal transition-colors"
-        >
-          Swap
-        </Link>
         <a href="#contact" className="text-sm font-medium hover:text-apearmor-teal transition-colors">Contact</a>
         <Link to="/presale-application" className="text-sm font-medium hover:text-apearmor-teal transition-colors">Presale</Link>
         
@@ -65,3 +59,4 @@ const DesktopNav = ({ isDevEnvironment, handlePaymentClick }: DesktopNavProps) =
 };
 
 export default DesktopNav;
+
