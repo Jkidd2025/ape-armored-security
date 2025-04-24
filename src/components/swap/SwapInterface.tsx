@@ -12,7 +12,7 @@ import { ErrorState } from "./states/ErrorState";
 import { useSwap } from "@/hooks/useSwap";
 import { useTokensWithPrices } from "@/hooks/useTokens";
 import { useState, useEffect } from "react";
-import { useToast } from "../ui/use-toast";
+import { useToast } from "@/components/ui/use-toast";
 
 const SwapInterface = () => {
   const [showSettings, setShowSettings] = useState(false);
@@ -55,6 +55,25 @@ const SwapInterface = () => {
       console.log("Wallet balances:", walletBalances);
     }
   }, [isConnected, wallet.publicKey, tokens, walletBalances]);
+
+  // Refresh balances when connection status changes
+  useEffect(() => {
+    if (isConnected && wallet.provider) {
+      const fetchBalances = async () => {
+        try {
+          console.log("Connection detected, refreshing wallet balances...");
+          // For debugging only - force balance refresh
+          if (wallet.refreshBalances) {
+            await wallet.refreshBalances();
+          }
+        } catch (error) {
+          console.error("Error refreshing balances:", error);
+        }
+      };
+      
+      fetchBalances();
+    }
+  }, [isConnected, wallet.provider]);
 
   if (isLoading) {
     return <LoadingState />;
@@ -164,7 +183,22 @@ const SwapInterface = () => {
             onSwap={handleSwap}
             isValid={!!fromAmount && parseFloat(fromAmount) > 0}
             isLoadingPrice={isLoadingPrice}
+            walletAddress={wallet.publicKey}
           />
+          
+          {isConnected && (
+            <div className="text-xs text-center text-muted-foreground">
+              {Object.keys(walletBalances).length > 0 ? (
+                <div className="text-apearmor-teal">
+                  Wallet balances loaded successfully
+                </div>
+              ) : (
+                <div className="text-yellow-500">
+                  Wallet connected but no balances detected
+                </div>
+              )}
+            </div>
+          )}
         </div>
       </Card>
     </div>

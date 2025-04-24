@@ -45,29 +45,43 @@ const WalletConnect = ({ onConnect }: WalletConnectProps) => {
       let walletProvider;
       if (walletName === "Phantom" && (window as any).phantom?.solana) {
         walletProvider = (window as any).phantom.solana;
+        
+        // Request permissions from the wallet
+        await walletProvider.connect({ onlyIfTrusted: false });
+        
+        // Make sure we have permission
+        if (!walletProvider.isConnected) {
+          throw new Error("Failed to connect to Phantom wallet");
+        }
       } else if (walletName === "Solflare" && (window as any).solflare) {
         walletProvider = (window as any).solflare;
+        
+        // Request permissions from the wallet
+        await walletProvider.connect();
+        
+        // Make sure we have permission
+        if (!walletProvider.isConnected) {
+          throw new Error("Failed to connect to Solflare wallet");
+        }
       } else {
         throw new Error(`${walletName} extension not found. Please install it first.`);
       }
       
-      // Connect to wallet
-      const resp = await walletProvider.connect();
-      console.log("Wallet connection response:", resp);
-      
-      if (resp && resp.publicKey) {
-        console.log("Connected wallet public key:", resp.publicKey.toString());
-        
-        toast({
-          title: "Wallet connected",
-          description: `Successfully connected to ${walletName} (${resp.publicKey.toString().slice(0, 4)}...${resp.publicKey.toString().slice(-4)})`,
-        });
-        
-        // Call the parent's onConnect to update state
-        onConnect();
-      } else {
-        throw new Error("Failed to retrieve wallet information");
+      // Verify public key is available
+      const publicKey = walletProvider.publicKey?.toString();
+      if (!publicKey) {
+        throw new Error("Failed to retrieve wallet public key");
       }
+      
+      console.log("Connected wallet public key:", publicKey);
+      
+      toast({
+        title: "Wallet connected",
+        description: `Successfully connected to ${walletName} (${publicKey.slice(0, 4)}...${publicKey.slice(-4)})`,
+      });
+      
+      // Call the parent's onConnect to update state
+      onConnect();
     } catch (error: any) {
       console.error("Wallet connection error:", error);
       toast({
