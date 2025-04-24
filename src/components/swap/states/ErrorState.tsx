@@ -19,9 +19,11 @@ export const ErrorState = ({
   error = null
 }: ErrorStateProps) => {
   const [isRetrying, setIsRetrying] = useState(false);
+  const [retryCount, setRetryCount] = useState(0);
 
   const handleRetry = async () => {
     setIsRetrying(true);
+    setRetryCount(prev => prev + 1);
     try {
       await onRetry();
     } finally {
@@ -37,6 +39,12 @@ export const ErrorState = ({
           <AlertTitle>{title}</AlertTitle>
           <AlertDescription>
             {description}
+            {retryCount > 2 && (
+              <div className="mt-2 text-sm">
+                After multiple retry attempts, we're using local token data. 
+                Swap functionality is still available with limited token selection.
+              </div>
+            )}
             {error && (
               <div className="mt-2 text-xs overflow-hidden text-ellipsis">
                 <details>
@@ -60,7 +68,7 @@ export const ErrorState = ({
               <span className="animate-spin rounded-full h-4 w-4 border-t-2 border-current border-r-2 mr-2"></span>
               Retrying...
             </span>
-          ) : "Retry"}
+          ) : retryCount > 0 ? `Retry Again (${retryCount})` : "Retry"}
         </Button>
       </Card>
     </div>

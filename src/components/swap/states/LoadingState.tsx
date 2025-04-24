@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 export const LoadingState = () => {
   const [message, setMessage] = useState("Connecting to Solana network...");
   const [dots, setDots] = useState("");
+  const [attemptCount, setAttemptCount] = useState(0);
   
   useEffect(() => {
     // Create animating dots to show progress
@@ -15,6 +16,14 @@ export const LoadingState = () => {
     // Change message after a few seconds if it's taking too long
     const messageTimeout = setTimeout(() => {
       setMessage("Loading token data");
+      
+      // After another delay, update the message if still loading
+      const secondTimeout = setTimeout(() => {
+        setAttemptCount(prev => prev + 1);
+        setMessage("Attempting to fetch token data");
+      }, 5000);
+      
+      return () => clearTimeout(secondTimeout);
     }, 3000);
     
     return () => {
@@ -31,7 +40,9 @@ export const LoadingState = () => {
             <div className="animate-spin rounded-full h-10 w-10 border-t-2 border-apearmor-teal border-r-2 mb-4 mx-auto"></div>
             <p>{message}{dots}</p>
             <p className="text-xs text-muted-foreground mt-2">
-              This may take a moment
+              {attemptCount > 0 ? 
+                `Attempt ${attemptCount} - This may take a moment or fallback data will be used` : 
+                "This may take a moment"}
             </p>
           </div>
         </div>

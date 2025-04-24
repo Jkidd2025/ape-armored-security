@@ -87,10 +87,10 @@ export async function getTokenList(): Promise<TokenInfo[]> {
     // Try to fetch from the API
     const apiKey = await getApiKey();
     
-    console.log('Fetching token list from API');
+    console.log('Fetching token list from: https://api.solanatracker.io/api/v1/tokens');
     
-    // Try using the solanatracker API
-    const response = await fetch(`https://api.solanatracker.io/v1/tokens`, {
+    // Updated endpoint based on the repository structure
+    const response = await fetch(`https://api.solanatracker.io/api/v1/tokens`, {
       headers: { 'Authorization': `Bearer ${apiKey}` }
     });
     
@@ -114,7 +114,8 @@ export async function getTokenPrice(mintAddress: string): Promise<TokenPrice> {
     // Try to fetch from the API
     const apiKey = await getApiKey();
     
-    const response = await fetch(`https://api.solanatracker.io/v1/tokens/${mintAddress}/price`, {
+    // Updated endpoint based on the repository structure
+    const response = await fetch(`https://api.solanatracker.io/api/v1/tokens/${mintAddress}/price`, {
       headers: { 'Authorization': `Bearer ${apiKey}` }
     });
     
@@ -158,7 +159,8 @@ export async function getTokenMetadata(mintAddress: string): Promise<TokenInfo> 
   try {
     const apiKey = await getApiKey();
     
-    const response = await fetch(`https://api.solanatracker.io/v1/tokens/${mintAddress}`, {
+    // Updated endpoint based on the repository structure
+    const response = await fetch(`https://api.solanatracker.io/api/v1/tokens/${mintAddress}`, {
       headers: { 'Authorization': `Bearer ${apiKey}` }
     });
     
