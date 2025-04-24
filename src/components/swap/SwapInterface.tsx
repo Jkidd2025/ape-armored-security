@@ -1,16 +1,17 @@
-
 import { useState, useEffect } from "react";
-import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import { ArrowDown, RefreshCcw, Settings } from "lucide-react";
-import { TokenSelector } from "./TokenSelector";
-import { SwapSettings } from "./SwapSettings";
+import { RefreshCcw, Settings } from "lucide-react";
+import { Button } from "@/components/ui/button";
 import { SwapInfo } from "./SwapInfo";
+import { SwapSettings } from "./SwapSettings";
 import { useToast } from "@/components/ui/use-toast";
-import WalletConnect from "./WalletConnect";
 import { mockTokens } from "./mockData";
 import { SwapState } from "@/types/swap";
 import { getSwapQuote, executeSwap } from "@/services/swapService";
+import { TokenInput } from "./TokenInput";
+import { SwapArrows } from "./SwapArrows";
+import { SwapActionButton } from "./SwapActionButton";
+import { TransactionInfo } from "./TransactionInfo";
 
 const SwapInterface = () => {
   const [fromToken, setFromToken] = useState(mockTokens[0]);
@@ -32,7 +33,6 @@ const SwapInterface = () => {
   
   const { toast } = useToast();
 
-  // Wallet simulation - in production this would be a real wallet adapter
   const wallet = {
     connected: isConnected,
     publicKey: isConnected ? "YourMockPublicKey123" : null,
@@ -42,7 +42,6 @@ const SwapInterface = () => {
     disconnect: async () => setIsConnected(false),
   };
 
-  // Swap the tokens positions
   const handleSwapTokens = () => {
     setFromToken(toToken);
     setToToken(fromToken);
@@ -50,7 +49,6 @@ const SwapInterface = () => {
     setToAmount(fromAmount);
   };
 
-  // Handle swap action
   const handleSwap = async () => {
     if (!isConnected) {
       toast({
@@ -78,7 +76,6 @@ const SwapInterface = () => {
         description: `Swapping ${fromAmount} ${fromToken.symbol} for ${toAmount} ${toToken.symbol}`,
       });
       
-      // Execute the swap
       const result = await executeSwap(
         wallet,
         fromToken.symbol,
@@ -125,7 +122,6 @@ const SwapInterface = () => {
     }
   };
 
-  // Update the receiving amount based on the input amount
   const updateToAmount = async (value: string) => {
     setFromAmount(value);
     
@@ -133,7 +129,6 @@ const SwapInterface = () => {
       setIsLoadingPrice(true);
       
       try {
-        // Get quote from the swap service
         const quote = await getSwapQuote(
           fromToken.symbol,
           toToken.symbol,
@@ -142,7 +137,6 @@ const SwapInterface = () => {
         );
         
         if (quote) {
-          // Convert from bigint to display amount
           const displayAmount = Number(quote.outAmount) / 1e9;
           setToAmount(displayAmount.toFixed(6));
         } else {
@@ -159,7 +153,6 @@ const SwapInterface = () => {
     }
   };
 
-  // Refresh the price quote
   const refreshPrice = () => {
     if (fromAmount) {
       updateToAmount(fromAmount);
@@ -170,7 +163,6 @@ const SwapInterface = () => {
     }
   };
 
-  // Update price when tokens change
   useEffect(() => {
     if (fromAmount) {
       updateToAmount(fromAmount);
@@ -214,79 +206,35 @@ const SwapInterface = () => {
         )}
 
         <div className="space-y-4">
-          {/* From token section */}
-          <div className="bg-background rounded-lg p-4 border border-apearmor-darkbronze">
-            <div className="flex justify-between mb-2">
-              <span className="text-sm text-muted-foreground">From</span>
-              <span className="text-sm text-muted-foreground">
-                Balance: {isConnected ? `${fromToken.balance} ${fromToken.symbol}` : "0"}
-              </span>
-            </div>
-            <div className="flex items-center gap-2">
-              <input
-                type="text"
-                value={fromAmount}
-                onChange={(e) => updateToAmount(e.target.value)}
-                placeholder="0.0"
-                className="bg-transparent text-2xl outline-none w-full"
-                disabled={swapState.swapping}
-              />
-              <TokenSelector 
-                selectedToken={fromToken}
-                onSelectToken={setFromToken}
-                otherToken={toToken}
-              />
-            </div>
-            <div className="flex justify-end mt-1">
-              <Button 
-                variant="ghost" 
-                className="text-xs text-apearmor-teal"
-                onClick={() => updateToAmount(fromToken.balance.toString())}
-                disabled={!isConnected || swapState.swapping}
-              >
-                Max
-              </Button>
-            </div>
-          </div>
+          <TokenInput
+            label="From"
+            amount={fromAmount}
+            onAmountChange={updateToAmount}
+            selectedToken={fromToken}
+            otherToken={toToken}
+            onSelectToken={setFromToken}
+            isConnected={isConnected}
+            showMaxButton
+            onMaxClick={() => updateToAmount(fromToken.balance.toString())}
+            disabled={swapState.swapping}
+          />
 
-          {/* Switch button */}
-          <div className="flex justify-center -my-2 z-10 relative">
-            <Button
-              variant="outline"
-              size="icon"
-              onClick={handleSwapTokens}
-              className="rounded-full h-8 w-8 border border-apearmor-darkbronze bg-muted hover:bg-apearmor-teal/10"
-              disabled={swapState.swapping}
-            >
-              <ArrowDown size={16} className="text-apearmor-teal" />
-            </Button>
-          </div>
+          <SwapArrows
+            onSwitch={handleSwapTokens}
+            disabled={swapState.swapping}
+          />
 
-          {/* To token section */}
-          <div className="bg-background rounded-lg p-4 border border-apearmor-darkbronze">
-            <div className="flex justify-between mb-2">
-              <span className="text-sm text-muted-foreground">To</span>
-              <span className="text-sm text-muted-foreground">
-                Balance: {isConnected ? `${toToken.balance} ${toToken.symbol}` : "0"}
-              </span>
-            </div>
-            <div className="flex items-center gap-2">
-              <input
-                type="text"
-                value={isLoadingPrice ? "Loading..." : toAmount}
-                readOnly
-                placeholder="0.0"
-                className="bg-transparent text-2xl outline-none w-full"
-              />
-              <TokenSelector 
-                selectedToken={toToken}
-                onSelectToken={setToToken}
-                otherToken={fromToken}
-              />
-            </div>
-          </div>
+          <TokenInput
+            label="To"
+            amount={toAmount}
+            selectedToken={toToken}
+            otherToken={fromToken}
+            onSelectToken={setToToken}
+            isConnected={isConnected}
+            isLoading={isLoadingPrice}
+            readOnly
+          />
 
-          {/* Swap info */}
           {fromAmount && toAmount && (
             <SwapInfo 
               fromToken={fromToken}
@@ -297,36 +245,16 @@ const SwapInterface = () => {
             />
           )}
 
-          {/* Transaction hash display */}
-          {swapState.txHash && (
-            <div className="p-2 bg-green-500/10 border border-green-500/30 rounded-md">
-              <p className="text-xs text-center break-all">
-                Transaction: {swapState.txHash}
-              </p>
-            </div>
-          )}
+          <TransactionInfo swapState={swapState} />
 
-          {/* Error message */}
-          {swapState.error && (
-            <div className="p-2 bg-red-500/10 border border-red-500/30 rounded-md">
-              <p className="text-xs text-center text-red-500">
-                {swapState.error}
-              </p>
-            </div>
-          )}
-
-          {/* Action button */}
-          {!isConnected ? (
-            <WalletConnect onConnect={() => setIsConnected(true)} />
-          ) : (
-            <Button 
-              className="w-full bg-apearmor-teal hover:bg-apearmor-teal/80 text-black font-semibold"
-              disabled={!fromAmount || parseFloat(fromAmount) <= 0 || isLoadingPrice || swapState.swapping}
-              onClick={handleSwap}
-            >
-              {swapState.swapping ? "Swapping..." : "Swap"}
-            </Button>
-          )}
+          <SwapActionButton
+            isConnected={isConnected}
+            swapState={swapState}
+            onConnect={() => setIsConnected(true)}
+            onSwap={handleSwap}
+            isValid={!!fromAmount && parseFloat(fromAmount) > 0}
+            isLoadingPrice={isLoadingPrice}
+          />
         </div>
       </Card>
     </div>
