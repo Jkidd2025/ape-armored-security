@@ -49,12 +49,11 @@ export async function getTokenList(): Promise<TokenInfo[]> {
     }
     
     const data = await response.json();
-    // Adjust parsing based on the actual API response structure
     const tokens = data.tokens || data || [];
     return tokens;
   } catch (error) {
     console.error('Error fetching token list:', error);
-    throw error; // Propagate the error to be handled by the caller
+    throw error;
   }
 }
 
@@ -79,7 +78,7 @@ export async function getTokenPrice(mintAddress: string): Promise<TokenPrice> {
     };
   } catch (error) {
     console.error('Error fetching token price:', error);
-    throw error; // Propagate the error to be handled by the caller
+    throw error;
   }
 }
 
@@ -99,6 +98,7 @@ export async function getTokenMetadata(mintAddress: string): Promise<TokenInfo> 
     return await response.json();
   } catch (error) {
     console.error('Error fetching token metadata:', error);
-    throw error; // Propagate the error to be handled by the caller
+    throw error;
   }
 }
+
