@@ -1,3 +1,4 @@
+
 import { Card } from "@/components/ui/card";
 import { RefreshCcw, Settings } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -10,10 +11,11 @@ import { SwapActionButton } from "./SwapActionButton";
 import { TransactionInfo } from "./TransactionInfo";
 import { useSwap } from "@/hooks/useSwap";
 import { useState } from "react";
-import { useTokensWithPrices } from "@/hooks/useTokensWithPrices";
+import { useTokensWithPrices } from "@/hooks/useTokens";
 
 const SwapInterface = () => {
   const [showSettings, setShowSettings] = useState(false);
+  const { tokens, isLoading } = useTokensWithPrices();
   
   const {
     fromToken,
