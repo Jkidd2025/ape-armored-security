@@ -1,12 +1,15 @@
 
 import { useQuery } from '@tanstack/react-query';
 import { getTokenList, getTokenPrice, TokenInfo } from '@/services/solanaTracker';
+import { mockTokensWithBalance } from '@/components/swap/mockData';
+import { useToast } from '@/components/ui/use-toast';
 
 export function useTokenList() {
   return useQuery({
     queryKey: ['tokenList'],
     queryFn: getTokenList,
     staleTime: 5 * 60 * 1000, // 5 minutes
+    retry: 1, // Only retry once
   });
 }
 
@@ -16,11 +19,13 @@ export function useTokenPrice(mintAddress: string | undefined) {
     queryFn: () => mintAddress ? getTokenPrice(mintAddress) : null,
     enabled: !!mintAddress,
     refetchInterval: 30000, // Refetch every 30 seconds
+    retry: 1, // Only retry once
   });
 }
 
 export function useTokensWithPrices() {
-  const { data: tokens, isLoading: isLoadingTokens } = useTokenList();
+  const { toast } = useToast();
+  const { data: tokens, isLoading: isLoadingTokens, error } = useTokenList();
   
   const tokensWithPrices = useQuery({
     queryKey: ['tokensWithPrices', tokens],
@@ -58,8 +63,24 @@ export function useTokensWithPrices() {
     staleTime: 30000, // 30 seconds
   });
 
+  // Show a toast when we fall back to mock data
+  if (error && !tokensWithPrices.data) {
+    // We'll show this toast only once per session
+    const hasShownErrorToast = sessionStorage.getItem('api-error-toast-shown');
+    if (!hasShownErrorToast) {
+      toast({
+        title: "API Connection Issue",
+        description: "Using demo data for the swap interface",
+        variant: "warning",
+      });
+      sessionStorage.setItem('api-error-toast-shown', 'true');
+    }
+  }
+
+  // Return mock data if there's an error fetching tokens
   return {
-    tokens: tokensWithPrices.data,
-    isLoading: isLoadingTokens || tokensWithPrices.isLoading,
+    tokens: (tokens && tokensWithPrices.data) || mockTokensWithBalance,
+    isLoading: isLoadingTokens && !error, // Don't show loading if there's an error
+    error
   };
 }

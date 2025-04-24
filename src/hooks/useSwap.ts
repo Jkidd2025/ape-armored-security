@@ -4,10 +4,12 @@ import { useToast } from "@/components/ui/use-toast";
 import { TokenInfo } from "@/services/solanaTracker";
 import { SwapState } from "@/types/swap";
 import { getSwapQuote, executeSwap } from "@/services/swapService";
+import { mockTokens } from "@/components/swap/mockData";
 
-export const useSwap = (initialFromToken: TokenInfo, initialToToken: TokenInfo) => {
-  const [fromToken, setFromToken] = useState(initialFromToken);
-  const [toToken, setToToken] = useState(initialToToken);
+export const useSwap = (initialFromToken: TokenInfo | null, initialToToken: TokenInfo | null) => {
+  // Use mock tokens as fallback if no tokens are provided
+  const [fromToken, setFromToken] = useState<TokenInfo>(initialFromToken || mockTokens[0]);
+  const [toToken, setToToken] = useState<TokenInfo>(initialToToken || mockTokens[1]);
   const [fromAmount, setFromAmount] = useState("");
   const [toAmount, setToAmount] = useState("");
   const [isConnected, setIsConnected] = useState(false);
@@ -22,6 +24,15 @@ export const useSwap = (initialFromToken: TokenInfo, initialToToken: TokenInfo) 
     txHash: null,
   });
 
+  // Update tokens if they change (and aren't null)
+  useEffect(() => {
+    if (initialFromToken) setFromToken(initialFromToken);
+  }, [initialFromToken]);
+
+  useEffect(() => {
+    if (initialToToken) setToToken(initialToToken);
+  }, [initialToToken]);
+
   const { toast } = useToast();
 
   const wallet = {
@@ -34,8 +45,9 @@ export const useSwap = (initialFromToken: TokenInfo, initialToToken: TokenInfo) 
   };
 
   const handleSwapTokens = () => {
+    const tempFromToken = fromToken;
     setFromToken(toToken);
-    setToToken(fromToken);
+    setToToken(tempFromToken);
     setFromAmount(toAmount);
     setToAmount(fromAmount);
   };

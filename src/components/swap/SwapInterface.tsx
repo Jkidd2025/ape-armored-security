@@ -4,7 +4,6 @@ import { RefreshCcw, Settings } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { SwapInfo } from "./SwapInfo";
 import { SwapSettings } from "./SwapSettings";
-import { mockTokens } from "./mockData";
 import { TokenInput } from "./TokenInput";
 import { SwapArrows } from "./SwapArrows";
 import { SwapActionButton } from "./SwapActionButton";
@@ -15,7 +14,7 @@ import { useTokensWithPrices } from "@/hooks/useTokens";
 
 const SwapInterface = () => {
   const [showSettings, setShowSettings] = useState(false);
-  const { tokens, isLoading } = useTokensWithPrices();
+  const { tokens, isLoading, error } = useTokensWithPrices();
   
   const {
     fromToken,
@@ -37,8 +36,8 @@ const SwapInterface = () => {
     refreshPrice,
     wallet,
   } = useSwap(
-    tokens && tokens.length > 0 ? tokens[0] : mockTokens[0], 
-    tokens && tokens.length > 1 ? tokens[1] : mockTokens[1]
+    tokens && tokens.length > 0 ? tokens[0] : null, 
+    tokens && tokens.length > 1 ? tokens[1] : null
   );
 
   if (isLoading) {
@@ -102,7 +101,7 @@ const SwapInterface = () => {
             onSelectToken={setFromToken}
             isConnected={isConnected}
             showMaxButton
-            onMaxClick={() => fromToken.balance && updateToAmount(fromToken.balance.toString())}
+            onMaxClick={() => fromToken?.balance && updateToAmount(fromToken.balance.toString())}
             disabled={swapState.swapping}
           />
 
@@ -122,7 +121,7 @@ const SwapInterface = () => {
             readOnly
           />
 
-          {fromAmount && toAmount && (
+          {fromAmount && toAmount && fromToken && toToken && (
             <SwapInfo 
               fromToken={fromToken}
               toToken={toToken}
