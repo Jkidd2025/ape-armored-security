@@ -115,6 +115,8 @@ export const executeSwap = async (
     }
     
     console.log('Executing swap', { fromToken, toToken, amount, slippage, deadline });
+    console.log('Using wallet provider:', wallet.provider);
+    console.log('Wallet public key:', wallet.publicKey);
     
     // In production, this would:
     // 1. Get a swap route from a DEX
@@ -142,17 +144,35 @@ export const executeSwap = async (
 
 /**
  * Get token balance for a user's wallet
+ * This function now uses the wallet provider directly rather than just the public key
  */
 export const getTokenBalance = async (
-  wallet: any,
-  tokenMint: string
+  walletProvider: any,
+  tokenSymbol: string
 ): Promise<{ amount: string; decimals: number }> => {
   try {
-    if (!wallet.connected) {
+    if (!walletProvider || !walletProvider.isConnected) {
+      console.warn("Cannot get token balance: wallet not connected");
       return { amount: '0', decimals: 9 };
     }
     
+    console.log(`Getting ${tokenSymbol} balance for wallet`);
+    
+    // For Phantom wallet (in production this would use proper Solana balance fetching)
+    if (walletProvider === (window as any).phantom?.solana) {
+      console.log("Using Phantom wallet provider to fetch balances");
+    }
+    
+    // For Solflare wallet
+    if (walletProvider === (window as any).solflare) {
+      console.log("Using Solflare wallet provider to fetch balances");
+    }
+    
     // In production, this would query token account data from Solana
+    // using something like:
+    // 1. Get token mint address
+    // 2. Find associated token account for the wallet
+    // 3. Query token account data
     
     // Mock balances for demonstration
     const mockBalances: Record<string, { amount: string; decimals: number }> = {
@@ -162,8 +182,9 @@ export const getTokenBalance = async (
       'BONK': { amount: '1000000', decimals: 5 },
     };
     
-    const tokenSymbol = tokenMint.toUpperCase();
-    return mockBalances[tokenSymbol] || { amount: '0', decimals: 9 };
+    const balance = mockBalances[tokenSymbol.toUpperCase()] || { amount: '0', decimals: 9 };
+    console.log(`${tokenSymbol} balance:`, balance);
+    return balance;
   } catch (error) {
     console.error('Error getting token balance:', error);
     return { amount: '0', decimals: 9 };

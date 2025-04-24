@@ -1,13 +1,12 @@
-
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { useToast } from "@/components/ui/use-toast";
 import { TokenInfo } from "@/services/solanaTracker";
 import { SwapState } from "@/types/swap";
-import { getSwapQuote, executeSwap } from "@/services/swapService";
+import { getSwapQuote, executeSwap, getTokenBalance } from "@/services/swapService";
 import { mockTokens } from "@/components/swap/mockData";
 
 export const useSwap = (initialFromToken: TokenInfo | null, initialToToken: TokenInfo | null) => {
-  // Use mock tokens as fallback if no tokens are provided
+  // State
   const [fromToken, setFromToken] = useState<TokenInfo>(initialFromToken || mockTokens[0]);
   const [toToken, setToToken] = useState<TokenInfo>(initialToToken || mockTokens[1]);
   const [fromAmount, setFromAmount] = useState("");
@@ -18,6 +17,7 @@ export const useSwap = (initialFromToken: TokenInfo | null, initialToToken: Toke
   const [deadline, setDeadline] = useState("30");
   const [isLoadingPrice, setIsLoadingPrice] = useState(false);
   const [walletPublicKey, setWalletPublicKey] = useState<string | null>(null);
+  const [currentProvider, setCurrentProvider] = useState<any>(null);
   const [swapState, setSwapState] = useState<SwapState>({
     loading: false,
     approving: false,
@@ -25,8 +25,10 @@ export const useSwap = (initialFromToken: TokenInfo | null, initialToToken: Toke
     error: null,
     txHash: null,
   });
+  const [tokensLoaded, setTokensLoaded] = useState(false);
+  const [walletBalances, setWalletBalances] = useState<Record<string, number>>({});
 
-  // Update tokens if they change (and aren't null)
+  // Update tokens if they change
   useEffect(() => {
     if (initialFromToken) setFromToken(initialFromToken);
   }, [initialFromToken]);
@@ -41,19 +43,59 @@ export const useSwap = (initialFromToken: TokenInfo | null, initialToToken: Toke
   useEffect(() => {
     const checkWalletConnection = async () => {
       try {
+        console.log("Checking for existing wallet connections...");
+        
         // Check for Phantom
         const phantomWallet = (window as any).phantom?.solana;
         // Check for Solflare
         const solflareWallet = (window as any).solflare;
         
-        if (phantomWallet && phantomWallet.isConnected) {
-          setIsConnected(true);
-          const publicKey = await phantomWallet.publicKey?.toString();
-          setWalletPublicKey(publicKey);
-        } else if (solflareWallet && solflareWallet.isConnected) {
-          setIsConnected(true);
-          const publicKey = await solflareWallet.publicKey?.toString();
-          setWalletPublicKey(publicKey);
+        if (phantomWallet) {
+          if (phantomWallet.isConnected) {
+            console.log("Found connected Phantom wallet");
+            setIsConnected(true);
+            setCurrentProvider(phantomWallet);
+            
+            try {
+              // Safely get publicKey if available
+              const publicKey = phantomWallet.publicKey?.toString();
+              if (publicKey) {
+                setWalletPublicKey(publicKey);
+                console.log("Phantom wallet public key:", publicKey);
+                fetchWalletBalances(phantomWallet);
+              } else {
+                console.warn("Phantom wallet is connected but no public key available");
+              }
+            } catch (err) {
+              console.error("Error accessing Phantom wallet public key:", err);
+            }
+          } else {
+            console.log("Phantom wallet found but not connected");
+          }
+        }
+        
+        if (solflareWallet) {
+          try {
+            if (solflareWallet.isConnected) {
+              console.log("Found connected Solflare wallet");
+              setIsConnected(true);
+              setCurrentProvider(solflareWallet);
+              
+              // Safely get publicKey if available
+              const publicKey = solflareWallet.publicKey?.toString();
+              if (publicKey) {
+                setWalletPublicKey(publicKey);
+                console.log("Solflare wallet public key:", publicKey);
+                fetchWalletBalances(solflareWallet);
+              } else {
+                console.warn("Solflare wallet is connected but no public key available");
+              }
+            } else {
+              console.log("Solflare wallet found but not connected");
+            }
+          } catch (err) {
+            console.error("Error checking Solflare wallet connection:", err);
+          }
         }
       } catch (error) {
         console.error("Error checking wallet connection:", error);
@@ -62,27 +104,71 @@ export const useSwap = (initialFromToken: TokenInfo | null, initialToToken: Toke
     
     checkWalletConnection();
   }, []);
+  
+  // Fetch wallet balances when connected
+  const fetchWalletBalances = useCallback(async (provider: any) => {
+    if (!provider || !isConnected) return;
+    
+    console.log("Fetching wallet balances...");
+    
+    try {
+      const balances: Record<string, number> = {};
+      
+      // Fetch SOL balance
+      const solBalance = await getTokenBalance(provider, "SOL");
+      balances["SOL"] = parseFloat(solBalance.amount);
+      
+      // Fetch USDC balance
+      const usdcBalance = await getTokenBalance(provider, "USDC");
+      balances["USDC"] = parseFloat(usdcBalance.amount);
+      
+      // Fetch other balances as needed
+      const bonkBalance = await getTokenBalance(provider, "BONK");
+      balances["BONK"] = parseFloat(bonkBalance.amount);
+      
+      console.log("Wallet balances:", balances);
+      setWalletBalances(balances);
+      
+      // Update token objects with balances
+      if (fromToken) {
+        setFromToken({
+          ...fromToken, 
+          balance: balances[fromToken.symbol] || 0
+        });
+      }
+      
+      if (toToken) {
+        setToToken({
+          ...toToken, 
+          balance: balances[toToken.symbol] || 0
+        });
+      }
+      
+      setTokensLoaded(true);
+    } catch (error) {
+      console.error("Error fetching wallet balances:", error);
+      toast({
+        title: "Error loading balances",
+        description: "Unable to retrieve your wallet balances",
+        variant: "destructive"
+      });
+    }
+  }, [fromToken, isConnected, toToken, toast]);
+
+  // Effect to update token balances when connection state or tokens change
+  useEffect(() => {
+    if (isConnected && currentProvider) {
+      fetchWalletBalances(currentProvider);
+    }
+  }, [isConnected, currentProvider, fetchWalletBalances]);
 
   const connectWallet = async () => {
     setIsConnecting(true);
     
     try {
-      // For real connection with browser extension, this doesn't need to do anything
-      // as the actual connection is handled in WalletConnect component
+      // This function is now handled by the WalletConnect component
+      // which will call back to us when successful
       setIsConnected(true);
-      
-      // Get the current wallet's public key
-      let publicKey = null;
-      const phantomWallet = (window as any).phantom?.solana;
-      const solflareWallet = (window as any).solflare;
-      
-      if (phantomWallet && phantomWallet.isConnected) {
-        publicKey = phantomWallet.publicKey?.toString();
-      } else if (solflareWallet && solflareWallet.isConnected) {
-        publicKey = solflareWallet.publicKey?.toString();
-      }
-      
-      setWalletPublicKey(publicKey);
       
       toast({
         title: "Wallet connected",
@@ -117,6 +203,23 @@ export const useSwap = (initialFromToken: TokenInfo | null, initialToToken: Toke
       
       setIsConnected(false);
       setWalletPublicKey(null);
+      setCurrentProvider(null);
+      setWalletBalances({});
+      
+      // Reset token balances
+      if (fromToken) {
+        setFromToken({
+          ...fromToken, 
+          balance: 0
+        });
+      }
+      
+      if (toToken) {
+        setToToken({
+          ...toToken, 
+          balance: 0
+        });
+      }
       
       toast({
         title: "Wallet disconnected",
@@ -137,34 +240,18 @@ export const useSwap = (initialFromToken: TokenInfo | null, initialToToken: Toke
     connecting: isConnecting,
     publicKey: walletPublicKey,
     signTransaction: async (tx: any) => {
-      // In a real implementation, this would use the actual wallet adapter
       try {
-        const phantomWallet = (window as any).phantom?.solana;
-        const solflareWallet = (window as any).solflare;
-        
-        if (phantomWallet && phantomWallet.isConnected) {
-          return await phantomWallet.signTransaction(tx);
-        } else if (solflareWallet && solflareWallet.isConnected) {
-          return await solflareWallet.signTransaction(tx);
-        }
-        throw new Error("No connected wallet available");
+        if (!currentProvider) throw new Error("No connected wallet provider");
+        return await currentProvider.signTransaction(tx);
       } catch (error) {
         console.error("Error signing transaction:", error);
         throw error;
       }
     },
     signAllTransactions: async (txs: any[]) => {
-      // In a real implementation, this would use the actual wallet adapter
       try {
-        const phantomWallet = (window as any).phantom?.solana;
-        const solflareWallet = (window as any).solflare;
-        
-        if (phantomWallet && phantomWallet.isConnected) {
-          return await phantomWallet.signAllTransactions(txs);
-        } else if (solflareWallet && solflareWallet.isConnected) {
-          return await solflareWallet.signAllTransactions(txs);
-        }
-        throw new Error("No connected wallet available");
+        if (!currentProvider) throw new Error("No connected wallet provider");
+        return await currentProvider.signAllTransactions(txs);
       } catch (error) {
         console.error("Error signing transactions:", error);
         throw error;
@@ -172,7 +259,34 @@ export const useSwap = (initialFromToken: TokenInfo | null, initialToToken: Toke
     },
     connect: connectWallet,
     disconnect: disconnectWallet,
+    provider: currentProvider,
   };
+
+  // Update both token objects when balance changes
+  useEffect(() => {
+    if (isConnected && walletBalances) {
+      if (fromToken) {
+        setFromToken({
+          ...fromToken,
+          balance: walletBalances[fromToken.symbol] || 0
+        });
+      }
+      
+      if (toToken) {
+        setToToken({
+          ...toToken,
+          balance: walletBalances[toToken.symbol] || 0
+        });
+      }
+    }
+  }, [isConnected, walletBalances, fromToken?.symbol, toToken?.symbol]);
+
+  // Update token prices when tokens change
+  useEffect(() => {
+    if (fromAmount) {
+      updateToAmount(fromAmount);
+    }
+  }, [fromToken, toToken]);
 
   const handleSwapTokens = () => {
     const tempFromToken = fromToken;
@@ -228,6 +342,9 @@ export const useSwap = (initialFromToken: TokenInfo | null, initialToToken: Toke
           swapping: false,
           txHash: result.txHash || null,
         });
+        
+        // Refresh balances after successful swap
+        fetchWalletBalances(currentProvider);
       } else {
         toast({
           title: "Swap failed",
@@ -296,12 +413,6 @@ export const useSwap = (initialFromToken: TokenInfo | null, initialToToken: Toke
     }
   };
 
-  useEffect(() => {
-    if (fromAmount) {
-      updateToAmount(fromAmount);
-    }
-  }, [fromToken, toToken]);
-
   return {
     fromToken,
     toToken,
@@ -322,5 +433,7 @@ export const useSwap = (initialFromToken: TokenInfo | null, initialToToken: Toke
     updateToAmount,
     refreshPrice,
     wallet,
+    tokensLoaded,
+    walletBalances
   };
 };

@@ -11,8 +11,7 @@ import { LoadingState } from "./states/LoadingState";
 import { ErrorState } from "./states/ErrorState";
 import { useSwap } from "@/hooks/useSwap";
 import { useTokensWithPrices } from "@/hooks/useTokens";
-import { useState } from "react";
-import { Button } from "../ui/button";
+import { useState, useEffect } from "react";
 import { useToast } from "../ui/use-toast";
 
 const SwapInterface = () => {
@@ -40,10 +39,22 @@ const SwapInterface = () => {
     updateToAmount,
     refreshPrice,
     wallet,
+    tokensLoaded,
+    walletBalances
   } = useSwap(
     tokens && tokens.length > 0 ? tokens[0] : null, 
     tokens && tokens.length > 1 ? tokens[1] : null
   );
+
+  // Log important state for debugging
+  useEffect(() => {
+    console.log("Wallet connection status:", isConnected);
+    console.log("Wallet public key:", wallet.publicKey);
+    if (isConnected) {
+      console.log("Available tokens:", tokens);
+      console.log("Wallet balances:", walletBalances);
+    }
+  }, [isConnected, wallet.publicKey, tokens, walletBalances]);
 
   if (isLoading) {
     return <LoadingState />;
@@ -64,11 +75,21 @@ const SwapInterface = () => {
   }
 
   const handleConnectClick = async () => {
-    await wallet.connect();
+    try {
+      console.log("Connecting wallet from SwapInterface...");
+      await wallet.connect();
+    } catch (error) {
+      console.error("Error connecting wallet from interface:", error);
+    }
   };
 
   const handleDisconnectClick = async () => {
-    await wallet.disconnect();
+    try {
+      console.log("Disconnecting wallet from SwapInterface...");
+      await wallet.disconnect();
+    } catch (error) {
+      console.error("Error disconnecting wallet from interface:", error);
+    }
   };
 
   return (

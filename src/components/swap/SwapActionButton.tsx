@@ -3,12 +3,13 @@ import { Button } from "@/components/ui/button";
 import WalletConnect from "./WalletConnect";
 import { SwapState } from "@/types/swap";
 import { useState } from "react";
+import { Loader2 } from "lucide-react";
 
 interface SwapActionButtonProps {
   isConnected: boolean;
   swapState: SwapState;
   onConnect: () => void;
-  onDisconnect: () => void; // Add disconnect handler
+  onDisconnect: () => void;
   onSwap: () => void;
   isValid: boolean;
   isLoadingPrice: boolean;
@@ -18,7 +19,7 @@ export const SwapActionButton = ({
   isConnected,
   swapState,
   onConnect,
-  onDisconnect, // Add disconnect handler
+  onDisconnect,
   onSwap,
   isValid,
   isLoadingPrice,
@@ -28,9 +29,21 @@ export const SwapActionButton = ({
   const handleConnect = async () => {
     setIsAttemptingConnect(true);
     try {
+      console.log("SwapActionButton: Initiating wallet connect");
       await onConnect();
+    } catch (error) {
+      console.error("Error in handleConnect:", error);
     } finally {
       setIsAttemptingConnect(false);
+    }
+  };
+
+  const handleDisconnect = async () => {
+    try {
+      console.log("SwapActionButton: Initiating wallet disconnect");
+      await onDisconnect();
+    } catch (error) {
+      console.error("Error in handleDisconnect:", error);
     }
   };
 
@@ -54,6 +67,7 @@ export const SwapActionButton = ({
         disabled={!isValid || isLoadingPrice || swapState.swapping}
         onClick={onSwap}
       >
+        {swapState.swapping && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
         {buttonText}
       </Button>
       
@@ -61,7 +75,7 @@ export const SwapActionButton = ({
         variant="outline" 
         size="sm" 
         className="w-full text-sm border-apearmor-darkbronze hover:bg-apearmor-darkbronze/20"
-        onClick={onDisconnect}
+        onClick={handleDisconnect}
       >
         Disconnect Wallet
       </Button>
