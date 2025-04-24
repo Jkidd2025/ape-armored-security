@@ -18,6 +18,7 @@ import ApeWire from "./pages/ApeWire";
 import BlogPost from "./pages/BlogPost";
 import NotFound from "./pages/NotFound";
 import CookieConsent from "./components/CookieConsent";
+import Swap from "./pages/Swap";  // Import the Swap page
 
 const queryClient = new QueryClient();
 
@@ -33,6 +34,7 @@ const App = () => (
           <Route path="/payment" element={<Payment />} />
           <Route path="/payment-confirmation" element={<PaymentConfirmation />} />
           <Route path="/terms-of-service" element={<TermsOfService />} />
+          <Route path="/swap" element={<Swap />} />  {/* Add Swap route */}
           
           <Route path="/whitepaper" element={<Whitepaper />} />
           <Route path="/whitepaper/" element={<Whitepaper />} />
@@ -65,4 +67,3 @@ const App = () => (
 );
 
 export default App;
-
