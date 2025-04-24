@@ -8,7 +8,7 @@ export const LoadingState = () => {
         <div className="flex justify-center items-center h-60">
           <div className="text-center">
             <div className="animate-spin rounded-full h-10 w-10 border-t-2 border-apearmor-teal border-r-2 mb-4 mx-auto"></div>
-            <p>Loading swap interface...</p>
+            <p>Connecting to Solana network...</p>
           </div>
         </div>
       </Card>

@@ -1,12 +1,14 @@
 
-import { RefreshCcw, Settings } from "lucide-react";
+import { RefreshCcw, Settings, AlertTriangle } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 
 interface SwapHeaderProps {
   onRefresh: () => void;
   onSettingsClick: () => void;
   isLoadingPrice: boolean;
   fromAmount?: string;
+  hasError?: boolean;
 }
 
 export const SwapHeader = ({
@@ -14,10 +16,25 @@ export const SwapHeader = ({
   onSettingsClick,
   isLoadingPrice,
   fromAmount,
+  hasError = false,
 }: SwapHeaderProps) => {
   return (
     <div className="flex justify-between items-center mb-4">
-      <h2 className="text-lg font-medium">Swap</h2>
+      <div className="flex items-center">
+        <h2 className="text-lg font-medium">Swap</h2>
+        {hasError && (
+          <TooltipProvider>
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <AlertTriangle size={16} className="text-destructive ml-2" />
+              </TooltipTrigger>
+              <TooltipContent>
+                <p>Network connectivity issues detected</p>
+              </TooltipContent>
+            </Tooltip>
+          </TooltipProvider>
+        )}
+      </div>
       <div className="flex space-x-2">
         <Button
           variant="ghost"
