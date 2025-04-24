@@ -9,12 +9,14 @@ interface ErrorStateProps {
   onRetry: () => void;
   title?: string;
   description?: string;
+  error?: Error | null;
 }
 
 export const ErrorState = ({ 
   onRetry, 
   title = "Service Temporarily Unavailable",
-  description = "We're experiencing technical difficulties connecting to the Solana network. Please try again later or contact support if the issue persists."
+  description = "We're experiencing technical difficulties connecting to the token data. We're using fallback data to ensure functionality.",
+  error = null
 }: ErrorStateProps) => {
   const [isRetrying, setIsRetrying] = useState(false);
 
@@ -33,7 +35,19 @@ export const ErrorState = ({
         <Alert variant="destructive" className="mb-4">
           <AlertTriangle className="h-4 w-4" />
           <AlertTitle>{title}</AlertTitle>
-          <AlertDescription>{description}</AlertDescription>
+          <AlertDescription>
+            {description}
+            {error && (
+              <div className="mt-2 text-xs overflow-hidden text-ellipsis">
+                <details>
+                  <summary>Technical details</summary>
+                  <code className="block mt-1 p-2 bg-black/10 rounded overflow-auto max-h-24">
+                    {error.message}
+                  </code>
+                </details>
+              </div>
+            )}
+          </AlertDescription>
         </Alert>
         <Button 
           className="w-full mt-4" 

@@ -36,30 +36,57 @@ export function useTokensWithPrices() {
       
       console.log(`Fetching prices for ${tokens.length} tokens`);
       
-      return Promise.all(
-        tokens.map(async (token) => {
-          try {
-            const price = await getTokenPrice(token.mintAddress);
-            return {
-              ...token,
-              price: price.price,
-              volume24h: price.volume24h,
-            };
-          } catch (error) {
-            console.error(`Error fetching price for ${token.symbol}:`, error);
-            throw error;
+      // Process tokens in batches to avoid too many concurrent requests
+      const batchSize = 5;
+      const result: (TokenInfo & { price?: number, volume24h?: number })[] = [];
+      
+      for (let i = 0; i < tokens.length; i += batchSize) {
+        const batch = tokens.slice(i, i + batchSize);
+        const batchResults = await Promise.allSettled(
+          batch.map(async (token) => {
+            try {
+              const price = await getTokenPrice(token.mintAddress);
+              return {
+                ...token,
+                price: price.price,
+                volume24h: price.volume24h,
+              };
+            } catch (error) {
+              console.warn(`Error fetching price for ${token.symbol}:`, error);
+              return {
+                ...token,
+                price: 0,
+                volume24h: 0,
+              };
+            }
+          })
+        );
+        
+        batchResults.forEach((res) => {
+          if (res.status === 'fulfilled') {
+            result.push(res.value);
           }
-        })
-      );
+        });
+      }
+      
+      return result;
     },
     enabled: !!(tokens && tokens.length > 0),
     staleTime: 30000, // 30 seconds
     retry: 2,
+    onError: (error) => {
+      console.error('Error fetching token prices:', error);
+      toast({
+        title: "Error loading token prices",
+        description: "Using cached data if available",
+        variant: "destructive",
+      });
+    }
   });
 
   return {
-    tokens: tokensWithPrices.data,
-    isLoading: isLoadingTokens || tokensWithPrices.isLoading,
+    tokens: tokensWithPrices.data || tokens || [],
+    isLoading: isLoadingTokens && tokensWithPrices.isLoading,
     error: error || tokensWithPrices.error,
     refetch,
   };
