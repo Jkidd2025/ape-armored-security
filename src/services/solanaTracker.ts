@@ -9,6 +9,7 @@ export interface TokenInfo {
   logoURI?: string;
   price?: number;
   volume24h?: number;
+  balance?: number; // Added balance property to support both API and local usage
 }
 
 export interface TokenPrice {

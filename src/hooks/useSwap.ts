@@ -1,11 +1,11 @@
 
 import { useState, useEffect } from "react";
 import { useToast } from "@/components/ui/use-toast";
-import { Token } from "@/components/swap/mockData";
+import { TokenInfo } from "@/services/solanaTracker";
 import { SwapState } from "@/types/swap";
 import { getSwapQuote, executeSwap } from "@/services/swapService";
 
-export const useSwap = (initialFromToken: Token, initialToToken: Token) => {
+export const useSwap = (initialFromToken: TokenInfo, initialToToken: TokenInfo) => {
   const [fromToken, setFromToken] = useState(initialFromToken);
   const [toToken, setToToken] = useState(initialToToken);
   const [fromAmount, setFromAmount] = useState("");
@@ -181,4 +181,3 @@ export const useSwap = (initialFromToken: Token, initialToToken: Token) => {
     wallet,
   };
 };
-

@@ -1,5 +1,5 @@
 
-import { Token } from "./mockData";
+import { TokenInfo } from "@/services/solanaTracker";
 import { Button } from "@/components/ui/button";
 import { TokenSelector } from "./TokenSelector";
 
@@ -7,9 +7,9 @@ interface TokenInputProps {
   label: "From" | "To";
   amount: string;
   onAmountChange?: (value: string) => void;
-  selectedToken: Token;
-  otherToken: Token;
-  onSelectToken: (token: Token) => void;
+  selectedToken: TokenInfo;
+  otherToken: TokenInfo;
+  onSelectToken: (token: TokenInfo) => void;
   isConnected: boolean;
   isLoading?: boolean;
   readOnly?: boolean;
@@ -37,7 +37,7 @@ export const TokenInput = ({
       <div className="flex justify-between mb-2">
         <span className="text-sm text-muted-foreground">{label}</span>
         <span className="text-sm text-muted-foreground">
-          Balance: {isConnected ? `${selectedToken.balance} ${selectedToken.symbol}` : "0"}
+          Balance: {isConnected ? `${selectedToken.balance || 0} ${selectedToken.symbol}` : "0"}
         </span>
       </div>
       <div className="flex items-center gap-2">

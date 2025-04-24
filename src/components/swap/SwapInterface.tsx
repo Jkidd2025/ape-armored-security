@@ -82,7 +82,7 @@ const SwapInterface = () => {
             onSelectToken={setFromToken}
             isConnected={isConnected}
             showMaxButton
-            onMaxClick={() => updateToAmount(fromToken.balance.toString())}
+            onMaxClick={() => fromToken.balance && updateToAmount(fromToken.balance.toString())}
             disabled={swapState.swapping}
           />
 

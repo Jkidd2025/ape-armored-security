@@ -1,10 +1,10 @@
 
 import { Card } from "@/components/ui/card";
-import { Token } from "./mockData";
+import { TokenInfo } from "@/services/solanaTracker";
 
 interface SwapInfoProps {
-  fromToken: Token;
-  toToken: Token;
+  fromToken: TokenInfo;
+  toToken: TokenInfo;
   fromAmount: string;
   toAmount: string;
   slippage: string;

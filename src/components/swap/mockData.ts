@@ -1,3 +1,4 @@
+
 import { TokenInfo } from '@/services/solanaTracker';
 
 // These will be replaced by real data from the API
@@ -8,6 +9,7 @@ export const mockTokens: TokenInfo[] = [
     decimals: 9,
     mintAddress: "So11111111111111111111111111111111111111112",
     logoURI: "https://raw.githubusercontent.com/solana-labs/token-list/main/assets/mainnet/So11111111111111111111111111111111111111112/logo.png",
+    balance: 10.5,
   },
   {
     symbol: "USDC",
@@ -15,16 +17,9 @@ export const mockTokens: TokenInfo[] = [
     decimals: 6,
     mintAddress: "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
     logoURI: "https://raw.githubusercontent.com/solana-labs/token-list/main/assets/mainnet/EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v/logo.png",
+    balance: 250.75,
   },
 ];
-
-export interface Token {
-  id: string;
-  name: string;
-  symbol: string;
-  logoURI: string;
-  balance: number;
-}
 
 export const wallets = [
   {
@@ -45,35 +40,39 @@ export const wallets = [
 ];
 
 // Mock tokens with balances
-export const mockTokensWithBalance: Token[] = [
+export const mockTokensWithBalance: TokenInfo[] = [
   {
-    id: "solana",
+    mintAddress: "So11111111111111111111111111111111111111112",
     name: "Solana",
     symbol: "SOL",
+    decimals: 9,
     logoURI:
       "https://raw.githubusercontent.com/solana-labs/token-list/main/assets/mainnet/So11111111111111111111111111111111111111112/logo.png",
     balance: 10.5,
   },
   {
-    id: "usd-coin",
+    mintAddress: "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
     name: "USD Coin",
     symbol: "USDC",
+    decimals: 6,
     logoURI:
       "https://raw.githubusercontent.com/solana-labs/token-list/main/assets/mainnet/EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v/logo.png",
     balance: 250.75,
   },
   {
-    id: "ethereum",
+    mintAddress: "7vfCXTUXx5WJV5JADk17vzaJZoGegVTd9nH6yrEqgAVU",
     name: "Ethereum",
     symbol: "ETH",
+    decimals: 8,
     logoURI:
       "https://raw.githubusercontent.com/solana-labs/token-list/main/assets/mainnet/7vfCXTUXx5WJV5JADk17vzaJZoGegVTd9nH6yrEqgAVU/logo.png",
     balance: 1.25,
   },
   {
-    id: "bonk",
+    mintAddress: "DezXAZ8z7PnzvnzKrkc6TzwjFedjEfKMffWjWNWCpJqx",
     name: "Bonk",
     symbol: "BONK",
+    decimals: 5,
     logoURI:
       "https://raw.githubusercontent.com/solana-labs/token-list/main/assets/mainnet/DezXAZ8z7PnzvnzKrkc6TzwjFedjEfKMffWjWNWCpJqx/logo.png",
     balance: 1000000,
