@@ -1,35 +1,40 @@
 
-import { useState, useEffect, useCallback } from 'react';
+import { useEffect } from 'react';
 import { useToast } from "@/components/ui/use-toast";
-import { requestWalletPermissions, getTokenBalance } from '@/services/swapService';
+import { requestWalletPermissions } from '@/services/swapService';
+import { getWalletProviders, getPhantomProvider, getSolflareProvider } from '@/utils/wallet/providers';
+import { useWalletBalances } from './useWalletBalances';
+import { useWalletState } from './useWalletState';
 
 export const useWalletConnection = () => {
-  const [isConnected, setIsConnected] = useState(false);
-  const [isConnecting, setIsConnecting] = useState(false);
-  const [walletPublicKey, setWalletPublicKey] = useState<string | null>(null);
-  const [currentProvider, setCurrentProvider] = useState<any>(null);
-  const [walletBalances, setWalletBalances] = useState<Record<string, number>>({});
-  const [lastBalanceRefresh, setLastBalanceRefresh] = useState<number>(0);
   const { toast } = useToast();
+  const { walletBalances, fetchWalletBalances } = useWalletBalances();
+  const {
+    isConnected,
+    isConnecting,
+    walletPublicKey,
+    currentProvider,
+    setIsConnected,
+    setIsConnecting,
+    setWalletPublicKey,
+    setCurrentProvider,
+    handleExistingConnection
+  } = useWalletState();
 
   // Check for existing wallet connection on mount
   useEffect(() => {
     const checkWalletConnection = async () => {
       try {
         console.log("Checking for existing wallet connections...");
+        const { phantomProvider, solflareProvider } = getWalletProviders();
         
-        // Check for Phantom
-        const phantomWallet = (window as any).phantom?.solana;
-        // Check for Solflare
-        const solflareWallet = (window as any).solflare;
-        
-        if (phantomWallet && phantomWallet.isConnected) {
-          await handleExistingConnection(phantomWallet, "Phantom");
+        if (phantomProvider?.isConnected) {
+          await handleExistingConnection(phantomProvider, "Phantom");
           return;
         }
         
-        if (solflareWallet && solflareWallet.isConnected) {
-          await handleExistingConnection(solflareWallet, "Solflare");
+        if (solflareProvider?.isConnected) {
+          await handleExistingConnection(solflareProvider, "Solflare");
           return;
         }
         
@@ -42,86 +47,25 @@ export const useWalletConnection = () => {
     checkWalletConnection();
   }, []);
 
-  const handleExistingConnection = async (provider: any, providerName: string) => {
-    console.log(`Found connected ${providerName} wallet`);
-    setIsConnected(true);
-    setCurrentProvider(provider);
-    
-    try {
-      const publicKey = provider.publicKey?.toString();
-      if (publicKey) {
-        setWalletPublicKey(publicKey);
-        console.log(`${providerName} wallet public key:`, publicKey);
-        await fetchWalletBalances(provider);
-      } else {
-        console.warn(`${providerName} wallet is connected but no public key available`);
-        const reconnected = await requestWalletPermissions(provider);
-        if (reconnected && provider.publicKey) {
-          setWalletPublicKey(provider.publicKey.toString());
-          await fetchWalletBalances(provider);
-        }
-      }
-    } catch (err) {
-      console.error(`Error accessing ${providerName} wallet public key:`, err);
-    }
-  };
-
-  const fetchWalletBalances = useCallback(async (provider: any) => {
-    if (!provider || !provider.isConnected) {
-      console.warn("Cannot fetch balances: wallet not connected");
-      return {};
-    }
-    
-    // Don't refresh if less than 5 seconds have passed since last refresh
-    if (Date.now() - lastBalanceRefresh < 5000) {
-      console.log("Skipping balance refresh - too soon since last refresh");
-      return walletBalances;
-    }
-    
-    console.log("Fetching wallet balances...");
-    setLastBalanceRefresh(Date.now());
-    
-    try {
-      const balances: Record<string, number> = {};
-      
-      // Fetch token balances
-      const tokens = ['SOL', 'USDC', 'ETH', 'BONK', 'USDT'];
-      for (const token of tokens) {
-        const balance = await getTokenBalance(provider, token);
-        balances[token] = parseFloat(balance.amount);
-      }
-      
-      console.log("Wallet balances:", balances);
-      setWalletBalances(balances);
-      
-      return balances;
-    } catch (error) {
-      console.error('Error fetching wallet balances:', error);
-      toast({
-        title: "Error loading balances",
-        description: "Unable to retrieve your wallet balances. Please try reconnecting your wallet.",
-        variant: "destructive"
-      });
-      return {};
-    }
-  }, [lastBalanceRefresh, toast]);
-
   const connectWallet = async () => {
     setIsConnecting(true);
     
     try {
-      const phantomWallet = (window as any).phantom?.solana;
-      const solflareWallet = (window as any).solflare;
+      const { phantomProvider, solflareProvider, hasProviders } = getWalletProviders();
+      
+      if (!hasProviders) {
+        throw new Error("No compatible wallet found");
+      }
       
       // Try Phantom first
-      if (phantomWallet) {
-        const connected = await attemptConnection(phantomWallet, "Phantom");
+      if (phantomProvider) {
+        const connected = await attemptConnection(phantomProvider, "Phantom");
         if (connected) return true;
       }
       
       // Try Solflare if Phantom failed or isn't available
-      if (solflareWallet) {
-        const connected = await attemptConnection(solflareWallet, "Solflare");
+      if (solflareProvider) {
+        const connected = await attemptConnection(solflareProvider, "Solflare");
         if (connected) return true;
       }
       
@@ -163,16 +107,15 @@ export const useWalletConnection = () => {
 
   const disconnectWallet = async () => {
     try {
-      const phantomWallet = (window as any).phantom?.solana;
-      const solflareWallet = (window as any).solflare;
+      const { phantomProvider, solflareProvider } = getWalletProviders();
       
       let disconnected = false;
       
-      if (currentProvider === phantomWallet && phantomWallet?.isConnected) {
-        await phantomWallet.disconnect();
+      if (currentProvider === phantomProvider && phantomProvider?.isConnected) {
+        await phantomProvider.disconnect();
         disconnected = true;
-      } else if (currentProvider === solflareWallet && solflareWallet?.isConnected) {
-        await solflareWallet.disconnect();
+      } else if (currentProvider === solflareProvider && solflareProvider?.isConnected) {
+        await solflareProvider.disconnect();
         disconnected = true;
       }
       
@@ -180,7 +123,6 @@ export const useWalletConnection = () => {
         setIsConnected(false);
         setWalletPublicKey(null);
         setCurrentProvider(null);
-        setWalletBalances({});
         
         toast({
           title: "Wallet disconnected",
