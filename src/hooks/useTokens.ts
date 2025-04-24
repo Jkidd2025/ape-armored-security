@@ -9,7 +9,7 @@ export function useTokenList() {
     queryKey: ['tokenList'],
     queryFn: getTokenList,
     staleTime: 5 * 60 * 1000, // 5 minutes
-    retry: 1, // Only retry once
+    retry: 3, // Increase retries for production
   });
 }
 
@@ -19,7 +19,7 @@ export function useTokenPrice(mintAddress: string | undefined) {
     queryFn: () => mintAddress ? getTokenPrice(mintAddress) : null,
     enabled: !!mintAddress,
     refetchInterval: 30000, // Refetch every 30 seconds
-    retry: 1, // Only retry once
+    retry: 3, // Increase retries for production
   });
 }
 
@@ -61,26 +61,26 @@ export function useTokensWithPrices() {
     },
     enabled: !!tokens && tokens.length > 0,
     staleTime: 30000, // 30 seconds
+    retry: 2,
   });
 
-  // Show a toast when we fall back to mock data
-  if (error && !tokensWithPrices.data) {
+  // Show a toast when there's an API error
+  if (error) {
     // We'll show this toast only once per session
     const hasShownErrorToast = sessionStorage.getItem('api-error-toast-shown');
     if (!hasShownErrorToast) {
       toast({
         title: "API Connection Issue",
-        description: "Using demo data for the swap interface",
-        variant: "warning",
+        description: "Please try again later or contact support",
+        variant: "destructive",
       });
       sessionStorage.setItem('api-error-toast-shown', 'true');
     }
   }
 
-  // Return mock data if there's an error fetching tokens
   return {
-    tokens: (tokens && tokensWithPrices.data) || mockTokensWithBalance,
-    isLoading: isLoadingTokens && !error, // Don't show loading if there's an error
+    tokens: tokensWithPrices.data || [],
+    isLoading: isLoadingTokens || tokensWithPrices.isLoading,
     error
   };
 }

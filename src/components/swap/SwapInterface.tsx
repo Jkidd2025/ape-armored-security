@@ -1,6 +1,6 @@
 
 import { Card } from "@/components/ui/card";
-import { RefreshCcw, Settings } from "lucide-react";
+import { RefreshCcw, Settings, AlertTriangle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { SwapInfo } from "./SwapInfo";
 import { SwapSettings } from "./SwapSettings";
@@ -11,6 +11,7 @@ import { TransactionInfo } from "./TransactionInfo";
 import { useSwap } from "@/hooks/useSwap";
 import { useState } from "react";
 import { useTokensWithPrices } from "@/hooks/useTokens";
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 
 const SwapInterface = () => {
   const [showSettings, setShowSettings] = useState(false);
@@ -50,6 +51,52 @@ const SwapInterface = () => {
               <p>Loading swap interface...</p>
             </div>
           </div>
+        </Card>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="max-w-md mx-auto">
+        <Card className="p-6 border border-apearmor-darkbronze bg-muted">
+          <Alert variant="destructive" className="mb-4">
+            <AlertTriangle className="h-4 w-4" />
+            <AlertTitle>API Connection Error</AlertTitle>
+            <AlertDescription>
+              Unable to connect to the token API. Please try again later.
+            </AlertDescription>
+          </Alert>
+          <Button 
+            className="w-full mt-4"
+            variant="default" 
+            onClick={() => window.location.reload()}
+          >
+            Retry
+          </Button>
+        </Card>
+      </div>
+    );
+  }
+
+  if (!tokens || tokens.length === 0) {
+    return (
+      <div className="max-w-md mx-auto">
+        <Card className="p-6 border border-apearmor-darkbronze bg-muted">
+          <Alert variant="destructive" className="mb-4">
+            <AlertTriangle className="h-4 w-4" />
+            <AlertTitle>No Tokens Available</AlertTitle>
+            <AlertDescription>
+              No token data is currently available. Please try again later.
+            </AlertDescription>
+          </Alert>
+          <Button 
+            className="w-full mt-4"
+            variant="default" 
+            onClick={() => window.location.reload()}
+          >
+            Retry
+          </Button>
         </Card>
       </div>
     );

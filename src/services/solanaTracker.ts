@@ -1,6 +1,5 @@
 
 import { supabase } from '@/integrations/supabase/client';
-import { mockTokensWithBalance } from '@/components/swap/mockData';
 
 // Updated API base URL 
 const SOLANA_TRACKER_BASE_URL = 'https://api.solanatracker.io/api/v1';
@@ -25,7 +24,10 @@ export interface TokenPrice {
 async function getApiKey() {
   try {
     const { data, error } = await supabase.functions.invoke('get-solana-tracker-key');
-    if (error) throw new Error('Failed to retrieve API key');
+    if (error) {
+      console.error('API key retrieval error:', error);
+      throw new Error('Failed to retrieve API key');
+    }
     return data;
   } catch (error) {
     console.error('Error getting API key:', error);
@@ -43,8 +45,7 @@ export async function getTokenList(): Promise<TokenInfo[]> {
     
     if (!response.ok) {
       console.error('API response error:', response.status, await response.text());
-      // If API fails, return mock data
-      return mockTokensWithBalance;
+      throw new Error(`Failed to fetch token list: ${response.status}`);
     }
     
     const data = await response.json();
@@ -53,8 +54,7 @@ export async function getTokenList(): Promise<TokenInfo[]> {
     return tokens;
   } catch (error) {
     console.error('Error fetching token list:', error);
-    // If there's any error, return mock data
-    return mockTokensWithBalance;
+    throw error; // Propagate the error to be handled by the caller
   }
 }
 
@@ -68,12 +68,7 @@ export async function getTokenPrice(mintAddress: string): Promise<TokenPrice> {
     
     if (!response.ok) {
       console.error('API response error:', response.status, await response.text());
-      // Return mock price data
-      return {
-        price: Math.random() * 100,
-        volume24h: Math.random() * 1000000,
-        timestamp: Date.now(),
-      };
+      throw new Error(`Failed to fetch token price: ${response.status}`);
     }
     
     const data = await response.json();
@@ -84,12 +79,7 @@ export async function getTokenPrice(mintAddress: string): Promise<TokenPrice> {
     };
   } catch (error) {
     console.error('Error fetching token price:', error);
-    // Return mock price data
-    return {
-      price: Math.random() * 100,
-      volume24h: Math.random() * 1000000,
-      timestamp: Date.now(),
-    };
+    throw error; // Propagate the error to be handled by the caller
   }
 }
 
@@ -103,22 +93,12 @@ export async function getTokenMetadata(mintAddress: string): Promise<TokenInfo> 
     
     if (!response.ok) {
       console.error('API response error:', response.status, await response.text());
-      
-      // Return matching mock token or a generic one if not found
-      const mockToken = mockTokensWithBalance.find(t => t.mintAddress === mintAddress);
-      if (mockToken) return mockToken;
-      
       throw new Error(`Failed to fetch token metadata: ${response.status}`);
     }
     
     return await response.json();
   } catch (error) {
     console.error('Error fetching token metadata:', error);
-    
-    // Return matching mock token or throw error if not found
-    const mockToken = mockTokensWithBalance.find(t => t.mintAddress === mintAddress);
-    if (mockToken) return mockToken;
-    
-    throw error;
+    throw error; // Propagate the error to be handled by the caller
   }
 }
