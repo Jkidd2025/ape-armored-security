@@ -1,7 +1,9 @@
+
 // Import the Solana web3 library (or create mock versions if imports fail)
 let Connection: any;
 let PublicKey: any;
 let Transaction: any;
+let isMockImplementation = false;
 
 try {
   // Try to import from @solana/web3.js
@@ -9,9 +11,11 @@ try {
   Connection = solanaWeb3.Connection;
   PublicKey = solanaWeb3.PublicKey;
   Transaction = solanaWeb3.Transaction;
+  console.log('Successfully imported @solana/web3.js');
 } catch (error) {
   // If import fails, create mock classes
-  console.warn('Solana web3 library not available, using mock implementations');
+  console.warn('Solana web3 library not available, using mock implementations:', error);
+  isMockImplementation = true;
   
   Connection = class MockConnection {
     constructor(endpoint: string) {
@@ -49,6 +53,11 @@ let connection: typeof Connection;
 const initConnection = async () => {
   const rpcUrl = await getHeliusRpcUrl();
   connection = new Connection(rpcUrl, 'confirmed');
+  if (isMockImplementation) {
+    console.warn('Using mock implementation of Solana Connection. Swap functionality will be limited to simulations.');
+  } else {
+    console.log('Initialized real Solana connection to:', rpcUrl);
+  }
   return connection;
 };
 
