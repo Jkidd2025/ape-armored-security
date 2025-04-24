@@ -1,6 +1,6 @@
 
 import { Card } from "@/components/ui/card";
-import { RefreshCcw, Settings, AlertTriangle } from "lucide-react";
+import { RefreshCcw, Settings, AlertTriangle, ExternalLink } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { SwapInfo } from "./SwapInfo";
 import { SwapSettings } from "./SwapSettings";
@@ -15,7 +15,7 @@ import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 
 const SwapInterface = () => {
   const [showSettings, setShowSettings] = useState(false);
-  const { tokens, isLoading, error } = useTokensWithPrices();
+  const { tokens, isLoading, error, refetch, usesMockData } = useTokensWithPrices();
   
   const {
     fromToken,
@@ -41,7 +41,7 @@ const SwapInterface = () => {
     tokens && tokens.length > 1 ? tokens[1] : null
   );
 
-  if (isLoading) {
+  if (isLoading && !usesMockData) {
     return (
       <div className="max-w-md mx-auto">
         <Card className="p-6 border border-apearmor-darkbronze bg-muted">
@@ -56,7 +56,7 @@ const SwapInterface = () => {
     );
   }
 
-  if (error) {
+  if (error && !usesMockData) {
     return (
       <div className="max-w-md mx-auto">
         <Card className="p-6 border border-apearmor-darkbronze bg-muted">
@@ -70,7 +70,7 @@ const SwapInterface = () => {
           <Button 
             className="w-full mt-4"
             variant="default" 
-            onClick={() => window.location.reload()}
+            onClick={() => refetch()}
           >
             Retry
           </Button>
@@ -79,7 +79,7 @@ const SwapInterface = () => {
     );
   }
 
-  if (!tokens || tokens.length === 0) {
+  if ((!tokens || tokens.length === 0) && !usesMockData) {
     return (
       <div className="max-w-md mx-auto">
         <Card className="p-6 border border-apearmor-darkbronze bg-muted">
@@ -93,7 +93,7 @@ const SwapInterface = () => {
           <Button 
             className="w-full mt-4"
             variant="default" 
-            onClick={() => window.location.reload()}
+            onClick={() => refetch()}
           >
             Retry
           </Button>
@@ -127,6 +127,16 @@ const SwapInterface = () => {
             </Button>
           </div>
         </div>
+
+        {usesMockData && (
+          <Alert variant="default" className="mb-4 bg-yellow-50 border-yellow-200">
+            <AlertTriangle className="h-4 w-4 text-yellow-600" />
+            <AlertTitle className="text-yellow-800">Using Demo Data</AlertTitle>
+            <AlertDescription className="text-yellow-700">
+              Connected to demo environment with sample tokens.
+            </AlertDescription>
+          </Alert>
+        )}
 
         {showSettings && (
           <SwapSettings 

@@ -3,6 +3,7 @@ import { useQuery } from '@tanstack/react-query';
 import { getTokenList, getTokenPrice, TokenInfo } from '@/services/solanaTracker';
 import { mockTokensWithBalance } from '@/components/swap/mockData';
 import { useToast } from '@/components/ui/use-toast';
+import { useState } from 'react';
 
 export function useTokenList() {
   return useQuery({
@@ -25,14 +26,27 @@ export function useTokenPrice(mintAddress: string | undefined) {
 
 export function useTokensWithPrices() {
   const { toast } = useToast();
-  const { data: tokens, isLoading: isLoadingTokens, error } = useTokenList();
+  const [usesMockData, setUsesMockData] = useState(false);
+  
+  const { data: tokens, isLoading: isLoadingTokens, error, refetch } = useTokenList();
+  
+  // If we have an error and haven't fallen back to mock data yet, do it now
+  if (error && !usesMockData) {
+    toast({
+      title: "API Connection Issue",
+      description: "Using demo data due to connection issues. Some features may be limited.",
+      variant: "default",
+    });
+    setUsesMockData(true);
+  }
   
   const tokensWithPrices = useQuery({
     queryKey: ['tokensWithPrices', tokens],
     queryFn: async () => {
-      if (!tokens) {
-        console.log("No tokens available for price fetching");
-        return [];
+      // If we're using mock data or tokens failed to load, return mock data
+      if (usesMockData || !tokens) {
+        console.log("Using mock data for token prices");
+        return mockTokensWithBalance;
       }
       
       console.log(`Fetching prices for ${tokens.length} tokens`);
@@ -59,28 +73,16 @@ export function useTokensWithPrices() {
         return tokens;
       }
     },
-    enabled: !!tokens && tokens.length > 0,
+    enabled: !!(tokens && tokens.length > 0) || usesMockData,
     staleTime: 30000, // 30 seconds
     retry: 2,
   });
 
-  // Show a toast when there's an API error
-  if (error) {
-    // We'll show this toast only once per session
-    const hasShownErrorToast = sessionStorage.getItem('api-error-toast-shown');
-    if (!hasShownErrorToast) {
-      toast({
-        title: "API Connection Issue",
-        description: "Please try again later or contact support",
-        variant: "destructive",
-      });
-      sessionStorage.setItem('api-error-toast-shown', 'true');
-    }
-  }
-
   return {
-    tokens: tokensWithPrices.data || [],
-    isLoading: isLoadingTokens || tokensWithPrices.isLoading,
-    error
+    tokens: tokensWithPrices.data || mockTokensWithBalance,
+    isLoading: isLoadingTokens && tokensWithPrices.isLoading && !usesMockData,
+    error: usesMockData ? null : error,
+    refetch,
+    usesMockData
   };
 }
