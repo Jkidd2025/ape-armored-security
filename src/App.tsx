@@ -17,6 +17,7 @@ import SocialShareTest from "./pages/SocialShareTest";
 import ApeWire from "./pages/ApeWire";
 import BlogPost from "./pages/BlogPost";
 import NotFound from "./pages/NotFound";
+import Swap from "./pages/Swap";
 import CookieConsent from "./components/CookieConsent";
 
 const queryClient = new QueryClient();
@@ -56,6 +57,8 @@ const App = () => (
           <Route path="/ape-wire" element={<ApeWire />} />
           <Route path="/ape-wire/:slug" element={<BlogPost />} />
           
+          <Route path="/swap" element={<Swap />} />
+          
           <Route path="*" element={<NotFound />} />
         </Routes>
         <CookieConsent />
@@ -65,4 +68,3 @@ const App = () => (
 );
 
 export default App;
-

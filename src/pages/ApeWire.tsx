@@ -1,82 +1,46 @@
 
-import React, { useState, useEffect } from 'react';
+import { useEffect } from "react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import BlogHeader from "@/components/blog/BlogHeader";
-import CategoryFilter from "@/components/blog/CategoryFilter";
-import SearchBar from "@/components/blog/SearchBar";
 import BlogPostGrid from "@/components/blog/BlogPostGrid";
-// Remove LoadMoreButton import
+import SearchBar from "@/components/blog/SearchBar";
+import CategoryFilter from "@/components/blog/CategoryFilter";
 import { useBlogPosts } from "@/hooks/useBlogPosts";
-import { BlogPost } from "@/types/blog";
 
 const ApeWire = () => {
-  const [searchQuery, setSearchQuery] = useState("");
-  const [selectedCategory, setSelectedCategory] = useState<string>("All");
-  const [isSearchFocused, setIsSearchFocused] = useState(false);
-  const [filteredPosts, setFilteredPosts] = useState<BlogPost[]>([]);
-  
-  const allPosts = useBlogPosts();
-  
+  const { posts, isLoading, searchQuery, setSearchQuery, selectedCategory, setSelectedCategory } = useBlogPosts();
+
   useEffect(() => {
-    const filtered = allPosts.filter(post => {
-      const matchesSearch = searchQuery.trim() === "" || 
-        post.title.toLowerCase().includes(searchQuery.toLowerCase()) || 
-        post.excerpt.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        post.category.toLowerCase().includes(searchQuery.toLowerCase());
-        
-      const matchesCategory = selectedCategory === "All" || post.category === selectedCategory;
-      
-      return matchesSearch && matchesCategory;
-    });
-    
-    setFilteredPosts(filtered);
-  }, [searchQuery, selectedCategory, allPosts]);
-
-  const handleClearSearch = () => {
-    setSearchQuery("");
-  };
-
-  const handleCategorySelect = (category: string) => {
-    setSelectedCategory(category);
-  };
-
-  const handleResetCategory = () => {
-    setSelectedCategory("All");
-  };
+    // Add Google Tag conversion tracking for ApeWire page
+    if (window.gtag) {
+      window.gtag('event', 'conversion', {'send_to': 'AW-16970844283/dMRwCOfxm7waEPuQqpw_'});
+    }
+  }, []);
 
   return (
-    <div className="min-h-screen flex flex-col bg-background text-foreground">
+    <div className="min-h-screen flex flex-col">
       <Navbar />
-      
-      <main className="flex-1 pt-24">
-        <section className="container px-4 md:px-6 py-12">
-          <BlogHeader />
-          
-          <CategoryFilter 
-            selectedCategory={selectedCategory}
-            onCategorySelect={handleCategorySelect}
-          />
-          
-          <SearchBar 
-            searchQuery={searchQuery}
-            setSearchQuery={setSearchQuery}
-            onClearSearch={handleClearSearch}
-            setIsSearchFocused={setIsSearchFocused}
-          />
+      <main className="flex-grow pt-16 pb-24">
+        <BlogHeader />
+        
+        <div className="container mx-auto px-4 py-8">
+          <div className="flex flex-col md:flex-row justify-between gap-4 mb-8">
+            <SearchBar searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
+            <CategoryFilter 
+              selectedCategory={selectedCategory} 
+              setSelectedCategory={setSelectedCategory} 
+            />
+          </div>
           
           <BlogPostGrid 
-            filteredPosts={filteredPosts}
+            posts={posts}
+            isLoading={isLoading}
             searchQuery={searchQuery}
             selectedCategory={selectedCategory}
-            onClearSearch={handleClearSearch}
-            onResetCategory={handleResetCategory}
           />
-          
-          {/* Remove LoadMoreButton */}
-        </section>
+        </div>
       </main>
-      
       <Footer />
     </div>
   );
