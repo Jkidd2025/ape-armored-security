@@ -1,4 +1,3 @@
-
 // Import the Solana web3 library (or create mock versions if imports fail)
 let Connection: any;
 let PublicKey: any;
@@ -31,11 +30,30 @@ try {
 
 import { SwapPair, SwapQuote, SwapResult, SwapSettings } from '@/types/swap';
 
-// This is a placeholder for the actual production Solana RPC URL
-const SOLANA_RPC_URL = 'https://api.mainnet-beta.solana.com';
+// Use Helius RPC URL with API key
+const getHeliusRpcUrl = async (): Promise<string> => {
+  try {
+    const response = await fetch('/api/get-helius-key');
+    const apiKey = await response.text();
+    return `https://mainnet.helius-rpc.com/?api-key=${apiKey}`;
+  } catch (error) {
+    console.error('Error getting Helius API key:', error);
+    // Fallback to public RPC as backup
+    return 'https://api.mainnet-beta.solana.com';
+  }
+};
 
 // This would be the actual connection to the Solana blockchain
-const connection = new Connection(SOLANA_RPC_URL);
+let connection: typeof Connection;
+
+const initConnection = async () => {
+  const rpcUrl = await getHeliusRpcUrl();
+  connection = new Connection(rpcUrl, 'confirmed');
+  return connection;
+};
+
+// Initialize connection when service is loaded
+initConnection().catch(console.error);
 
 /**
  * Get a quote for a token swap
