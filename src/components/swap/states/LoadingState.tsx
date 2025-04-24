@@ -7,6 +7,7 @@ export const LoadingState = () => {
   const [dots, setDots] = useState("");
   const [attemptCount, setAttemptCount] = useState(0);
   const [showFallbackMessage, setShowFallbackMessage] = useState(false);
+  const [showRetryButton, setShowRetryButton] = useState(false);
   
   useEffect(() => {
     // Create animating dots to show progress
@@ -26,6 +27,13 @@ export const LoadingState = () => {
         // Show fallback message after two more seconds
         const fallbackTimeout = setTimeout(() => {
           setShowFallbackMessage(true);
+          
+          // Show retry button after additional delay
+          const retryTimeout = setTimeout(() => {
+            setShowRetryButton(true);
+          }, 3000);
+          
+          return () => clearTimeout(retryTimeout);
         }, 2000);
         
         return () => clearTimeout(fallbackTimeout);
@@ -39,6 +47,11 @@ export const LoadingState = () => {
       clearTimeout(messageTimeout);
     };
   }, []);
+  
+  const handleReload = () => {
+    // Force page reload to trigger a new connection attempt
+    window.location.reload();
+  };
   
   return (
     <div className="max-w-md mx-auto">
@@ -57,6 +70,15 @@ export const LoadingState = () => {
                 `Attempt ${attemptCount} - This may take a moment or fallback data will be used` : 
                 "This may take a moment"}
             </p>
+            
+            {showRetryButton && (
+              <button 
+                onClick={handleReload}
+                className="mt-4 px-4 py-2 bg-apearmor-teal text-black rounded hover:bg-apearmor-teal/80 transition-colors"
+              >
+                Retry Connection
+              </button>
+            )}
           </div>
         </div>
       </Card>

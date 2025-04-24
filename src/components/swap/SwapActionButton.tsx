@@ -2,6 +2,7 @@
 import { Button } from "@/components/ui/button";
 import WalletConnect from "./WalletConnect";
 import { SwapState } from "@/types/swap";
+import { useState } from "react";
 
 interface SwapActionButtonProps {
   isConnected: boolean;
@@ -20,9 +21,29 @@ export const SwapActionButton = ({
   isValid,
   isLoadingPrice,
 }: SwapActionButtonProps) => {
+  const [isAttemptingConnect, setIsAttemptingConnect] = useState(false);
+  
+  const handleConnect = async () => {
+    setIsAttemptingConnect(true);
+    try {
+      await onConnect();
+    } finally {
+      setIsAttemptingConnect(false);
+    }
+  };
+
   if (!isConnected) {
-    return <WalletConnect onConnect={onConnect} />;
+    return (
+      <WalletConnect 
+        onConnect={handleConnect} 
+      />
+    );
   }
+
+  let buttonText = "Swap";
+  if (swapState.swapping) buttonText = "Swapping...";
+  else if (!isValid) buttonText = "Enter amount";
+  else if (isLoadingPrice) buttonText = "Loading price...";
 
   return (
     <Button 
@@ -30,7 +51,7 @@ export const SwapActionButton = ({
       disabled={!isValid || isLoadingPrice || swapState.swapping}
       onClick={onSwap}
     >
-      {swapState.swapping ? "Swapping..." : "Swap"}
+      {buttonText}
     </Button>
   );
 };

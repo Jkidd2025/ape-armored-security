@@ -3,6 +3,7 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { wallets } from "./mockData";
+import { useToast } from "@/components/ui/use-toast";
 
 interface WalletConnectProps {
   onConnect: () => void;
@@ -10,11 +11,33 @@ interface WalletConnectProps {
 
 const WalletConnect = ({ onConnect }: WalletConnectProps) => {
   const [open, setOpen] = useState(false);
+  const [isConnecting, setIsConnecting] = useState(false);
+  const { toast } = useToast();
 
-  const handleConnect = () => {
-    // In a real app, this would handle the actual wallet connection
-    onConnect();
-    setOpen(false);
+  const handleConnect = async (walletName: string) => {
+    // Simulate connection process
+    setIsConnecting(true);
+    
+    try {
+      // In a real app, this would use the actual wallet adapter
+      await new Promise(resolve => setTimeout(resolve, 1000)); // Simulate connection delay
+      
+      toast({
+        title: "Wallet connected",
+        description: `Successfully connected to ${walletName}`,
+      });
+      
+      onConnect();
+    } catch (error) {
+      toast({
+        title: "Connection failed",
+        description: "Unable to connect to wallet. Please try again.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsConnecting(false);
+      setOpen(false);
+    }
   };
 
   return (
@@ -38,7 +61,8 @@ const WalletConnect = ({ onConnect }: WalletConnectProps) => {
                 key={wallet.id}
                 variant="outline"
                 className="w-full justify-start gap-3 bg-muted border-apearmor-darkbronze hover:bg-apearmor-darkbronze/20"
-                onClick={handleConnect}
+                onClick={() => handleConnect(wallet.name)}
+                disabled={isConnecting}
               >
                 <img 
                   src={wallet.iconUrl} 
@@ -46,6 +70,7 @@ const WalletConnect = ({ onConnect }: WalletConnectProps) => {
                   className="w-6 h-6" 
                 />
                 <span>{wallet.name}</span>
+                {isConnecting && <span className="ml-auto animate-spin">⟳</span>}
               </Button>
             ))}
           </div>

@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import { useToast } from "@/components/ui/use-toast";
 import { TokenInfo } from "@/services/solanaTracker";
@@ -13,6 +12,7 @@ export const useSwap = (initialFromToken: TokenInfo | null, initialToToken: Toke
   const [fromAmount, setFromAmount] = useState("");
   const [toAmount, setToAmount] = useState("");
   const [isConnected, setIsConnected] = useState(false);
+  const [isConnecting, setIsConnecting] = useState(false);
   const [slippage, setSlippage] = useState("0.5");
   const [deadline, setDeadline] = useState("30");
   const [isLoadingPrice, setIsLoadingPrice] = useState(false);
@@ -35,13 +35,49 @@ export const useSwap = (initialFromToken: TokenInfo | null, initialToToken: Toke
 
   const { toast } = useToast();
 
+  const connectWallet = async () => {
+    setIsConnecting(true);
+    
+    try {
+      // Simulate a connection delay (in a real app, this would be the actual connection process)
+      await new Promise(resolve => setTimeout(resolve, 1500));
+      setIsConnected(true);
+      
+      toast({
+        title: "Wallet connected",
+        description: "Successfully connected to your wallet",
+      });
+      
+      return true;
+    } catch (error) {
+      toast({
+        title: "Connection failed",
+        description: "Failed to connect to wallet",
+        variant: "destructive",
+      });
+      
+      return false;
+    } finally {
+      setIsConnecting(false);
+    }
+  };
+  
+  const disconnectWallet = async () => {
+    setIsConnected(false);
+    toast({
+      title: "Wallet disconnected",
+      description: "You've been disconnected from your wallet",
+    });
+  };
+
   const wallet = {
     connected: isConnected,
+    connecting: isConnecting,
     publicKey: isConnected ? "YourMockPublicKey123" : null,
     signTransaction: async (tx: any) => tx,
     signAllTransactions: async (txs: any[]) => txs,
-    connect: async () => setIsConnected(true),
-    disconnect: async () => setIsConnected(false),
+    connect: connectWallet,
+    disconnect: disconnectWallet,
   };
 
   const handleSwapTokens = () => {
@@ -178,6 +214,7 @@ export const useSwap = (initialFromToken: TokenInfo | null, initialToToken: Toke
     fromAmount,
     toAmount,
     isConnected,
+    isConnecting,
     slippage,
     deadline,
     isLoadingPrice,

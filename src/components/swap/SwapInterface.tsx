@@ -12,10 +12,13 @@ import { ErrorState } from "./states/ErrorState";
 import { useSwap } from "@/hooks/useSwap";
 import { useTokensWithPrices } from "@/hooks/useTokens";
 import { useState } from "react";
+import { Button } from "../ui/button";
+import { useToast } from "../ui/use-toast";
 
 const SwapInterface = () => {
   const [showSettings, setShowSettings] = useState(false);
   const { tokens, isLoading, error, refetch } = useTokensWithPrices();
+  const { toast } = useToast();
   
   const {
     fromToken,
@@ -23,6 +26,7 @@ const SwapInterface = () => {
     fromAmount,
     toAmount,
     isConnected,
+    isConnecting,
     slippage,
     deadline,
     isLoadingPrice,
@@ -59,15 +63,56 @@ const SwapInterface = () => {
     );
   }
 
+  const handleConnectClick = async () => {
+    if (isConnected) {
+      try {
+        await wallet.disconnect();
+        toast({
+          title: "Wallet disconnected",
+          description: "You have disconnected your wallet"
+        });
+      } catch (error) {
+        toast({
+          title: "Error",
+          description: "Failed to disconnect wallet",
+          variant: "destructive"
+        });
+      }
+    } else {
+      try {
+        await wallet.connect();
+      } catch (error) {
+        toast({
+          title: "Connection failed",
+          description: "Failed to connect to wallet. Please try again.",
+          variant: "destructive"
+        });
+      }
+    }
+  };
+
   return (
     <div className="max-w-md mx-auto">
       <Card className="p-6 border border-apearmor-darkbronze bg-muted">
-        <SwapHeader
-          onRefresh={refreshPrice}
-          onSettingsClick={() => setShowSettings(!showSettings)}
-          isLoadingPrice={isLoadingPrice}
-          fromAmount={fromAmount}
-        />
+        <div className="flex justify-between items-center mb-4">
+          <SwapHeader
+            onRefresh={refreshPrice}
+            onSettingsClick={() => setShowSettings(!showSettings)}
+            isLoadingPrice={isLoadingPrice}
+            fromAmount={fromAmount}
+          />
+          
+          {isConnected && (
+            <Button
+              variant="outline"
+              size="sm"
+              className="border-apearmor-darkbronze hover:bg-apearmor-darkbronze/20"
+              onClick={handleConnectClick}
+            >
+              Disconnect
+            </Button>
+          )}
+        </div>
 
         {showSettings && (
           <SwapSettings 
@@ -124,7 +169,7 @@ const SwapInterface = () => {
           <SwapActionButton
             isConnected={isConnected}
             swapState={swapState}
-            onConnect={() => wallet.connect()}
+            onConnect={wallet.connect}
             onSwap={handleSwap}
             isValid={!!fromAmount && parseFloat(fromAmount) > 0}
             isLoadingPrice={isLoadingPrice}
