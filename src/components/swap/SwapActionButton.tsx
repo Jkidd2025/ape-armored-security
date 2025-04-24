@@ -8,6 +8,7 @@ interface SwapActionButtonProps {
   isConnected: boolean;
   swapState: SwapState;
   onConnect: () => void;
+  onDisconnect: () => void; // Add disconnect handler
   onSwap: () => void;
   isValid: boolean;
   isLoadingPrice: boolean;
@@ -17,6 +18,7 @@ export const SwapActionButton = ({
   isConnected,
   swapState,
   onConnect,
+  onDisconnect, // Add disconnect handler
   onSwap,
   isValid,
   isLoadingPrice,
@@ -46,12 +48,23 @@ export const SwapActionButton = ({
   else if (isLoadingPrice) buttonText = "Loading price...";
 
   return (
-    <Button 
-      className="w-full bg-apearmor-teal hover:bg-apearmor-teal/80 text-black font-semibold"
-      disabled={!isValid || isLoadingPrice || swapState.swapping}
-      onClick={onSwap}
-    >
-      {buttonText}
-    </Button>
+    <div className="space-y-2">
+      <Button 
+        className="w-full bg-apearmor-teal hover:bg-apearmor-teal/80 text-black font-semibold"
+        disabled={!isValid || isLoadingPrice || swapState.swapping}
+        onClick={onSwap}
+      >
+        {buttonText}
+      </Button>
+      
+      <Button 
+        variant="outline" 
+        size="sm" 
+        className="w-full text-sm border-apearmor-darkbronze hover:bg-apearmor-darkbronze/20"
+        onClick={onDisconnect}
+      >
+        Disconnect Wallet
+      </Button>
+    </div>
   );
 };

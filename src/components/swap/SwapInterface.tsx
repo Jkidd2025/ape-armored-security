@@ -64,31 +64,11 @@ const SwapInterface = () => {
   }
 
   const handleConnectClick = async () => {
-    if (isConnected) {
-      try {
-        await wallet.disconnect();
-        toast({
-          title: "Wallet disconnected",
-          description: "You have disconnected your wallet"
-        });
-      } catch (error) {
-        toast({
-          title: "Error",
-          description: "Failed to disconnect wallet",
-          variant: "destructive"
-        });
-      }
-    } else {
-      try {
-        await wallet.connect();
-      } catch (error) {
-        toast({
-          title: "Connection failed",
-          description: "Failed to connect to wallet. Please try again.",
-          variant: "destructive"
-        });
-      }
-    }
+    await wallet.connect();
+  };
+
+  const handleDisconnectClick = async () => {
+    await wallet.disconnect();
   };
 
   return (
@@ -101,17 +81,6 @@ const SwapInterface = () => {
             isLoadingPrice={isLoadingPrice}
             fromAmount={fromAmount}
           />
-          
-          {isConnected && (
-            <Button
-              variant="outline"
-              size="sm"
-              className="border-apearmor-darkbronze hover:bg-apearmor-darkbronze/20"
-              onClick={handleConnectClick}
-            >
-              Disconnect
-            </Button>
-          )}
         </div>
 
         {showSettings && (
@@ -169,7 +138,8 @@ const SwapInterface = () => {
           <SwapActionButton
             isConnected={isConnected}
             swapState={swapState}
-            onConnect={wallet.connect}
+            onConnect={handleConnectClick}
+            onDisconnect={handleDisconnectClick}
             onSwap={handleSwap}
             isValid={!!fromAmount && parseFloat(fromAmount) > 0}
             isLoadingPrice={isLoadingPrice}

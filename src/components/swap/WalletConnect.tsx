@@ -15,12 +15,25 @@ const WalletConnect = ({ onConnect }: WalletConnectProps) => {
   const { toast } = useToast();
 
   const handleConnect = async (walletName: string) => {
-    // Simulate connection process
     setIsConnecting(true);
     
     try {
-      // In a real app, this would use the actual wallet adapter
-      await new Promise(resolve => setTimeout(resolve, 1000)); // Simulate connection delay
+      // Check if wallet extension exists in window
+      const phantomWallet = (window as any).phantom?.solana;
+      const solflareWallet = (window as any).solflare;
+      
+      // Determine which wallet to connect to
+      let wallet;
+      if (walletName === "Phantom" && phantomWallet) {
+        wallet = phantomWallet;
+      } else if (walletName === "Solflare" && solflareWallet) {
+        wallet = solflareWallet;
+      } else {
+        throw new Error(`${walletName} extension not found. Please install it first.`);
+      }
+      
+      // Connect to wallet
+      await wallet.connect();
       
       toast({
         title: "Wallet connected",
@@ -28,10 +41,11 @@ const WalletConnect = ({ onConnect }: WalletConnectProps) => {
       });
       
       onConnect();
-    } catch (error) {
+    } catch (error: any) {
+      console.error("Wallet connection error:", error);
       toast({
         title: "Connection failed",
-        description: "Unable to connect to wallet. Please try again.",
+        description: error.message || "Unable to connect to wallet. Please try again.",
         variant: "destructive",
       });
     } finally {

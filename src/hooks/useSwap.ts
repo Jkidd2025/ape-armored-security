@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from "react";
 import { useToast } from "@/components/ui/use-toast";
 import { TokenInfo } from "@/services/solanaTracker";
@@ -16,6 +17,7 @@ export const useSwap = (initialFromToken: TokenInfo | null, initialToToken: Toke
   const [slippage, setSlippage] = useState("0.5");
   const [deadline, setDeadline] = useState("30");
   const [isLoadingPrice, setIsLoadingPrice] = useState(false);
+  const [walletPublicKey, setWalletPublicKey] = useState<string | null>(null);
   const [swapState, setSwapState] = useState<SwapState>({
     loading: false,
     approving: false,
@@ -35,13 +37,52 @@ export const useSwap = (initialFromToken: TokenInfo | null, initialToToken: Toke
 
   const { toast } = useToast();
 
+  // Check for existing wallet connection on mount
+  useEffect(() => {
+    const checkWalletConnection = async () => {
+      try {
+        // Check for Phantom
+        const phantomWallet = (window as any).phantom?.solana;
+        // Check for Solflare
+        const solflareWallet = (window as any).solflare;
+        
+        if (phantomWallet && phantomWallet.isConnected) {
+          setIsConnected(true);
+          const publicKey = await phantomWallet.publicKey?.toString();
+          setWalletPublicKey(publicKey);
+        } else if (solflareWallet && solflareWallet.isConnected) {
+          setIsConnected(true);
+          const publicKey = await solflareWallet.publicKey?.toString();
+          setWalletPublicKey(publicKey);
+        }
+      } catch (error) {
+        console.error("Error checking wallet connection:", error);
+      }
+    };
+    
+    checkWalletConnection();
+  }, []);
+
   const connectWallet = async () => {
     setIsConnecting(true);
     
     try {
-      // Simulate a connection delay (in a real app, this would be the actual connection process)
-      await new Promise(resolve => setTimeout(resolve, 1500));
+      // For real connection with browser extension, this doesn't need to do anything
+      // as the actual connection is handled in WalletConnect component
       setIsConnected(true);
+      
+      // Get the current wallet's public key
+      let publicKey = null;
+      const phantomWallet = (window as any).phantom?.solana;
+      const solflareWallet = (window as any).solflare;
+      
+      if (phantomWallet && phantomWallet.isConnected) {
+        publicKey = phantomWallet.publicKey?.toString();
+      } else if (solflareWallet && solflareWallet.isConnected) {
+        publicKey = solflareWallet.publicKey?.toString();
+      }
+      
+      setWalletPublicKey(publicKey);
       
       toast({
         title: "Wallet connected",
@@ -63,19 +104,72 @@ export const useSwap = (initialFromToken: TokenInfo | null, initialToToken: Toke
   };
   
   const disconnectWallet = async () => {
-    setIsConnected(false);
-    toast({
-      title: "Wallet disconnected",
-      description: "You've been disconnected from your wallet",
-    });
+    try {
+      // Attempt to disconnect from wallet
+      const phantomWallet = (window as any).phantom?.solana;
+      const solflareWallet = (window as any).solflare;
+      
+      if (phantomWallet && phantomWallet.isConnected) {
+        await phantomWallet.disconnect();
+      } else if (solflareWallet && solflareWallet.isConnected) {
+        await solflareWallet.disconnect();
+      }
+      
+      setIsConnected(false);
+      setWalletPublicKey(null);
+      
+      toast({
+        title: "Wallet disconnected",
+        description: "You've been disconnected from your wallet",
+      });
+    } catch (error) {
+      console.error("Error disconnecting wallet:", error);
+      toast({
+        title: "Disconnection failed",
+        description: "Failed to disconnect wallet",
+        variant: "destructive",
+      });
+    }
   };
 
   const wallet = {
     connected: isConnected,
     connecting: isConnecting,
-    publicKey: isConnected ? "YourMockPublicKey123" : null,
-    signTransaction: async (tx: any) => tx,
-    signAllTransactions: async (txs: any[]) => txs,
+    publicKey: walletPublicKey,
+    signTransaction: async (tx: any) => {
+      // In a real implementation, this would use the actual wallet adapter
+      try {
+        const phantomWallet = (window as any).phantom?.solana;
+        const solflareWallet = (window as any).solflare;
+        
+        if (phantomWallet && phantomWallet.isConnected) {
+          return await phantomWallet.signTransaction(tx);
+        } else if (solflareWallet && solflareWallet.isConnected) {
+          return await solflareWallet.signTransaction(tx);
+        }
+        throw new Error("No connected wallet available");
+      } catch (error) {
+        console.error("Error signing transaction:", error);
+        throw error;
+      }
+    },
+    signAllTransactions: async (txs: any[]) => {
+      // In a real implementation, this would use the actual wallet adapter
+      try {
+        const phantomWallet = (window as any).phantom?.solana;
+        const solflareWallet = (window as any).solflare;
+        
+        if (phantomWallet && phantomWallet.isConnected) {
+          return await phantomWallet.signAllTransactions(txs);
+        } else if (solflareWallet && solflareWallet.isConnected) {
+          return await solflareWallet.signAllTransactions(txs);
+        }
+        throw new Error("No connected wallet available");
+      } catch (error) {
+        console.error("Error signing transactions:", error);
+        throw error;
+      }
+    },
     connect: connectWallet,
     disconnect: disconnectWallet,
   };
