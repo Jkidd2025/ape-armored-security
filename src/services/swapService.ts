@@ -3,7 +3,6 @@
 let Connection: any;
 let PublicKey: any;
 let Transaction: any;
-let isMockImplementation = false;
 
 try {
   // Try to import from @solana/web3.js
@@ -13,26 +12,25 @@ try {
   Transaction = solanaWeb3.Transaction;
   console.log('Successfully imported @solana/web3.js');
 } catch (error) {
-  // If import fails, create mock classes
-  console.warn('Solana web3 library not available, using mock implementations:', error);
-  isMockImplementation = true;
+  // If import fails, create mock classes for type safety
+  console.error('Solana web3 library not available:', error);
   
   Connection = class MockConnection {
     constructor(endpoint: string) {
-      console.log(`Mock connection created with endpoint: ${endpoint}`);
+      console.error(`Cannot create real connection: ${endpoint}. Solana web3.js library is not available.`);
     }
   };
   
   PublicKey = class MockPublicKey {
     constructor(address: string) {
-      console.log(`Mock public key created: ${address}`);
+      console.error(`Cannot create real public key: ${address}. Solana web3.js library is not available.`);
     }
   };
   
   Transaction = class MockTransaction {};
 }
 
-import { SwapPair, SwapQuote, SwapResult, SwapSettings } from '@/types/swap';
+import { SwapQuote, SwapResult } from '@/types/swap';
 
 // Use Helius RPC URL with API key
 const getHeliusRpcUrl = async (): Promise<string> => {
@@ -47,17 +45,13 @@ const getHeliusRpcUrl = async (): Promise<string> => {
   }
 };
 
-// This would be the actual connection to the Solana blockchain
-let connection: typeof Connection;
+// Connection to the Solana blockchain
+let connection: any;
 
 const initConnection = async () => {
   const rpcUrl = await getHeliusRpcUrl();
   connection = new Connection(rpcUrl, 'confirmed');
-  if (isMockImplementation) {
-    console.warn('Using mock implementation of Solana Connection. Swap functionality will be limited to simulations.');
-  } else {
-    console.log('Initialized real Solana connection to:', rpcUrl);
-  }
+  console.log('Initialized Solana connection to:', rpcUrl);
   return connection;
 };
 
@@ -74,24 +68,50 @@ export const getSwapQuote = async (
   slippage: number
 ): Promise<SwapQuote | null> => {
   try {
+    if (!amount || isNaN(parseFloat(amount)) || parseFloat(amount) <= 0) {
+      return null;
+    }
+    
     console.log('Getting quote for swap', { fromToken, toToken, amount, slippage });
     
-    // In production, this would call a real DEX API or SDK
-    // This is just a placeholder implementation
+    // For production, this would call a DEX API like Jupiter Aggregator
+    // This is a placeholder implementation that will need to be replaced with real DEX API calls
+    const jupiterApiUrl = `https://quote-api.jup.ag/v6/quote?inputMint=${fromToken}&outputMint=${toToken}&amount=${amount}&slippageBps=${slippage * 100}`;
     
-    // Simulate a network delay
-    await new Promise(resolve => setTimeout(resolve, 500));
+    // In real implementation, we would make an API call to Jupiter or another DEX aggregator
+    // For now, return a realistic estimate based on market rates
+    const fromPrice = await getTokenPrice(fromToken);
+    const toPrice = await getTokenPrice(toToken);
     
-    // Mock response - in production this would come from the DEX
-    const mockQuote: SwapQuote = {
-      inAmount: BigInt(parseFloat(amount) * 1e9),
-      outAmount: BigInt(parseFloat(amount) * 1.2 * 1e9), // Mock rate
-      fee: BigInt(parseFloat(amount) * 0.003 * 1e9), // 0.3% fee
-      priceImpact: 0.05, // 0.05% price impact
+    if (!fromPrice || !toPrice) {
+      throw new Error('Could not get token prices');
+    }
+    
+    // Calculate exchange rate based on price ratio
+    const exchangeRate = fromPrice / toPrice;
+    
+    // Calculate output amount based on exchange rate
+    const inputAmount = parseFloat(amount);
+    const outputAmount = inputAmount * exchangeRate;
+    
+    // Fee calculation (0.3% fee is typical for most DEXes)
+    const feeAmount = inputAmount * 0.003;
+    
+    // Calculate price impact (typically between 0.01% and 2% depending on liquidity)
+    const priceImpact = 0.01; // 0.01% for large pools, would be calculated from real liquidity data
+    
+    // Convert to BigInt with 9 decimals of precision for consistent handling
+    const inAmountBigInt = BigInt(Math.round(inputAmount * 1e9));
+    const outAmountBigInt = BigInt(Math.round(outputAmount * 1e9));
+    const feeBigInt = BigInt(Math.round(feeAmount * 1e9));
+    
+    return {
+      inAmount: inAmountBigInt,
+      outAmount: outAmountBigInt,
+      fee: feeBigInt,
+      priceImpact,
       route: [fromToken, toToken]
     };
-    
-    return mockQuote;
   } catch (error) {
     console.error('Error getting swap quote:', error);
     return null;
@@ -102,7 +122,7 @@ export const getSwapQuote = async (
  * Execute a swap transaction
  */
 export const executeSwap = async (
-  wallet: any, // In production this would be a real wallet adapter
+  wallet: any,
   fromToken: string,
   toToken: string,
   amount: string,
@@ -115,8 +135,6 @@ export const executeSwap = async (
     }
     
     console.log('Executing swap', { fromToken, toToken, amount, slippage, deadline });
-    console.log('Using wallet provider:', wallet.provider);
-    console.log('Wallet public key:', wallet.publicKey);
     
     // In production, this would:
     // 1. Get a swap route from a DEX
@@ -125,14 +143,18 @@ export const executeSwap = async (
     // 4. Send the transaction to the network
     // 5. Wait for confirmation
     
-    // Simulate a network delay
-    await new Promise(resolve => setTimeout(resolve, 1000));
+    if (!connection) {
+      await initConnection();
+    }
     
-    // Mock successful transaction
-    return {
-      success: true,
-      txHash: `mock-tx-hash-${Date.now()}`,
-    };
+    if (!wallet.signTransaction) {
+      throw new Error('Wallet does not support signing transactions');
+    }
+    
+    // Here we would implement the actual swap transaction
+    // This is just a placeholder and would need to be replaced with actual Jupiter or other DEX integration
+    throw new Error('Swap execution not implemented in production yet');
+    
   } catch (error: any) {
     console.error('Error executing swap:', error);
     return {
@@ -144,7 +166,6 @@ export const executeSwap = async (
 
 /**
  * Get token balance for a user's wallet
- * Improved implementation based on wallet provider
  */
 export const getTokenBalance = async (
   walletProvider: any,
@@ -156,72 +177,14 @@ export const getTokenBalance = async (
       return { amount: '0', decimals: 9 };
     }
     
-    console.log(`Getting ${tokenSymbol} balance for wallet`);
-    
-    // For Phantom wallet
-    if (walletProvider === (window as any).phantom?.solana) {
-      console.log("Using Phantom wallet provider to fetch balances");
-      
-      // In a real implementation, we would use the Solana connection to get the wallet's token accounts
-      // Here's an example of how we would get SOL balance directly from the provider
-      if (tokenSymbol.toUpperCase() === 'SOL' && walletProvider.publicKey) {
-        try {
-          // Since we can't directly query blockchain in a browser-only app,
-          // we'll simulate a successful balance query with mock data for now
-          const balance = await getMockTokenBalance(tokenSymbol);
-          return balance;
-        } catch (err) {
-          console.error("Error getting SOL balance from Phantom:", err);
-        }
-      }
-    }
-    
-    // For Solflare wallet
-    if (walletProvider === (window as any).solflare) {
-      console.log("Using Solflare wallet provider to fetch balances");
-      
-      // Similar approach as with Phantom
-      if (tokenSymbol.toUpperCase() === 'SOL' && walletProvider.publicKey) {
-        try {
-          // In a real implementation, we'd use the actual Solflare methods to get balances
-          const balance = await getMockTokenBalance(tokenSymbol);
-          return balance;
-        } catch (err) {
-          console.error("Error getting SOL balance from Solflare:", err);
-        }
-      }
-    }
-    
-    // For any other token or wallet, use mock data
-    return await getMockTokenBalance(tokenSymbol);
+    // In production, we would query the blockchain for the token balance
+    // For now, return a placeholder message indicating real implementation needed
+    console.warn('Real token balance lookup not implemented yet');
+    return { amount: '0', decimals: 9 };
   } catch (error) {
     console.error('Error getting token balance:', error);
     return { amount: '0', decimals: 9 };
   }
-};
-
-/**
- * Helper function for mock balances
- */
-const getMockTokenBalance = async (tokenSymbol: string): Promise<{ amount: string; decimals: number }> => {
-  // Generate more realistic mock balances
-  const mockBalances: Record<string, { amount: string; decimals: number }> = {
-    'SOL': { amount: '10.5', decimals: 9 },
-    'USDC': { amount: '250.75', decimals: 6 },
-    'ETH': { amount: '1.25', decimals: 8 },
-    'BONK': { amount: '1000000', decimals: 5 },
-    'USDT': { amount: '145.50', decimals: 6 },
-    'RAY': { amount: '75.25', decimals: 6 },
-    'SRM': { amount: '200', decimals: 6 },
-  };
-  
-  const balance = mockBalances[tokenSymbol.toUpperCase()] || { amount: '0', decimals: 9 };
-  console.log(`${tokenSymbol} balance:`, balance);
-  
-  // Add a small delay to simulate network latency
-  await new Promise(resolve => setTimeout(resolve, 100));
-  
-  return balance;
 };
 
 /**
@@ -254,3 +217,24 @@ export const requestWalletPermissions = async (provider: any): Promise<boolean> 
     return false;
   }
 };
+
+/**
+ * Helper function to get token price
+ * This would be replaced with a real price feed in production
+ */
+async function getTokenPrice(tokenSymbol: string): Promise<number> {
+  // In production, this would be an API call to a price oracle or exchange
+  // For now, return some reasonable values for common tokens
+  const prices: Record<string, number> = {
+    'SOL': 155.42,
+    'USDC': 1.00,
+    'ETH': 3400.00,
+    'BONK': 0.00001842,
+    'USDT': 1.00,
+    'RAY': 0.35,
+    'JUP': 0.58,
+    'PYTH': 0.76,
+  };
+  
+  return prices[tokenSymbol] || 1.0;
+}

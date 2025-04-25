@@ -1,6 +1,5 @@
 
 import { SwapResult } from '@/types/swap';
-import { executeMockSwap } from './mocks';
 
 export const executeSwap = async (
   wallet: any,
@@ -19,13 +18,16 @@ export const executeSwap = async (
     console.log('Using wallet provider:', wallet.provider);
     console.log('Wallet public key:', wallet.publicKey);
     
-    // For future real implementation:
-    // if (!isMockImplementation) {
-    //   // Implement real DEX swap logic here
-    // }
+    // Production implementation would:
+    // 1. Get a quote from Jupiter or another DEX aggregator
+    // 2. Create a transaction using the quote
+    // 3. Sign the transaction with the wallet
+    // 4. Send the transaction to the network
+    // 5. Return the transaction hash and other details
     
-    // Currently using mock implementation for all cases
-    return await executeMockSwap();
+    // Until the production implementation is complete, throw an informative error
+    throw new Error('Production swap execution not yet implemented. Please check back soon for full functionality.');
+    
   } catch (error: any) {
     console.error('Error executing swap:', error);
     return {

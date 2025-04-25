@@ -27,7 +27,6 @@ export const useTokenPrice = () => {
 
       if (quote) {
         // Convert BigInt to number for display, accounting for token decimals
-        // We assume all tokens in the mock have 9 decimals for consistency
         const displayAmount = Number(quote.outAmount) / 1e9;
         return { toAmount: displayAmount.toString() };
       }
