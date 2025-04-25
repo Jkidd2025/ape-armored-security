@@ -15,12 +15,8 @@ export const useWalletBalances = () => {
       return {};
     }
     
-    // Don't refresh if less than 5 seconds have passed since last refresh
-    // unless it's the initial load (lastBalanceRefresh === 0)
-    if (lastBalanceRefresh > 0 && Date.now() - lastBalanceRefresh < 5000) {
-      console.log("Skipping balance refresh - too soon since last refresh");
-      return walletBalances;
-    }
+    // Force refresh by removing this condition - always refresh when requested
+    // This ensures the refresh button works properly
     
     if (isRefreshing) {
       console.log("Balance refresh already in progress");
@@ -66,7 +62,7 @@ export const useWalletBalances = () => {
     } finally {
       setIsRefreshing(false);
     }
-  }, [lastBalanceRefresh, toast, walletBalances]);
+  }, [toast]);  // Remove walletBalances dependency to prevent stale closures
 
   return {
     walletBalances,

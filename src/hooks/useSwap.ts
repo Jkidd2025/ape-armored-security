@@ -1,5 +1,5 @@
 
-import { useEffect } from 'react';
+import { useEffect, useCallback } from 'react';
 import { TokenInfo } from "@/services/solanaTracker";
 import { useWalletConnection } from './useWalletConnection';
 import { useSwapState } from './swap/useSwapState';
@@ -25,13 +25,13 @@ export const useSwap = (initialFromToken: TokenInfo | null, initialToToken: Toke
     handleSwapTokens,
   } = useSwapState(initialFromToken, initialToToken);
 
-  // Create a wrapper function with no arguments that calls fetchWalletBalances
-  const refreshWalletBalances = async (): Promise<void> => {
+  // Create a wrapper function that calls fetchWalletBalances
+  const refreshWalletBalances = useCallback(async (): Promise<void> => {
+    console.log("Refreshing wallet balances...");
     if (wallet.provider) {
       await fetchWalletBalances(wallet.provider);
-      return;
     }
-  };
+  }, [wallet.provider, fetchWalletBalances]);
 
   const { swapState, handleSwap } = useSwapExecution(wallet, refreshWalletBalances);
 
@@ -70,7 +70,14 @@ export const useSwap = (initialFromToken: TokenInfo | null, initialToToken: Toke
         }));
       }
     }
-  }, [isConnected, walletBalances, fromToken?.symbol, toToken?.symbol]);
+  }, [isConnected, walletBalances, fromToken?.symbol, toToken?.symbol, setFromToken, setToToken]);
+
+  // Initial wallet balance load when connected
+  useEffect(() => {
+    if (isConnected && wallet.provider) {
+      refreshWalletBalances();
+    }
+  }, [isConnected, wallet.provider, refreshWalletBalances]);
 
   return {
     fromToken,
@@ -98,6 +105,7 @@ export const useSwap = (initialFromToken: TokenInfo | null, initialToToken: Toke
     updateToAmount,
     refreshPrice,
     wallet,
-    walletBalances
+    walletBalances,
+    refreshWalletBalances
   };
 };

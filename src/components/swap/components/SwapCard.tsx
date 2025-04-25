@@ -7,6 +7,7 @@ import { SwapArrows } from "../SwapArrows";
 import { SwapActionButton } from "../SwapActionButton";
 import { TransactionInfo } from "../TransactionInfo";
 import { SwapHeader } from "../SwapHeader";
+import { useEffect } from "react";
 
 interface SwapCardProps {
   showSettings: boolean;
@@ -57,11 +58,17 @@ export const SwapCard = ({
   handleConnectClick,
   handleDisconnectClick
 }: SwapCardProps) => {
+  // Handle refresh button click
+  const handleRefresh = () => {
+    console.log("Refresh triggered in SwapCard");
+    refreshPrice();
+  };
+
   return (
     <Card className="p-6 border border-apearmor-darkbronze bg-muted">
       <div className="flex justify-between items-center mb-4">
         <SwapHeader
-          onRefresh={refreshPrice}
+          onRefresh={handleRefresh}
           onSettingsClick={() => setShowSettings(!showSettings)}
           isLoadingPrice={isLoadingPrice}
           fromAmount={fromAmount}

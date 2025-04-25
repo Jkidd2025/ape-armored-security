@@ -18,6 +18,7 @@ export const useTokenPrice = () => {
     setIsLoadingPrice(true);
 
     try {
+      console.log(`Fetching price for ${amount} ${fromToken} to ${toToken}`);
       const quote = await getSwapQuote(
         fromToken,
         toToken,
@@ -28,6 +29,7 @@ export const useTokenPrice = () => {
       if (quote) {
         // Convert BigInt to number for display, account for token decimals
         const displayAmount = Number(quote.outAmount) / 1e9;
+        console.log(`Price quote received: ${displayAmount} ${toToken}`);
         return { toAmount: displayAmount.toString() };
       }
     } catch (error) {

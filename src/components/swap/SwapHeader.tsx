@@ -18,6 +18,13 @@ export const SwapHeader = ({
   fromAmount,
   hasError = false,
 }: SwapHeaderProps) => {
+  const handleRefresh = (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    console.log("Refresh button clicked");
+    onRefresh();
+  };
+
   return (
     <div className="flex justify-between items-center mb-4">
       <div className="flex items-center">
@@ -39,9 +46,9 @@ export const SwapHeader = ({
         <Button
           variant="ghost"
           size="icon"
-          onClick={onRefresh}
+          onClick={handleRefresh}
           className="text-apearmor-teal hover:text-apearmor-teal/80"
-          disabled={isLoadingPrice || !fromAmount}
+          disabled={isLoadingPrice}
         >
           <RefreshCcw size={18} className={isLoadingPrice ? "animate-spin" : ""} />
         </Button>

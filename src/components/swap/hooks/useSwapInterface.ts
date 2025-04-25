@@ -29,7 +29,8 @@ export const useSwapInterface = () => {
     updateToAmount,
     refreshPrice,
     wallet,
-    walletBalances
+    walletBalances,
+    refreshWalletBalances
   } = useSwap(
     tokens && tokens.length > 0 ? tokens[0] : null, 
     tokens && tokens.length > 1 ? tokens[1] : null
@@ -49,8 +50,8 @@ export const useSwapInterface = () => {
       const fetchBalances = async () => {
         try {
           console.log("Connection detected, refreshing wallet balances...");
-          if (wallet.refreshBalances) {
-            await wallet.refreshBalances();
+          if (refreshWalletBalances) {
+            await refreshWalletBalances();
           }
         } catch (error) {
           console.error("Error refreshing balances:", error);
@@ -59,7 +60,7 @@ export const useSwapInterface = () => {
       
       fetchBalances();
     }
-  }, [isConnected, wallet.provider]);
+  }, [isConnected, wallet.provider, refreshWalletBalances]);
 
   const handleConnectClick = async () => {
     try {
@@ -106,6 +107,7 @@ export const useSwapInterface = () => {
     wallet,
     walletBalances,
     handleConnectClick,
-    handleDisconnectClick
+    handleDisconnectClick,
+    refreshWalletBalances
   };
 };

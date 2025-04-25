@@ -1,5 +1,5 @@
 
-import { useEffect } from 'react';
+import { useEffect, useCallback } from 'react';
 import { TokenInfo } from "@/services/solanaTracker";
 import { useTokenPrice } from '../useTokenPrice';
 
@@ -13,11 +13,13 @@ export const useSwapPriceUpdates = (
 ) => {
   const { isLoadingPrice, fetchPrice } = useTokenPrice();
 
-  const updateToAmount = async (value: string) => {
+  const updateToAmount = useCallback(async (value: string) => {
     if (!value || isNaN(parseFloat(value)) || parseFloat(value) <= 0) {
       setToAmount("");
       return;
     }
+    
+    console.log(`Updating price for ${value} ${fromToken.symbol} to ${toToken.symbol}`);
     
     const priceResult = await fetchPrice(
       fromToken.symbol,
@@ -31,20 +33,21 @@ export const useSwapPriceUpdates = (
     } else {
       setToAmount("");
     }
-  };
+  }, [fromToken.symbol, toToken.symbol, fetchPrice, setToAmount]);
 
   // Update token prices when tokens change
   useEffect(() => {
     if (fromAmount && parseFloat(fromAmount) > 0) {
       updateToAmount(fromAmount);
     }
-  }, [fromToken, toToken]);
+  }, [fromToken, toToken, fromAmount, updateToAmount]);
 
-  const refreshPrice = () => {
+  const refreshPrice = useCallback(() => {
+    console.log("Manual price refresh requested");
     if (fromAmount) {
       updateToAmount(fromAmount);
     }
-  };
+  }, [fromAmount, updateToAmount]);
 
   return {
     isLoadingPrice,
