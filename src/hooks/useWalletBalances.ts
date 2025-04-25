@@ -11,7 +11,7 @@ export const useWalletBalances = () => {
 
   const fetchWalletBalances = useCallback(async (provider: any) => {
     if (!provider || !provider.isConnected) {
-      console.warn("Cannot fetch balances: wallet not connected");
+      console.log("Cannot fetch balances: wallet not connected");
       return {};
     }
     

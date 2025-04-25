@@ -62,6 +62,19 @@ export const TokenInput = ({
     return val;
   };
 
+  // Handler for input changes
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (!onAmountChange) return;
+    
+    const value = e.target.value;
+    
+    // Only allow numeric input with decimal point
+    const regex = /^[0-9]*\.?[0-9]*$/;
+    if (value === "" || regex.test(value)) {
+      onAmountChange(value);
+    }
+  };
+
   return (
     <div className="bg-background rounded-lg p-4 border border-apearmor-darkbronze">
       <div className="flex justify-between mb-2">
@@ -74,7 +87,7 @@ export const TokenInput = ({
         <input
           type="text"
           value={formatDisplayAmount(amount)}
-          onChange={(e) => onAmountChange?.(e.target.value)}
+          onChange={handleInputChange}
           placeholder="0.0"
           className="bg-transparent text-2xl outline-none w-full"
           readOnly={readOnly || disabled}

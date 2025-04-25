@@ -11,12 +11,12 @@ export const getTokenBalance = async (
 ): Promise<{ amount: string; decimals: number }> => {
   try {
     if (!walletProvider || !walletProvider.isConnected) {
-      console.warn("Cannot get token balance: wallet not connected");
+      console.log("Cannot get token balance: wallet not connected");
       return { amount: '0', decimals: 9 };
     }
     
     if (!walletProvider.publicKey) {
-      console.warn("Cannot get token balance: no public key available");
+      console.log("Cannot get token balance: no public key available");
       return { amount: '0', decimals: 9 };
     }
 
