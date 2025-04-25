@@ -1,4 +1,3 @@
-
 import { TokenInfo } from '@/services/solanaTracker';
 
 // These will be replaced by real data from the API
@@ -8,7 +7,7 @@ export const mockTokens: TokenInfo[] = [
     name: "Solana",
     decimals: 9,
     mintAddress: "So11111111111111111111111111111111111111112",
-    logoURI: "https://raw.githubusercontent.com/solana-labs/token-list/main/assets/mainnet/So11111111111111111111111111111111111111112/logo.png",
+    logoURI: "https://raw.githubusercontent.com/solana-labs/token-list/main/assets/mainnet/So1111111111111111111111111111111111111112/logo.png",
     balance: 10.5,
   },
   {
@@ -47,7 +46,7 @@ export const mockTokensWithBalance: TokenInfo[] = [
     symbol: "SOL",
     decimals: 9,
     logoURI:
-      "https://raw.githubusercontent.com/solana-labs/token-list/main/assets/mainnet/So11111111111111111111111111111111111111112/logo.png",
+      "https://raw.githubusercontent.com/solana-labs/token-list/main/assets/mainnet/So1111111111111111111111111111111111111112/logo.png",
     balance: 10.5,
   },
   {
