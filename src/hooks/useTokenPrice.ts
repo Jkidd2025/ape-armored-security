@@ -1,3 +1,4 @@
+
 import { useState } from 'react';
 import { getSwapQuote } from '@/services/swap/swapService';
 
@@ -25,7 +26,7 @@ export const useTokenPrice = () => {
       );
 
       if (quote) {
-        // Convert BigInt to number for display, accounting for token decimals
+        // Convert BigInt to number for display, account for token decimals
         const displayAmount = Number(quote.outAmount) / 1e9;
         return { toAmount: displayAmount.toString() };
       }
