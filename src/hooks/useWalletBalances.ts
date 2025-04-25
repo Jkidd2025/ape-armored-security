@@ -1,7 +1,7 @@
 
 import { useState, useCallback } from 'react';
 import { useToast } from "@/components/ui/use-toast";
-import { getTokenBalance } from '@/services/swap/swapService';
+import { getTokenBalance } from '@/services/swap/tokenBalances';
 
 export const useWalletBalances = () => {
   const [walletBalances, setWalletBalances] = useState<Record<string, number>>({});
