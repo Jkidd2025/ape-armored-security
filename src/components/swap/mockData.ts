@@ -25,7 +25,7 @@ export const wallets = [
   {
     id: 'phantom',
     name: 'Phantom',
-    iconUrl: '/lovable-uploads/2f4e2fac-0b35-40b7-8c24-4078d2e10589.png',
+    iconUrl: '/lovable-uploads/b003487b-eae0-4141-8672-453d92b7a6d4.png',
   },
   {
     id: 'solflare',
