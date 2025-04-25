@@ -18,21 +18,24 @@ export default defineConfig(({ mode }) => ({
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),
-      // Add buffer polyfill for crypto libraries
       buffer: 'buffer',
     },
   },
   define: {
-    // Add global Buffer for libraries that expect it
     global: 'globalThis',
     'process.env': {},
   },
   optimizeDeps: {
+    include: ['buffer'],
     esbuildOptions: {
-      // Node.js global to browser globalThis
       define: {
         global: 'globalThis',
       },
     },
   },
+  build: {
+    commonjsOptions: {
+      transformMixedEsModules: true,
+    },
+  }
 }));

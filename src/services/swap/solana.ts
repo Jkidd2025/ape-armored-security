@@ -1,4 +1,7 @@
 
+// Ensure Buffer is available
+import '../utils/buffer-polyfill';
+
 import { Connection, PublicKey } from '@solana/web3.js';
 import { getHeliusRpcUrl } from '../helius/heliusService';
 
