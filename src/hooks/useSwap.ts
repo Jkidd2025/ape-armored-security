@@ -28,7 +28,7 @@ export const useSwap = (initialFromToken: TokenInfo | null, initialToToken: Toke
   // Create a wrapper function with no arguments that calls fetchWalletBalances
   const refreshWalletBalances = async () => {
     if (wallet.provider) {
-      return await fetchWalletBalances(wallet.provider);
+      await fetchWalletBalances(wallet.provider);
     }
   };
 
