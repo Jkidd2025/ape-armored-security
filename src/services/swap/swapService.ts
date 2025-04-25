@@ -1,3 +1,4 @@
+
 import { SwapQuote } from '@/types/swap';
 import { getMockSwapQuote } from './mocks';
 export { requestWalletPermissions } from './walletPermissions';
@@ -29,6 +30,11 @@ export const getSwapQuote = async (
 ): Promise<SwapQuote | null> => {
   try {
     console.log('Getting quote for swap', { fromToken, toToken, amount, slippage });
+    
+    if (!amount || isNaN(parseFloat(amount)) || parseFloat(amount) <= 0) {
+      console.warn('Invalid amount for swap quote:', amount);
+      return null;
+    }
     
     // For future real implementation:
     // if (!isMockImplementation) {

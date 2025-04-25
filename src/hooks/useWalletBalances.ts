@@ -6,6 +6,7 @@ import { getTokenBalance } from '@/services/swapService';
 export const useWalletBalances = () => {
   const [walletBalances, setWalletBalances] = useState<Record<string, number>>({});
   const [lastBalanceRefresh, setLastBalanceRefresh] = useState<number>(0);
+  const [isRefreshing, setIsRefreshing] = useState<boolean>(false);
   const { toast } = useToast();
 
   const fetchWalletBalances = useCallback(async (provider: any) => {
@@ -15,21 +16,40 @@ export const useWalletBalances = () => {
     }
     
     // Don't refresh if less than 5 seconds have passed since last refresh
-    if (Date.now() - lastBalanceRefresh < 5000) {
+    // unless it's the initial load (lastBalanceRefresh === 0)
+    if (lastBalanceRefresh > 0 && Date.now() - lastBalanceRefresh < 5000) {
       console.log("Skipping balance refresh - too soon since last refresh");
       return walletBalances;
     }
     
+    if (isRefreshing) {
+      console.log("Balance refresh already in progress");
+      return walletBalances;
+    }
+    
     console.log("Fetching wallet balances...");
+    setIsRefreshing(true);
     setLastBalanceRefresh(Date.now());
     
     try {
       const balances: Record<string, number> = {};
-      const tokens = ['SOL', 'USDC', 'ETH', 'BONK', 'USDT'];
+      const tokens = ['SOL', 'USDC', 'ETH', 'BONK', 'USDT', 'RAY', 'JUP', 'PYTH'];
       
       for (const token of tokens) {
-        const balance = await getTokenBalance(provider, token);
-        balances[token] = parseFloat(balance.amount);
+        try {
+          console.log(`Getting ${token} balance for wallet`);
+          console.log(`Using ${provider.isPhantom ? 'Phantom' : 'Other'} wallet provider to fetch balances`);
+          
+          const balance = await getTokenBalance(provider, token);
+          const amount = parseFloat(balance.amount);
+          
+          if (!isNaN(amount)) {
+            balances[token] = amount;
+          }
+        } catch (tokenError) {
+          console.error(`Error fetching ${token} balance:`, tokenError);
+          // Continue with other tokens even if one fails
+        }
       }
       
       console.log("Wallet balances:", balances);
@@ -43,11 +63,14 @@ export const useWalletBalances = () => {
         variant: "destructive"
       });
       return {};
+    } finally {
+      setIsRefreshing(false);
     }
-  }, [lastBalanceRefresh, toast]);
+  }, [lastBalanceRefresh, toast, walletBalances]);
 
   return {
     walletBalances,
-    fetchWalletBalances
+    fetchWalletBalances,
+    isRefreshing
   };
 };

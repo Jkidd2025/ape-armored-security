@@ -32,12 +32,27 @@ export const TokenInput = ({
   onMaxClick,
   disabled = false,
 }: TokenInputProps) => {
+  // Format balance for display
+  const formatBalance = (balance?: number) => {
+    if (balance === undefined) return "0";
+    
+    // For very small numbers, use scientific notation
+    if (balance > 0 && balance < 0.001) {
+      return balance.toExponential(2);
+    }
+    
+    // For larger numbers, use fixed notation with up to 4 decimal places
+    return balance.toLocaleString(undefined, {
+      maximumFractionDigits: 4
+    });
+  };
+
   return (
     <div className="bg-background rounded-lg p-4 border border-apearmor-darkbronze">
       <div className="flex justify-between mb-2">
         <span className="text-sm text-muted-foreground">{label}</span>
         <span className="text-sm text-muted-foreground">
-          Balance: {isConnected ? `${selectedToken.balance || 0} ${selectedToken.symbol}` : "0"}
+          Balance: {isConnected ? `${formatBalance(selectedToken.balance)} ${selectedToken.symbol}` : "0"}
         </span>
       </div>
       <div className="flex items-center gap-2">

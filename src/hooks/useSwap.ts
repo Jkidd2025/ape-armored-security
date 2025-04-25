@@ -40,25 +40,30 @@ export const useSwap = (initialFromToken: TokenInfo | null, initialToToken: Toke
   // Update token balances when connection state or tokens change
   useEffect(() => {
     if (isConnected && wallet.provider) {
+      console.log("Updating token balances from wallet data:", walletBalances);
+      
+      // Create copies of tokens with updated balances
       if (fromToken) {
-        setFromToken({
-          ...fromToken,
-          balance: walletBalances[fromToken.symbol] || 0
-        });
+        const fromBalance = walletBalances[fromToken.symbol] || 0;
+        setFromToken(prevToken => ({
+          ...prevToken,
+          balance: fromBalance
+        }));
       }
       
       if (toToken) {
-        setToToken({
-          ...toToken,
-          balance: walletBalances[toToken.symbol] || 0
-        });
+        const toBalance = walletBalances[toToken.symbol] || 0;
+        setToToken(prevToken => ({
+          ...prevToken,
+          balance: toBalance
+        }));
       }
     }
   }, [isConnected, walletBalances, fromToken?.symbol, toToken?.symbol]);
 
   // Update token prices when tokens change
   useEffect(() => {
-    if (fromAmount) {
+    if (fromAmount && parseFloat(fromAmount) > 0) {
       updateToAmount(fromAmount);
     }
   }, [fromToken, toToken]);
@@ -149,13 +154,26 @@ export const useSwap = (initialFromToken: TokenInfo | null, initialToToken: Toke
 
   const updateToAmount = async (value: string) => {
     setFromAmount(value);
+    
+    if (!value || isNaN(parseFloat(value)) || parseFloat(value) <= 0) {
+      setToAmount("");
+      return;
+    }
+    
     const priceResult = await fetchPrice(
       fromToken.symbol,
       toToken.symbol,
       value,
       parseFloat(slippage)
     );
-    setToAmount(priceResult?.toAmount || "");
+    
+    if (priceResult?.toAmount) {
+      // Format with proper precision based on token
+      const numValue = parseFloat(priceResult.toAmount);
+      setToAmount(numValue.toString());
+    } else {
+      setToAmount("");
+    }
   };
 
   const refreshPrice = () => {

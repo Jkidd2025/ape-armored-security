@@ -12,6 +12,18 @@ const mockBalances: Record<string, { amount: string; decimals: number }> = {
   'SRM': { amount: '200', decimals: 6 },
 };
 
+// Mock token prices in USD
+const mockPrices: Record<string, number> = {
+  'SOL': 155.42,
+  'USDC': 1.00,
+  'ETH': 3400.00,
+  'BONK': 0.00001842,
+  'USDT': 1.00,
+  'RAY': 0.35,
+  'JUP': 0.58,
+  'PYTH': 0.76,
+};
+
 export const getMockTokenBalance = async (tokenSymbol: string): Promise<{ amount: string; decimals: number }> => {
   const balance = mockBalances[tokenSymbol.toUpperCase()] || { amount: '0', decimals: 9 };
   console.log(`Mock ${tokenSymbol} balance:`, balance);
@@ -26,11 +38,29 @@ export const getMockSwapQuote = async (
   slippage: number
 ): Promise<SwapQuote> => {
   await new Promise(resolve => setTimeout(resolve, 500));
+  
+  // Get prices for tokens
+  const fromPrice = mockPrices[fromToken] || 1;
+  const toPrice = mockPrices[toToken] || 1;
+  
+  // Calculate exchange rate based on price ratio
+  const exchangeRate = fromPrice / toPrice;
+  
+  // Calculate output amount based on exchange rate
+  const inputAmount = parseFloat(amount);
+  const outputAmount = inputAmount * exchangeRate;
+  
+  // Fee calculation (0.3% fee)
+  const feeAmount = inputAmount * 0.003;
+  
+  // Calculate price impact (random between 0.01% and 0.1% for mock)
+  const priceImpact = Math.random() * 0.0009 + 0.0001;
+  
   return {
-    inAmount: BigInt(parseFloat(amount) * 1e9),
-    outAmount: BigInt(parseFloat(amount) * 1.2 * 1e9),
-    fee: BigInt(parseFloat(amount) * 0.003 * 1e9),
-    priceImpact: 0.05,
+    inAmount: BigInt(Math.floor(inputAmount * 1e9)),
+    outAmount: BigInt(Math.floor(outputAmount * 1e9)),
+    fee: BigInt(Math.floor(feeAmount * 1e9)),
+    priceImpact,
     route: [fromToken, toToken]
   };
 };
