@@ -1,7 +1,7 @@
 
 import { useEffect } from 'react';
 import { useToast } from "@/components/ui/use-toast";
-import { requestWalletPermissions } from '@/services/swapService';
+import { requestWalletPermissions } from '@/services/swap/walletPermissions';
 import { getWalletProviders, getPhantomProvider, getSolflareProvider } from '@/utils/wallet/providers';
 import { useWalletBalances } from './useWalletBalances';
 import { useWalletState } from './useWalletState';

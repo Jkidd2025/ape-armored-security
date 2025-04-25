@@ -67,18 +67,7 @@ export const getSwapQuote = async (
  * This simulates price data that would normally come from an API
  */
 async function getTokenPrice(tokenSymbol: string): Promise<number> {
-  // In production, this would be an API call to a price oracle or exchange
-  // For now, return some reasonable values for common tokens
-  const prices: Record<string, number> = {
-    'SOL': 155.42,
-    'USDC': 1.00,
-    'ETH': 3400.00,
-    'BONK': 0.00001842,
-    'USDT': 1.00,
-    'RAY': 0.35,
-    'JUP': 0.58,
-    'PYTH': 0.76,
-  };
-  
-  return prices[tokenSymbol] || 1.0;
+  // Import from the new location
+  const { getTokenPrice } = await import('./priceConstants');
+  return getTokenPrice(tokenSymbol);
 }
