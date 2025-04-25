@@ -56,10 +56,17 @@ export const getMockSwapQuote = async (
   // Calculate price impact (random between 0.01% and 0.1% for mock)
   const priceImpact = Math.random() * 0.0009 + 0.0001;
   
+  // Convert to BigInt with 9 decimals of precision for consistent handling
+  const inAmountBigInt = BigInt(Math.round(inputAmount * 1e9));
+  const outAmountBigInt = BigInt(Math.round(outputAmount * 1e9));
+  const feeBigInt = BigInt(Math.round(feeAmount * 1e9));
+  
+  console.log(`Swap quote: ${inputAmount} ${fromToken} (${fromPrice}) -> ${outputAmount.toFixed(6)} ${toToken} (${toPrice})`);
+  
   return {
-    inAmount: BigInt(Math.floor(inputAmount * 1e9)),
-    outAmount: BigInt(Math.floor(outputAmount * 1e9)),
-    fee: BigInt(Math.floor(feeAmount * 1e9)),
+    inAmount: inAmountBigInt,
+    outAmount: outAmountBigInt,
+    fee: feeBigInt,
     priceImpact,
     route: [fromToken, toToken]
   };

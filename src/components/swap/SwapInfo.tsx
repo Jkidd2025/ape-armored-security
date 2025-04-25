@@ -21,7 +21,17 @@ export const SwapInfo = ({ fromToken, toToken, fromAmount, toAmount, slippage }:
     }
     
     const rate = parseFloat(toAmount) / parseFloat(fromAmount);
-    return rate.toString();
+    
+    // Format the rate based on its magnitude
+    if (rate > 1000) {
+      return rate.toLocaleString(undefined, { maximumFractionDigits: 0 });
+    } else if (rate > 1) {
+      return rate.toLocaleString(undefined, { maximumFractionDigits: 2 });
+    } else if (rate > 0.0001) {
+      return rate.toLocaleString(undefined, { maximumFractionDigits: 6 });
+    } else {
+      return rate.toExponential(4);
+    }
   };
   
   // Calculate minimum received based on slippage
@@ -32,7 +42,17 @@ export const SwapInfo = ({ fromToken, toToken, fromAmount, toAmount, slippage }:
     
     const slippagePercent = parseFloat(slippage) / 100;
     const minReceived = parseFloat(toAmount) * (1 - slippagePercent);
-    return minReceived.toString();
+    
+    // Format based on the value's magnitude
+    if (minReceived > 1000) {
+      return minReceived.toLocaleString(undefined, { maximumFractionDigits: 2 });
+    } else if (minReceived > 1) {
+      return minReceived.toLocaleString(undefined, { maximumFractionDigits: 4 });
+    } else if (minReceived > 0.0001) {
+      return minReceived.toLocaleString(undefined, { maximumFractionDigits: 6 });
+    } else {
+      return minReceived.toExponential(4);
+    }
   };
   
   const rate = calculateRate();

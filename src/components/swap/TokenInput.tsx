@@ -46,6 +46,21 @@ export const TokenInput = ({
       maximumFractionDigits: 4
     });
   };
+  
+  // Format display amount (for the input field)
+  const formatDisplayAmount = (val: string) => {
+    if (isLoading) return "Loading...";
+    if (!val) return "";
+    
+    // For the "To" field with large numbers, format them nicely
+    if (label === "To" && parseFloat(val) > 1000) {
+      return parseFloat(val).toLocaleString(undefined, {
+        maximumFractionDigits: 2
+      });
+    }
+    
+    return val;
+  };
 
   return (
     <div className="bg-background rounded-lg p-4 border border-apearmor-darkbronze">
@@ -58,7 +73,7 @@ export const TokenInput = ({
       <div className="flex items-center gap-2">
         <input
           type="text"
-          value={isLoading ? "Loading..." : amount}
+          value={formatDisplayAmount(amount)}
           onChange={(e) => onAmountChange?.(e.target.value)}
           placeholder="0.0"
           className="bg-transparent text-2xl outline-none w-full"
