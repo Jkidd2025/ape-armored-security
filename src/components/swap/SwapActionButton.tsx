@@ -29,9 +29,8 @@ export const SwapActionButton = ({
 }: SwapActionButtonProps) => {
   const [isAttemptingConnect, setIsAttemptingConnect] = useState(false);
   const { toast } = useToast();
-  
+
   const handleConnect = async () => {
-    setIsAttemptingConnect(true);
     try {
       console.log("SwapActionButton: Initiating wallet connect");
       await onConnect();
@@ -42,8 +41,6 @@ export const SwapActionButton = ({
         description: "Failed to connect to wallet. Please try again.",
         variant: "destructive",
       });
-    } finally {
-      setIsAttemptingConnect(false);
     }
   };
 
@@ -66,11 +63,7 @@ export const SwapActionButton = ({
   };
 
   if (!isConnected) {
-    return (
-      <WalletConnect 
-        onConnect={handleConnect} 
-      />
-    );
+    return <WalletConnect onConnect={handleConnect} />;
   }
 
   let buttonText = "Swap";

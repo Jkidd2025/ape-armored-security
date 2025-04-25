@@ -30,7 +30,7 @@ export const wallets = [
   {
     id: 'solflare',
     name: 'Solflare',
-    iconUrl: '/lovable-uploads/ef69fb56-d2d6-44bf-b410-2b73bfdd7956.png',
+    iconUrl: '/lovable-uploads/91bfdc71-fec6-45e8-8f41-1b2eb0aec00b.png',
   },
   {
     id: 'trust-wallet',
@@ -47,7 +47,7 @@ export const mockTokensWithBalance: TokenInfo[] = [
     symbol: "SOL",
     decimals: 9,
     logoURI:
-      "https://raw.githubusercontent.com/solana-labs/token-list/main/assets/mainnet/So1111111111111111111111111111111112/logo.png",
+      "https://raw.githubusercontent.com/solana-labs/token-list/main/assets/mainnet/So1111111111111111111112/logo.png",
     balance: 10.5,
   },
   {

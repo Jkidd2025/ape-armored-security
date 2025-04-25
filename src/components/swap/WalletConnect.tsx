@@ -131,7 +131,7 @@ const WalletConnect = ({ onConnect }: WalletConnectProps) => {
                     <img 
                       src={wallet.iconUrl} 
                       alt={wallet.name} 
-                      className="w-6 h-6" 
+                      className="w-6 h-6 object-contain" 
                     />
                     <span>{wallet.name}</span>
                     {isConnecting && <span className="ml-auto animate-spin">⟳</span>}
