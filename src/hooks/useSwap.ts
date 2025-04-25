@@ -7,7 +7,7 @@ import { useSwapExecution } from './swap/useSwapExecution';
 import { useSwapPriceUpdates } from './swap/useSwapPriceUpdates';
 
 export const useSwap = (initialFromToken: TokenInfo | null, initialToToken: TokenInfo | null) => {
-  const { wallet, isConnected, walletBalances, fetchWalletBalances } = useWalletConnection();
+  const { wallet, isConnected, isConnecting, walletBalances, fetchWalletBalances } = useWalletConnection();
   
   const {
     fromToken,
@@ -25,7 +25,14 @@ export const useSwap = (initialFromToken: TokenInfo | null, initialToToken: Toke
     handleSwapTokens,
   } = useSwapState(initialFromToken, initialToToken);
 
-  const { swapState, handleSwap } = useSwapExecution(wallet, fetchWalletBalances);
+  // Create a wrapper function with no arguments that calls fetchWalletBalances
+  const refreshWalletBalances = async () => {
+    if (wallet.provider) {
+      return await fetchWalletBalances(wallet.provider);
+    }
+  };
+
+  const { swapState, handleSwap } = useSwapExecution(wallet, refreshWalletBalances);
 
   const {
     isLoadingPrice,
@@ -70,6 +77,7 @@ export const useSwap = (initialFromToken: TokenInfo | null, initialToToken: Toke
     fromAmount,
     toAmount,
     isConnected,
+    isConnecting,
     slippage,
     deadline,
     isLoadingPrice,
