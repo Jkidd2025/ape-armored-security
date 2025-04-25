@@ -29,12 +29,12 @@ export const wallets = [
   {
     id: 'solflare',
     name: 'Solflare',
-    iconUrl: '/lovable-uploads/2f4e2fac-0b35-40b7-8c24-4078d2e10589.png',
+    iconUrl: 'https://raw.githubusercontent.com/solana-labs/token-list/main/assets/mainnet/So11111111111111111111111111111111111112/solflare.png',
   },
   {
     id: 'trust-wallet',
     name: 'Trust Wallet',
-    iconUrl: '/lovable-uploads/2f4e2fac-0b35-40b7-8c24-4078d2e10589.png',
+    iconUrl: 'https://trustwallet.com/assets/images/favicon.png',
   }
 ];
 
