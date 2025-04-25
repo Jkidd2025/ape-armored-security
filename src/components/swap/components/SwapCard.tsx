@@ -7,7 +7,6 @@ import { SwapArrows } from "../SwapArrows";
 import { SwapActionButton } from "../SwapActionButton";
 import { TransactionInfo } from "../TransactionInfo";
 import { SwapHeader } from "../SwapHeader";
-import { useEffect } from "react";
 
 interface SwapCardProps {
   showSettings: boolean;
@@ -32,6 +31,7 @@ interface SwapCardProps {
   wallet: any;
   handleConnectClick: () => void;
   handleDisconnectClick: () => void;
+  refreshWalletBalances?: () => void;
 }
 
 export const SwapCard = ({
@@ -56,12 +56,25 @@ export const SwapCard = ({
   refreshPrice,
   wallet,
   handleConnectClick,
-  handleDisconnectClick
+  handleDisconnectClick,
+  refreshWalletBalances
 }: SwapCardProps) => {
-  // Handle refresh button click
+  // Handle refresh button click - refresh both price and wallet balances
   const handleRefresh = () => {
     console.log("Refresh triggered in SwapCard");
+    
+    // Refresh price quotes
     refreshPrice();
+    
+    // Refresh wallet balances if available and connected
+    if (refreshWalletBalances && isConnected && wallet.provider) {
+      console.log("Refreshing wallet balances from SwapCard");
+      refreshWalletBalances();
+    } else {
+      console.log("Cannot refresh balances: ", 
+        !refreshWalletBalances ? "no refresh function" : 
+        !isConnected ? "not connected" : "no wallet provider");
+    }
   };
 
   return (

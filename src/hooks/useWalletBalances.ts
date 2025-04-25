@@ -15,9 +15,7 @@ export const useWalletBalances = () => {
       return {};
     }
     
-    // Force refresh by removing this condition - always refresh when requested
-    // This ensures the refresh button works properly
-    
+    // Check if refresh already in progress
     if (isRefreshing) {
       console.log("Balance refresh already in progress");
       return walletBalances;
@@ -50,6 +48,16 @@ export const useWalletBalances = () => {
       
       console.log("Wallet balances:", balances);
       setWalletBalances(balances);
+      
+      // Show toast on successful refresh
+      if (Object.keys(balances).length > 0) {
+        toast({
+          title: "Balances refreshed",
+          description: "Your wallet balances have been updated",
+          duration: 2000
+        });
+      }
+      
       return balances;
     } catch (error) {
       console.error('Error fetching wallet balances:', error);
@@ -62,7 +70,7 @@ export const useWalletBalances = () => {
     } finally {
       setIsRefreshing(false);
     }
-  }, [toast]);  // Remove walletBalances dependency to prevent stale closures
+  }, [toast]);
 
   return {
     walletBalances,

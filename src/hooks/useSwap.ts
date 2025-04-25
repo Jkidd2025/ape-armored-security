@@ -27,9 +27,12 @@ export const useSwap = (initialFromToken: TokenInfo | null, initialToToken: Toke
 
   // Create a wrapper function that calls fetchWalletBalances
   const refreshWalletBalances = useCallback(async (): Promise<void> => {
-    console.log("Refreshing wallet balances...");
+    console.log("Refreshing wallet balances from useSwap...");
     if (wallet.provider) {
-      await fetchWalletBalances(wallet.provider);
+      console.log("Provider available, fetching balances...");
+      return await fetchWalletBalances(wallet.provider);
+    } else {
+      console.log("No wallet provider available for balance refresh");
     }
   }, [wallet.provider, fetchWalletBalances]);
 
@@ -75,6 +78,7 @@ export const useSwap = (initialFromToken: TokenInfo | null, initialToToken: Toke
   // Initial wallet balance load when connected
   useEffect(() => {
     if (isConnected && wallet.provider) {
+      console.log("Initial wallet balance load triggered");
       refreshWalletBalances();
     }
   }, [isConnected, wallet.provider, refreshWalletBalances]);

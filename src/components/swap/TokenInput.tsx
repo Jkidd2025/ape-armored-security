@@ -64,7 +64,7 @@ export const TokenInput = ({
 
   // Handler for input changes
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (!onAmountChange) return;
+    if (!onAmountChange || readOnly || disabled) return;
     
     const value = e.target.value;
     
@@ -98,7 +98,7 @@ export const TokenInput = ({
           otherToken={otherToken}
         />
       </div>
-      {showMaxButton && (
+      {showMaxButton && selectedToken?.balance && (
         <div className="flex justify-end mt-1">
           <Button 
             variant="ghost" 

@@ -46,6 +46,9 @@ export const useSwapPriceUpdates = (
     console.log("Manual price refresh requested");
     if (fromAmount) {
       updateToAmount(fromAmount);
+    } else {
+      // If no amount is set, try with a default amount to show available exchange rate
+      updateToAmount("1");
     }
   }, [fromAmount, updateToAmount]);
 

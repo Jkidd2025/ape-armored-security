@@ -25,7 +25,7 @@ export const getTokenBalance = async (
     // For demo purposes, return mock balances to make the UI functional
     // In production, this would query actual blockchain balances
     if (tokenSymbol === 'SOL') {
-      // Simulate SOL balance
+      console.log(`Returning mock SOL balance`);
       return { amount: '2.5', decimals: 9 };
     }
     

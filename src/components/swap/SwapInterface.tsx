@@ -33,7 +33,8 @@ const SwapInterface = () => {
     wallet,
     walletBalances,
     handleConnectClick,
-    handleDisconnectClick
+    handleDisconnectClick,
+    refreshWalletBalances
   } = useSwapInterface();
 
   if (isLoading) {
@@ -79,6 +80,7 @@ const SwapInterface = () => {
         wallet={wallet}
         handleConnectClick={handleConnectClick}
         handleDisconnectClick={handleDisconnectClick}
+        refreshWalletBalances={refreshWalletBalances}
       />
       <WalletStatus isConnected={isConnected} walletBalances={walletBalances} />
     </div>
