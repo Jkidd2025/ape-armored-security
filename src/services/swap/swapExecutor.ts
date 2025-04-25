@@ -1,5 +1,6 @@
 
 import { SwapResult } from '@/types/swap';
+import { getConnection } from './solana';
 
 export const executeSwap = async (
   wallet: any,
@@ -15,18 +16,15 @@ export const executeSwap = async (
     }
     
     console.log('Executing swap', { fromToken, toToken, amount, slippage, deadline });
-    console.log('Using wallet provider:', wallet.provider);
-    console.log('Wallet public key:', wallet.publicKey);
     
-    // Production implementation would:
-    // 1. Get a quote from Jupiter or another DEX aggregator
-    // 2. Create a transaction using the quote
-    // 3. Sign the transaction with the wallet
-    // 4. Send the transaction to the network
-    // 5. Return the transaction hash and other details
+    const connection = await getConnection();
     
-    // Until the production implementation is complete, throw an informative error
-    throw new Error('Production swap execution not yet implemented. Please check back soon for full functionality.');
+    if (!wallet.signTransaction) {
+      throw new Error('Wallet does not support signing transactions');
+    }
+    
+    // Production implementation needed:
+    throw new Error('Production swap execution not yet implemented');
     
   } catch (error: any) {
     console.error('Error executing swap:', error);

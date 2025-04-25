@@ -1,6 +1,6 @@
 
-import { Connection, PublicKey, Transaction } from '@solana/web3.js';
-import { useToast } from '@/components/ui/use-toast';
+import { Connection, PublicKey } from '@solana/web3.js';
+import { getHeliusRpcUrl } from '../helius/heliusService';
 
 let connection: Connection | null = null;
 const MAX_RETRIES = 3;
@@ -19,10 +19,9 @@ export const initConnection = async (): Promise<Connection> => {
       const rpcUrl = await getHeliusRpcUrl();
       connection = new Connection(rpcUrl, {
         commitment: 'confirmed',
-        confirmTransactionInitialTimeout: 60000, // 60 seconds
+        confirmTransactionInitialTimeout: 60000,
       });
 
-      // Verify connection is working
       await connection.getSlot();
       console.log('Successfully initialized Solana connection to:', rpcUrl);
       return connection;
@@ -37,7 +36,7 @@ export const initConnection = async (): Promise<Connection> => {
     }
   }
 
-  // If we've exhausted retries, try public RPC as last resort
+  // Fallback to public RPC
   try {
     const publicRpcUrl = 'https://api.mainnet-beta.solana.com';
     connection = new Connection(publicRpcUrl, {
@@ -52,31 +51,6 @@ export const initConnection = async (): Promise<Connection> => {
   }
 };
 
-export const getHeliusRpcUrl = async (): Promise<string> => {
-  try {
-    const response = await fetch('/api/get-helius-key', {
-      headers: {
-        'Cache-Control': 'no-cache',
-      }
-    });
-    
-    if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
-    }
-    
-    const apiKey = await response.text();
-    if (!apiKey) {
-      throw new Error('No API key received');
-    }
-    
-    return `https://mainnet.helius-rpc.com/?api-key=${apiKey}`;
-  } catch (error) {
-    console.error('Error getting Helius API key:', error);
-    throw error;
-  }
-};
-
-// Helper to get current connection or initialize if needed
 export const getConnection = async (): Promise<Connection> => {
   if (!connection) {
     return await initConnection();
@@ -84,8 +58,6 @@ export const getConnection = async (): Promise<Connection> => {
   return connection;
 };
 
-// Reset connection (useful for testing or when connection becomes stale)
 export const resetConnection = () => {
   connection = null;
 };
-

@@ -11,14 +11,8 @@ export const getTokenBalance = async (
     
     console.log(`Getting ${tokenSymbol} balance for wallet`);
     
-    // For future real implementation with SPL token program:
-    // 1. Get token account from wallet using findTokenAccountsByOwner
-    // 2. Parse token account data to get balance
-    // 3. Return the balance and decimals
-    
-    // For now we return a stub implementation until the SPL token program is integrated
-    console.warn('Production implementation for token balances not complete');
-    return { amount: '0', decimals: 9 };
+    // Production implementation needed for SPL token program:
+    throw new Error('Production token balance implementation required');
   } catch (error) {
     console.error('Error getting token balance:', error);
     return { amount: '0', decimals: 9 };

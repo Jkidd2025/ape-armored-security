@@ -1,6 +1,5 @@
-
 import { useState } from 'react';
-import { getSwapQuote } from '@/services/swapService';
+import { getSwapQuote } from '@/services/swap/swapService';
 
 export const useTokenPrice = () => {
   const [isLoadingPrice, setIsLoadingPrice] = useState(false);
