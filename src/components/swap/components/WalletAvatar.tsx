@@ -11,7 +11,14 @@ export const WalletAvatar = ({ name, imageUrl }: WalletAvatarProps) => {
   
   return (
     <Avatar className="h-6 w-6">
-      <AvatarImage src={imageUrl} alt={name} />
+      <AvatarImage 
+        src={imageUrl} 
+        alt={name} 
+        onError={(e) => {
+          console.error(`Failed to load avatar image: ${imageUrl}`);
+          (e.target as HTMLImageElement).style.display = 'none';
+        }}
+      />
       <AvatarFallback className="bg-apearmor-darkbronze text-xs">
         {initials}
       </AvatarFallback>

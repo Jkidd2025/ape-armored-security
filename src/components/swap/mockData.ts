@@ -8,7 +8,7 @@ export const mockTokens: TokenInfo[] = [
     name: "Solana",
     decimals: 9,
     mintAddress: "So11111111111111111111111111111111111111112",
-    logoURI: "https://raw.githubusercontent.com/solana-labs/token-list/main/assets/mainnet/So1111111111111111111111111111111111111112/logo.png",
+    logoURI: "https://raw.githubusercontent.com/solana-labs/token-list/main/assets/mainnet/So11111111111111111111111111111111111112/logo.png",
     balance: 10.5,
   },
   {
@@ -25,17 +25,17 @@ export const wallets = [
   {
     id: 'phantom',
     name: 'Phantom',
-    iconUrl: '/lovable-uploads/b003487b-eae0-4141-8672-453d92b7a6d4.png',
+    iconUrl: 'https://raw.githubusercontent.com/solana-labs/wallet-adapter/master/packages/wallets/icons/phantom.png',
   },
   {
     id: 'solflare',
     name: 'Solflare',
-    iconUrl: '/lovable-uploads/91bfdc71-fec6-45e8-8f41-1b2eb0aec00b.png',
+    iconUrl: 'https://raw.githubusercontent.com/solana-labs/wallet-adapter/master/packages/wallets/icons/solflare.png',
   },
   {
     id: 'trust-wallet',
     name: 'Trust Wallet',
-    iconUrl: '/lovable-uploads/ef69fb56-d2d6-44bf-b410-2b73bfdd7956.png',
+    iconUrl: 'https://trustwallet.com/assets/images/favicon.png',
   }
 ];
 
@@ -47,7 +47,7 @@ export const mockTokensWithBalance: TokenInfo[] = [
     symbol: "SOL",
     decimals: 9,
     logoURI:
-      "https://raw.githubusercontent.com/solana-labs/token-list/main/assets/mainnet/So1111111111111111111112/logo.png",
+      "https://raw.githubusercontent.com/solana-labs/token-list/main/assets/mainnet/So1111111111111111111111111111111111111112/logo.png",
     balance: 10.5,
   },
   {

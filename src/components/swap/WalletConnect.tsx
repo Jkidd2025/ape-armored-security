@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { wallets } from "./mockData";
 import { useToast } from "@/components/ui/use-toast";
+import { Loader2 } from "lucide-react";
 
 interface WalletConnectProps {
   onConnect: () => void;
@@ -128,13 +129,23 @@ const WalletConnect = ({ onConnect }: WalletConnectProps) => {
                     onClick={() => handleConnect(wallet.name)}
                     disabled={isConnecting || !isDetected}
                   >
-                    <img 
-                      src={wallet.iconUrl} 
-                      alt={wallet.name} 
-                      className="w-6 h-6 object-contain" 
-                    />
+                    {wallet.iconUrl ? (
+                      <img 
+                        src={wallet.iconUrl} 
+                        alt={wallet.name} 
+                        className="w-6 h-6 object-contain" 
+                        onError={(e) => {
+                          console.error(`Failed to load image: ${wallet.iconUrl}`);
+                          (e.target as HTMLImageElement).style.display = 'none';
+                        }}
+                      />
+                    ) : (
+                      <div className="w-6 h-6 bg-gray-700 rounded-full flex items-center justify-center text-xs text-white">
+                        {wallet.name.charAt(0)}
+                      </div>
+                    )}
                     <span>{wallet.name}</span>
-                    {isConnecting && <span className="ml-auto animate-spin">⟳</span>}
+                    {isConnecting && <Loader2 className="ml-auto h-4 w-4 animate-spin" />}
                   </Button>
                   
                   {!isDetected && (
