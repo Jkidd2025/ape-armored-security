@@ -70,7 +70,7 @@ export const useWalletBalances = () => {
     } finally {
       setIsRefreshing(false);
     }
-  }, [toast]);
+  }, [toast, walletBalances, isRefreshing]);
 
   return {
     walletBalances,

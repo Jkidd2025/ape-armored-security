@@ -26,11 +26,11 @@ export const useSwap = (initialFromToken: TokenInfo | null, initialToToken: Toke
   } = useSwapState(initialFromToken, initialToToken);
 
   // Create a wrapper function that calls fetchWalletBalances
-  const refreshWalletBalances = useCallback(async (): Promise<void> => {
+  const refreshWalletBalances = useCallback(async () => {
     console.log("Refreshing wallet balances from useSwap...");
     if (wallet.provider) {
       console.log("Provider available, fetching balances...");
-      return await fetchWalletBalances(wallet.provider);
+      await fetchWalletBalances(wallet.provider);
     } else {
       console.log("No wallet provider available for balance refresh");
     }
