@@ -48,7 +48,7 @@ const TermsAndConditions: React.FC<{ children: React.ReactNode }> = ({ children 
           <li>Losses exceeding stated investment coverage limits.</li>
           <li>Claims involving projects not reported promptly within the specified claim period.</li>
           <li>Transaction fee refunds exceeding monthly limits set for each package.</li>
-          <li>Accounts must be current and paid up daily.</li>
+          <li>Accounts must be current and paid up daily, with no more than two missed daily payments in a week.</li>
           <li>Accounts must maintain minimum ApeArmor token holdings as defined per package.</li>
           <li>Only projects approved by ApeArmor will be covered by the service packages.</li>
           <li>ApeArmor reserves the right to refuse any claim.</li>
