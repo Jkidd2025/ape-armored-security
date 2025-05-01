@@ -1,3 +1,4 @@
+
 import React from "react";
 
 const TermsAndConditions: React.FC<{ children: React.ReactNode }> = ({ children }) => {
@@ -30,9 +31,9 @@ const TermsAndConditions: React.FC<{ children: React.ReactNode }> = ({ children 
           <li>Coverage against unauthorized, fraudulent transactions and transaction failures.</li>
           <li>Blockchain provider transaction fee refunds:</li>
           <ul className="list-disc pl-5 space-y-1">
-            <li>Chimp: Up to $50 per month.</li>
-            <li>Gorilla: Up to $100 per month.</li>
-            <li>Silverback: Up to $200 per month.</li>
+            <li>Chimp: Up to $10 per month.</li>
+            <li>Gorilla: Up to $50 per month.</li>
+            <li>Silverback: Up to $100 per month.</li>
           </ul>
         </ul>
         
