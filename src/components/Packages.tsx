@@ -62,7 +62,7 @@ const packages = [
       "Wallet Blacklisting",
       "24/7 Live Scam Support",
       "DAO Community Access",
-      "Minimum ApeArmor Token holding is equal to or greater than 15 Million",
+      "Minimum ApeArmor Token holding is equal to or greater than 50 Million",
       "35% off of all NFTs",
     ],
     cta: "Maximum Security",
