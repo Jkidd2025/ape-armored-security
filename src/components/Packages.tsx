@@ -1,4 +1,3 @@
-
 import { Button } from "@/components/ui/button";
 import { Check, Shield, BadgeCheck, Rocket } from "lucide-react";
 import { Link } from "react-router-dom";
@@ -64,7 +63,6 @@ const packages = [
       "DAO Community Access",
       "Minimum ApeArmor Token holding is equal to or greater than 15 Million",
       "35% off of all NFTs",
-      "Free Sentinel Silverback NFT",
     ],
     cta: "Maximum Security",
     popular: false,
