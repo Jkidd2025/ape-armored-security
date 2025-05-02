@@ -39,7 +39,7 @@ const packages = [
       "Transaction Insurance",
       "Smart Contract Failure",
       "24/7 Live Scam Support",
-      "Minimum ApeArmor Token holding is equal to or greater than 10 Million",
+      "Minimum ApeArmor Token holding is equal to or greater than 15 Million",
       "20% off of all NFTs",
     ],
     cta: "Armor Up",
