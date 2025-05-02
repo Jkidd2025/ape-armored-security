@@ -19,9 +19,9 @@ const TermsAndConditions: React.FC<{ children: React.ReactNode }> = ({ children 
         <h5 className="font-semibold mt-3 mb-1">✅ Covered Items:</h5>
         <p className="mb-1 font-medium">Initial Investment Refund:</p>
         <ul className="list-disc pl-5 mb-2 space-y-1">
-          <li>Chimp Package: Up to 25% of initial investment.</li>
-          <li>Gorilla Package: Up to 50% of initial investment.</li>
-          <li>Silverback Package: Up to 80% of initial investment.</li>
+          <li>Chimp Package: Up to 25% of the initial investment or purchase with a max payout of $1,500.00</li>
+          <li>Gorilla Package: Up to 50% of the initial investment or purchase with a max payout of $5,000.00</li>
+          <li>Silverback Package: Up to 80% of the initial investment or purchase with a max payout of $10,000.00</li>
         </ul>
         <p className="mb-1">Rug Pull Protection: Coverage against abrupt liquidity removals by project creators.</p>
         <p className="mb-1">Pump 'n Dump Scams: Protection against fraudulent coordinated market manipulations.</p>
