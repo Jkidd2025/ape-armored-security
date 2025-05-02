@@ -28,7 +28,7 @@ const packages = [
     name: "Gorilla",
     subtitle: "Advanced Protection",
     icon: <BadgeCheck className="h-10 w-10" />,
-    price: "8",
+    price: "5",
     currency: "$",
     interval: "/day",
     setupFee: "$50 Account Setup Fee",
