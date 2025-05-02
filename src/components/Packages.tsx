@@ -11,7 +11,7 @@ const packages = [
     price: "1",
     interval: "/day",
     currency: "$",
-    setupFee: "$25 Account Setup Fee",
+    setupFee: "$10 Account Setup Fee",
     features: [
       "25% initial investment refunded",
       "Rug Pull Protection",
