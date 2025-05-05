@@ -1,7 +1,6 @@
 
 import { Button } from "@/components/ui/button";
 import { Shield, Wallet, CircleDollarSign, Badge, Coins } from "lucide-react";
-import { Link } from "react-router-dom";
 
 const ApeToken = () => {
   return (
@@ -78,12 +77,12 @@ const ApeToken = () => {
                   Acquire tokens and access our protection services to secure your crypto investments.
                 </p>
                 <div className="flex flex-wrap gap-4">
-                  <Link to="/swap">
+                  <a href="https://dexscreener.com/solana/ufyc12rpqjtzerx8rctpjrit6wvty6skt7juju9a359" target="_blank" rel="noopener noreferrer">
                     <Button className="bg-apearmor-teal hover:bg-apearmor-teal/80 text-black">
                       <Wallet className="mr-2 h-4 w-4" />
                       Swap Tokens
                     </Button>
-                  </Link>
+                  </a>
                   <a href="#packages">
                     <Button variant="outline" className="border-apearmor-teal text-apearmor-teal hover:bg-apearmor-teal/10">
                       View Protection Packages
