@@ -109,7 +109,6 @@ const Footer = () => {
                   Whitepaper
                 </Link>
               </li>
-              <!-- Removed the Token Swap link -->
             </ul>
           </div>
           
