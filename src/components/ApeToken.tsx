@@ -1,4 +1,3 @@
-
 import { Button } from "@/components/ui/button";
 import { Shield, Wallet, CircleDollarSign, Badge, Coins } from "lucide-react";
 
@@ -95,11 +94,11 @@ const ApeToken = () => {
         </div>
         
         <div className="mt-12 text-center">
-          <Link to="/whitepaper">
+          <a href="/whitepaper">
             <Button variant="outline" className="border-apearmor-gold text-apearmor-gold hover:bg-apearmor-gold/10">
               Read Full Tokenomics in Whitepaper
             </Button>
-          </Link>
+          </a>
         </div>
       </div>
     </section>
