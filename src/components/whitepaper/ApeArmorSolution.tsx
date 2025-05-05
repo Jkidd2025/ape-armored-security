@@ -12,9 +12,9 @@ const ApeArmorSolution = () => {
         We offer tiered protection packages to fit the needs and risk profiles of different customers:
       </p>
       <ul className="list-disc pl-6 space-y-2 mb-4">
-        <li><strong>Chimp Package:</strong> Basic protection with up to 25% initial investment refund</li>
-        <li><strong>Gorilla Package:</strong> Advanced protection with up to 50% initial investment refund</li>
-        <li><strong>Silverback Package:</strong> Premium protection with up to 80% initial investment refund</li>
+        <li><strong>Chimp Package:</strong> Basic protection with up to 25% initial investment refund ($30/month)</li>
+        <li><strong>Gorilla Package:</strong> Advanced protection with up to 50% initial investment refund ($150/month)</li>
+        <li><strong>Silverback Package:</strong> Premium protection with up to 80% initial investment refund ($600/month)</li>
       </ul>
       
       <h3 className="text-xl font-semibold mt-6 mb-3">3.2 Coverage Areas</h3>
