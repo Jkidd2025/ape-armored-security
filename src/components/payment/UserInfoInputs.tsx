@@ -117,7 +117,7 @@ const UserInfoInputs = ({
           />
           {errors.amountPaid && (
             <p className="text-red-500 text-sm mt-1">{errors.amountPaid}</p>
-          )}
+        )}
         </div>
       </div>
 
@@ -131,7 +131,7 @@ const UserInfoInputs = ({
             <SelectValue placeholder="Select payment type" />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="daily">Daily Payment for Service Package</SelectItem>
+            <SelectItem value="daily">Monthly Payment for Service Package</SelectItem>
             <SelectItem value="setup">Account Set Up Fee</SelectItem>
             <SelectItem value="registration">Project Registration</SelectItem>
           </SelectContent>
