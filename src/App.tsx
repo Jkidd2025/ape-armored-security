@@ -12,7 +12,6 @@ import TermsOfService from "./pages/TermsOfService";
 import Whitepaper from "./pages/Whitepaper";
 import PrivacyPolicy from "./pages/PrivacyPolicy";
 import ClaimSubmission from "./pages/ClaimSubmission";
-import PresaleApplication from "./pages/PresaleApplication";
 import SocialShareTest from "./pages/SocialShareTest";
 import ApeWire from "./pages/ApeWire";
 import BlogPost from "./pages/BlogPost";
@@ -46,14 +45,6 @@ const App = () => (
           <Route path="/privacy-policy" element={<PrivacyPolicy />} />
           <Route path="/claim-submission" element={<ClaimSubmission />} />
           <Route path="/social-share-test" element={<SocialShareTest />} />
-          
-          <Route path="/presale-application" element={<PresaleApplication />} />
-          <Route path="/presale-application/" element={<PresaleApplication />} />
-          <Route path="presale-application" element={<PresaleApplication />} />
-          <Route path="presale-application/" element={<PresaleApplication />} />
-          
-          <Route path="/presale" element={<Navigate to="/presale-application" replace />} />
-          <Route path="presale" element={<Navigate to="/presale-application" replace />} />
           
           <Route path="/ape-wire" element={<ApeWire />} />
           <Route path="/ape-wire/:slug" element={<BlogPost />} />

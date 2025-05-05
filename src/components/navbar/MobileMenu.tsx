@@ -95,13 +95,6 @@ const MobileMenu = ({
         >
           Contact
         </a>
-        <Link 
-          to="/presale-application" 
-          className="text-sm font-medium py-2 px-4 hover:bg-muted rounded-md hover:text-apearmor-teal transition-colors"
-          onClick={() => setIsMenuOpen(false)}
-        >
-          Presale
-        </Link>
         
         {isDevEnvironment && (
           <Link 
@@ -128,4 +121,3 @@ const MobileMenu = ({
 };
 
 export default MobileMenu;
-
