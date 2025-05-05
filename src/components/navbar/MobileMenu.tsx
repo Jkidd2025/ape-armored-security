@@ -40,6 +40,13 @@ const MobileMenu = ({
           Packages
         </a>
         <a 
+          href="#ape-token" 
+          className="text-sm font-medium py-2 px-4 hover:bg-muted rounded-md hover:text-apearmor-teal transition-colors"
+          onClick={() => setIsMenuOpen(false)}
+        >
+          Token
+        </a>
+        <a 
           href="#about" 
           className="text-sm font-medium py-2 px-4 hover:bg-muted rounded-md hover:text-apearmor-teal transition-colors"
           onClick={() => setIsMenuOpen(false)}

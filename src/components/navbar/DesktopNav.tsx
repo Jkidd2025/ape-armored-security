@@ -14,6 +14,7 @@ const DesktopNav = ({ isDevEnvironment, handlePaymentClick }: DesktopNavProps) =
       <nav className="hidden md:flex items-center gap-6">
         <a href="#features" className="text-sm font-medium hover:text-apearmor-teal transition-colors">Features</a>
         <a href="#packages" className="text-sm font-medium hover:text-apearmor-teal transition-colors">Packages</a>
+        <a href="#ape-token" className="text-sm font-medium hover:text-apearmor-teal transition-colors">Token</a>
         <a href="#about" className="text-sm font-medium hover:text-apearmor-teal transition-colors">About</a>
         <a href="#roadmap" className="text-sm font-medium hover:text-apearmor-teal transition-colors">Roadmap</a>
         <a href="#approved" className="text-sm font-medium hover:text-apearmor-teal transition-colors">Approved</a>

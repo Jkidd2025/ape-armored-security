@@ -70,6 +70,11 @@ const Footer = () => {
                 </a>
               </li>
               <li>
+                <a href="/#ape-token" className="text-muted-foreground hover:text-apearmor-teal transition-colors">
+                  APE Token
+                </a>
+              </li>
+              <li>
                 <a href="/#about" className="text-muted-foreground hover:text-apearmor-teal transition-colors">
                   About Us
                 </a>
@@ -100,16 +105,15 @@ const Footer = () => {
                 </Link>
               </li>
               <li>
-                <Link to="/presale-application" className="text-muted-foreground hover:text-apearmor-teal transition-colors">
-                  Presale Application
-                </Link>
-              </li>
-              <li>
                 <Link to="/whitepaper" className="text-muted-foreground hover:text-apearmor-teal transition-colors">
                   Whitepaper
                 </Link>
               </li>
-              {/* Removed Ape Swap link as discussed */}
+              <li>
+                <Link to="/swap" className="text-muted-foreground hover:text-apearmor-teal transition-colors">
+                  Token Swap
+                </Link>
+              </li>
             </ul>
           </div>
           
@@ -145,4 +149,3 @@ const Footer = () => {
 };
 
 export default Footer;
-

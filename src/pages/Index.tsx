@@ -12,6 +12,7 @@ import Cta from "@/components/Cta";
 import Footer from "@/components/Footer";
 import NftCollection from "@/components/NftCollection";
 import DaoSection from "@/components/DaoSection";
+import ApeToken from "@/components/ApeToken";
 
 const Index = () => {
   return (
@@ -21,6 +22,7 @@ const Index = () => {
         <Hero />
         <Features />
         <Packages />
+        <ApeToken />
         <About />
         <ApprovedProjects />
         <NftCollection />
