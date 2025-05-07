@@ -17,7 +17,14 @@ const BlogPostCard = ({ post }: BlogPostCardProps) => {
         <img 
           src={post.imageUrl} 
           alt={post.title} 
-          className="w-full h-full object-contain"
+          className="w-full h-full object-cover"
+          onError={(e) => {
+            const target = e.target as HTMLImageElement;
+            if (!target.dataset.attempted) {
+              target.dataset.attempted = 'true';
+              target.src = 'https://images.unsplash.com/photo-1639762681485-074b7f938ba0?q=80&w=2232&auto=format&fit=crop';
+            }
+          }}
         />
       </div>
       <CardHeader>
@@ -34,7 +41,7 @@ const BlogPostCard = ({ post }: BlogPostCardProps) => {
           <Link to={`/ape-wire/${post.slug}`}>{post.title}</Link>
         </CardTitle>
         <CardDescription className="text-muted-foreground">{post.date}</CardDescription>
-      </CardHeader>
+      </CardContent>
       <CardContent>
         <p className="text-sm">{post.excerpt}</p>
       </CardContent>

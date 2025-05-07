@@ -37,7 +37,7 @@ const BlogPostContent = ({ content, isLoading }: BlogPostContentProps) => {
           }
           this.classList.add('fallback-image')
         " 
-        class="w-full h-auto rounded-lg object-contain max-h-[500px]" 
+        class="w-full h-auto rounded-lg object-cover max-h-[500px]" 
         alt="Blog post image" 
       />`;
     }
