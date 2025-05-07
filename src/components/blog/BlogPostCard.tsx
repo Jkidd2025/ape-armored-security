@@ -41,7 +41,7 @@ const BlogPostCard = ({ post }: BlogPostCardProps) => {
           <Link to={`/ape-wire/${post.slug}`}>{post.title}</Link>
         </CardTitle>
         <CardDescription className="text-muted-foreground">{post.date}</CardDescription>
-      </CardContent>
+      </CardHeader>
       <CardContent>
         <p className="text-sm">{post.excerpt}</p>
       </CardContent>
