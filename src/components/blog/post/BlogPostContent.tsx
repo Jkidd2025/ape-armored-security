@@ -24,7 +24,22 @@ const BlogPostContent = ({ content, isLoading }: BlogPostContentProps) => {
   const processedContent = content.replace(
     /<img[^>]*src=["']([^"']+)["'][^>]*>/g, 
     (match, src) => {
-      return `<img src="${src}" onerror="this.onerror=null; this.src='${FALLBACK_IMAGES[0]}'; this.classList.add('fallback-image')" class="w-full h-auto rounded-lg" alt="Blog post image" />`;
+      // Check if the image path is a relative path (starting with /)
+      const imageSrc = src.startsWith('/') ? src : (src.startsWith('http') ? src : `/${src}`);
+      
+      return `<img src="${imageSrc}" 
+        onerror="
+          if (!this.dataset.attempts) { this.dataset.attempts = '0'; }
+          this.dataset.attempts = parseInt(this.dataset.attempts) + 1;
+          if (parseInt(this.dataset.attempts) <= 3) { 
+            console.log('Image load failed, trying fallback:', this.dataset.attempts);
+            this.src='${FALLBACK_IMAGES[0]}';
+          }
+          this.classList.add('fallback-image')
+        " 
+        class="w-full h-auto rounded-lg object-contain max-h-[500px]" 
+        alt="Blog post image" 
+      />`;
     }
   );
 

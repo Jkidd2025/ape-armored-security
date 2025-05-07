@@ -42,7 +42,7 @@ export function getInsurancePosts(): Record<string, BlogPostData> {
       author: "ApeArmor Team",
       readTime: "4 min",
       category: "Education",
-      imageUrl: "https://images.unsplash.com/photo-1639762681057-408b52a4c1e2?q=80&w=2232&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      imageUrl: "/lovable-uploads/d4fe8a19-cc6a-4bee-9706-1932381857d1.png",
       keywords: ["crypto insurance", "blockchain security", "crypto scams", "meme coins", "rug pulls", "phishing"],
       content: `
         <p class="mb-4">Crypto scams dominate crypto news, with meme coin scams like rug-pulls costing investors millions. As blockchains evolve, so do threats, making crypto insurance a vital tool for staying safe. Whether you're trading the best meme coins or learning to create your own coin, insurance protects your assets from the volatility and risks of blockchain security.</p>
