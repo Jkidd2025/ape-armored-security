@@ -1,4 +1,5 @@
 
+import React, { useState } from "react";
 import { CryptoNewsItem } from "@/utils/cryptoNewsApi";
 import { FALLBACK_IMAGES } from "@/utils/news/utils";
 
@@ -8,6 +9,8 @@ interface BlogPostContentProps {
 }
 
 const BlogPostContent = ({ content, isLoading }: BlogPostContentProps) => {
+  const [imageFallbackIndex, setImageFallbackIndex] = useState(0);
+  
   if (isLoading) {
     return (
       <div className="flex flex-col items-center justify-center py-8">
@@ -17,10 +20,18 @@ const BlogPostContent = ({ content, isLoading }: BlogPostContentProps) => {
     );
   }
 
+  // Process content to add error handling for images
+  const processedContent = content.replace(
+    /<img[^>]*src=["']([^"']+)["'][^>]*>/g, 
+    (match, src) => {
+      return `<img src="${src}" onerror="this.onerror=null; this.src='${FALLBACK_IMAGES[0]}'; this.classList.add('fallback-image')" class="w-full h-auto rounded-lg" alt="Blog post image" />`;
+    }
+  );
+
   return (
     <div className="prose prose-invert max-w-none prose-headings:text-foreground prose-headings:font-bold prose-p:text-foreground/90 prose-strong:text-foreground prose-strong:font-semibold">
       <div 
-        dangerouslySetInnerHTML={{ __html: content }} 
+        dangerouslySetInnerHTML={{ __html: processedContent }} 
       />
     </div>
   );
