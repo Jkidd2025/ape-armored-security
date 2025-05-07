@@ -1,5 +1,6 @@
 
 import { CryptoNewsItem } from "@/utils/cryptoNewsApi";
+import { FALLBACK_IMAGES } from "@/utils/news/utils";
 
 interface BlogPostContentProps {
   content: string;
@@ -18,7 +19,9 @@ const BlogPostContent = ({ content, isLoading }: BlogPostContentProps) => {
 
   return (
     <div className="prose prose-invert max-w-none prose-headings:text-foreground prose-headings:font-bold prose-p:text-foreground/90 prose-strong:text-foreground prose-strong:font-semibold">
-      <div dangerouslySetInnerHTML={{ __html: content }} />
+      <div 
+        dangerouslySetInnerHTML={{ __html: content }} 
+      />
     </div>
   );
 };
