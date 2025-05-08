@@ -32,7 +32,7 @@ const TokenBasics = () => {
             </tr>
             <tr>
               <td className="border px-4 py-2">Circulating Supply</td>
-              <td className="border px-4 py-2">250,000,000 APE</td>
+              <td className="border px-4 py-2">720,013,915 APE</td>
             </tr>
             <tr>
               <td className="border px-4 py-2">Decimals</td>
