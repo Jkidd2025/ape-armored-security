@@ -1,8 +1,19 @@
 
 import { Button } from "@/components/ui/button";
-import { Shield, Wallet, CircleDollarSign, Badge, Coins } from "lucide-react";
+import { Shield, Wallet, CircleDollarSign, Badge, Coins, Copy, Check, ExternalLink } from "lucide-react";
+import { useState } from "react";
+import { Alert, AlertDescription } from "@/components/ui/alert";
 
 const ApeToken = () => {
+  const [copied, setCopied] = useState(false);
+  const contractAddress = "786Yz5T1yd9BzWMgWMCrPEB8WeGWAT1xyzwTNcKiKkJD";
+  
+  const handleCopy = () => {
+    navigator.clipboard.writeText(contractAddress);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
+  };
+
   return (
     <section id="ape-token" className="py-20 bg-gradient-to-b from-background to-muted">
       <div className="container px-4 md:px-6">
@@ -17,6 +28,52 @@ const ApeToken = () => {
             The native token that powers the ApeArmor ecosystem, providing access to protection services, 
             governance rights, and additional benefits for token holders.
           </p>
+        </div>
+        
+        <div className="mx-auto max-w-3xl mb-12">
+          <Alert className="bg-gradient-to-r from-apearmor-gold/20 to-apearmor-teal/20 border-apearmor-teal border-2 shadow-lg">
+            <div className="py-2">
+              <div className="flex flex-col items-center space-y-4">
+                <div className="flex items-center justify-center space-x-2">
+                  <Badge className="bg-apearmor-gold text-black px-3 py-1 text-xs">LIVE</Badge>
+                  <h3 className="text-2xl font-bold text-apearmor-gold animate-pulse">APE TOKEN NOW ON SOLANA</h3>
+                </div>
+                
+                <div className="w-full bg-background/80 rounded-md p-3 flex flex-col sm:flex-row items-center gap-3">
+                  <div className="font-mono text-sm select-all overflow-hidden text-ellipsis w-full sm:w-auto flex-1 text-center sm:text-left">
+                    {contractAddress}
+                  </div>
+                  
+                  <div className="flex gap-2 flex-shrink-0">
+                    <Button 
+                      size="sm" 
+                      className="bg-apearmor-teal hover:bg-apearmor-teal/80 text-black"
+                      onClick={handleCopy}
+                    >
+                      {copied ? <Check className="h-4 w-4 mr-1" /> : <Copy className="h-4 w-4 mr-1" />}
+                      {copied ? "Copied!" : "Copy Address"}
+                    </Button>
+                    
+                    <Button 
+                      size="sm" 
+                      variant="outline" 
+                      className="border-apearmor-gold text-apearmor-gold hover:bg-apearmor-gold/10"
+                      asChild
+                    >
+                      <a 
+                        href={`https://solscan.io/token/${contractAddress}`} 
+                        target="_blank" 
+                        rel="noopener noreferrer"
+                      >
+                        <ExternalLink className="h-4 w-4 mr-1" />
+                        View on Solscan
+                      </a>
+                    </Button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </Alert>
         </div>
         
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
