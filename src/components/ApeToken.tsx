@@ -1,6 +1,5 @@
-
 import { Button } from "@/components/ui/button";
-import { Shield, Wallet, CircleDollarSign, Badge, Coins, Copy, Check, ExternalLink } from "lucide-react";
+import { Shield, Wallet, CircleDollarSign, Badge as BadgeIcon, Coins, Copy, Check, ExternalLink } from "lucide-react";
 import { useState } from "react";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 
@@ -34,10 +33,7 @@ const ApeToken = () => {
           <Alert className="bg-gradient-to-r from-apearmor-gold/20 to-apearmor-teal/20 border-apearmor-teal border-2 shadow-lg">
             <div className="py-2">
               <div className="flex flex-col items-center space-y-4">
-                <div className="flex items-center justify-center space-x-2">
-                  <Badge className="bg-apearmor-gold text-black px-3 py-1 text-xs">LIVE</Badge>
-                  <h3 className="text-2xl font-bold text-apearmor-gold animate-pulse">APE TOKEN NOW ON SOLANA</h3>
-                </div>
+                <h3 className="text-2xl font-bold text-apearmor-gold animate-pulse">APE TOKEN NOW ON SOLANA</h3>
                 
                 <div className="w-full bg-background/80 rounded-md p-3 flex flex-col sm:flex-row items-center gap-3">
                   <div className="font-mono text-sm select-all overflow-hidden text-ellipsis w-full sm:w-auto flex-1 text-center sm:text-left">
@@ -99,7 +95,7 @@ const ApeToken = () => {
           
           <div className="bg-muted p-6 rounded-lg border border-apearmor-darkbronze flex flex-col items-center text-center">
             <div className="w-12 h-12 rounded-full bg-apearmor-teal/20 flex items-center justify-center mb-4">
-              <Badge className="h-6 w-6 text-apearmor-teal" />
+              <BadgeIcon className="h-6 w-6 text-apearmor-teal" />
             </div>
             <h3 className="text-xl font-semibold mb-2">DAO Governance</h3>
             <p className="text-muted-foreground">

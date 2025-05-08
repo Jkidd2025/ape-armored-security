@@ -1,5 +1,4 @@
 
-import { Badge } from "@/components/ui/badge";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Copy, ExternalLink, Check } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -22,12 +21,9 @@ const TokenUtility = () => {
       <Alert className="mb-6 bg-gradient-to-r from-apearmor-teal/20 to-apearmor-gold/20 border-apearmor-teal border-2 shadow-lg">
         <div className="py-2">
           <div className="flex flex-col space-y-3">
-            <div className="flex items-center justify-center space-x-2">
-              <Badge className="bg-apearmor-gold text-black px-3 py-1 text-xs">LIVE</Badge>
-              <AlertDescription className="text-xl font-bold text-apearmor-gold">
-                APE TOKEN NOW ON SOLANA
-              </AlertDescription>
-            </div>
+            <AlertDescription className="text-xl font-bold text-apearmor-gold text-center">
+              APE TOKEN NOW ON SOLANA
+            </AlertDescription>
             
             <div className="flex flex-col sm:flex-row items-center gap-3 bg-background/80 p-2 rounded-md">
               <div className="font-mono text-xs sm:text-sm overflow-hidden text-ellipsis whitespace-nowrap flex-1 text-center sm:text-left">
