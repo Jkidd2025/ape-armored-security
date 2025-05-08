@@ -36,7 +36,7 @@ const TokenBasics = () => {
             </tr>
             <tr>
               <td className="border px-4 py-2">Fully Diluted Value</td>
-              <td className="border px-4 py-2">$100,000,000</td>
+              <td className="border px-4 py-2">$748,100</td>
             </tr>
             <tr>
               <td className="border px-4 py-2">Decimals</td>
