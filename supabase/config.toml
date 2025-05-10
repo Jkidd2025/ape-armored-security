@@ -3,3 +3,15 @@ project_id = "iuejqyuvkwwwbqxkciui"
 
 [functions.crypto-news]
 verify_jwt = false
+
+[functions.get-helius-key]
+verify_jwt = false
+
+[functions.get-solana-tracker-key]
+verify_jwt = false
+
+[functions.market-data]
+verify_jwt = false
+
+[functions.solana-token-tracker]
+verify_jwt = false

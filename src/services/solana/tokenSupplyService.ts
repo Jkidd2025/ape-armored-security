@@ -22,59 +22,24 @@ interface TokenSupplyResponse {
 
 export const fetchTokenSupplyData = async (mintAddress: string): Promise<TokenSupplyResponse> => {
   try {
-    // For demonstration, we're using the Solana Tracker API endpoint
-    // In a real-world scenario, this would be configured with proper headers and authentication
-    const response = await fetch('/api/get-solana-tracker-key', {
+    // Using our secure edge function to fetch the token data
+    const response = await fetch(`/api/solana-token-tracker?mintAddress=${mintAddress}`, {
       headers: {
         'Cache-Control': 'no-cache',
       }
     });
     
     if (!response.ok) {
-      throw new Error(`Could not fetch API key: ${response.status}`);
+      throw new Error(`Could not fetch token data: ${response.status}`);
     }
     
-    const apiKey = await response.text();
+    const data = await response.json();
     
-    // The GraphQL query to fetch token supply data
-    const graphqlQuery = {
-      query: `{
-        Solana {
-          TokenSupplyUpdates(
-            limit:{count:1}
-            orderBy:{descending:Block_Time}
-            where: {TokenSupplyUpdate: {Currency: {MintAddress: {is: "${mintAddress}"}}}}
-          ) {
-            TokenSupplyUpdate {
-              Amount
-              Currency {
-                MintAddress
-                Name
-              }
-              PreBalance
-              PostBalance
-            }
-          }
-        }
-      }`
-    };
-    
-    // Execute the GraphQL query
-    const supplyResponse = await fetch('https://api.solana-tracker.com/graphql', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${apiKey}`,
-      },
-      body: JSON.stringify(graphqlQuery),
-    });
-    
-    if (!supplyResponse.ok) {
-      throw new Error(`API request failed: ${supplyResponse.status}`);
+    if (data.error) {
+      throw new Error(data.error);
     }
     
-    const data = await supplyResponse.json();
-    return { data };
+    return { data: data };
   } catch (error) {
     console.error("Error fetching token supply data:", error);
     return { 
