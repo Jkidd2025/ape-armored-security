@@ -1,7 +1,7 @@
 
 import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Refresh, ExternalLink, Check } from "lucide-react";
+import { RefreshCw, ExternalLink } from "lucide-react";
 import { useToast } from "@/components/ui/use-toast";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 
@@ -70,7 +70,7 @@ const TotalSupplyCheck = () => {
           disabled={isLoading}
           className="flex items-center gap-1"
         >
-          <Refresh className={`h-4 w-4 ${isLoading ? "animate-spin" : ""}`} />
+          <RefreshCw className={`h-4 w-4 ${isLoading ? "animate-spin" : ""}`} />
           {isLoading ? "Updating..." : "Refresh"}
         </Button>
       </div>
