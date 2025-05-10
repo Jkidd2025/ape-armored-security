@@ -35,8 +35,8 @@ const TotalSupplyCheck = () => {
         throw new Error(result.error);
       }
       
-      // Get the token supply data from the response
-      const tokenData = result.data?.Solana?.TokenSupplyUpdates?.[0]?.TokenSupplyUpdate?.[0];
+      // Updated to use the new API response structure
+      const tokenData = result.data?.TokenSupplyUpdates?.[0]?.TokenSupplyUpdate?.[0];
       
       if (!tokenData) {
         throw new Error("No token supply data found");

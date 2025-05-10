@@ -17,23 +17,21 @@ const corsHeaders = {
 // Mock data for fallback when API is unavailable
 const mockTokenData = {
   data: {
-    Solana: {
-      TokenSupplyUpdates: [
-        {
-          TokenSupplyUpdate: [
-            {
-              Amount: "0",
-              Currency: {
-                MintAddress: "786Yz5T1yd9BzWMgWMCrPEB8WeGWAT1xyzwTNcKiKkJD",
-                Name: "APE"
-              },
-              PreBalance: "0",
-              PostBalance: "1000000000000000000" // 1 billion with 9 decimals
-            }
-          ]
-        }
-      ]
-    }
+    TokenSupplyUpdates: [
+      {
+        TokenSupplyUpdate: [
+          {
+            Amount: "0",
+            Currency: {
+              MintAddress: "786Yz5T1yd9BzWMgWMCrPEB8WeGWAT1xyzwTNcKiKkJD",
+              Name: "APE"
+            },
+            PreBalance: "0",
+            PostBalance: "1000000000000000000" // 1 billion with 9 decimals
+          }
+        ]
+      }
+    ]
   }
 };
 
@@ -74,37 +72,36 @@ serve(async (req) => {
       });
     }
 
-    // Construct GraphQL query for token supply data
+    // Construct GraphQL query for token supply data - FIXED QUERY STRUCTURE
     const graphqlQuery = {
       query: `{
-        Solana {
-          TokenSupplyUpdates(
-            limit:{count:1}
-            orderBy:{descending:Block_Time}
-            where: {TokenSupplyUpdate: {Currency: {MintAddress: {is: "${mintAddress}"}}}}
-          ) {
-            TokenSupplyUpdate {
-              Amount
-              Currency {
-                MintAddress
-                Name
-              }
-              PreBalance
-              PostBalance
+        TokenSupplyUpdates(
+          limit: {count: 1}
+          orderBy: {descending: Block_Time}
+          where: {TokenSupplyUpdate: {Currency: {MintAddress: {is: "${mintAddress}"}}}}
+          blockchain: solana
+        ) {
+          TokenSupplyUpdate {
+            Amount
+            Currency {
+              MintAddress
+              Name
             }
+            PreBalance
+            PostBalance
           }
         }
       }`
     };
     
     try {
-      // Execute the GraphQL query using the updated API endpoint and proper Bearer token format
+      // Execute the GraphQL query with proper authentication headers
       const response = await fetch(API_ENDPOINT, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
           'Authorization': `Bearer ${SOLANA_TRACKER_API_KEY}`,
-          'X-API-KEY': SOLANA_TRACKER_API_KEY, // Add X-API-KEY as an alternative
+          'X-API-KEY': SOLANA_TRACKER_API_KEY,
           'API-ID': API_ID,
         },
         body: JSON.stringify(graphqlQuery),
@@ -124,8 +121,8 @@ serve(async (req) => {
       
       const data = await response.json();
       
-      // Check if we have actual token data
-      if (!data?.data?.Solana?.TokenSupplyUpdates?.[0]?.TokenSupplyUpdate?.[0]) {
+      // Check if we have actual token data with the updated structure
+      if (!data?.data?.TokenSupplyUpdates?.[0]?.TokenSupplyUpdate?.[0]) {
         console.log("No token data found, returning mock data");
         return new Response(JSON.stringify(mockTokenData), {
           headers: { 

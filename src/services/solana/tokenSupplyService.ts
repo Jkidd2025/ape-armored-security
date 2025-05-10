@@ -4,19 +4,17 @@ import { supabase } from "@/integrations/supabase/client";
 
 interface TokenSupplyResponse {
   data?: {
-    Solana?: {
-      TokenSupplyUpdates?: {
-        TokenSupplyUpdate?: {
-          Amount: string;
-          Currency: {
-            MintAddress: string;
-            Name: string;
-          };
-          PreBalance: string;
-          PostBalance: string;
-        }[];
+    TokenSupplyUpdates?: {
+      TokenSupplyUpdate?: {
+        Amount: string;
+        Currency: {
+          MintAddress: string;
+          Name: string;
+        };
+        PreBalance: string;
+        PostBalance: string;
       }[];
-    };
+    }[];
   };
   error?: string;
 }
@@ -46,8 +44,8 @@ export const fetchTokenSupplyData = async (mintAddress: string): Promise<TokenSu
       throw new Error(`API error: ${data.error}`);
     }
     
-    // Verify that the response contains the expected data structure
-    if (!data.data?.Solana?.TokenSupplyUpdates?.[0]?.TokenSupplyUpdate?.[0]) {
+    // Updated data structure check to match the new GraphQL response
+    if (!data.data?.TokenSupplyUpdates?.[0]?.TokenSupplyUpdate?.[0]) {
       console.warn("Edge function returned unexpected data structure:", data);
       throw new Error("Invalid data format returned from API");
     }
