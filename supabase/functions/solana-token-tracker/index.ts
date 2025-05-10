@@ -17,9 +17,8 @@ serve(async (req) => {
   }
 
   try {
-    // Extract mint address from request
-    const url = new URL(req.url);
-    const mintAddress = url.searchParams.get('mintAddress');
+    // Extract mint address from request body
+    const { mintAddress } = await req.json();
 
     if (!mintAddress) {
       throw new Error("Missing mintAddress parameter");

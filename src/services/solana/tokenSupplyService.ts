@@ -1,5 +1,6 @@
 
 import { useToast } from "@/components/ui/use-toast";
+import { supabase } from "@/integrations/supabase/client";
 
 interface TokenSupplyResponse {
   data?: {
@@ -22,24 +23,20 @@ interface TokenSupplyResponse {
 
 export const fetchTokenSupplyData = async (mintAddress: string): Promise<TokenSupplyResponse> => {
   try {
-    // Using our secure edge function to fetch the token data
-    const response = await fetch(`/api/solana-token-tracker?mintAddress=${mintAddress}`, {
-      headers: {
-        'Cache-Control': 'no-cache',
-      }
+    // Use supabase client to invoke our edge function
+    const { data, error } = await supabase.functions.invoke('solana-token-tracker', {
+      body: { mintAddress }
     });
     
-    if (!response.ok) {
-      throw new Error(`Could not fetch token data: ${response.status}`);
+    if (error) {
+      throw new Error(`Edge function error: ${error.message}`);
     }
     
-    const data = await response.json();
-    
-    if (data.error) {
-      throw new Error(data.error);
+    if (!data) {
+      throw new Error("No data returned from the edge function");
     }
     
-    return { data: data };
+    return { data };
   } catch (error) {
     console.error("Error fetching token supply data:", error);
     return { 
