@@ -5,6 +5,9 @@ import { serve } from 'https://deno.land/std@0.168.0/http/server.ts';
 const SOLANA_TRACKER_API_KEY = Deno.env.get('SOLANA_TRACKER_API_KEY') || '';
 const API_ID = "2dee027e-6aca-457c-82ff-b48f0b852a39";
 
+// Updated API endpoint URL
+const API_ENDPOINT = 'https://streaming.bitquery.io/eap';
+
 // CORS headers for browser access
 const corsHeaders = {
   'Access-Control-Allow-Origin': '*',
@@ -95,8 +98,8 @@ serve(async (req) => {
     };
     
     try {
-      // Execute the GraphQL query
-      const response = await fetch('https://api.solana-tracker.com/graphql', {
+      // Execute the GraphQL query using the updated API endpoint
+      const response = await fetch(API_ENDPOINT, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -140,7 +143,7 @@ serve(async (req) => {
         },
       });
     } catch (fetchError) {
-      console.error("Error fetching from Solana API:", fetchError);
+      console.error("Error fetching from API:", fetchError);
       console.log("Returning mock data due to fetch error");
       
       return new Response(JSON.stringify(mockTokenData), {

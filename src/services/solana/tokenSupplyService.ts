@@ -23,6 +23,8 @@ interface TokenSupplyResponse {
 
 export const fetchTokenSupplyData = async (mintAddress: string): Promise<TokenSupplyResponse> => {
   try {
+    console.log("Fetching token supply data for: ", mintAddress);
+    
     // Use supabase client to invoke our edge function
     const { data, error } = await supabase.functions.invoke('solana-token-tracker', {
       body: { mintAddress }
@@ -34,9 +36,11 @@ export const fetchTokenSupplyData = async (mintAddress: string): Promise<TokenSu
     }
     
     if (!data) {
+      console.warn("No data returned from the edge function");
       throw new Error("No data returned from the edge function");
     }
     
+    console.log("Token supply data received:", data);
     return { data };
   } catch (error) {
     console.error("Error fetching token supply data:", error);
@@ -50,12 +54,17 @@ export const fetchTokenSupplyData = async (mintAddress: string): Promise<TokenSu
 export const formatTokenAmount = (amount: string | undefined, decimals: number = 9): string => {
   if (!amount) return "N/A";
   
-  // Convert to number and apply decimals
-  const numericAmount = Number(amount) / Math.pow(10, decimals);
-  
-  // Format with commas for thousands separator
-  return numericAmount.toLocaleString(undefined, {
-    minimumFractionDigits: 0,
-    maximumFractionDigits: 0,
-  });
+  try {
+    // Convert to number and apply decimals
+    const numericAmount = Number(amount) / Math.pow(10, decimals);
+    
+    // Format with commas for thousands separator
+    return numericAmount.toLocaleString(undefined, {
+      minimumFractionDigits: 0,
+      maximumFractionDigits: 0,
+    });
+  } catch (err) {
+    console.error("Error formatting token amount:", err, "Amount:", amount);
+    return "Error";
+  }
 };

@@ -68,12 +68,12 @@ const TotalSupplyCheck = () => {
         totalSupply: "1,000,000,000",
         circulatingSupply: "720,013,915",
         tokenName: "APE",
-        lastUpdated: new Date().toLocaleString(),
+        lastUpdated: new Date().toLocaleString() + " (estimated)",
       });
       
       toast({
         title: "Using estimated supply data",
-        description: "Couldn't fetch latest information - using approximate values",
+        description: "Couldn't fetch latest information - showing approximate values",
         variant: "destructive",
       });
     } finally {
