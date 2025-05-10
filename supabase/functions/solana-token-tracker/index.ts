@@ -98,14 +98,12 @@ serve(async (req) => {
     
     try {
       // Using the proper authentication header format according to Bitquery docs
-      // https://docs.bitquery.io/docs/authorisation/how-to-use/
       console.log("Authenticating with Bitquery API...");
       
       const response = await fetch(API_ENDPOINT, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          // According to docs, this is the correct header format
           'Authorization': `Bearer ${SOLANA_TRACKER_API_KEY}`,
         },
         body: JSON.stringify(graphqlQuery),
@@ -119,8 +117,8 @@ serve(async (req) => {
       
       const data = await response.json();
       
-      // Log the full response data for debugging
-      console.log("API response:", JSON.stringify(data).slice(0, 500) + "...");
+      // Debug: Log a sample of the response to understand the structure better
+      console.log("API response (first 500 chars):", JSON.stringify(data).slice(0, 500));
       
       // Handle empty responses or error responses from the API
       if (data.errors) {
@@ -128,15 +126,14 @@ serve(async (req) => {
         throw new Error(`GraphQL errors: ${JSON.stringify(data.errors)}`);
       }
       
-      // Check if we have actual token data with the expected structure
-      // Updated path to find token data in the response
+      // Check if we have the expected data path
       if (!data?.data?.solana?.TokenSupplyUpdates?.[0]?.TokenSupplyUpdate?.[0]) {
         console.warn("No token data found in response:", JSON.stringify(data).slice(0, 500));
         throw new Error("No token data found in API response");
       }
       
       // Return data with the correct structure
-      console.log("Successfully fetched token data:", JSON.stringify(data).slice(0, 200) + "...");
+      console.log("Successfully fetched token data");
       
       return new Response(JSON.stringify(data), {
         headers: { 

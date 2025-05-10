@@ -52,10 +52,11 @@ export const fetchTokenSupplyData = async (mintAddress: string): Promise<TokenSu
       throw new Error(`GraphQL errors: ${JSON.stringify(data.errors)}`);
     }
     
-    // Log the full data structure to help debug
+    // Debug logging to understand the structure
     console.log("Full API response structure:", JSON.stringify(data));
     
     // Validate that we have the expected data structure
+    // Notice we're now using the solana namespace in the path
     if (!data.data?.solana?.TokenSupplyUpdates?.[0]?.TokenSupplyUpdate?.[0]) {
       console.warn("Edge function returned unexpected data structure:", data);
       throw new Error("Invalid data format returned from API");
