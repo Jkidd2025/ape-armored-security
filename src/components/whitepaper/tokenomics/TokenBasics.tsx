@@ -1,5 +1,6 @@
 
 import { Table } from "@/components/ui/table";
+import TotalSupplyCheck from "./TotalSupplyCheck";
 
 const TokenBasics = () => {
   return (
@@ -45,6 +46,8 @@ const TokenBasics = () => {
           </tbody>
         </Table>
       </div>
+      
+      <TotalSupplyCheck />
     </div>
   );
 };
