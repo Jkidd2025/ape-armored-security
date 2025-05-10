@@ -96,12 +96,12 @@ serve(async (req) => {
     
     try {
       // Execute the GraphQL query with proper authentication headers
-      // Using the correct authentication as per Bitquery docs
+      // According to Bitquery docs, X-API-KEY is the correct header for authentication
       const response = await fetch(API_ENDPOINT, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'X-API-KEY': SOLANA_TRACKER_API_KEY,
+          'X-API-KEY': SOLANA_TRACKER_API_KEY, // This is the correct header name
         },
         body: JSON.stringify(graphqlQuery),
       });
