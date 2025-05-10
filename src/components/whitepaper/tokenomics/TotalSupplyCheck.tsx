@@ -36,11 +36,16 @@ const TotalSupplyCheck = () => {
         throw new Error(result.error);
       }
       
-      // Updated path to access token data from the new structure
+      // Safely extract token data with optional chaining
       const tokenData = result.data?.solana?.TokenSupplyUpdates?.[0]?.TokenSupplyUpdate?.[0];
       
       if (!tokenData) {
         throw new Error("No token supply data found");
+      }
+      
+      // Handle potentially problematic data
+      if (!tokenData.PostBalance || isNaN(Number(tokenData.PostBalance))) {
+        throw new Error("Invalid token balance data");
       }
       
       const totalSupply = formatTokenAmount(tokenData.PostBalance);
@@ -52,7 +57,7 @@ const TotalSupplyCheck = () => {
       setSupplyData({
         totalSupply,
         circulatingSupply,
-        tokenName: tokenData.Currency.Name || "APE",
+        tokenName: tokenData.Currency?.Name || "APE",
         lastUpdated: new Date().toLocaleString(),
       });
       
@@ -88,9 +93,12 @@ const TotalSupplyCheck = () => {
     }
   };
 
-  // Fetch data on first load
+  // Fetch data on first load, with error handling
   useEffect(() => {
-    fetchSupplyData();
+    fetchSupplyData().catch(err => {
+      console.error("Initial data fetch failed:", err);
+      // Already handled in the fetchSupplyData function
+    });
   }, []);
 
   return (

@@ -55,14 +55,15 @@ export const fetchTokenSupplyData = async (mintAddress: string): Promise<TokenSu
     // Debug logging to understand the structure
     console.log("Full API response structure:", JSON.stringify(data));
     
-    // Validate that we have the expected data structure
-    // Notice we're now using the solana namespace in the path
-    if (!data.data?.solana?.TokenSupplyUpdates?.[0]?.TokenSupplyUpdate?.[0]) {
+    // Safely validate the data structure without causing any potential crashes
+    const supplyUpdate = data?.data?.solana?.TokenSupplyUpdates?.[0]?.TokenSupplyUpdate?.[0];
+    
+    if (!supplyUpdate) {
       console.warn("Edge function returned unexpected data structure:", data);
       throw new Error("Invalid data format returned from API");
     }
     
-    console.log("Token supply data received:", data);
+    console.log("Token supply data received successfully");
     return data as TokenSupplyResponse;
   } catch (error) {
     console.error("Error fetching token supply data:", error);
@@ -77,6 +78,12 @@ export const formatTokenAmount = (amount: string | undefined, decimals: number =
   if (!amount) return "N/A";
   
   try {
+    // Handle potential non-numeric values
+    if (isNaN(Number(amount))) {
+      console.warn(`Invalid amount value: ${amount}`);
+      return "N/A";
+    }
+    
     // Convert to number and apply decimals
     const numericAmount = Number(amount) / Math.pow(10, decimals);
     
