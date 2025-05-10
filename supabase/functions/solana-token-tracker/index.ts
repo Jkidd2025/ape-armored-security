@@ -5,8 +5,8 @@ import { serve } from 'https://deno.land/std@0.168.0/http/server.ts';
 const SOLANA_TRACKER_API_KEY = Deno.env.get('SOLANA_TRACKER_API_KEY') || '';
 const API_ID = "2dee027e-6aca-457c-82ff-b48f0b852a39";
 
-// API endpoint URL
-const API_ENDPOINT = 'https://streaming.bitquery.io/eap';
+// API endpoint URL - Using the graphql endpoint as per Bitquery docs
+const API_ENDPOINT = 'https://graphql.bitquery.io';
 
 // CORS headers for browser access
 const corsHeaders = {
@@ -75,20 +75,21 @@ serve(async (req) => {
     // The corrected GraphQL query based on Bitquery API structure
     const graphqlQuery = {
       query: `{
-        TokenSupplyUpdates(
-          limit: {count: 1}
-          orderBy: {descending: Block_Time}
-          where: {TokenSupplyUpdate: {Currency: {MintAddress: {is: "${mintAddress}"}}}}
-          blockchain: solana
-        ) {
-          TokenSupplyUpdate {
-            Amount
-            Currency {
-              MintAddress
-              Name
+        solana {
+          TokenSupplyUpdates(
+            limit: {count: 1}
+            orderBy: {descending: Block_Time}
+            where: {TokenSupplyUpdate: {Currency: {MintAddress: {is: "${mintAddress}"}}}}
+          ) {
+            TokenSupplyUpdate {
+              Amount
+              Currency {
+                MintAddress
+                Name
+              }
+              PreBalance
+              PostBalance
             }
-            PreBalance
-            PostBalance
           }
         }
       }`
@@ -96,13 +97,12 @@ serve(async (req) => {
     
     try {
       // Execute the GraphQL query with proper authentication headers
+      // Using the correct authentication as per Bitquery docs
       const response = await fetch(API_ENDPOINT, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${SOLANA_TRACKER_API_KEY}`,
           'X-API-KEY': SOLANA_TRACKER_API_KEY,
-          'API-ID': API_ID,
         },
         body: JSON.stringify(graphqlQuery),
       });
@@ -115,6 +115,9 @@ serve(async (req) => {
       
       const data = await response.json();
       
+      // Log the full response data for debugging
+      console.log("API response:", JSON.stringify(data).slice(0, 500) + "...");
+      
       // Handle empty responses or error responses from the API
       if (data.errors) {
         console.error("GraphQL errors:", JSON.stringify(data.errors));
@@ -122,14 +125,22 @@ serve(async (req) => {
       }
       
       // Check if we have actual token data with the expected structure
-      if (!data?.data?.TokenSupplyUpdates?.[0]?.TokenSupplyUpdate?.[0]) {
+      // Updated path to find token data in the response
+      if (!data?.data?.solana?.TokenSupplyUpdates?.[0]?.TokenSupplyUpdate?.[0]) {
         console.warn("No token data found in response:", JSON.stringify(data).slice(0, 500));
         throw new Error("No token data found in API response");
       }
       
-      console.log("Successfully fetched token data:", JSON.stringify(data).slice(0, 200) + "...");
+      // Restructure the data to match our expected format
+      const formattedData = {
+        data: {
+          TokenSupplyUpdates: data.data.solana.TokenSupplyUpdates
+        }
+      };
       
-      return new Response(JSON.stringify(data), {
+      console.log("Successfully fetched token data:", JSON.stringify(formattedData).slice(0, 200) + "...");
+      
+      return new Response(JSON.stringify(formattedData), {
         headers: { 
           ...corsHeaders, 
           'Content-Type': 'application/json' 
