@@ -16,21 +16,23 @@ const corsHeaders = {
 // Mock data for fallback when API is unavailable
 const mockTokenData = {
   data: {
-    TokenSupplyUpdates: [
-      {
-        TokenSupplyUpdate: [
-          {
-            Amount: "0",
-            Currency: {
-              MintAddress: "786Yz5T1yd9BzWMgWMCrPEB8WeGWAT1xyzwTNcKiKkJD",
-              Name: "APE"
-            },
-            PreBalance: "0",
-            PostBalance: "1000000000000000000" // 1 billion with 9 decimals
-          }
-        ]
-      }
-    ]
+    solana: {
+      TokenSupplyUpdates: [
+        {
+          TokenSupplyUpdate: [
+            {
+              Amount: "0",
+              Currency: {
+                MintAddress: "786Yz5T1yd9BzWMgWMCrPEB8WeGWAT1xyzwTNcKiKkJD",
+                Name: "APE"
+              },
+              PreBalance: "0",
+              PostBalance: "1000000000000000000" // 1 billion with 9 decimals
+            }
+          ]
+        }
+      ]
+    }
   }
 };
 
@@ -95,13 +97,16 @@ serve(async (req) => {
     };
     
     try {
-      // Execute the GraphQL query with proper authentication headers
-      // According to Bitquery docs, X-API-KEY is the correct header for authentication
+      // Using the proper authentication header format according to Bitquery docs
+      // https://docs.bitquery.io/docs/authorisation/how-to-use/
+      console.log("Authenticating with Bitquery API...");
+      
       const response = await fetch(API_ENDPOINT, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'X-API-KEY': SOLANA_TRACKER_API_KEY, // This is the correct header name
+          // According to docs, this is the correct header format
+          'Authorization': `Bearer ${SOLANA_TRACKER_API_KEY}`,
         },
         body: JSON.stringify(graphqlQuery),
       });
@@ -130,16 +135,10 @@ serve(async (req) => {
         throw new Error("No token data found in API response");
       }
       
-      // Restructure the data to match our expected format
-      const formattedData = {
-        data: {
-          TokenSupplyUpdates: data.data.solana.TokenSupplyUpdates
-        }
-      };
+      // Return data with the correct structure
+      console.log("Successfully fetched token data:", JSON.stringify(data).slice(0, 200) + "...");
       
-      console.log("Successfully fetched token data:", JSON.stringify(formattedData).slice(0, 200) + "...");
-      
-      return new Response(JSON.stringify(formattedData), {
+      return new Response(JSON.stringify(data), {
         headers: { 
           ...corsHeaders, 
           'Content-Type': 'application/json' 

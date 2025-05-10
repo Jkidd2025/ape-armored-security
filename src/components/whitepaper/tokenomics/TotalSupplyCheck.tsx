@@ -36,8 +36,8 @@ const TotalSupplyCheck = () => {
         throw new Error(result.error);
       }
       
-      // First try to access data with the expected structure
-      const tokenData = result.data?.TokenSupplyUpdates?.[0]?.TokenSupplyUpdate?.[0];
+      // Updated path to access token data from the new structure
+      const tokenData = result.data?.solana?.TokenSupplyUpdates?.[0]?.TokenSupplyUpdate?.[0];
       
       if (!tokenData) {
         throw new Error("No token supply data found");
