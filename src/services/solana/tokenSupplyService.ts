@@ -40,6 +40,18 @@ export const fetchTokenSupplyData = async (mintAddress: string): Promise<TokenSu
       throw new Error("No data returned from the edge function");
     }
     
+    // Check if the response contains an error field
+    if (data.error) {
+      console.error("Edge function returned an error:", data.error);
+      throw new Error(`API error: ${data.error}`);
+    }
+    
+    // Verify that the response contains the expected data structure
+    if (!data.data?.Solana?.TokenSupplyUpdates?.[0]?.TokenSupplyUpdate?.[0]) {
+      console.warn("Edge function returned unexpected data structure:", data);
+      throw new Error("Invalid data format returned from API");
+    }
+    
     console.log("Token supply data received:", data);
     return { data };
   } catch (error) {

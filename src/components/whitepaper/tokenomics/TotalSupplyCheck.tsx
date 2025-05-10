@@ -17,6 +17,7 @@ const TotalSupplyCheck = () => {
   const [error, setError] = useState<string | null>(null);
   const { toast } = useToast();
   const contractAddress = "786Yz5T1yd9BzWMgWMCrPEB8WeGWAT1xyzwTNcKiKkJD";
+  const [retryCount, setRetryCount] = useState(0);
 
   const fetchSupplyData = async () => {
     setIsLoading(true);
@@ -55,6 +56,9 @@ const TotalSupplyCheck = () => {
         lastUpdated: new Date().toLocaleString(),
       });
       
+      // Reset retry count on success
+      setRetryCount(0);
+      
       toast({
         title: "Supply data updated",
         description: "Latest token supply data has been fetched",
@@ -62,6 +66,7 @@ const TotalSupplyCheck = () => {
     } catch (err) {
       console.error("Error fetching supply data:", err);
       setError(err instanceof Error ? err.message : "Failed to fetch the latest token supply data");
+      setRetryCount((prev) => prev + 1);
       
       // Fallback to hardcoded values on error for better UX
       setSupplyData({
@@ -106,7 +111,9 @@ const TotalSupplyCheck = () => {
         <Alert variant="destructive" className="mb-2">
           <AlertDescription>
             {error}
-            <div className="text-xs mt-1">Using fallback data. Refresh to try again.</div>
+            <div className="text-xs mt-1">
+              {retryCount > 2 ? "Multiple attempts failed. Using fallback data." : "Using fallback data. Refresh to try again."}
+            </div>
           </AlertDescription>
         </Alert>
       ) : (

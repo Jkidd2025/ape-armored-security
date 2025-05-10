@@ -5,7 +5,7 @@ import { serve } from 'https://deno.land/std@0.168.0/http/server.ts';
 const SOLANA_TRACKER_API_KEY = Deno.env.get('SOLANA_TRACKER_API_KEY') || '';
 const API_ID = "2dee027e-6aca-457c-82ff-b48f0b852a39";
 
-// Updated API endpoint URL
+// API endpoint URL
 const API_ENDPOINT = 'https://streaming.bitquery.io/eap';
 
 // CORS headers for browser access
@@ -98,12 +98,13 @@ serve(async (req) => {
     };
     
     try {
-      // Execute the GraphQL query using the updated API endpoint
+      // Execute the GraphQL query using the updated API endpoint and proper Bearer token format
       const response = await fetch(API_ENDPOINT, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
           'Authorization': `Bearer ${SOLANA_TRACKER_API_KEY}`,
+          'X-API-KEY': SOLANA_TRACKER_API_KEY, // Add X-API-KEY as an alternative
           'API-ID': API_ID,
         },
         body: JSON.stringify(graphqlQuery),
