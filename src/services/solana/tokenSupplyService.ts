@@ -29,6 +29,7 @@ export const fetchTokenSupplyData = async (mintAddress: string): Promise<TokenSu
     });
     
     if (error) {
+      console.error("Supabase function invocation error:", error);
       throw new Error(`Edge function error: ${error.message}`);
     }
     

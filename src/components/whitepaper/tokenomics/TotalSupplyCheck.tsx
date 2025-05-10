@@ -23,6 +23,11 @@ const TotalSupplyCheck = () => {
     setError(null);
     
     try {
+      toast({
+        title: "Requesting supply data...",
+        description: "Fetching the latest token supply information",
+      });
+      
       const result = await fetchTokenSupplyData(contractAddress);
       
       if (result.error) {
@@ -67,8 +72,8 @@ const TotalSupplyCheck = () => {
       });
       
       toast({
-        title: "Error updating supply data",
-        description: "Using cached data - couldn't fetch latest information",
+        title: "Using estimated supply data",
+        description: "Couldn't fetch latest information - using approximate values",
         variant: "destructive",
       });
     } finally {
@@ -99,7 +104,10 @@ const TotalSupplyCheck = () => {
       
       {error ? (
         <Alert variant="destructive" className="mb-2">
-          <AlertDescription>{error}</AlertDescription>
+          <AlertDescription>
+            {error}
+            <div className="text-xs mt-1">Using fallback data. Refresh to try again.</div>
+          </AlertDescription>
         </Alert>
       ) : (
         <div className="bg-muted/50 p-4 rounded-md border">
