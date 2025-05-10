@@ -1,7 +1,7 @@
 
 import { serve } from 'https://deno.land/std@0.168.0/http/server.ts';
 
-const SOLANA_TRACKER_API_KEY = "T3-t673yXqHzgZN2E2YmRNXIe1";
+const SOLANA_TRACKER_API_KEY = "ory_at_jmnesL6nLfDdHQJCFCPhsPYsyrI8R85VVJnopnS--0Y.ICSrDO-5qL-1263qdQjIYilz1PQ_xfTiaSixUa2xpJs";
 const API_ID = "2dee027e-6aca-457c-82ff-b48f0b852a39";
 
 // CORS headers for browser access
