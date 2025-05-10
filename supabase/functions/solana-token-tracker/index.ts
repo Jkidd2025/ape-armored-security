@@ -3,7 +3,6 @@ import { serve } from 'https://deno.land/std@0.168.0/http/server.ts';
 
 // Get API key from environment variable instead of hardcoding
 const SOLANA_TRACKER_API_KEY = Deno.env.get('SOLANA_TRACKER_API_KEY') || '';
-const API_ID = "2dee027e-6aca-457c-82ff-b48f0b852a39";
 
 // API endpoint URL - Using the graphql endpoint as per Bitquery docs
 const API_ENDPOINT = 'https://graphql.bitquery.io';
