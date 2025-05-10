@@ -31,4 +31,3 @@ serve(async (req) => {
     },
   });
 });
-
