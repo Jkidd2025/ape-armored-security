@@ -1,7 +1,8 @@
 
 import { serve } from 'https://deno.land/std@0.168.0/http/server.ts';
 
-const SOLANA_TRACKER_API_KEY = "ory_at_jmnesL6nLfDdHQJCFCPhsPYsyrI8R85VVJnopnS--0Y.ICSrDO-5qL-1263qdQjIYilz1PQ_xfTiaSixUa2xpJs";
+// Get API key from environment variable instead of hardcoding
+const SOLANA_TRACKER_API_KEY = Deno.env.get('SOLANA_TRACKER_API_KEY') || '';
 const API_ID = "2dee027e-6aca-457c-82ff-b48f0b852a39";
 
 // CORS headers for browser access
@@ -58,6 +59,17 @@ serve(async (req) => {
     }
 
     console.log(`Fetching token data for mint address: ${mintAddress}`);
+
+    // Check if API key is available
+    if (!SOLANA_TRACKER_API_KEY) {
+      console.log("SOLANA_TRACKER_API_KEY is not set, returning mock data");
+      return new Response(JSON.stringify(mockTokenData), {
+        headers: { 
+          ...corsHeaders, 
+          'Content-Type': 'application/json' 
+        },
+      });
+    }
 
     // Construct GraphQL query for token supply data
     const graphqlQuery = {
