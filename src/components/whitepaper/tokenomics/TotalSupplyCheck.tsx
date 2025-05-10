@@ -18,6 +18,7 @@ const TotalSupplyCheck = () => {
   const { toast } = useToast();
   const contractAddress = "786Yz5T1yd9BzWMgWMCrPEB8WeGWAT1xyzwTNcKiKkJD";
   const [retryCount, setRetryCount] = useState(0);
+  const [useMockData, setUseMockData] = useState(false);
 
   const fetchSupplyData = async () => {
     setIsLoading(true);
@@ -35,7 +36,7 @@ const TotalSupplyCheck = () => {
         throw new Error(result.error);
       }
       
-      // Updated to use the new API response structure
+      // First try to access data with the expected structure
       const tokenData = result.data?.TokenSupplyUpdates?.[0]?.TokenSupplyUpdate?.[0];
       
       if (!tokenData) {
@@ -44,7 +45,6 @@ const TotalSupplyCheck = () => {
       
       const totalSupply = formatTokenAmount(tokenData.PostBalance);
       // In this example, we're using a fixed percentage of the total supply as circulating
-      // In a real implementation, you would fetch this from a separate API endpoint
       const circulatingSupply = formatTokenAmount(
         (Number(tokenData.PostBalance) * 0.72).toString() // 72% of total supply
       );
@@ -56,8 +56,9 @@ const TotalSupplyCheck = () => {
         lastUpdated: new Date().toLocaleString(),
       });
       
-      // Reset retry count on success
+      // Reset retry count and mock data flag on success
       setRetryCount(0);
+      setUseMockData(false);
       
       toast({
         title: "Supply data updated",
@@ -67,6 +68,7 @@ const TotalSupplyCheck = () => {
       console.error("Error fetching supply data:", err);
       setError(err instanceof Error ? err.message : "Failed to fetch the latest token supply data");
       setRetryCount((prev) => prev + 1);
+      setUseMockData(true);
       
       // Fallback to hardcoded values on error for better UX
       setSupplyData({
@@ -107,41 +109,49 @@ const TotalSupplyCheck = () => {
         </Button>
       </div>
       
-      {error ? (
+      {error && (
         <Alert variant="destructive" className="mb-2">
           <AlertDescription>
             {error}
             <div className="text-xs mt-1">
-              {retryCount > 2 ? "Multiple attempts failed. Using fallback data." : "Using fallback data. Refresh to try again."}
+              {retryCount > 2 
+                ? "Multiple attempts failed. Using fallback data for display purposes."
+                : "Using fallback data. You can refresh to try again."}
             </div>
           </AlertDescription>
         </Alert>
-      ) : (
-        <div className="bg-muted/50 p-4 rounded-md border">
-          <div className="grid grid-cols-2 gap-2">
-            <div className="text-sm">Total Supply:</div>
-            <div className="text-sm font-semibold text-right">{supplyData.totalSupply || "Loading..."} {supplyData.tokenName}</div>
-            
-            <div className="text-sm">Circulating Supply:</div>
-            <div className="text-sm font-semibold text-right">{supplyData.circulatingSupply || "Loading..."} {supplyData.tokenName}</div>
-            
-            <div className="text-sm col-span-2 mt-2 text-xs text-muted-foreground">
-              <div className="flex items-center justify-between">
-                <span>Last updated: {supplyData.lastUpdated || "Never"}</span>
-                <a 
-                  href={`https://solscan.io/token/${contractAddress}`} 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                  className="flex items-center gap-1 text-apearmor-teal hover:underline"
-                >
-                  View on Solscan
-                  <ExternalLink className="h-3 w-3" />
-                </a>
-              </div>
+      )}
+      
+      <div className="bg-muted/50 p-4 rounded-md border">
+        <div className="grid grid-cols-2 gap-2">
+          <div className="text-sm">Total Supply:</div>
+          <div className="text-sm font-semibold text-right">
+            {supplyData.totalSupply || "Loading..."} {supplyData.tokenName}
+            {useMockData && <span className="text-xs text-muted-foreground ml-1">(est.)</span>}
+          </div>
+          
+          <div className="text-sm">Circulating Supply:</div>
+          <div className="text-sm font-semibold text-right">
+            {supplyData.circulatingSupply || "Loading..."} {supplyData.tokenName}
+            {useMockData && <span className="text-xs text-muted-foreground ml-1">(est.)</span>}
+          </div>
+          
+          <div className="text-sm col-span-2 mt-2 text-xs text-muted-foreground">
+            <div className="flex items-center justify-between">
+              <span>Last updated: {supplyData.lastUpdated || "Never"}</span>
+              <a 
+                href={`https://solscan.io/token/${contractAddress}`} 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="flex items-center gap-1 text-apearmor-teal hover:underline"
+              >
+                View on Solscan
+                <ExternalLink className="h-3 w-3" />
+              </a>
             </div>
           </div>
         </div>
-      )}
+      </div>
     </div>
   );
 };

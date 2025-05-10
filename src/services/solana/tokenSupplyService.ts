@@ -44,7 +44,16 @@ export const fetchTokenSupplyData = async (mintAddress: string): Promise<TokenSu
       throw new Error(`API error: ${data.error}`);
     }
     
-    // Updated data structure check to match the new GraphQL response
+    // Check if data has GraphQL errors
+    if (data.errors) {
+      console.error("GraphQL errors returned:", data.errors);
+      throw new Error(`GraphQL errors: ${JSON.stringify(data.errors)}`);
+    }
+    
+    // Log the full data structure to help debug
+    console.log("Full API response structure:", JSON.stringify(data));
+    
+    // Validate that we have the expected data structure
     if (!data.data?.TokenSupplyUpdates?.[0]?.TokenSupplyUpdate?.[0]) {
       console.warn("Edge function returned unexpected data structure:", data);
       throw new Error("Invalid data format returned from API");

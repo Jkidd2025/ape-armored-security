@@ -72,7 +72,7 @@ serve(async (req) => {
       });
     }
 
-    // Construct GraphQL query for token supply data - FIXED QUERY STRUCTURE
+    // The corrected GraphQL query based on Bitquery API structure
     const graphqlQuery = {
       query: `{
         TokenSupplyUpdates(
@@ -110,26 +110,21 @@ serve(async (req) => {
       if (!response.ok) {
         const errorText = await response.text();
         console.error(`API error: ${response.status} - ${errorText}`);
-        console.log("Returning mock data due to API error");
-        return new Response(JSON.stringify(mockTokenData), {
-          headers: { 
-            ...corsHeaders, 
-            'Content-Type': 'application/json' 
-          },
-        });
+        throw new Error(`API error: ${response.status} - ${errorText}`);
       }
       
       const data = await response.json();
       
-      // Check if we have actual token data with the updated structure
+      // Handle empty responses or error responses from the API
+      if (data.errors) {
+        console.error("GraphQL errors:", JSON.stringify(data.errors));
+        throw new Error(`GraphQL errors: ${JSON.stringify(data.errors)}`);
+      }
+      
+      // Check if we have actual token data with the expected structure
       if (!data?.data?.TokenSupplyUpdates?.[0]?.TokenSupplyUpdate?.[0]) {
-        console.log("No token data found, returning mock data");
-        return new Response(JSON.stringify(mockTokenData), {
-          headers: { 
-            ...corsHeaders, 
-            'Content-Type': 'application/json' 
-          },
-        });
+        console.warn("No token data found in response:", JSON.stringify(data).slice(0, 500));
+        throw new Error("No token data found in API response");
       }
       
       console.log("Successfully fetched token data:", JSON.stringify(data).slice(0, 200) + "...");
