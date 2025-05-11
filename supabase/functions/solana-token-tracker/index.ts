@@ -20,6 +20,10 @@ serve(async (req) => {
     // Get API key from environment
     const apiKey = Deno.env.get('HELIUS_API_KEY');
     
+    if (!apiKey) {
+      throw new Error('HELIUS_API_KEY is not set in environment variables');
+    }
+    
     // Use Helius RPC endpoint with API key
     const rpcUrl = `https://mainnet.helius-rpc.com/?api-key=${apiKey}`;
     
