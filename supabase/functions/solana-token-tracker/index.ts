@@ -11,6 +11,8 @@ const corsHeaders = {
 const APE_TOKEN_ADDRESS = '786Yz5T1yd9BzWMgWMCrPEB8WeGWAT1xyzwTNcKiKkJD';
 
 serve(async (req) => {
+  console.log("Solana token tracker function called");
+  
   // Handle CORS preflight requests
   if (req.method === 'OPTIONS') {
     return new Response(null, { headers: corsHeaders });
@@ -21,6 +23,7 @@ serve(async (req) => {
     const apiKey = Deno.env.get('HELIUS_API_KEY');
     
     if (!apiKey) {
+      console.error('HELIUS_API_KEY is not set in environment variables');
       throw new Error('HELIUS_API_KEY is not set in environment variables');
     }
     
@@ -41,6 +44,8 @@ serve(async (req) => {
       })
     });
     
+    console.log("RPC response status:", response.status);
+    
     if (!response.ok) {
       console.error(`RPC request failed with status: ${response.status}`);
       throw new Error(`RPC request failed with status: ${response.status}`);
@@ -58,8 +63,15 @@ serve(async (req) => {
     const tokenSupply = result.result?.value;
     
     if (!tokenSupply) {
+      console.error("Invalid token supply data received");
       throw new Error("Invalid token supply data received");
     }
+    
+    console.log("Returning token data:", {
+      name: "APE",
+      totalSupply: tokenSupply.amount,
+      decimals: tokenSupply.decimals
+    });
     
     const responseData = {
       data: {
@@ -74,7 +86,8 @@ serve(async (req) => {
     return new Response(JSON.stringify(responseData), {
       headers: { 
         ...corsHeaders, 
-        'Content-Type': 'application/json' 
+        'Content-Type': 'application/json',
+        'Cache-Control': 'no-cache, no-store, must-revalidate'
       },
     });
   } catch (error) {

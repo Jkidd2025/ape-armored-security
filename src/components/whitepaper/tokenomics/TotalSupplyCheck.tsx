@@ -1,7 +1,7 @@
 
 import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
-import { RefreshCw, ExternalLink } from "lucide-react";
+import { RefreshCw, ExternalLink, AlertTriangle } from "lucide-react";
 import { useToast } from "@/components/ui/use-toast";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { fetchTokenSupplyData, formatTokenAmount } from "@/services/solana/tokenSupplyService";
@@ -16,6 +16,7 @@ const TotalSupplyCheck = () => {
   }>({});
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [retryCount, setRetryCount] = useState(0);
   const { toast } = useToast();
   const contractAddress = "786Yz5T1yd9BzWMgWMCrPEB8WeGWAT1xyzwTNcKiKkJD";
 
@@ -33,7 +34,7 @@ const TotalSupplyCheck = () => {
       
       if (response.error) {
         console.warn("Warning while fetching supply data:", response.error);
-        // Show warning but continue with the data we have
+        // We'll show a warning but continue with the data we have
       }
       
       if (response.data) {
@@ -61,6 +62,7 @@ const TotalSupplyCheck = () => {
     } catch (err) {
       console.error("Error updating supply data:", err);
       setError("Failed to update supply information. Using estimated values.");
+      setRetryCount(prev => prev + 1);
       
       // Set fallback data
       setSupplyData({
@@ -103,6 +105,7 @@ const TotalSupplyCheck = () => {
       
       {error && (
         <Alert variant="destructive" className="mb-2">
+          <AlertTriangle className="h-4 w-4" />
           <AlertDescription>{error}</AlertDescription>
         </Alert>
       )}
@@ -153,6 +156,12 @@ const TotalSupplyCheck = () => {
           </div>
         </div>
       </div>
+      
+      {retryCount > 1 && (
+        <div className="mt-2 text-xs text-muted-foreground">
+          <p>Multiple connection attempts failed. Using estimated values.</p>
+        </div>
+      )}
     </div>
   );
 };
