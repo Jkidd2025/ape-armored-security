@@ -1,69 +1,36 @@
 
 import { useToast } from "@/components/ui/use-toast";
-import { supabase } from "@/integrations/supabase/client";
+
+interface TokenData {
+  name: string;
+  address: string;
+  totalSupply: string;
+  symbol: string;
+}
 
 interface TokenSupplyResponse {
-  data?: {
-    solana?: {
-      tokens?: {
-        token?: {
-          name: string;
-          address: string;
-          totalSupply: string;
-          symbol: string;
-        }
-      }[];
-    }
-  };
+  data?: TokenData;
   error?: string;
 }
 
+// Hardcoded token data
+const HARDCODED_TOKEN_DATA: TokenData = {
+  name: "APE",
+  address: "786Yz5T1yd9BzWMgWMCrPEB8WeGWAT1xyzwTNcKiKkJD",
+  totalSupply: "1000000000000000000",
+  symbol: "APE"
+};
+
 export const fetchTokenSupplyData = async (mintAddress: string): Promise<TokenSupplyResponse> => {
   try {
-    console.log("Fetching token supply data for: ", mintAddress);
+    console.log("Using hardcoded token supply data for:", mintAddress);
     
-    // Use supabase client to invoke our edge function
-    const { data, error } = await supabase.functions.invoke('solana-token-tracker', {
-      body: { mintAddress }
-    });
-    
-    if (error) {
-      console.error("Supabase function invocation error:", error);
-      throw new Error(`Edge function error: ${error.message}`);
-    }
-    
-    if (!data) {
-      console.warn("No data returned from the edge function");
-      throw new Error("No data returned from the edge function");
-    }
-    
-    // Check if the response contains an error field
-    if (data.error) {
-      console.error("Edge function returned an error:", data.error);
-      throw new Error(`API error: ${data.error}`);
-    }
-    
-    // Check if data has GraphQL errors
-    if (data.errors) {
-      console.error("GraphQL errors returned:", data.errors);
-      throw new Error(`GraphQL errors: ${JSON.stringify(data.errors)}`);
-    }
-    
-    // Debug logging to understand the structure
-    console.log("Full API response structure:", JSON.stringify(data));
-    
-    // Safely validate the data structure without causing any potential crashes
-    const tokenData = data?.data?.solana?.tokens?.[0]?.token;
-    
-    if (!tokenData) {
-      console.warn("Edge function returned unexpected data structure:", data);
-      throw new Error("Invalid data format returned from API");
-    }
-    
-    console.log("Token supply data received successfully");
-    return data as TokenSupplyResponse;
+    // Return the hardcoded data
+    return { 
+      data: HARDCODED_TOKEN_DATA 
+    };
   } catch (error) {
-    console.error("Error fetching token supply data:", error);
+    console.error("Error with token supply data:", error);
     return { 
       error: error instanceof Error ? error.message : "An unknown error occurred" 
     };

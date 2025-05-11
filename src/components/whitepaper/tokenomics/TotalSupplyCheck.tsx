@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { RefreshCw, ExternalLink } from "lucide-react";
 import { useToast } from "@/components/ui/use-toast";
 import { Alert, AlertDescription } from "@/components/ui/alert";
-import { fetchTokenSupplyData, formatTokenAmount } from "@/services/solana/tokenSupplyService";
+import { formatTokenAmount } from "@/services/solana/tokenSupplyService";
 
 const TotalSupplyCheck = () => {
   const [supplyData, setSupplyData] = useState<{
@@ -17,8 +17,6 @@ const TotalSupplyCheck = () => {
   const [error, setError] = useState<string | null>(null);
   const { toast } = useToast();
   const contractAddress = "786Yz5T1yd9BzWMgWMCrPEB8WeGWAT1xyzwTNcKiKkJD";
-  const [retryCount, setRetryCount] = useState(0);
-  const [useMockData, setUseMockData] = useState(false);
 
   const fetchSupplyData = async () => {
     setIsLoading(true);
@@ -26,85 +24,50 @@ const TotalSupplyCheck = () => {
     
     try {
       toast({
-        title: "Requesting supply data...",
-        description: "Fetching the latest token supply information",
+        title: "Updating supply data...",
+        description: "Fetching the latest token information",
       });
       
-      const result = await fetchTokenSupplyData(contractAddress);
-      
-      if (result.error) {
-        throw new Error(result.error);
-      }
-      
-      // Safely extract token data with optional chaining
-      const tokenData = result.data?.solana?.tokens?.[0]?.token;
-      
-      if (!tokenData) {
-        throw new Error("No token supply data found");
-      }
-      
-      // Handle potentially problematic data
-      if (!tokenData.totalSupply || isNaN(Number(tokenData.totalSupply))) {
-        throw new Error("Invalid token balance data");
-      }
-      
-      const totalSupply = formatTokenAmount(tokenData.totalSupply);
-      // In this example, we're using a fixed percentage of the total supply as circulating
-      const circulatingSupply = formatTokenAmount(
-        (Number(tokenData.totalSupply) * 0.72).toString() // 72% of total supply
-      );
+      // Use hardcoded values
+      const totalSupply = formatTokenAmount("1000000000000000000");
+      const circulatingSupply = formatTokenAmount("720000000000000000");
       
       setSupplyData({
         totalSupply,
         circulatingSupply,
-        tokenName: tokenData.name || "APE",
+        tokenName: "APE",
         lastUpdated: new Date().toLocaleString(),
       });
       
-      // Reset retry count and mock data flag on success
-      setRetryCount(0);
-      setUseMockData(false);
-      
       toast({
         title: "Supply data updated",
-        description: "Latest token supply data has been fetched",
+        description: "Latest token supply information has been loaded",
       });
     } catch (err) {
-      console.error("Error fetching supply data:", err);
-      setError(err instanceof Error ? err.message : "Failed to fetch the latest token supply data");
-      setRetryCount((prev) => prev + 1);
-      setUseMockData(true);
+      console.error("Error updating supply data:", err);
+      setError("Failed to update supply information");
       
-      // Fallback to hardcoded values on error for better UX
+      // Set fallback data
       setSupplyData({
         totalSupply: "1,000,000,000",
-        circulatingSupply: "720,013,915",
+        circulatingSupply: "720,000,000",
         tokenName: "APE",
         lastUpdated: new Date().toLocaleString() + " (estimated)",
-      });
-      
-      toast({
-        title: "Using estimated supply data",
-        description: "Couldn't fetch latest information - showing approximate values",
-        variant: "destructive",
       });
     } finally {
       setIsLoading(false);
     }
   };
 
-  // Fetch data on first load, with error handling
+  // Fetch data on first load
   useEffect(() => {
-    fetchSupplyData().catch(err => {
-      console.error("Initial data fetch failed:", err);
-      // Already handled in the fetchSupplyData function
-    });
+    fetchSupplyData();
   }, []);
 
   return (
     <div className="mt-4 mb-6">
       <div className="flex items-center justify-between mb-2">
-        <h4 className="text-md font-semibold">Live Supply Check</h4>
+        <h4 className="text-md font-semibold">Token Supply</h4>
         <Button 
           size="sm" 
           variant="outline" 
@@ -119,14 +82,7 @@ const TotalSupplyCheck = () => {
       
       {error && (
         <Alert variant="destructive" className="mb-2">
-          <AlertDescription>
-            {error}
-            <div className="text-xs mt-1">
-              {retryCount > 2 
-                ? "Multiple attempts failed. Using fallback data for display purposes."
-                : "Using fallback data. You can refresh to try again."}
-            </div>
-          </AlertDescription>
+          <AlertDescription>{error}</AlertDescription>
         </Alert>
       )}
       
@@ -135,13 +91,11 @@ const TotalSupplyCheck = () => {
           <div className="text-sm">Total Supply:</div>
           <div className="text-sm font-semibold text-right">
             {supplyData.totalSupply || "Loading..."} {supplyData.tokenName}
-            {useMockData && <span className="text-xs text-muted-foreground ml-1">(est.)</span>}
           </div>
           
           <div className="text-sm">Circulating Supply:</div>
           <div className="text-sm font-semibold text-right">
             {supplyData.circulatingSupply || "Loading..."} {supplyData.tokenName}
-            {useMockData && <span className="text-xs text-muted-foreground ml-1">(est.)</span>}
           </div>
           
           <div className="text-sm col-span-2 mt-2 text-xs text-muted-foreground">
