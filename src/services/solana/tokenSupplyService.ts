@@ -5,6 +5,7 @@ interface TokenData {
   name: string;
   address: string;
   totalSupply: string;
+  decimals?: number;
   symbol: string;
 }
 
@@ -18,6 +19,7 @@ const FALLBACK_TOKEN_DATA: TokenData = {
   name: "APE",
   address: "786Yz5T1yd9BzWMgWMCrPEB8WeGWAT1xyzwTNcKiKkJD",
   totalSupply: "1000000000000000000",
+  decimals: 9,
   symbol: "APE"
 };
 
@@ -25,11 +27,12 @@ export const fetchTokenSupplyData = async (mintAddress: string): Promise<TokenSu
   try {
     console.log("Fetching token supply data for:", mintAddress);
     
-    // Call our Supabase Edge Function
+    // Call our Supabase Edge Function with proper content type
     const response = await fetch('/api/solana-token-tracker', {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
+        'Accept': 'application/json',
         'Cache-Control': 'no-cache'
       }
     });

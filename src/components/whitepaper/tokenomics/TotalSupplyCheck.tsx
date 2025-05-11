@@ -32,16 +32,20 @@ const TotalSupplyCheck = () => {
       
       if (response.error) {
         console.warn("Warning while fetching supply data:", response.error);
+        // Show warning but continue with the data we have
       }
       
       if (response.data) {
+        // Get decimals from API or use default
+        const decimals = response.data.decimals || 9;
+        
         // Calculate circulating supply as 72% of total supply
         const totalSupply = response.data.totalSupply;
         const circulatingSupplyValue = (BigInt(totalSupply) * BigInt(72) / BigInt(100)).toString();
         
         setSupplyData({
-          totalSupply: formatTokenAmount(totalSupply),
-          circulatingSupply: formatTokenAmount(circulatingSupplyValue),
+          totalSupply: formatTokenAmount(totalSupply, decimals),
+          circulatingSupply: formatTokenAmount(circulatingSupplyValue, decimals),
           tokenName: response.data.symbol,
           lastUpdated: new Date().toLocaleString(),
         });
@@ -63,6 +67,12 @@ const TotalSupplyCheck = () => {
         circulatingSupply: "720,000,000",
         tokenName: "APE",
         lastUpdated: new Date().toLocaleString() + " (estimated)",
+      });
+      
+      toast({
+        variant: "destructive",
+        title: "Error fetching data",
+        description: "Could not retrieve current token supply information",
       });
     } finally {
       setIsLoading(false);

@@ -1,6 +1,5 @@
 
 import { serve } from 'https://deno.land/std@0.168.0/http/server.ts';
-import { Connection, PublicKey } from 'https://cdn.skypack.dev/@solana/web3.js';
 
 // CORS headers for browser access
 const corsHeaders = {
@@ -18,24 +17,47 @@ serve(async (req) => {
   }
 
   try {
-    // Use Helius RPC endpoint
+    // Use Helius RPC endpoint with direct JSON-RPC method
     const rpcUrl = 'https://emelda-fkxk1k-fast-mainnet.helius-rpc.com';
-    const connection = new Connection(rpcUrl);
-    const mintAddress = new PublicKey(APE_TOKEN_ADDRESS);
     
     console.log("Getting token supply for:", APE_TOKEN_ADDRESS);
     
-    // Fetch token supply data
-    const tokenSupply = await connection.getTokenSupply(mintAddress);
+    // Use JSON-RPC method to fetch token supply
+    const response = await fetch(rpcUrl, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        jsonrpc: '2.0',
+        id: '1',
+        method: 'getTokenSupply',
+        params: [APE_TOKEN_ADDRESS]
+      })
+    });
     
-    console.log("Token supply data:", tokenSupply);
+    if (!response.ok) {
+      throw new Error(`RPC request failed with status: ${response.status}`);
+    }
+    
+    const result = await response.json();
+    console.log("Token supply raw data:", result);
+    
+    if (result.error) {
+      throw new Error(`RPC error: ${JSON.stringify(result.error)}`);
+    }
     
     // Format and return the data
+    const tokenSupply = result.result?.value;
+    
+    if (!tokenSupply) {
+      throw new Error("Invalid token supply data received");
+    }
+    
     const responseData = {
       data: {
         name: "APE",
         address: APE_TOKEN_ADDRESS,
-        totalSupply: tokenSupply.value.amount,
+        totalSupply: tokenSupply.amount,
+        decimals: tokenSupply.decimals,
         symbol: "APE"
       }
     };
@@ -55,6 +77,7 @@ serve(async (req) => {
         name: "APE",
         address: APE_TOKEN_ADDRESS,
         totalSupply: "1000000000000000000",
+        decimals: 9,
         symbol: "APE"
       },
       error: error.message
@@ -65,6 +88,7 @@ serve(async (req) => {
         ...corsHeaders, 
         'Content-Type': 'application/json' 
       },
+      status: 200, // Return 200 even for errors to ensure client gets fallback data
     });
   }
 });
