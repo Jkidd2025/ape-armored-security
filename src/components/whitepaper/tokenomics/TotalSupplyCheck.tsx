@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { RefreshCw, ExternalLink } from "lucide-react";
 import { useToast } from "@/components/ui/use-toast";
 import { Alert, AlertDescription } from "@/components/ui/alert";
-import { formatTokenAmount } from "@/services/solana/tokenSupplyService";
+import { fetchTokenSupplyData, formatTokenAmount } from "@/services/solana/tokenSupplyService";
 
 const TotalSupplyCheck = () => {
   const [supplyData, setSupplyData] = useState<{
@@ -28,24 +28,34 @@ const TotalSupplyCheck = () => {
         description: "Fetching the latest token information",
       });
       
-      // Use hardcoded values
-      const totalSupply = formatTokenAmount("1000000000000000000");
-      const circulatingSupply = formatTokenAmount("720000000000000000");
+      const response = await fetchTokenSupplyData(contractAddress);
       
-      setSupplyData({
-        totalSupply,
-        circulatingSupply,
-        tokenName: "APE",
-        lastUpdated: new Date().toLocaleString(),
-      });
+      if (response.error) {
+        console.warn("Warning while fetching supply data:", response.error);
+      }
       
-      toast({
-        title: "Supply data updated",
-        description: "Latest token supply information has been loaded",
-      });
+      if (response.data) {
+        // Calculate circulating supply as 72% of total supply
+        const totalSupply = response.data.totalSupply;
+        const circulatingSupplyValue = (BigInt(totalSupply) * BigInt(72) / BigInt(100)).toString();
+        
+        setSupplyData({
+          totalSupply: formatTokenAmount(totalSupply),
+          circulatingSupply: formatTokenAmount(circulatingSupplyValue),
+          tokenName: response.data.symbol,
+          lastUpdated: new Date().toLocaleString(),
+        });
+        
+        toast({
+          title: "Supply data updated",
+          description: "Latest token supply information has been loaded",
+        });
+      } else {
+        throw new Error("No data received");
+      }
     } catch (err) {
       console.error("Error updating supply data:", err);
-      setError("Failed to update supply information");
+      setError("Failed to update supply information. Using estimated values.");
       
       // Set fallback data
       setSupplyData({
