@@ -17,8 +17,11 @@ serve(async (req) => {
   }
 
   try {
-    // Use Helius RPC endpoint with direct JSON-RPC method
-    const rpcUrl = 'https://emelda-fkxk1k-fast-mainnet.helius-rpc.com';
+    // Get API key from environment
+    const apiKey = Deno.env.get('HELIUS_API_KEY');
+    
+    // Use Helius RPC endpoint with API key
+    const rpcUrl = `https://mainnet.helius-rpc.com/?api-key=${apiKey}`;
     
     console.log("Getting token supply for:", APE_TOKEN_ADDRESS);
     
