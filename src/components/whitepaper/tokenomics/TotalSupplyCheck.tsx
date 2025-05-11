@@ -5,6 +5,7 @@ import { RefreshCw, ExternalLink } from "lucide-react";
 import { useToast } from "@/components/ui/use-toast";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { fetchTokenSupplyData, formatTokenAmount } from "@/services/solana/tokenSupplyService";
+import { Skeleton } from "@/components/ui/skeleton";
 
 const TotalSupplyCheck = () => {
   const [supplyData, setSupplyData] = useState<{
@@ -13,7 +14,7 @@ const TotalSupplyCheck = () => {
     tokenName?: string;
     lastUpdated?: string;
   }>({});
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const { toast } = useToast();
   const contractAddress = "786Yz5T1yd9BzWMgWMCrPEB8WeGWAT1xyzwTNcKiKkJD";
@@ -41,7 +42,7 @@ const TotalSupplyCheck = () => {
         
         // Calculate circulating supply as 72% of total supply
         const totalSupply = response.data.totalSupply;
-        const circulatingSupplyValue = (BigInt(totalSupply) * BigInt(72) / BigInt(100)).toString();
+        const circulatingSupplyValue = Math.floor(Number(totalSupply) * 0.72).toString();
         
         setSupplyData({
           totalSupply: formatTokenAmount(totalSupply, decimals),
@@ -110,17 +111,35 @@ const TotalSupplyCheck = () => {
         <div className="grid grid-cols-2 gap-2">
           <div className="text-sm">Total Supply:</div>
           <div className="text-sm font-semibold text-right">
-            {supplyData.totalSupply || "Loading..."} {supplyData.tokenName}
+            {isLoading ? (
+              <Skeleton className="h-5 w-24 ml-auto" />
+            ) : (
+              <>
+                {supplyData.totalSupply || "N/A"} {supplyData.tokenName}
+              </>
+            )}
           </div>
           
           <div className="text-sm">Circulating Supply:</div>
           <div className="text-sm font-semibold text-right">
-            {supplyData.circulatingSupply || "Loading..."} {supplyData.tokenName}
+            {isLoading ? (
+              <Skeleton className="h-5 w-24 ml-auto" />
+            ) : (
+              <>
+                {supplyData.circulatingSupply || "N/A"} {supplyData.tokenName}
+              </>
+            )}
           </div>
           
           <div className="text-sm col-span-2 mt-2 text-xs text-muted-foreground">
             <div className="flex items-center justify-between">
-              <span>Last updated: {supplyData.lastUpdated || "Never"}</span>
+              <span>
+                {isLoading ? (
+                  <Skeleton className="h-4 w-40" />
+                ) : (
+                  <>Last updated: {supplyData.lastUpdated || "Never"}</>
+                )}
+              </span>
               <a 
                 href={`https://solscan.io/token/${contractAddress}`} 
                 target="_blank" 

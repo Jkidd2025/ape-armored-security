@@ -42,6 +42,7 @@ serve(async (req) => {
     });
     
     if (!response.ok) {
+      console.error(`RPC request failed with status: ${response.status}`);
       throw new Error(`RPC request failed with status: ${response.status}`);
     }
     
@@ -49,6 +50,7 @@ serve(async (req) => {
     console.log("Token supply raw data:", result);
     
     if (result.error) {
+      console.error(`RPC error: ${JSON.stringify(result.error)}`);
       throw new Error(`RPC error: ${JSON.stringify(result.error)}`);
     }
     

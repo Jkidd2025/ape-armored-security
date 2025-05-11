@@ -27,8 +27,8 @@ export const fetchTokenSupplyData = async (mintAddress: string): Promise<TokenSu
   try {
     console.log("Fetching token supply data for:", mintAddress);
     
-    // Call our Supabase Edge Function with proper content type
-    const response = await fetch('/api/solana-token-tracker', {
+    // Call our Supabase Edge Function
+    const response = await fetch('https://iuejqyuvkwwwbqxkciui.functions.supabase.co/solana-token-tracker', {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
