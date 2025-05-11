@@ -37,27 +37,27 @@ const TotalSupplyCheck = () => {
       }
       
       // Safely extract token data with optional chaining
-      const tokenData = result.data?.solana?.TokenSupplyUpdates?.[0]?.TokenSupplyUpdate?.[0];
+      const tokenData = result.data?.solana?.tokens?.[0]?.token;
       
       if (!tokenData) {
         throw new Error("No token supply data found");
       }
       
       // Handle potentially problematic data
-      if (!tokenData.PostBalance || isNaN(Number(tokenData.PostBalance))) {
+      if (!tokenData.totalSupply || isNaN(Number(tokenData.totalSupply))) {
         throw new Error("Invalid token balance data");
       }
       
-      const totalSupply = formatTokenAmount(tokenData.PostBalance);
+      const totalSupply = formatTokenAmount(tokenData.totalSupply);
       // In this example, we're using a fixed percentage of the total supply as circulating
       const circulatingSupply = formatTokenAmount(
-        (Number(tokenData.PostBalance) * 0.72).toString() // 72% of total supply
+        (Number(tokenData.totalSupply) * 0.72).toString() // 72% of total supply
       );
       
       setSupplyData({
         totalSupply,
         circulatingSupply,
-        tokenName: tokenData.Currency?.Name || "APE",
+        tokenName: tokenData.name || "APE",
         lastUpdated: new Date().toLocaleString(),
       });
       

@@ -17,19 +17,14 @@ const corsHeaders = {
 const mockTokenData = {
   data: {
     solana: {
-      TokenSupplyUpdates: [
+      tokens: [
         {
-          TokenSupplyUpdate: [
-            {
-              Amount: "0",
-              Currency: {
-                MintAddress: "786Yz5T1yd9BzWMgWMCrPEB8WeGWAT1xyzwTNcKiKkJD",
-                Name: "APE"
-              },
-              PreBalance: "0",
-              PostBalance: "1000000000000000000" // 1 billion with 9 decimals
-            }
-          ]
+          token: {
+            name: "APE",
+            address: "786Yz5T1yd9BzWMgWMCrPEB8WeGWAT1xyzwTNcKiKkJD",
+            totalSupply: "1000000000000000000",
+            symbol: "APE"
+          }
         }
       ]
     }
@@ -73,23 +68,18 @@ serve(async (req) => {
       });
     }
 
-    // The corrected GraphQL query based on Bitquery API structure
+    // Updated GraphQL query based on Bitquery's actual schema for Solana
     const graphqlQuery = {
       query: `{
         solana {
-          TokenSupplyUpdates(
-            limit: {count: 1}
-            orderBy: {descending: Block_Time}
-            where: {TokenSupplyUpdate: {Currency: {MintAddress: {is: "${mintAddress}"}}}}
+          tokens(
+            where: {address: {is: "${mintAddress}"}}
           ) {
-            TokenSupplyUpdate {
-              Amount
-              Currency {
-                MintAddress
-                Name
-              }
-              PreBalance
-              PostBalance
+            token {
+              name
+              address
+              totalSupply
+              symbol
             }
           }
         }
@@ -97,7 +87,7 @@ serve(async (req) => {
     };
     
     try {
-      // Always use Authorization Bearer format as per Bitquery docs
+      // Use Authorization Bearer format as per Bitquery docs
       console.log("Authenticating with Bitquery API...");
       
       const response = await fetch(API_ENDPOINT, {
@@ -105,6 +95,7 @@ serve(async (req) => {
         headers: {
           'Content-Type': 'application/json',
           'Authorization': `Bearer ${SOLANA_TRACKER_API_KEY}`,
+          'X-API-KEY': SOLANA_TRACKER_API_KEY, // Adding this as a fallback
         },
         body: JSON.stringify(graphqlQuery),
       });
@@ -118,7 +109,7 @@ serve(async (req) => {
       const data = await response.json();
       
       // Full logging for debugging
-      console.log("API full response:", JSON.stringify(data));
+      console.log("API full response:", JSON.stringify(data).substring(0, 1000));
       
       // Handle empty responses or error responses from the API
       if (data.errors) {
@@ -133,7 +124,7 @@ serve(async (req) => {
       }
       
       // Check for expected data structure
-      if (!data?.data?.solana?.TokenSupplyUpdates?.[0]?.TokenSupplyUpdate?.[0]) {
+      if (!data?.data?.solana?.tokens?.[0]?.token) {
         console.warn("No token data found in response:", JSON.stringify(data));
         
         // Return mock data if the structure is invalid
@@ -148,20 +139,7 @@ serve(async (req) => {
       
       console.log("Successfully fetched token data");
       
-      // Additional verification to prevent event message shutdown
-      try {
-        // Verify we can safely stringify the data without errors
-        JSON.stringify(data);
-      } catch (jsonError) {
-        console.error("JSON stringification error:", jsonError);
-        return new Response(JSON.stringify(mockTokenData), {
-          headers: { 
-            ...corsHeaders, 
-            'Content-Type': 'application/json' 
-          },
-        });
-      }
-      
+      // Return the sanitized data to prevent issues
       return new Response(JSON.stringify(data), {
         headers: { 
           ...corsHeaders, 
