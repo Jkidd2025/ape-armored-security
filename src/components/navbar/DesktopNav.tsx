@@ -27,6 +27,12 @@ const DesktopNav = ({ isDevEnvironment, handlePaymentClick }: DesktopNavProps) =
           Whitepaper
         </Link>
         <Link 
+          to="/dashboard" 
+          className="text-sm font-medium hover:text-apearmor-teal transition-colors"
+        >
+          Dashboard
+        </Link>
+        <Link 
           to="/ape-wire" 
           className="text-sm font-medium hover:text-apearmor-teal transition-colors"
         >

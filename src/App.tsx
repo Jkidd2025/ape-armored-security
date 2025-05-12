@@ -17,7 +17,8 @@ import ApeWire from "./pages/ApeWire";
 import BlogPost from "./pages/BlogPost";
 import NotFound from "./pages/NotFound";
 import CookieConsent from "./components/CookieConsent";
-import Swap from "./pages/Swap";  // Import the Swap page
+import Swap from "./pages/Swap";
+import Dashboard from "./pages/Dashboard"; // Import the Dashboard page
 
 const queryClient = new QueryClient();
 
@@ -33,7 +34,8 @@ const App = () => (
           <Route path="/payment" element={<Payment />} />
           <Route path="/payment-confirmation" element={<PaymentConfirmation />} />
           <Route path="/terms-of-service" element={<TermsOfService />} />
-          <Route path="/swap" element={<Swap />} />  {/* Add Swap route */}
+          <Route path="/swap" element={<Swap />} />
+          <Route path="/dashboard" element={<Dashboard />} /> {/* Add Dashboard route */}
           
           <Route path="/whitepaper" element={<Whitepaper />} />
           <Route path="/whitepaper/" element={<Whitepaper />} />

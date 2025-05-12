@@ -1,48 +1,35 @@
 
-import { useState } from 'react';
-import { getSwapQuote } from '@/services/swap/swapService';
+import { useQuery } from '@tanstack/react-query';
+
+interface TokenPriceData {
+  price: number;
+  priceChange24h: number;
+  volume24h: number;
+  marketCap: number;
+  updatedAt: string;
+}
 
 export const useTokenPrice = () => {
-  const [isLoadingPrice, setIsLoadingPrice] = useState(false);
-
-  const fetchPrice = async (
-    fromToken: string,
-    toToken: string,
-    amount: string,
-    slippage: number
-  ): Promise<{ toAmount: string } | null> => {
-    if (!amount || isNaN(parseFloat(amount)) || parseFloat(amount) <= 0) {
-      return null;
-    }
-    
-    setIsLoadingPrice(true);
-
-    try {
-      console.log(`Fetching price for ${amount} ${fromToken} to ${toToken}`);
-      const quote = await getSwapQuote(
-        fromToken,
-        toToken,
-        amount,
-        slippage
-      );
-
-      if (quote) {
-        // Convert BigInt to number for display, account for token decimals
-        const displayAmount = Number(quote.outAmount) / 1e9;
-        console.log(`Price quote received: ${displayAmount} ${toToken}`);
-        return { toAmount: displayAmount.toString() };
-      }
-    } catch (error) {
-      console.error("Error fetching price:", error);
-    } finally {
-      setIsLoadingPrice(false);
-    }
-    
-    return null;
-  };
-
-  return {
-    isLoadingPrice,
-    fetchPrice
-  };
+  return useQuery({
+    queryKey: ['tokenPrice'],
+    queryFn: async (): Promise<TokenPriceData> => {
+      // In the future, replace with actual API call to token terminal or your backend
+      console.log('Fetching token price data...');
+      
+      // Simulate API call
+      return new Promise((resolve) => {
+        setTimeout(() => {
+          resolve({
+            price: 0.00075,
+            priceChange24h: 2.3,
+            volume24h: 24563,
+            marketCap: 748100,
+            updatedAt: new Date().toISOString(),
+          });
+        }, 1500);
+      });
+    },
+    staleTime: 30 * 1000, // 30 seconds for price data
+    refetchInterval: 30 * 1000, // refresh every 30 seconds
+  });
 };

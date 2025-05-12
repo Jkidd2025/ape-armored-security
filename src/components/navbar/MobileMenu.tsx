@@ -89,6 +89,13 @@ const MobileMenu = ({
           Whitepaper
         </Link>
         <Link 
+          to="/dashboard" 
+          className="text-sm font-medium py-2 px-4 hover:bg-muted rounded-md hover:text-apearmor-teal transition-colors"
+          onClick={() => setIsMenuOpen(false)}
+        >
+          Dashboard
+        </Link>
+        <Link 
           to="/ape-wire" 
           className="text-sm font-medium py-2 px-4 hover:bg-muted rounded-md hover:text-apearmor-teal transition-colors"
           onClick={() => setIsMenuOpen(false)}
