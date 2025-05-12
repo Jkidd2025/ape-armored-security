@@ -2,6 +2,7 @@
 import { useEffect, useCallback } from 'react';
 import { TokenInfo } from "@/services/solanaTracker";
 import { useTokenPrice } from '../useTokenPrice';
+import { getSwapQuote } from '@/services/swap/quoteService';
 
 export const useSwapPriceUpdates = (
   fromToken: TokenInfo,
@@ -11,7 +12,7 @@ export const useSwapPriceUpdates = (
   isConnected: boolean,
   walletBalances: Record<string, number>
 ) => {
-  const { isLoadingPrice, fetchPrice } = useTokenPrice();
+  const { data: priceData, isLoading, refetch } = useTokenPrice();
 
   const updateToAmount = useCallback(async (value: string) => {
     if (!value || isNaN(parseFloat(value)) || parseFloat(value) <= 0) {
@@ -21,19 +22,27 @@ export const useSwapPriceUpdates = (
     
     console.log(`Updating price for ${value} ${fromToken.symbol} to ${toToken.symbol}`);
     
-    const priceResult = await fetchPrice(
-      fromToken.symbol,
-      toToken.symbol,
-      value,
-      0.5 // Default slippage
-    );
-    
-    if (priceResult?.toAmount) {
-      setToAmount(priceResult.toAmount);
-    } else {
+    // Use the quoteService to get a swap price estimate
+    try {
+      const quote = await getSwapQuote(
+        fromToken.symbol,
+        toToken.symbol,
+        value,
+        0.5 // Default slippage
+      );
+      
+      if (quote?.outAmount) {
+        // Convert BigInt to a readable number string for display
+        const outAmountValue = Number(quote.outAmount) / 1e9;
+        setToAmount(outAmountValue.toString());
+      } else {
+        setToAmount("");
+      }
+    } catch (error) {
+      console.error("Error updating token price:", error);
       setToAmount("");
     }
-  }, [fromToken.symbol, toToken.symbol, fetchPrice, setToAmount]);
+  }, [fromToken.symbol, toToken.symbol, setToAmount]);
 
   // Update token prices when tokens change
   useEffect(() => {
@@ -44,16 +53,21 @@ export const useSwapPriceUpdates = (
 
   const refreshPrice = useCallback(() => {
     console.log("Manual price refresh requested");
+    
+    // Refresh the price data
+    refetch();
+    
+    // Also update the conversion if we have an amount
     if (fromAmount) {
       updateToAmount(fromAmount);
     } else {
       // If no amount is set, try with a default amount to show available exchange rate
       updateToAmount("1");
     }
-  }, [fromAmount, updateToAmount]);
+  }, [fromAmount, updateToAmount, refetch]);
 
   return {
-    isLoadingPrice,
+    isLoadingPrice: isLoading,
     updateToAmount,
     refreshPrice,
   };
