@@ -55,7 +55,7 @@ const LiquidityPools = () => {
                           APE
                         </div>
                         <div className="w-6 h-6 rounded-full bg-blue-500 flex items-center justify-center text-xs text-white">
-                          {pool.pair.split('-')[1]}
+                          {pool.pair?.split('-')[1] || ''}
                         </div>
                       </div>
                       {pool.pair}
@@ -64,9 +64,9 @@ const LiquidityPools = () => {
                   <TableCell>
                     <Badge variant="outline">{pool.exchange}</Badge>
                   </TableCell>
-                  <TableCell>{pool.tokenAmount.toLocaleString()}</TableCell>
-                  <TableCell>${pool.totalValueLocked.toLocaleString()}</TableCell>
-                  <TableCell>${pool.volume24h.toLocaleString()}</TableCell>
+                  <TableCell>{pool.apeLocked?.toLocaleString() || pool.tokenAmount?.toLocaleString() || '0'}</TableCell>
+                  <TableCell>${pool.totalValueLocked?.toLocaleString() || '0'}</TableCell>
+                  <TableCell>${pool.volume24h?.toLocaleString() || '0'}</TableCell>
                   <TableCell className="text-right font-medium text-green-600">
                     {pool.apr}%
                   </TableCell>
@@ -96,6 +96,7 @@ const samplePoolsData = [
     pair: "APE-SOL",
     exchange: "Raydium",
     tokenAmount: 125000000,
+    apeLocked: 125000000,
     totalValueLocked: 187500,
     volume24h: 45700,
     apr: 12.4,
@@ -104,6 +105,7 @@ const samplePoolsData = [
     pair: "APE-USDC",
     exchange: "Orca",
     tokenAmount: 85000000,
+    apeLocked: 85000000,
     totalValueLocked: 63750,
     volume24h: 28900,
     apr: 8.6,
@@ -112,6 +114,7 @@ const samplePoolsData = [
     pair: "APE-USDT",
     exchange: "Jupiter",
     tokenAmount: 45000000,
+    apeLocked: 45000000,
     totalValueLocked: 33750,
     volume24h: 15300,
     apr: 7.2,
@@ -120,6 +123,7 @@ const samplePoolsData = [
     pair: "APE-RAY",
     exchange: "Raydium",
     tokenAmount: 20450000,
+    apeLocked: 20450000,
     totalValueLocked: 15337,
     volume24h: 6200,
     apr: 9.8,

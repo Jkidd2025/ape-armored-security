@@ -5,6 +5,7 @@ interface LiquidityPool {
   pair: string;
   exchange: string;
   apeLocked: number;
+  tokenAmount?: number;
   totalValueLocked: number;
   volume24h: number;
   apr: number;
