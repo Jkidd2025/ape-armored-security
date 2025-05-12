@@ -6,7 +6,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { Badge } from "@/components/ui/badge";
 
 const TransactionHistory = () => {
-  const { transactions, isLoading, error } = useTransactionHistory();
+  const { data: transactions, isLoading, error } = useTransactionHistory();
 
   return (
     <Card className="h-full">

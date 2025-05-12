@@ -141,5 +141,3 @@ export async function fetchLiquidityPools(): Promise<LiquidityPool[]> {
 }
 
 // Add Helmet for SEO meta tags
-<lov-add-dependency>react-helmet@^6.1.0</lov-add-dependency>
-<lov-add-dependency>@types/react-helmet@^6.1.9</lov-add-dependency>

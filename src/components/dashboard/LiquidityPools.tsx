@@ -8,7 +8,7 @@ import { ChartBar } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 
 const LiquidityPools = () => {
-  const { pools, isLoading, error } = useLiquidityPools();
+  const { data: pools, isLoading, error } = useLiquidityPools();
   
   return (
     <Card className="h-full">
