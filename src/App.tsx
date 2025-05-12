@@ -1,4 +1,5 @@
 
+import React from "react";
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -23,43 +24,47 @@ import Dashboard from "./pages/Dashboard";
 
 const queryClient = new QueryClient();
 
-const App = () => (
-  <QueryClientProvider client={queryClient}>
-    <HelmetProvider>
-      <TooltipProvider>
-        <Toaster />
-        <Sonner />
-        <BrowserRouter>
-          <Routes>
-            <Route path="/" element={<Index />} />
-            <Route path="/signup" element={<SignUp />} />
-            <Route path="/payment" element={<Payment />} />
-            <Route path="/payment-confirmation" element={<PaymentConfirmation />} />
-            <Route path="/terms-of-service" element={<TermsOfService />} />
-            <Route path="/swap" element={<Swap />} />
-            <Route path="/dashboard" element={<Dashboard />} />
-            
-            <Route path="/whitepaper" element={<Whitepaper />} />
-            <Route path="/whitepaper/" element={<Whitepaper />} />
-            <Route path="whitepaper" element={<Whitepaper />} />
-            <Route path="whitepaper/" element={<Whitepaper />} />
-            
-            <Route path="*whitepaper*" element={<Navigate to="/whitepaper" replace />} />
-            
-            <Route path="/privacy-policy" element={<PrivacyPolicy />} />
-            <Route path="/claim-submission" element={<ClaimSubmission />} />
-            <Route path="/social-share-test" element={<SocialShareTest />} />
-            
-            <Route path="/ape-wire" element={<ApeWire />} />
-            <Route path="/ape-wire/:slug" element={<BlogPost />} />
-            
-            <Route path="*" element={<NotFound />} />
-          </Routes>
-          <CookieConsent />
-        </BrowserRouter>
-      </TooltipProvider>
-    </HelmetProvider>
-  </QueryClientProvider>
-);
+const App = () => {
+  return (
+    <React.StrictMode>
+      <QueryClientProvider client={queryClient}>
+        <HelmetProvider>
+          <BrowserRouter>
+            <TooltipProvider>
+              <Toaster />
+              <Sonner />
+              <Routes>
+                <Route path="/" element={<Index />} />
+                <Route path="/signup" element={<SignUp />} />
+                <Route path="/payment" element={<Payment />} />
+                <Route path="/payment-confirmation" element={<PaymentConfirmation />} />
+                <Route path="/terms-of-service" element={<TermsOfService />} />
+                <Route path="/swap" element={<Swap />} />
+                <Route path="/dashboard" element={<Dashboard />} />
+                
+                <Route path="/whitepaper" element={<Whitepaper />} />
+                <Route path="/whitepaper/" element={<Whitepaper />} />
+                <Route path="whitepaper" element={<Whitepaper />} />
+                <Route path="whitepaper/" element={<Whitepaper />} />
+                
+                <Route path="*whitepaper*" element={<Navigate to="/whitepaper" replace />} />
+                
+                <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+                <Route path="/claim-submission" element={<ClaimSubmission />} />
+                <Route path="/social-share-test" element={<SocialShareTest />} />
+                
+                <Route path="/ape-wire" element={<ApeWire />} />
+                <Route path="/ape-wire/:slug" element={<BlogPost />} />
+                
+                <Route path="*" element={<NotFound />} />
+              </Routes>
+              <CookieConsent />
+            </TooltipProvider>
+          </BrowserRouter>
+        </HelmetProvider>
+      </QueryClientProvider>
+    </React.StrictMode>
+  );
+};
 
 export default App;
